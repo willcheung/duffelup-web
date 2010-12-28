@@ -1,7 +1,7 @@
 set :application, "duffelup.com"
 set :user, "will"
 #set :repository,  "http://svn2.assembla.com/svn/duffel/trunk"
-set :repository,  "https://subversion.assembla.com/svn/duffelup-web/trunk"
+set :repository,  "https://subversion.assembla.com/svn/duffelup-web"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
