@@ -120,7 +120,7 @@
 											</li>
 											<% break if i == 3 %>
 											<% end %>
-											<p class="more">and <%= @ideas_to_map[0].size.to_i - 4 %> more ideas.</p>
+											<p class="more"><a href="<%=trip_path(d.trip)%>"> and <%= @ideas_to_map[0].size.to_i - 4 %> more ideas</a>.</p>
 										<ul>
 									</div>
 				
@@ -202,7 +202,7 @@
 											</li>
 											<% break if j == 2 %>
 											<% end %>
-											<p class="more">and <%= @ideas_to_map[i+1].size.to_i - 3 %> more ideas.</p>
+											<p class="more"><a href="<%=trip_path(d.trip)%>"> and <%= @ideas_to_map[i+1].size.to_i - 3 %> more ideas</a>.</p>
 										<ul>
 									</div>
 									
