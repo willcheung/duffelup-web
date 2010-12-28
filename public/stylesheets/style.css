@@ -1773,6 +1773,12 @@ div.stat_bubble_content {
 	line-height: 14px;
 	padding-top: 30px;
 }
+#post .right-container-top p.more a{
+	color: #555;
+}
+#post .right-container-top p.more a:hover{
+	color: #686868;
+}
 #post .right-container-top .event {
 	text-align: center;
 	height: 110px; 
@@ -1825,7 +1831,7 @@ div.stat_bubble_content {
 	-webkit-border-radius: 5px;
 }
 #post .see-more:hover {
-	border: 1px solid #777;
+	border: 1px solid #686868;
 }
 #post .see-more a {
 	color: #FFFFFF;
