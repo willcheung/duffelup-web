@@ -1,0 +1,3 @@
+module BetaInvitationsHelper
+
+end

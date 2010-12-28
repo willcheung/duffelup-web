@@ -1,0 +1,14 @@
+<%= render :partial => '/users/search_form' %>
+
+
+<%- unless @duffelers.nil? -%>
+	<%- if @duffelers.empty? -%>
+		<p>Sorry, no results. Maybe you should try another keyword?</p>
+	<%- else -%>
+	<div id="search_result">
+		<%= render :partial => '/users/search_result' %>
+	</div>
+	<%- end -%>
+<%- end -%>
+
+<%= set_focus("search_form") %>

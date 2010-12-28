@@ -1,0 +1,25 @@
+<div id="contact_list_error">
+</div>
+
+<% form_remote_tag :loading => "Element.show('indicator');", :complete => "Element.hide('indicator');", :url => url_for(:controller => 'webapps', :action => 'import') do %>
+
+
+<div style="position:absolute; margin-left: 330px;" >
+		<img src="/images/logo-mails.jpg" alt="We accept Gmail, Windows Live (Hotmail), Yahoo! Mail" /></label>
+</div>
+
+<p>
+	<label for="email">Your Email Address:</label>
+	<%= text_field_tag 'email' %>
+</p>
+
+<p>
+	<label for="password">Your Password:</label>
+	<%= password_field_tag 'password' %>
+</p>
+
+<p><%= submit_tag "Find My Friends", :onclick => "pageTracker._trackEvent('Email Import', 'find', '#{current_user.username}');"%><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif">&nbsp;This may take a minute...</span>
+
+<span id="announcement">Don't worry, we don't store your password.</span></p>
+
+<% end %>

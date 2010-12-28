@@ -1,0 +1,6 @@
+<% form_for(@comment, :url => trip_comments_path) do |form| %> 
+  <%= form.text_area :body, :rows => "2", :cols => "53" %>
+  <div class="comment-btn">
+	<div style="margin-left:110px"><%= submit_tag "ADD COMMENT", :class => 'submit' %> or <%= link_to "Go back &#187", trip_path(@trip) %></div>
+  </div> 
+<% end %>

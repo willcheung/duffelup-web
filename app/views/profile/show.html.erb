@@ -1,0 +1,183 @@
+<noscript>
+  <div id="announcement">
+  <div class="javascript_disabled_notification">
+    <div class="inner">
+      <h1>You need to enable Javascript in your web browser!</h1><br>
+      <p>Duffel requires a browser feature called <strong>JavaScript</strong> for everything to work correctly.</p>
+      <p>Please see: <a href="http://www.google.com/support/bin/answer.py?answer=23852">How to enable JavaScript in your browser</a>.</p>
+      <p>Once you've enabled JavaScript you can <a href="">try loading this page again</a>.</p>
+	  <p>-- Duffel Team</p>
+    </div>
+  </div>
+  </div>
+</noscript>
+
+<%= render :partial => "announcements/announcements" if (logged_in? and current_user.username == params[:username] and not current_announcements.empty?) -%> 
+
+<% if logged_in? and (current_user.email.nil? or current_user.email.blank?) %>
+<div id="announcement">
+<h1>We picked out a username just for you - <%= current_user.username %></h1><br/>
+<p>You can change it anytime. Please take a few seconds to <a href="/user/edit">update your profile</a> so we can give you a better Duffel experience.</p>
+</div>
+<% end %>
+
+<div id="primary" class="userProfile">
+	<div id="primary-inner">
+		<!--
+		<% if (logged_in? and @user.id == current_user.id) %>
+			<h2 class="home">Howdy <%= display_user_name(@user) %>, where do you want to travel?</h2>
+			<div>
+				<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
+					<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+					<%= submit_tag "Plan", :class => "submit big-button" %>
+					<span id="indicator" style="display:none"><img src="/images/ajax-loader.gif" alt="loading" /></span>
+				<% end %>
+			</div>
+			<div class="clear"></div>
+		<% end %>
+		-->
+		
+		<div id="planned-duffels">
+			<% if logged_in? and @user.id == current_user.id %>
+				<h2 class="home">Your Active Duffels</h2>
+				<% if @no_date_trips.empty? and @planned_trips.empty? %>
+					<p><em>You're not planning any trips right now.  Why not <a href="/trips/new">create one</a>?</em></p>
+				<% end %>
+			<% else %>
+				<h2 class="home"><%= display_user_name(@user) %>'s Active Duffels</h2>
+				<% if @no_date_trips.empty? and @planned_trips.empty? %>
+					<p><em><%= display_user_name(@user) %> is not planning any trips right now, at least not publicly.</em></p>
+				<% end %>
+			<% end %>
+			
+		<% unless @planned_trips.empty? %>
+			<div id="profile-duffels">
+				<%= render :partial => "trips/duffels", :locals => { :trips => @planned_trips, :favorite => false } %>
+			</div>
+		<% end %>
+
+		<% unless @no_date_trips.empty? %>
+			<div id="profile-duffels">
+				<%= render :partial => "trips/duffels", :locals => { :trips => @no_date_trips, :favorite => false } %>
+			</div>
+		<% end %>
+		</div>
+
+		<div id="previous-duffels" style="display: none;">
+		<h2 class="home"><%= display_user_name(@user) %>'s Previous Duffels</h2>
+		<% unless @past_trips_by_year.empty? %>
+			<% @past_trips_by_year.each do |year, trips| %>
+				<div id="profile-duffels">
+				<h3><strong><%= year %></strong> <small>(<%= pluralize(trips.size, "duffel") %>)</small></h3>
+					<div id="year_<%= year %>_container">
+						<%= render :partial => "trips/duffels", :locals => { :trips => trips, :favorite => false } %>	
+					</div>
+				</div>
+			<% end %>
+		<% else %>
+			<p><em>No public duffels here.</em></p>
+		<% end %>
+		</div>
+		
+		<div id="favorite-duffels" style="display: none;">
+		<h2 class="home"><%= display_user_name(@user) %>'s Favorite Duffels</h2>
+		<% unless @favorite_trips.empty? %>
+			<div id="profile-duffels">
+			<%= render :partial => "trips/duffels", :locals => { :trips => @favorite_trips, :favorite => true } %>
+			</div>
+		<% else %>
+			<p><em>No favorite duffels yet. Did you know that by adding duffels as faves, you can sync them to your iPhone?</em></p>
+		<% end %>
+		</div>
+		
+		
+		<div id="no-plans">
+		<div class="clear"></div>
+		<h2 class="home">
+			<small class="right"><%= link_to "Browse More &raquo;</strong>", '/explore' %></small>
+			Check out Duffel's popular cities
+		</h2>
+
+		<div id="central" class="closer">
+        <div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "cities/85x85/new-york.jpg", :class => "image1" %></a><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>"><%= image_tag "cities/85x85/san-francisco.jpg" %></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>"><img src="../images/cities/85x85/los-angeles.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "GB", :city => "london")%>"><img src="../images/cities/85x85/london.jpg"/></a><a href="<%= city_url(:country_code => "GB", :city => "london")%>">London</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "IT", :city => "rome")%>"><img src="../images/cities/85x85/rome.jpg"/></a><a href="<%= city_url(:country_code => "IT", :city => "rome")%>">Rome</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "FR", :city => "paris")%>"><img src="../images/cities/85x85/paris.jpg"/></a><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>"><img src="../images/cities/85x85/tokyo.jpg"/></a><a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>">Tokyo</a>
+		</div>
+
+		<div class="clear"></div>
+		</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="sidebar">
+	<div id="profile">
+		<div class="section">
+		
+		<span class="avatar">
+			<a href="/<%= @user.username %>"> <%= display_thumbnail(@user) %></a>
+		</span>
+		
+		<%- if @user == current_user -%>
+		<span class="edit-link"><%= link_to "Edit", edit_user_url %></span>
+		<%- end -%>
+		
+		<h3><%= display_user_name(@user) %></h3>
+		
+		<span class="hometown"><%= @user.home_city unless @user.home_city.nil? %></span>
+		<% if founding_member?(@user) %><div style="color:#FFD700;font-weight:bold">Founding Member</div><% end %>
+	
+		<p class="clear">
+			<% unless @user.bio.nil? or @user.bio.empty? %><span class="bio">About:</span> <%= @user.bio %><br/><% end %>
+			<% unless @user.homepage.nil? or @user.homepage.empty? %><span class="bio">Web:</span> <%= website_link(@user.homepage, @user.homepage) %><% end %>
+		</p>
+		</div>
+		
+		<div class="section">
+		<h2><%= display_user_name(@user) %>'s Duffels</h2>
+		<ul class="user_menu">
+			<li id="a-duffels" class="active" onclick="$('planned-duffels').show();$('previous-duffels').hide();$('favorite-duffels').hide();$('no-plans').show();this.setAttribute('class','active');$('p-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');return false;"><a href="#">Active Duffels</a></li>
+			<li id="p-duffels" onclick="$('planned-duffels').hide();$('previous-duffels').show();$('favorite-duffels').hide();$('no-plans').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');return false;"><a href="#">Previous Duffels</a></li>
+			<li id="f-duffels" onclick="$('planned-duffels').hide();$('previous-duffels').hide();$('favorite-duffels').show();$('no-plans').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('p-duffels').setAttribute('class','');return false;"><a href="#">Favorite Duffels</a></li>
+		</ul>
+		</div>
+
+		<% if logged_in? and @user != current_user %>
+		<div class="section" id="friends-request">
+		<h2>Actions</h2>
+			<ul class="user_menu">
+				<%= profile_friendship_status(current_user, @user) %>
+			</ul>
+		</div>
+		<% end %>
+		
+		<div class="section" id="friends">
+			<%= render :partial => 'friends' %>
+		</div>
+		
+	</div>
+</div>
+
+<% if params[:new] == "1" %>
+<script type="text/javascript">
+iBox.addEvent(window, 'load', function(){iBox.showURL('/site/tutorial_overview','',{width: '635', height: '440'})});
+</script>
+<% end %>

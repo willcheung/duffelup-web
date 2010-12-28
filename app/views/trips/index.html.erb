@@ -1,0 +1,129 @@
+<h1>Duffel's Popular Destinations</h1>
+<h3 style="padding:5px">Zoom in to: 
+	&nbsp;&nbsp;&nbsp;<span id="europe-link"><a href="#" onclick="europe();$('europe-link').hide();$('europe-label').show();$('asia-link').show();$('australia-link').show();$('states-link').show();$('sa-link').show();$('asia-label').hide();$('australia-label').hide();$('states-label').hide();$('sa-label').hide();return false;">Europe</a></span> <span id="europe-label" style="display:none">Europe</span> 
+	&nbsp;&nbsp;&nbsp;<span id="states-link"><a href="#" onclick="states();$('states-link').hide();$('states-label').show();$('asia-link').show();$('australia-link').show();$('sa-link').show();$('europe-link').show();$('asia-label').hide();$('australia-label').hide();$('europe-label').hide();$('sa-label').hide();return false;">North America</a></span> <span id="states-label" style="display:none">North America</span>
+	&nbsp;&nbsp;&nbsp;<span id="sa-link"><a href="#" onclick="sa();$('sa-link').hide();$('sa-label').show();$('asia-link').show();$('australia-link').show();$('states-link').show();$('europe-link').show();$('asia-label').hide();$('australia-label').hide();$('states-label').hide();$('europe-label').hide();return false;">South America</a></span> <span id="sa-label" style="display:none">South America</span>
+	&nbsp;&nbsp;&nbsp;<span id="asia-link"><a href="#" onclick="asia();$('asia-link').hide();$('asia-label').show();$('sa-link').show();$('australia-link').show();$('states-link').show();$('europe-link').show();$('europe-label').hide();$('australia-label').hide();$('states-label').hide();$('sa-label').hide();return false;">Asia</a></span> <span id="asia-label" style="display:none">Asia</span>
+	&nbsp;&nbsp;&nbsp;<span id="australia-link"><a href="#" onclick="australia();$('australia-link').hide();$('australia-label').show();$('asia-link').show();$('sa-link').show();$('states-link').show();$('europe-link').show();$('asia-label').hide();$('europe-label').hide();$('states-label').hide();$('sa-label').hide();return false;">Australia</a></span><span id="australia-label" style="display:none">Australia</span>
+</h3>
+<div id="central" class="big">
+
+	<div class="gmap" id="city_gmap"></div>
+	
+	<div id='secondary'>
+		<div class='discuss panel'>
+			<a href="/site/tools" class="title-link">Clip Travel Notes &rsaquo;<em>with just one click, from anywhere.</em></a>			
+			<div class='topics'>
+			<h3>Try Our Clip-It Bookmarker</h3>
+			<p>
+				See something you like for your trip?  Highlight it and clip it.  <a href="/site/tools">Learn more</a>.
+			</p>
+			<div class='bookmarklet'>
+				<% if request.user_agent.nil? %>
+					<a onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+						<img src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+				
+				<% elsif request.user_agent.include? "MSIE" %>
+					<a onclick="window.alert('Right-click this button and choose Add to Favorites.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+						<img src="/images/button-small-bookmarklet.png" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+				
+				<% elsif request.user_agent.include? "Chrome" %>
+				
+				<a style="color:#fff;background-color:#98BF21;padding:5px;border-radius:8px;" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">Add to Duffel</a>			
+		
+				<% else %>
+					<a onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+						<img src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+				<% end %>
+			</div></div>
+		</div>
+		
+		<div class='connect panel'>
+			<a href="/featured" class="title-link">Connect &rsaquo;<em>and plan with friends and family.</em></a>
+
+			<div class='avatar-grid'>
+				<h3>Featured Members</h3>
+				<% @featured_members.each do |d| %>
+				<div class="user"><a href="<%= profile_url(d.user.username) %>" title="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" alt="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" ><%= display_thumbnail(d.user) %></a></div>
+				<% end %>
+			</div>
+		</div>
+		
+		<div class='explore panel'>
+			<a href="/search?q=london" class="title-link">Browse &rsaquo;<em>our popular destinations.</em></a>
+			
+			<div class='topics'>
+			<ul>
+				<li><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York, NY</a></li>
+				<li><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco, CA</a></li>
+				<li><a href="<%= city_url(:country_code => "IT", :city => "rome")%>">Rome, Italy</a></li>
+				<li><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris, France</a></li>
+			</ul>
+			</div>
+		</div>
+		
+		<div class='invite panel'>
+			<a href="/signup" class="title-link">Join Duffel &rsaquo; <em>and create a free account.</em></a>
+			<div class='invite-inner'>
+				<% if logged_in? %>
+				<p>You are signed in as <strong><%= current_user.username %></strong>.<br/><br/> <a href="/<%= current_user.username %>">Go to my dashboard &#187</a>
+				<% else %>
+				<p>Or sign up using your Twitter or Facebook account:</p>
+				<div class='login-buttons'>
+					<ul>
+						<li class="twitter">
+						<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
+							<%= submit_tag 'twitter' %>
+						<%- end -%>
+						</li>
+						<li class='facebook'>
+							<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts';});}else{window.location='/users/link_user_accounts'}})", :v => 1) %>
+						</li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+				<p>Already a member? <a href="/login">Log in</a></p>
+				<% end %>
+				
+			</div>
+		</div>
+
+	</div>
+
+	<div class="clear"></div>
+</div>
+
+<div id="cities">
+	<h3>Visit more of Duffel's most popular cities</h3>
+	<div class="city_thumbnail">
+		<a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "cities/85x85/new-york.jpg" %></a><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>"><%= image_tag "cities/85x85/san-francisco.jpg" %></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>"><img src="../images/cities/85x85/los-angeles.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= city_url(:country_code => "GB", :city => "london")%>"><img src="../images/cities/85x85/london.jpg"/></a><a href="<%= city_url(:country_code => "GB", :city => "london")%>">London</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= city_url(:country_code => "IT", :city => "rome")%>"><img src="../images/cities/85x85/rome.jpg"/></a><a href="<%= city_url(:country_code => "IT", :city => "rome")%>">Rome</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>"><img src="../images/cities/85x85/tokyo.jpg"/></a><a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>">Tokyo</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= city_url(:country_code => "AU", :city => "sydney")%>"><img src="../images/cities/85x85/sydney.jpg"/></a><a href="<%= city_url(:country_code => "AU", :city => "sydney")%>">Sydney</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= city_url(:country_code => "FR", :city => "paris")%>"><img src="../images/cities/85x85/paris.jpg"/></a><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris</a>
+	</div>
+	<div class="city_thumbnail">
+		<a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>"><img src="../images/cities/85x85/las-vegas.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a>
+	</div>
+
+	<div class="clear"></div>
+
+</div>
+	

@@ -1,0 +1,24 @@
+<h2>Already on Duffel - Add as Friend:</h2>
+
+<ul class="user-list">
+<% for u in @users %>
+	<li class="user">
+	<div class="avatar"><%= display_thumbnail(u) %></div>
+	<%= check_box_tag "friend_invitation[]", u.username, true %>
+	<%= display_user_name(u) %>
+	</li>
+<% end %>
+</ul>
+
+<div class="clear"></div>
+
+<h2 style="margin-top: 20px;">Invite others:</h2>
+<ul>
+<% for u in @not_users %>
+	<li style="width: 49%; float: left; margin-left: %1;">
+		<label style="width: auto;"><input style="margin: 0;" type="checkbox" name="beta_invitation[recipient_email][]" id="email_<%= u %>" value="<%= u[:email] %>" />
+		<%= u[:name] %>
+		<strong class="t11"><%= u[:email]%></strong></label>
+	</li>
+<% end %>
+</ul>

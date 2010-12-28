@@ -1,0 +1,289 @@
+/*-----------------------------------------------------------------------------------
+	Resets
+-----------------------------------------------------------------------------------*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin: 0;
+	padding: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset,img { 
+	border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+}
+ol,ul {
+	list-style: none;
+}
+caption,th {
+	text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+q:before,q:after {
+	content: '';
+}
+abbr,acronym { 
+	border: 0;
+}
+
+/*-----------------------------------------------------------------------------------
+	Helpers
+-----------------------------------------------------------------------------------*/
+.left {float:  left;}
+.right{float: right;}
+.center{margin-left: auto; margin-right: auto;}
+.mute{color:  #ccc;}
+.hide{display:  none;}
+.clear{clear: both;}
+
+.clearfix:after, p:after{
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+.clearfix, p{display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix, * html p{height: 1%;}
+.clearfix, p{display: block;}
+/* End hide from IE-mac */
+
+
+/*-----------------------------------------------------------------------------------
+	Base Styles & Typography
+-----------------------------------------------------------------------------------*/
+
+html{
+	font-size: 12px;
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+body{background: #fff}
+
+h1{
+	text-align: left;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px 15px 10px 60px;
+}
+h2{font-size: 17px}
+h3{font-size: 14px; font-weight:bold;}
+
+p{
+	line-height: 16px;
+	margin: 12px 0;
+	padding: 0 20px;
+}
+
+a{color: #333;}
+a:hover{color: #000;}
+
+/*---------
+  Header
+----------*/
+
+.rightHeader {
+	border:0 none;
+	margin:0;
+	color:#696969;
+	float:right;
+	font-size:12px;
+	font-weight:bold;
+	text-align:right;
+	vertical-align:middle;
+	padding-right: 5px;
+}
+
+/*-----------------------------------------------------------------------------------
+	Forms
+-----------------------------------------------------------------------------------*/
+#container {
+	padding: 0 10px;
+}
+
+.box {
+	padding: 10px;
+	background: #f3f3f3;
+	min-height: 250px;
+}
+
+#wrapper{
+	width: 500px;
+	background: #ffffff url('../images/bg-master-header.gif') no-repeat top left;
+	padding: 1px 0;
+}
+
+input{
+	vertical-align: baseline;
+}
+
+label{
+	clear:left;
+	display:block;
+	float:none;
+	line-height:1;
+	min-width:130px;
+	padding-bottom:2px;
+	padding-top:8px;
+	text-align:left;
+}
+
+textarea {
+	font-size: 13px;
+	font-family: Helvetica,Arial,Sans-serif;
+}
+
+div.link_to_toggle{
+	padding-left: 20px;
+}
+
+div.bookmarklet{
+	line-height: 16px;
+	margin: 12px 0;
+	padding: 0 20px;
+}
+
+div#form-submit{
+	padding: 0 20px;
+}
+
+#event_title{font-size: 13px;}
+
+#event_title, #idea_website{width: 270px;}
+#event_note{width: 458px;} 
+#notes_title {font-size: 13px; width:350px;}
+#event_trans_note {width:458px;}
+#notes_content{width:458px;}
+#idea_phone{width: 150px;}
+#idea_address{width: 240px;}
+
+#submit{
+	padding: 10px 0;
+	border-top: 1px solid #ddd;
+	margin: 0;
+}
+
+#submit input{font-size: 13px;}
+
+.helper{
+	display: block;
+	clear: both;
+	color: #777;
+	margin: 5px 0 5px 130px;
+}
+
+#options_container h1{
+	text-align: left;
+}
+
+/*-----
+  Sign in page
+------*/
+
+.column {
+	border:0 solid #000000;
+	float:left;
+	margin-right:10px;
+	width:230px;
+}
+
+.login_form {
+	padding: 0 30px 0 20px;
+}
+
+.signup_form {
+	padding: 0px 20px 0 20px;
+}
+
+hr {
+	border: 1px solid #B3B3B3;
+	margin: 15px 0;
+}
+
+.column p {
+	font-size: 11px;
+	color: #555;
+	line-height: 13px;
+	padding: 0 10px;
+}
+
+.column a {
+	text-decoration: none;
+	color: #F20063;
+}
+
+.column a:hover {
+	text-decoration: underline;
+}
+
+/*-----------------------------------------------------------------------------------
+	Notifications
+-----------------------------------------------------------------------------------*/
+
+#notice, #error, #errorExplanation{padding: 5px; font-weight: bold; margin: 10px 10px 10px;}
+#notice{
+	background: #c6e842;
+}
+
+#error{
+	background: #b22;
+	color: #fff;
+}
+
+#errorExplanation{
+	background: #b22;
+	color: #fff;
+}
+
+#errorExplanation h2{
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 0;
+	background: #d33;
+	padding: 5px 10px;
+}
+
+#errorExplanation p{
+	margin: 5px 10px;
+}
+
+#errorExplanation ul{
+	list-style: square;
+	margin: 10px;
+	padding: 0 15px;
+	background: transparent;
+}
+
+div.fieldWithErrors{
+	display: inline;
+}
+
+div.fieldWithErrors input{
+	background: #ff9;
+	margin-left: 20px;
+}
+
+ul.cities {font-size:10px;}
+
+#announcement {
+	background:#ff9;
+	color:#333;
+	margin:10px;
+	font-size:12px;
+	line-height:15px;
+	border:3px solid #fff;
+	padding:10px;
+}
+
+
+/*** AJAX validation form for User model ***/
+.hint { font-size: 11px; color: gray; padding: 0; }
+.error { font-size: 11px; color: red; padding: 0; }
+.success { font-size: 11px; color: green; padding: 0; }

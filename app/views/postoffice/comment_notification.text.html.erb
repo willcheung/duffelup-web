@@ -1,0 +1,16 @@
+<p>Hello <%= display_user_name(@trip_creator) %>,
+<br><br>
+You have a new comment from <%= display_user_name(@commenter) %> on the duffel <%= @trip_title %>:
+<br><br>
+"<%= @comment %>"
+<br><br><br>
+To reply to the comment, follow the link below:
+<br><br>
+<a target="_blank" href="<%= @trip_comment_url %>"><%= @trip_comment_url %></a>
+<br><br>
+Thanks,
+<br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>

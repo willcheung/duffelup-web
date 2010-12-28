@@ -1,0 +1,10 @@
+trip_1:
+  id: 1
+  title: Best Trip in the World!!
+  start_date: <%= Date.new(2030, 7, 7).to_s :db %>
+  end_date: <%= Date.new(2030, 7, 10).to_s :db %>
+  destination: New York City
+  duration: 3
+  is_public: true
+  active: true
+  created_at: <%=24.days.ago.to_s :db %>

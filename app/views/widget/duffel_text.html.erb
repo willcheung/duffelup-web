@@ -1,0 +1,21 @@
+<% cache("api_text-#{@key.key}") do %>
+(function(){
+
+	var duffelText = ' \
+		<div id="dt-box"> \
+			<%- if @trips.empty? -%>
+				<p style="margin-left:10px"><%= display_user_name(@user).gsub("\'", "") %> is at <%= @user.home_city.nil? ? "home city" : "home in #{@user.home_city}"%> and has no active duffels.</p> \
+			<%- else -%>
+			<p><a href="http://duffelup.com/<%= @user.username %>"><strong><%= display_user_name(@user).gsub("\'", "") %>\'s</strong></a> active duffels:</p> \
+			<ul> \
+				<%- @trips.each do |t| -%>
+					<li><a href="http://duffelup.com/trips/<%= t.permalink %>"><strong><%= t.title.gsub("\'", "") %></strong></a> in <%= shorten_trip_destination(t.destination).gsub("\'", "") %> <br/> <small><%= display_trip_dates(t.start_date, t.end_date) %></small></li> \
+				<%- end -%>
+			</ul> \
+			<%- end -%>
+		</div> \
+		';
+
+	document.write(duffelText); })()	
+
+<% end %>

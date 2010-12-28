@@ -1,0 +1,193 @@
+<script type="text/javascript">
+var __s_images = [];
+var __s_activeImageIndex = 0;
+	
+function Clip() { }
+
+Clip.prototype.showImage = function(src) {
+	var img_area = document.getElementById('sl_img_main');
+
+	var d = document.getElementById('sl_img_main_img');
+	if(d != null)
+		d.parentNode.removeChild(d);
+	
+	img_area.style.background = '';
+	
+	var img = document.createElement('img');
+	img.setAttribute('src', src);
+	img.setAttribute('height', '87');
+	img.setAttribute('id', 'sl_img_main_img');
+	img_area.appendChild(img);
+	
+	// title 1 of x
+	
+	var t = document.getElementById('sl_text');
+	if(__s_images.length && __s_images[0] != "") {
+		t.innerHTML = (__s_activeImageIndex+1)+' of '+__s_images.length;
+	}
+}
+
+Clip.prototype.slideIt = function(dir) {
+	if(dir == 'left') {
+		if(__s_activeImageIndex > 0) {
+			__s_activeImageIndex--;
+			this.showImage(__s_images[__s_activeImageIndex]);
+		}
+	} else if (dir == 'right') {
+		if(__s_activeImageIndex < __s_images.length - 1) {
+			__s_activeImageIndex++;
+			this.showImage(__s_images[__s_activeImageIndex]);
+		}
+	}
+	document.getElementById('actImg').value = __s_images[__s_activeImageIndex];
+}	 
+
+Event.observe(window, 'load', function() { 
+	var clip = new Clip();
+	
+	__s_imgurl = "<%= params['img'] %>";
+	__s_images = __s_imgurl.split("||");
+	if(__s_images.length && __s_images[0] != "") {
+		clip.showImage(__s_images[0]);
+		document.getElementById('actImg').value = __s_images[0];
+	} else {
+		document.getElementById('sl_img_main').innerHTML = "<br /><center>Sorry, we can't <br/>find a good image<br/> to add to Duffel.</center>";
+	}
+	
+});	
+</script>
+
+<script language="JavaScript">
+function onDropDownChange() {
+  var current = document.getElementById('event_eventable_type').selectedIndex;
+  if (current == 3){ //transportation
+	$('idea').hide();$('transportation').show();$('note').hide();
+  } else if (current == 1 || current == 2 || current == 0) {
+	$('transportation').hide();$('idea').show();$('note').hide();
+  } else if (current == 4) {
+	$('transportation').hide();$('idea').hide();$('note').show();
+  }
+}
+</script>
+
+	<div style="width:300px;float:left">
+	<label style="display:inline" for="trip_id">Select a Duffel: </label><br/>
+	<% unless @trips.empty? %>
+		<%= form.select("trip_id", @trips.collect {|t| [ t.title, t.id ] }, { :selected => cookies[:default_trip].to_i }) %>
+	
+		<span style="margin-left: 7px;font-size:0.9em">or <%= link_to"Create a New Duffel", new_trip_url(:back => "research_page", 
+											  :idea_website => params[:idea_website], 
+											  :event_title => params[:event_title],
+											  :jump => params[:jump],
+											  :local => params[:local],
+											  :event_code => params[:event_code],
+											  :trip_code => params[:trip_code],
+											  :idea_phone => params[:idea_phone],
+											  :idea_address => params[:idea_address],
+											  :selection => params[:selection],
+											  :type => params[:type]) %></span>
+	
+	<% else %>
+		<span>Currently not planning any trips.  
+		<% unless params[:local] == "true" %>	
+			Please  <%= link_to"Create a New Duffel", new_trip_url(:back => "research_page", 
+											  :idea_website => params[:idea_website], 
+											  :event_title => params[:event_title],
+											  :jump => params[:jump],
+											  :local => params[:local],
+											  :event_code => params[:event_code],
+											  :trip_code => params[:trip_code],
+											  :idea_phone => params[:idea_phone],
+											  :idea_address => params[:idea_address],
+											  :selection => params[:selection],
+											  :type => params[:type]) %>.
+		<% end %>
+	<% end %>
+
+	<div style="float:left;margin-top:2px">
+	<label for="eventable_type">Type: </label>
+	<%= form.select("eventable_type", Event::EVENT_TYPE, { :selected => params[:type] }, :onChange => "onDropDownChange();")%>
+	</div>
+	
+	</div>
+
+	<div id="idea">
+		<input type="hidden" id="actImg" name="actImg" value="" />
+		<div id="e_slider" style="float: right; width: 140px; height: 100px;">
+			<div style="float: left;">Choose a photo:</div>
+			<div style="font-size: 10px; text-align: center; float: right;" id="sl_text"></div>
+			<div style="clear: both;">
+				<div onclick="var c = new Clip(); c.slideIt('left');" style="width: 21px; height: 89px; float: left; position: relative; cursor: pointer; background: url('/images/bookmarklet_larrow.png') repeat scroll 0% 0% transparent;" id="sl_img_left"></div>
+				<div style="width: 96px; height: 87px; border: 1px solid rgb(198, 193, 186); overflow: hidden; float: left; font-size: 10px; font-family: Tahoma,sans-serif; text-align: center;" id="sl_img_main"></div>
+				<div onclick="var c = new Clip(); c.slideIt('right');" style="width: 21px; height: 89px; float: right; position: relative; cursor: pointer; background: url('/images/bookmarklet_rarrow.png') repeat scroll 0% 0% transparent;" id="sl_img_right"></div>
+			</div>
+			<div style="text-align:center;"><input style="margin-top:3px" type="checkbox" name="nophoto" id="nophoto" <% if params[:no_img]=="checked" %> checked="true" <% end %>> Don't use a photo </div>
+		</div>
+		
+		<div style="float:left;">
+		<label for="event_title">Title:</label>
+		<%= form.text_field :title, :value => (CGI.unescape(params[:event_title]) unless (params[:event_title].nil? or params[:event_title].empty?)) %>
+		</div>
+
+		<label for="note">Notes:</label>
+		<%= form.text_area :note, :rows => 5, :cols => 35, :value => @event_note_value %>
+
+		<% fields_for :idea do |f| -%>
+			<div style="display:none;">
+			<label for="website">Website:</label>
+				<%= f.text_field :website, :size => 25, :value => (CGI.unescape(params[:idea_website]) unless (params[:idea_website].nil? or params[:idea_website].empty?)) %>
+			</div>
+
+			<div style="float:left;">
+			<label for="address">Address (or lat,lng):</label>
+				<%= f.text_area :address, :rows => 2, :cols => 30, :value => (CGI.unescape(params[:idea_address]) unless (params[:idea_address].nil? or params[:idea_address].empty?)) %>
+			</div>
+			
+			<div style="float:right;">
+			<label for="phone">Phone Number:</label>
+				<%= f.text_field :phone, :size => 26, :value => params[:idea_phone]  %>
+			</div>
+			
+		<% end -%>
+		
+	</div>
+	
+	
+	<div id="transportation" style="display:none;">
+		<% fields_for :transportation do |f| -%>
+				<label for="from">Departing from: </label>
+				<%= f.text_field :from, :size => 20 %>
+				&nbsp;on&nbsp;
+					<%= f.calendar_date_select :departure_time, :time => true, :month_year => "label", :size => 20,
+							:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
+							:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			
+
+			
+				<label for="to">Arriving at:</label>
+				<%= f.text_field :to, :size => 20 %>
+				&nbsp;on&nbsp;
+					<%= f.calendar_date_select :arrival_time, :time => true, :month_year => "label", :size => 20,
+							:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
+							:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			
+		<% end -%>
+
+		<label for="note">Notes:</label>
+		<%= form.text_area :trans_note, :rows => 6, :cols => 35, :value => @event_note_value %>
+		
+	</div>
+
+	<div id="note" style="display:none;">
+		
+		<% fields_for :notes do |f| -%>
+		<label for="event_title">Title:</label>
+		<%= f.text_field :title, :value => params[:event_title] %>
+		
+	
+		<label for="note">Notes:</label>
+		<%= f.text_area :content, :rows => 10, :cols => 35, :value => @event_note_value %>
+		<% end %>
+	</div>
+	
+	<div style="clear:both;"></div>

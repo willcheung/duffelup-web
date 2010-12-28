@@ -1,0 +1,32 @@
+<p>
+Hi there,
+<br><br>
+<%= display_user_name(@inviter) %> (<%= @inviter.email %>) invited you to plan <strong>"<%= @trip.title %>"</strong> together!
+
+<%- if @trip.start_date.nil? -%>
+<%= display_user_name(@inviter) %> is planning to visit <%= shorten_trip_destination(@trip.destination).gsub(";", " & ").squeeze(" ") %>.
+<%- else -%>
+<%= display_user_name(@inviter) %> is planning to visit <%= shorten_trip_destination(@trip.destination).gsub(";", " & ").squeeze(" ") %>, and will depart on <%= @trip.start_date.strftime("%m/%d/%Y") %>.
+<%- end -%>
+
+<br><br>
+Duffel is the best trip planning tool to organize and collaborate your travel plans with friends and family.  Start sharing ideas and create your own travel guide!
+<br><br>
+
+<% if not @personal_message.empty? %>
+	<strong><%= display_user_name(@inviter) %>'s personal message:</strong><br>
+	<%= simple_format("\"" + @personal_message + "\"") %>
+<br>
+<% end %>
+
+Please complete our easy sign-up process and start planning the trip!
+<br> 
+<a target="_blank" href="http://duffelup.com/signup?invitation_token=<%= @token %>">http://duffelup.com/signup?invitation_token=<%= @token %></a>
+<br><br>
+
+We look forward to see you soon!
+<br><br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>

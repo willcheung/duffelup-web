@@ -1,0 +1,30 @@
+<p>
+Hi <%= display_user_name(@friend) %>,
+<br><br>
+<a target="_blank" href="<%= @inviter_url %>"><%= display_user_name(@inviter) %></a> shared a duffel with you: <a target="_blank" href="<%= @trip_url %>"><%= @trip.title %></a>.
+
+<%- if @trip.start_date.nil? -%>
+<%= display_user_name(@inviter) %> is planning to visit <%= shorten_trip_destination(@trip.destination).gsub(";", " & ").squeeze(" ") %>.
+<%- else -%>
+<%= display_user_name(@inviter) %> is planning to visit <%= shorten_trip_destination(@trip.destination).gsub(";", " & ").squeeze(" ") %>, and will depart on <%= @trip.start_date.strftime("%m/%d/%Y") %>.
+<%- end -%>
+
+<br><br>
+Start sharing travel ideas in the same duffel!
+<br><br>
+
+<% if not @personal_message.empty? %>
+	<strong><%= display_user_name(@inviter) %>'s personal message:</strong><br>
+	<%= simple_format("\"" + @personal_message + "\"") %>
+<br>
+<% end %>
+
+You can also access this duffel via your dashboard: <a target="_blank" href="http://duffelup.com/user/dashboard">http://duffelup.com/user/dashboard</a>
+<br><br>
+
+We look forward to see you soon!
+<br><br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>

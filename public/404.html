@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Duffel - Page Not Found!</title>
+<link href="/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+<meta name="description" content="Duffel is a trip planning dashboard that organizes and lays out your travel ideas.  Visualize your research and create your own travel guide with Duffel!" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body id="simple">
+<div id="wrapper">
+  <div id="header" class="clearfix">
+	<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
+  </div>
+  <div id="wrapper-inner">
+    <div id="primary">
+	<!--start here-->
+	<div id="announcement" style="width: 250px; float: right;">
+		<h2>What else can I do?</h2>
+		<p id="site">Please <a href="mailto:contact@duffelup.com">contact us</a> if there's anything we can help you find.</p>
+	</div>
+	        	<h1>Oops! We can't find that page.</h1>
+				<div id="site"><p>Sometimes when you're in a hurry, you forget to pack something.<br />That's probably what happened here. <a href="javascript: history.go(-1)">Go back</a> or</p>
+				<ul>
+					<li class="bullet"><a href="/trips">Browse public duffels</a></li>
+					<li class="bullet"><a href="/trips/new">Create a duffel</a></li>
+					<li class="bullet"><a href="/">Go to homepage</a></li>
+				</ul></div>
+	<div class="clear"></div>
+	<!--end here-->
+    </div>
+	
+  </div>
+
+	<%= render :partial => 'shared/footer' %>
+
+</div>
+
+<%= render :partial => 'shared/external_javascripts_without_fb'%>
+
+</body>
+</html>

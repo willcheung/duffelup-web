@@ -1,0 +1,89 @@
+<% if current_user.cities.empty? %>
+	<p style="padding:20px;text-align:center"><big>Follow a city below to see its travel deals.</big></p>
+<% end %>
+
+<div id="deals-col2" class="following">
+	
+	<h2>Follow our popular cities for travel deals:</h2>
+	<ul class="popular">
+		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a> &ndash; 
+		<% if current_user.cities.include?(@new_york) %>
+			<%= link_to "Unfollow", subscription_path(:city => @new_york, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+		<% else %>
+			<%= link_to "Follow", subscription_path(:city => @new_york, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+		<% end %>
+		</li>
+		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a> &ndash; 
+			<% if current_user.cities.include?(@san_francisco) %>
+				<%= link_to "Unfollow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+			<% else %>
+				<%= link_to "Follow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+			<% end %>
+		</li>
+		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a> &ndash; 
+			<% if current_user.cities.include?(@las_vegas) %>
+				<%= link_to "Unfollow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+			<% else %>
+				<%= link_to "Follow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+			<% end %>
+		</li>
+		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a> &ndash; 
+			<% if current_user.cities.include?(@los_angeles) %>
+				<%= link_to "Unfollow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+			<% else %>
+				<%= link_to "Follow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+			<% end %>
+		</li>
+	</ul>
+	
+	<div class="clearfix"></div>
+	
+	<h2 style="margin-top:7px;">Or search for one:</h2>
+	<% form_for(:subscription, :html => {:id => "search_form"}, :url => subscription_url(:redirect => "/user/dashboard?tab=deals"), :method => :post) do |f| %>
+		<%= text_field_with_auto_complete :subscription, :city, { :class => "search" }, { :frequency => ".1", :min_chars => "3" } %>
+		<%= submit_tag "Follow", :class => "submit" %>
+	<% end %>
+</div>
+
+<div id="deals-col1" class="following">
+	<h2>Places you're following:</h2>
+	<ul class="popular">
+	<% current_user.cities.each do |c| %>
+		<li>
+			<% if c.country.country_code == "US" or c.country.country_code == "CA" %>
+			<%= link_to c.city, na_city_url(:country_code => "#{c.country.country_code}", :region => "#{c.region}", :city => "#{c.city}"), :class => 'city' %> 
+			<% else %>
+			<%= link_to c.city, city_url(:country_code => "#{c.country.country_code}", :city => "#{c.city}"), :class => 'city' %>
+			<% end %>
+			&ndash; <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard?tab=deals"), :method => :delete %></li>
+	<% end %>
+	</ul>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="travel-deals">
+	
+	<% current_user.cities.each_with_index do |c,i| %>
+		<h2>Top <%= c.city %> Deals</h2>
+		
+		<h3 class="hotel">Hotels</h3>
+		<ul class="deals">
+		<%= @hotel_feed[i] %>
+		</ul>
+		
+		<h3 class="package">Vacation Packages</h3>
+		<ul class="deals">
+		<%= @vacay_feed[i] %>
+		</ul>
+		
+		<h3 class="flight">Flights</h3>
+		<ul class="deals">
+		<%= @flight_feed[i] %>
+		</ul>
+		
+		<p class="footnote">*Deals by BookingBuddy<br/>
+		**Taxes, fees not included</p>
+	<% end %>
+
+</div>

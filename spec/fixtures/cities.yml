@@ -1,0 +1,15 @@
+belmont:
+  country_id: 230
+  region: CA
+  city: Belmont
+  latitude: 37.5081
+  longitude: -122.301
+  city_country: Belmont, CA, United States
+new_york:
+  country_id: 230
+  region: NY
+  city: New York
+  latitude: 40.7528
+  longitude: -73.9725
+  city_country: New York, NY, United States
+  

@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+<head> 
+	<title><%= @title %></title> 
+	<%= stylesheet_link_tag "business" %>
+	<%= javascript_include_tag 'all' %>
+	<meta name="description" content="<%= @meta_description %>" />
+	<meta name="verify-v1" content="8IBqD8OB/RPT+h27hdBdg+7/u5HhbGdf43oyp43yk/U=" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+</head> 
+<body> 
+
+<% flash.each do |key, msg| -%>
+	<%= content_tag :p, msg, :id => key -%>
+<% end -%>
+
+	<div id="header" class="clearfix">
+		<h2><a id="logo" href="http://duffelup.com">Duffel</a></h2>
+		<ul>
+			<li><a href="/business/overview">Overview</a></li>
+			<li class="selected"><a href="/business/demo">How It Works</a></li>
+			<li><a href="/business/features">Features</a></li>
+		</ul>
+	</div>
+	
+	<div class="seperator" style="margin-top: 10px;"></div>
+	<div id="promo">
+		<div id="what-is">
+		<div class="right">
+			<a href="#sign-up" id="start-planning">Sign up now</a>
+			<div class="clear"></div>
+			<!--<%= link_to 'Have an account? <u>Sign in</u>', login_path, :id => 'sign-in' %>-->
+			</div>
+			<h1 style="line-height: 89px; margin-bottom: 0;">How you can start using Duffel trip planner</h1>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="seperator"></div>
+	
+	<div id="details" class="white">
+		<div style="padding: 20px">
+			<p style="width: 600px">By using "Add to Duffel" button, your visitors can easily clip your travel recommendations or their booking confirmation with just one-click.  They can then invite friends to collaborate and share your travel content via their social network. It is as easy as dropping a line of HTML, and it is <big><strong>free.</strong></big> </p>
+			<p style="width: 600px">We already offer "Add to Duffel" button to our tens of thousands users <a style="text-decoration:underline" target="_blank" href="/site/tools">via browser bookmarklet</a>, but you can customize it and take advantage of our interactive planner to fit directly into your website. Try it out yourself: click on <img style="vertical-align:middle;" src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Blue_Small.png"/> buttons below.</p>
+			<br/>
+			<h1>Example #1: Destination & content sites with attractions and restaurants</h1>
+		
+			<div id="topHotel">
+				<div class="header">
+					<h2 class="timesPick item fn org">Metropolitan Museum of Art</h2> 
+					<div style="line-height:8px;border:none;margin:7px;padding:0;width:97px;text-align:right;">
+						<a href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.metmuseum.org';CLIP_TITLE='Metropolitan Museum of Art';CLIP_NOTES='Suggested admission (includes same-day entrance to the Cloisters) $20 adults, $15 seniors and $10 students, free for children 11 and under when accompanied by an adult.';CLIP_ADDRESS='1000 Fifth Ave, New York, NY, 10028';CLIP_PHONE='(212) 535-7710';CLIP_TYPE='Activity';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"><img alt="Clip this to Duffel" title="Clip this to Duffel" src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Green_Small.png"/></a>
+						<a style="color:#888;text-decoration:none;font-family:arial;font-size:10px;letter-spacing: -0.3px;margin:0;display:block;" href="http://duffelup.com">by Duffel trip planner</a>
+					</div>
+				</div>
+			
+				<span class="label">Address</span>
+					<span class="adr"><span class="street-address">1000 Fifth Ave</span>, <span class="locality">New York</span>, <span class="region">NY</span>, <span class="postal-code">10028</span></span>
+				<span class="label">Location</span>
+				<span class="locality other">Fifth Ave. at 82nd St</span>
+				<span class="label">Phone</span>
+				<span class="tel value">(212) 535-7710</span>
+				<span class="label">Web Site</span><a class="fn url" href="http://www.metmuseum.org" target="_blank">www.metmuseum.org</a><span class="label">Price</span>
+				<span class="other">Suggested admission (includes same-day entrance to the Cloisters) $20 adults, $15 seniors and $10 students, free for children 11 and under when accompanied by an adult</span><table cellpadding="0" cellspacing="0" id="moreinfo"><tr>
+
+				</tr></table>
+				<p>(content from trave.nytimes.com)</p>
+			</div>
+			
+			<br/>
+			<h1>Example #2: Booking sites</h1>
+			
+			<div style="width: 560px">
+					
+				<h2>Superior Double Studio With Caldera View</h2>
+				<p>Located on the upper floor of the building, this bedroom contains a double bed and a balcony with a view of the Caldera (Thirassia and sunset).
+				for 2 persons (non-smoking preference)
+				<p><table cellspacing="0"><tbody><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; width: 8.4em; ">Hotel</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: bold 14px/1.2 Arial,Helvetica,sans-serif; ">Aspa Villas</td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; vertical-align: top; ">Address</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; ">
+				                Oia, 84700<br>
+				                Greece
+				            </td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; ">Phone</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; ">+302286071381</td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; ">Fax</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; ">+302286071385</td></tr><tr><td style="padding: 0pt 0.6em 0pt 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; ">E-mail</td><td style="padding: 0pt 1.2em 0pt 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; "><span id="lw_1277258302_1" class="yshortcuts" style="border-bottom: 2px dotted rgb(54, 99, 136); cursor: pointer;">info@aspavillas.com</span></td></tr><tr><td style="padding: 0.6em 0.6em 0pt 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; vertical-align: top; ">Travel information</td><td style="padding: 0.6em 1.2em 0pt 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; vertical-align: top; ">
+				                    For personalized driving directions please go to <a href="http://www.mybookingsite.com/" target="_blank" rel="nofollow"><span id="lw_1277258302_2" class="yshortcuts">http://www.mybookingsite.com/</span></a></td></tr></tbody></table>
+				</p>
+				<p>
+				<table cellspacing="0" style="width: 100%;"><tbody><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; width: 8.4em; ">Arrival</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; ">
+					Tuesday, September 1, 2009, 
+					check-in
+					13:00 &ndash; 22:30
+				</td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; ">Departure</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; ">
+					Thursday, September 3, 2009, 
+					check-out
+					11:30 &ndash; 12:00
+				</td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; ">Hotel page</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; "><a href="http://www.mybookingsite.com/hotel/gr/aspa-villas.html?aid=314059" target="_blank" rel="nofollow"><span id="lw_1277258302_3" class="yshortcuts">http://www.mybookingsite.com/hotel/gr/aspa-villas.html?aid=314059</span></a></td></tr><tr><td style="padding: 0pt 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; vertical-align: top; ">Quantity</td><td style="padding: 0pt 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif; "><div>
+					1 room
+				</div></td></tr><tr><td style="padding: 0.5em 0.6em 0.6em 1.2em; font: 14px/1.2 Arial,Helvetica,sans-serif; vertical-align: top;  background-color: rgb(232, 237, 243); border-top: 1px solid rgb(0, 53, 128);"><strong>Total price</strong></td><td style="padding: 0.5em 1.2em 0.6em 0pt; font: 14px/1.2 Arial,Helvetica,sans-serif;  background-color: rgb(232, 237, 243); border-top: 1px solid rgb(0, 53, 128);"><strong>
+					€&nbsp;200.00
+				</strong>
+				<div style="float:right;line-height:8px;border:none;margin:10px;padding:0;width:97px;text-align:right;">
+					<a href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';CLIP_URL='http://www.mybookingsite.com';CLIP_TITLE='Metropolitan Museum of Art';PID='parnter_id';CLIP_NOTES='Suggested admission (includes same-day entrance to the Cloisters) $20 adults, $15 seniors and $10 students, free for children 11 and under when accompanied by an adult.';CLIP_ADDRESS='1000 Fifth Ave, New York, NY, 10028';CLIP_PHONE='(212) 535-7710';CLIP_TYPE='Activity';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"><img alt="Clip this to Duffel" title="Clip this to Duffel" src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Pink_Small.png"/></a>
+					<a style="color:#888;text-decoration:none;font-family:arial;font-size:10px;letter-spacing: -0.3px;margin:0;display:block;" href="http://duffelup.com">by Duffel trip planner</a>
+				</div>
+				<span style="font-size: 90%; margin-left: 0.5em; padding-left: 0.7em; border-left: 1px solid rgb(119, 155, 202);">
+					Please note: additional supplements<br/> (ie. extra bed) are not be added to this total
+				</span></td></tr></tbody></table>
+				</p>
+			</div>
+		
+			<br/>
+			<h1>Example #3: Travel articles and blogs</h1>
+			<div id="article">
+			<h2>A Silicon Valley Relaunch</h2>
+			<p>...</p>
+			<p>There’s a buzz of activity along Main Street and palm-tree-lined Broadway, which runs in front of the square. Recent newcomers include <strong>Martins West</strong> (831 Main Street; 650-366-4366; martinswestgp.com), a gastropub that opened last May. Housed in the century-old Alhambra theater, this cozy brick-walled spot is packed on weekends with crowds enjoying dishes like smoked rabbit sausage ($6) and chicken breast cooked sous vide and served with savory soda bread pudding ($17). 
+				<a href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.martinswestgp.com';CLIP_TITLE='Martins West';CLIP_NOTES='Housed in the century-old Alhambra theater, this cozy brick-walled spot is packed on weekends with crowds enjoying dishes like smoked rabbit sausage ($6) and chicken breast cooked sous vide and served with savory soda bread pudding ($17).';CLIP_ADDRESS='831 Main Street, Redwood City, CA';CLIP_PHONE='650-366-4366';CLIP_TYPE='Foodanddrink';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"><img style="vertical-align:middle" alt="Clip this to Duffel" title="Clip this to Duffel" src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Small.png"/></a></p>
+
+			<p>A few doors down, <strong>Angelica’s Bistro</strong> (863 Main Street; 650-365-3226; angelicasbistro.com) is the only place in town where you can dine on French crepes ($7.50) and tap your toes to a Wednesday night jazz jam session, surrounded by European paintings and 200-year-old Italian statues.
+				<a href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.angelicasbistro.com';CLIP_TITLE='Angelica’s Bistro';CLIP_NOTES='The only place in town where you can dine on French crepes ($7.50) and tap your toes to a Wednesday night jazz jam session, surrounded by European paintings and 200-year-old Italian statues.';CLIP_ADDRESS='863 Main Street, Redwood City, CA';CLIP_PHONE='650-365-3226';CLIP_TYPE='Foodanddrink';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"><img style="vertical-align:middle" alt="Clip this to Duffel" title="Clip this to Duffel" src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Small.png"/></a></p>
+
+			<p>Another standout is <strong>Donato Enoteca</strong> (1041 Middlefield Road; 650-701-1000; donatoenoteca.com; 
+				<a style="color:#F20063 !important" href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.donatoenoteca.com';CLIP_TITLE='Donato Enoteca';CLIP_NOTES='The chef, Donato Scotti, dishes up Italian specialties like grilled calamari ($9) and satisfyingly simple buckwheat pasta with wild mushrooms ($15). The wraparound patio with red sofas is perfect for sampling the grappa list.';CLIP_ADDRESS='1041 Middlefield Road, Redwood City, CA';CLIP_PHONE='650-701-1000';CLIP_TYPE='Foodanddrink';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;">Add to Duffel</a>), which opened last June. The chef, Donato Scotti, dishes up Italian specialties like grilled calamari ($9) and satisfyingly simple buckwheat pasta with wild mushrooms ($15). The wraparound patio with red sofas is perfect for sampling the grappa list.</p>
+
+			<p>Although Redwood City is not known (yet) for shopping options, <strong>Pickled</strong> (2652 Broadway; 650-299-0990; pickledclothing.com;
+				<a style="color:#F20063 !important" href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.pickledclothing.com';CLIP_TITLE='Pickled';CLIP_NOTES='The trendy women’s boutique sells items like casual Michael Stars tops ($58) and Citizen designer jeans ($159).';CLIP_ADDRESS='2652 Broadway, Redwood City, CA';CLIP_PHONE='650-299-0990';CLIP_TYPE='Foodanddrink';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;">Add to Duffel</a>) is one promising pick. The trendy women’s boutique sells items like casual Michael Stars tops ($58) and Citizen designer jeans ($159).</p>
+		
+			<p>...</p>
+		
+			<p>(content from travel.nytimes.com)</p>
+			
+			<br/>
+			<h1>Example #4: Hotels & lodging sites</h1>
+		
+			<div id="lodging">
+			  <h2>Wynn Las Vegas <span style="font-size: 12px;margin-left:15px;"><a href="#" onclick="javascript: (function(){EN_CLIP_HOST='http://duffelup.com';PID='partner_id';CLIP_URL='http://www.wynnlasvegas.com';CLIP_TITLE='Wynn Las Vegas';CLIP_NOTES='The best place to escape the brashness of Vegas is the Country Club at Wynn, a restaurant overlooking the only golf course on the Strip (the 18 holes were designed by Tom Fazio and Steve Wynn). The setting is appropriately clubby, with dark wood, leather chairs, and caddies on the horizon.';CLIP_ADDRESS='3131 Las Vegas Blvd., Las Vegas, NV, United States';CLIP_PHONE='(877) 321-9966';CLIP_TYPE='Hotel';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"><img style="vertical-align:middle" alt="Clip this to Duffel" title="Clip this to Duffel" src="http://duffelup-assets.s3.amazonaws.com/Duffel_Bag_Button_Small.png"/></a></span></h2>
+			  <div id='slideshow-wrapper' style="float:right;padding:0 0 0 15px">
+	             <div id='single-image'>
+	                 <img alt="Wynn in Las Vegas, Nevada." class="active" src="http://static3.travelandleisure.com/images/amexpub/0010/1664/tl500-a-usa-wynn-las-vegas.jpg" />
+	               <p style="margin:0 0 12px 0">Photo: Courtesy of Wynn, Las Vegas</p>
+
+	             </div>
+	           </div>
+	           <div class='contact-info'>
+
+	             <div class='address'>
+	               3131 Las Vegas Blvd. S.
+	               <br />
+	               Las Vegas, NV, United States
+	               <br />
+	             </div>
+	             <div class='telephone'>
+	               <strong class='caps'>TEL:</strong>
+	               (877) 321-9966
+	               <br />
+
+	               <strong class='caps'>TEL:</strong>
+	               (702) 770-7000
+	             </div>
+	             <div class='email website'>
+	               <strong class='caps'>Email:</strong>
+	               <a href='mailto:roomreservations@wynnlasvegas.com'>
+	                 roomreservations@wynnlasvegas.com
+	               </a>
+	             </div>
+
+	           </div>
+	           <div class='description'>
+	             <p>With a casino floor flooded with natural light, a botanical theme, and a collection of restaurants with rising celebrity chefs like Alex Stratta and David Walzog, Wynn Las Vegas has single-handedly redefined the standard of luxury in the Las Vegas casino hotel. <br/>...</p>
+
+	             <p><strong>Room to Book:</strong> Book a Tower Suite, and for a premium of only $50 to $70 over a regular room, you&rsquo;ll get all the attendant privileges: private check-in, a special valet entrance, and access to two VIP pools.</p>
+	             
+	           </div>
+			<p>(content from travelandleisure.com)</p>
+			</div>
+		
+			<br/>
+			
+			<script type="text/javascript">
+			function generateCode(img_url) {
+				var onclick = "javascript: (function(){EN_CLIP_HOST='http:\/\/duffelup.com';CLIP_URL='';CLIP_TITLE='';CLIP_NOTES='';CLIP_ADDRESS='';CLIP_PHONE='';CLIP_TYPE='';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;"
+				$('widget-code').value = "<a href='#' alt='Clip to Duffel' title='Clip to Duffel' onclick=\""+onclick+"\"><img src='"+img_url+"'/></a>"
+				new Effect.Highlight('widget-code');
+				return false;
+			}
+			</script>
+			
+			<a name="sign-up"><h1>*** Sign-up Instructions - 2 easy steps ***</h1></a>
+			<p><strong>1. Pick your favorite button from below.</strong></p>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Small.png');" type="radio" name="btn" value="add_to_duffel_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Medium.png')" type="radio" name="btn" value="add_to_duffel_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Medium.png"/>
+			</div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Small.png')" type="radio" name="btn" value="add_to_duffel_plus_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Medium.png')" type="radio" name="btn" value="add_to_duffel_plus_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Medium.png"/>
+			</div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Small.png')" type="radio" name="btn" value="add_to_duffel_basic_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Medium.png')" type="radio" name="btn" value="add_to_duffel_basic_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Medium.png"/>
+			</div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Duffel_Bag_Button_Small.png)" type="radio" name="btn" value="duffel_bag_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Duffel_Bag_Button_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Duffel_Bag_Button_Medium.png')" type="radio" name="btn" value="duffel_bag_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Duffel_Bag_Button_Medium.png"/>
+			</div>
+			<div class="clearfix"></div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Blue_Small.png')" type="radio" name="btn" value="add_to_duffel_plus_blue_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Blue_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Blue_Medium.png')" type="radio" name="btn" value="add_to_duffel_plus_blue_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Blue_Medium.png"/>
+			</div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Pink_Small.png')" type="radio" name="btn" value="add_to_duffel_plus_pink_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Pink_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Pink_Medium.png')" type="radio" name="btn" value="add_to_duffel_plus_pink_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Pink_Medium.png"/>
+			</div>
+			<div style="display:block;width: 220px" class="left pick-button">
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Green_Small.png')" type="radio" name="btn" value="add_to_duffel_plus_green_small" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Green_Small.png"/><br/>
+				<input onclick="generateCode('http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Green_Medium.png')" type="radio" name="btn" value="add_to_duffel_plus_green_medium" /> <img src="http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Plus_Green_Medium.png"/>
+			</div>
+			
+			<div class="clearfix"></div>
+			<p><strong>2. Copy and paste the code to your website.</strong></p>
+			<textarea id="widget-code" style="margin-bottom:8px;font-size:13px" rows="6" cols="60" onClick="javascript:this.focus();this.select();"></textarea>
+			<p><strong>3. (Optional) Customize our trip planner to display your logo, custom titles and notes using the following URL parameters:</strong></p>
+			<ul>
+				<li>CLIP_TITLE</li>
+				<li>CLIP_URL</li>
+				<li>CLIP_ADDRESS</li>
+				<li>CLIP_PHONE</li>
+				<li>CLIP_TYPE - default type. Acceptable values: <u>Activity</u>, <u>Foodanddrink</u>, and <u>Hotel</u> </li>
+				<li>PID - partner id that is assigned to you (for custom logo placement). Please contact <a style="text-decoration:underline;" href="mailto:business@duffelup.com">business@duffelup.com</a> for more info.</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<%= render :partial => 'shared/footer' %>
+
+	<%= render :partial => 'shared/external_javascripts_without_fb'%>
+</body>
+</html>

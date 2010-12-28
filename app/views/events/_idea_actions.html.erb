@@ -1,0 +1,17 @@
+<div class="idea-actions">
+	<% if @users.include?(current_user) %>
+		<span class="idea-edit"><%= fast_link("info", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\" alt=\"Edit\"") %></span>
+		<span class="delete"><%= link_to_remote "[x]", 
+				{ :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
+				  :confirm => "Are you sure you want to delete #{event.title}?", 
+				  :method => :delete },
+				  :title => "Delete",
+				  :alt => "Delete" %></span>
+		<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
+	<% else %>
+		<span class="idea-info"><%= fast_link("info", "trips/#{@trip.permalink}/ideas/#{event.id}", "rel=\"ibox\" title=\"More Info\" alt=\"More Info\"") %></span>
+		<% unless event.eventable_type == "Transportation" or event.eventable_type == "Notes" %>
+			<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
+		<% end %>
+	<% end %>
+</div>

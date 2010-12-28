@@ -1,0 +1,34 @@
+<% if @users.include?(current_user) %>
+	<h2><%=h @header %></h2>
+
+	<% form_for([@trip, @event], :url => trip_idea_url(:permalink => @trip.permalink, :view => params[:view]),
+							   :html => { :multipart => true }) do |form| %>
+		
+		<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" %>
+		
+			<div class="event-photo">
+				<% if @event.photo? %>
+				<img src="<%= get_image_url(@event) %>" alt="<%= @event.title %>" />
+				<% else %>
+				<p style="text-align:center;margin-top:50px">Share a photo here.<br/>Friends may enjoy it!</p>
+				<% end %>
+			</div>
+		
+			<%= render :partial => "events/partial_forms/edit_idea_form", :locals => { :form => form } %>
+		
+		<% elsif @event.eventable_type == "Notes" %>
+		
+			<%= render :partial => "events/partial_forms/notes_form", :locals => { :form => form } %>
+		
+		<% elsif @event.eventable_type == "Transportation" %>
+		
+			<%= render :partial => "events/partial_forms/transportation_form", :locals => { :form => form } %>
+		
+		<% end %>
+
+		<div id="form-submit" class="clearfix"><%= submit_tag "Save Changes", :class => "submit", :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+	<% end %>
+
+<% else %>
+<p>You don't have permission to edit this event.</p>
+<% end %>

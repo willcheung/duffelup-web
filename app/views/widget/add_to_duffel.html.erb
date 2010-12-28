@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+	<title>Duffel Trip Planner</title> 
+	<meta content="Duffel is a visual trip planner for collaborating and organizing travel plans with your friends and family. Start creating your own travel guide with Duffel!" name="description">
+	<style type="text/css">
+		img {border:0;padding:0;margin:0;position:absolute;top:0;}
+	</style>
+</head> 
+<body>
+    <div>
+		<a href='#' alt='Add to Duffel' title='Add to Duffel' onclick="window.open('http://duffelup.com/research/new?idea_website=<%=params[:website]%>&event_title=<%=params[:title]%>&selection=<%=params[:note]%>&idea_address=<%=params[:address]%>&idea_phone=<%=params[:phone]%>&type=<%=params[:type]%>&no_img=1&jump=doclosepopup','duffel_bookmarklet','width=500,height=425');"><img src='http://duffelup-assets.s3.amazonaws.com/Add_to_Duffel_Basic_Small.png'/></a>
+	</div>
+</body>
+</html>

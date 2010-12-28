@@ -1,0 +1,163 @@
+module AuthenticatedSystem
+  protected
+    # Returns true or false if the user is logged in.
+    # Preloads @current_user with the user model if they're logged in.
+    def logged_in?
+      !!current_user
+      #current_user != :false
+    end
+    
+    # Accesses the current user from the session.
+    def current_user
+      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || login_from_fb) unless @current_user == false
+    end
+    
+    # Store the given user in the session.
+    def current_user=(new_user)
+      session[:user] = new_user ? new_user.id : nil
+      @current_user = new_user || false
+      
+      # if current_user exists, then log timestamp
+      if @current_user and (@current_user.last_login_at.nil? or @current_user.last_login_at.day != Time.now.day or @current_user.last_login_at.month != Time.now.month)
+        @current_user.last_login_at = Time.now
+        @current_user.save(false)
+      end
+      #session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
+      #@current_user = new_user
+    end
+    
+    # Fb Connect
+    def login_from_fb
+      if facebook_session
+        current_user = User.find_by_fb_user(facebook_session.user)
+      end
+    end
+    
+    # Check if the user is authorized.
+    #
+    # Override this method in your controllers if you want to restrict access
+    # to only a few actions or if you want to check if the user
+    # has the correct rights.
+    #
+    # Example:
+    #
+    #  # only allow nonbobs
+    #  def authorize?
+    #    current_user.login != "bob"
+    #  end
+    def authorized?
+       logged_in?
+    end
+
+    def admin?
+      logged_in? && current_user.admin?
+    end
+
+    # Filter method to enforce a login requirement.
+    #
+    # To require logins for all actions, use this in your controllers:
+    #
+    #   before_filter :login_required
+    #
+    # To require logins for specific actions, use this in your controllers:
+    #
+    #   before_filter :login_required, :only => [ :edit, :update ]
+    #
+    # To skip this in a subclassed controller:
+    #
+    #   skip_before_filter :login_required
+    #
+    def login_required
+      username, passwd = get_auth_data
+      self.current_user ||= User.authenticate(username, passwd) || :false if username && passwd
+      logged_in? && authorized? ? true : access_denied
+    end
+    
+    # Redirect as appropriate when an access request fails.
+    #
+    # The default action is to redirect to the login screen.
+    #
+    # Override this method in your controllers if you want to have special
+    # behavior in case the user is not authorized
+    # to access the requested action.  For example, a popup window might
+    # simply close itself.
+    def access_denied
+      respond_to do |accepts|
+        accepts.html do
+          store_location
+          redirect_to login_path
+        end
+        accepts.xml do
+          headers["Status"]           = "Unauthorized"
+          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+          render :text => "Could't authenticate you", :status => '401 Unauthorized'
+        end
+      end
+      false
+    end  
+    
+    # Store the URI of the current request in the session.
+    #
+    # We can return to this location by calling #redirect_back_or_default.
+    def store_location
+      session[:return_to] = request.request_uri if request.get?
+    end
+    
+    # Redirect to the URI stored by the most recent store_location call or
+    # to the passed default.
+    def redirect_back_or_default(default, redirect_param = nil)
+      if redirect_param.nil? or redirect_param.empty?
+        session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
+        session[:return_to] = nil
+      else
+        redirect_to(redirect_param)
+      end
+    end
+    
+    # Inclusion hook to make #current_user and #logged_in?
+    # available as ActionView helper methods.
+    def self.included(base)
+      base.send :helper_method, :current_user, :logged_in?, :admin?
+    end
+    
+    # Called from #current_user.  First attempt to login by the user id stored in the session.
+    def login_from_session
+      self.current_user = User.find_by_id(session[:user]) if session[:user]
+    end
+
+    # Called from #current_user.  Now, attempt to login by basic authentication information.
+    def login_from_basic_auth
+      username, passwd = get_auth_data
+      self.current_user = User.authenticate(username, passwd) if username && passwd
+    end
+
+    # When called with before_filter :login_from_cookie will check for an :auth_token
+    # cookie and log the user back in if apropriate
+    def login_from_cookie
+      user = cookies[:auth_token] && User.find_by_remember_token(cookies[:auth_token])
+      if user && user.remember_token?
+        self.current_user = user
+        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+      end
+    end
+
+  private
+    # gets BASIC auth info
+    def get_auth_data
+      user, pass = nil, nil
+      # extract authorisation credentials 
+      if request.env.has_key? 'X-HTTP_AUTHORIZATION' 
+        # try to get it where mod_rewrite might have put it 
+        authdata = request.env['X-HTTP_AUTHORIZATION'].to_s.split 
+      elsif request.env.has_key? 'HTTP_AUTHORIZATION' 
+        # this is the regular location 
+        authdata = request.env['HTTP_AUTHORIZATION'].to_s.split  
+      end 
+       
+      # at the moment we only support basic authentication 
+      if authdata && authdata[0] == 'Basic' 
+        user, pass = Base64.decode64(authdata[1]).split(':')[0..1] 
+      end 
+      return [user, pass] 
+    end
+end

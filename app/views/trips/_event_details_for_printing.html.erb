@@ -1,0 +1,37 @@
+<% if event.eventable_type == "Foodanddrink" or event.eventable_type == "Activity" or event.eventable_type == "Hotel" %>
+
+	<h3><%= h event.title %> 
+		<span class="<%= event.eventable_type %>"><%= event.eventable_type == "Foodanddrink" ? "Food & Drink" : event.eventable_type %></span>
+	</h3>
+	
+	<% unless event.address.nil? or event.address.empty? or event.lat.nil? or event.lng.nil? %>
+		<div class="location">
+			<% if event.eventable_type == "Activity" %>
+			<div id="gmap" class="gmap" style="display:block;"><img border=0 src="http://maps.google.com/maps/api/staticmap?size=300x300&sensor=false&center=<%= event.lat %>,<%= event.lng%>&zoom=15&markers=size:mid|color:0xB3D335|<%= event.lat %>,<%= event.lng%>" alt="<%= event.title %>"></div>
+			<% elsif event.eventable_type == "Foodanddrink" %>
+			<div id="gmap" class="gmap" style="display:block;"><img border=0 src="http://maps.google.com/maps/api/staticmap?size=300x300&sensor=false&center=<%= event.lat %>,<%= event.lng%>&zoom=15&markers=size:mid|color:0x00AEEF|<%= event.lat %>,<%= event.lng%>" alt="<%= event.title %>"></div>
+			<% elsif event.eventable_type == "Hotel" %>
+			<div id="gmap" class="gmap" style="display:block;"><img border=0 src="http://maps.google.com/maps/api/staticmap?size=300x300&sensor=false&center=<%= event.lat %>,<%= event.lng%>&zoom=15&markers=size:mid|color:0x777777|<%= event.lat %>,<%= event.lng%>" alt="<%= event.title %>"></div>
+			<% end %>
+		</div>
+	<% end %>
+	
+	<address>
+		<%= (event.address.to_s + "  ")+"<br/>" unless (event.address.nil? or event.address.empty?) %>
+		<%= h(event.phone.to_s + "  ")+"<br/>" unless (event.phone.nil? or event.phone.empty?) %>
+
+		<%= auto_link(h(event.website)) if not event.website.empty? %>
+	</address>
+	<div><%= simple_format(auto_link(h(event.note))) if not event.note.empty? %></div>
+
+<% elsif event.eventable_type == "Transportation" %>
+	<h3>Transportation</h3>
+	From <%= event.from %> departing on <%= Time.parse(event.departure_time).strftime("%a %m/%d at %I:%M%p") unless event.departure_time.nil? %><br/>
+	To <%= event.to %> arriving on <%= Time.parse(event.arrival_time).strftime("%a %m/%d at %I:%M%p") unless event.arrival_time.nil? %><br/>
+	<%= auto_link(simple_format(event.note)) if not event.note.empty? %><br/>
+
+<% elsif event.eventable_type == "Notes" %>
+	<h3><%= h event.title %> <span class="Notes">Notes</span></h3>
+	<%= auto_link(simple_format(event.content)) if not event.content.empty? %><br/>
+<% end %>
+<div style="clear:both"></div>

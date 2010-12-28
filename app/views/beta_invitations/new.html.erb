@@ -1,0 +1,38 @@
+<ul class="tabnav" style="margin-bottom: 20px;">
+	<li id="tb1a" class="selected"><a href="/duffel_invitations/new">Email<span>Invite friends via email</span></a></li>
+	
+	<li id="tb2" style="background: url(/images/social/facebook-32x32.png) no-repeat 20px center; padding-left: 62px"><a href="/beta_invitations/facebook">Facebook<span>Invite Facebook friends</span></a></li>
+	<div class="clear"></div>
+</ul>
+
+<h1>Invite Your Friend to Duffel</h1>
+
+
+<!-- email and import -->
+<div id="invitations_left-import">
+	
+	<div id="contact_list_form" style="display:none;">
+	<%= render :partial => "webapps/contact_list_form" %>
+	</div>
+	
+	<% form_for @beta_invitation do |f| %>
+	
+	<p id="email_address"><label for="recipient_email">Friend's Email:</label>
+	<%= f.text_field :recipient_email, :size => 30 %>
+	&nbsp;
+	- or - &nbsp;<a href="#" onclick="Effect.BlindDown('contact_list_form', { duration: 0.5 });$('email_address').hide();return false;">import from your contacts</a>
+	</p>
+	
+	<%= error_messages_for :beta_invitation, :header_message => "Failed to send invitation!", :message => nil %>
+		
+		<div id="contact_list" style="margin: 5px 0 15px 0; max-height:350px; overflow:auto;">
+		</div>
+		
+		<p><label for="message">Personal Message: <br /><small>(optional)</small></label>
+		<%= text_area_tag :message, nil, :rows => 6, :cols => 35 %>
+		</p>
+	
+		<div id="form-submit" class="clearfix"><%= f.submit "Invite!", :class => "submit", :onclick => "pageTracker._trackEvent('Email Import', 'submit', '#{current_user.username}');" %> or <%= link_to "find friends", :controller => 'user', :action => 'search' %> already on Duffel!</div>
+	
+	<% end %>
+</div>

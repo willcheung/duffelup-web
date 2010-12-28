@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Duffel Partners</title>
+<style type="text/css">
+
+#header a {
+	color:#fff;
+}
+
+
+#logo { float: left; }
+#logo a {
+	float:left;
+	margin:0 0 0 20px;
+	background:url(/images/logo-home.gif) no-repeat left top;
+	width:81px;
+	height:25px;
+	display:block;
+}
+
+#account {
+	float:right;
+	margin:5px 25px 5px 5px;
+	display:block;
+	text-align: right;
+}
+
+#account ul {
+	display:inline;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#account li {
+	color:#caed3b;
+	display:inline;
+	padding:0 0 0 10px;
+	margin:0;
+}
+
+#account span {
+	color:#fff;	
+}
+
+#account input#login,#account input#password,#account input#remember_me {
+	width:10em;
+	font-size:.7em;
+	vertical-align:middle;
+}
+#header {
+	color:#fff;
+	font-weight:bold;
+}
+#wrapper {
+	margin: 10px auto 0;
+}
+body {
+	margin:0; background:#2a3b4f;
+	color: #fff;
+	font: 14px arial, sans-serif;
+}
+a { color: #fff; }
+</style>
+
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<%= render :partial => 'shared/header_nav', :locals => { :partner => true } %>
+	    </div>
+	</div>
+
+</body></html>
+
+
+

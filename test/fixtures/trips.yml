@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+trip_1:
+  title: Best Trip in the World!!
+  description: This trip was awesome!  We drank tequila and passed out at the beach!!  Beat that!!!!
+  start_date: <%= 21.days.ago.to_s :db %>
+  end_date: <%= 17.days.ago.to_s :db %>
+  public: true
+  active: true
+  created_at: <%=24.days.ago.to_s :db %>

@@ -1,0 +1,19 @@
+page << "iBox.hide();"
+if @event.list == 0
+  page.replace_html('board_events', :partial => 'events/board_events')
+else
+  # :day index starts at 0, hence -1.
+  if params[:view] == "map"
+    page.replace_html('itinerary_day_'+(@event.list.to_i).to_s, :partial => 'events/scheduled_events', :locals => { :day => @event.list.to_i-1, :map => true })
+  else
+    page.replace_html('itinerary_day_'+(@event.list.to_i).to_s, :partial => 'events/scheduled_events', :locals => { :day => @event.list.to_i-1, :map => false })
+  end
+end
+
+if params[:view] == "map"
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls_without_board')
+else
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
+end
+
+page << "iBox.initialize();"

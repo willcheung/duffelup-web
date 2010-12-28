@@ -1,0 +1,10 @@
+<li id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
+	<div class="transport">
+		<span class="idea-label">Transportation</span>
+		<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
+		<h3><%= display_title_with_link(event) %></h3>
+		<div class="idea-transport-time"><%= Time.parse(event.departure_time).strftime("Departs %m/%d/%y at %I:%M%p") unless event.departure_time.nil? %></div>
+		<div class="idea-note"><%= display_short_note_on_board(event, @trip) %></div>
+		<%= content_tag "span", "by <a href=\"/#{event.author}\">#{event.author}</a>", :class => "idea-author" unless event.author.nil? %>
+	</div>
+</li>

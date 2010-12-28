@@ -1,0 +1,14 @@
+<p>Hello <%= display_user_name(@friend) %>,
+<br><br>
+You are now friends with <%= display_user_name(@user) %>.  Now that you guys are friends, you can:<br>
+- Follow <%= display_user_name(@user) %>'s travel updates and trips.<br> 
+- Invite <%= display_user_name(@user) %> to your duffels.
+<br><br>
+You can view <%= display_user_name(@user) %>'s profile and public duffels here: <a target="_blank" href="<%= @user_url %>"><%= @user_url %></a>
+<br><br>
+Thanks,
+<br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>

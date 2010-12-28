@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+<head> 
+	<link rel="stylesheet" type="text/css" media="screen" href="http://duffelup.com/stylesheets/home.css?v=1.0" />
+</head> 
+ 
+	<div id="primary">
+		<div id="header" class="clearfix">
+			<h2 id="logo">Duffel</h2>
+        </div>
+
+      	<div id="primary-inner" class="clearfix">
+			<div id="intro">
+				<h1>Roll your own city guides.</h1>
+				<ol>
+					<li>Collect ideas &amp; notes from anywhere.</li>
+					<li>See them laid out in front of you.</li>
+					<li>Drag, drop and plan.</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+    <div id="secondary" class="clearfix">
+		<div id="invite">
+			<% flash.each do |key, msg| -%>
+			  <%= content_tag :p, msg, :id => key -%>
+			<% end -%>
+			
+			<% form_for BetaInvitation.new do |f| %>
+			<h3>Want in? Sign up for an invite.</h3>
+			    <%= f.label :recipient_email, "Your Email:"%>
+			    <%= f.text_field :recipient_email, :size => 25, :title => 'Your Email Here', :class => "populate" %>
+			    <%= f.submit 'Go!' %>
+			<% end %>
+			<p>Already signed up? <%= link_to 'Login', "http://duffelup.com/login" %> or <%= link_to "Browse", "http://duffelup.com/trips" %></p>
+		</div>
+	</div>
+
+</html>

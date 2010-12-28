@@ -1,0 +1,18 @@
+<div id="comment_<%= comment.id %>" class="comment">
+
+	<span class="thumbnail">
+		<div class="comment-avatar">
+		<%= link_to display_thumbnail(comment.user), profile_for(comment.user), :alt => display_thumbnail_title(comment.user.username, comment.user.full_name, comment.user.home_city), :title => display_thumbnail_title(comment.user.username, comment.user.full_name, comment.user.home_city) %>
+		</div>
+	</span>
+
+	<div class="comment-content">
+		<span class='comment-author mute'>
+			<%= link_to display_user_name(comment.user), profile_for(comment.user), :title => "View #{display_user_name(comment.user)}'s duffels", :class => 'username' %> said <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago 
+		</span>
+		<%= auto_link(simple_format(h(comment.body)), :all, :target => "_blank") %>
+	</div>
+	
+</div>
+
+<div style="clear:left"></div>

@@ -1,0 +1,21 @@
+<% @trips.each do |trip| %>
+	<li class="duffel">
+		<div class="seperate"></div>
+	
+		<% if trip.comment_count.to_i != 0 %><% end %>
+		
+		<span class="comment-favorite">
+		<span id="add-comment-trip-<%=trip.id.to_s%>"><%= link_to trip.comment_count, trip_comments_path(:permalink => trip.permalink), :class => 'cf-comment', :title => "Post comment" %></span>
+		<span class="cf-favorite" title="<%= trip.favorite_count %> added as favorite" alt="<%= trip.favorite_count %> added as favorite"><%= trip.favorite_count %></span>
+		</span>
+	
+		<a href="<%= trip_url(trip) %>" class="duffel-picture" style="<%= duffel_thumbnail_style(trip) %>"></a>
+	
+		<strong><%= link_to h(trip.title), trip_url(:id => trip)  %></strong>
+		<em class="mute"><%= display_trip_dates(trip.start_date,trip.end_date) if (trip.start_date and trip.end_date) -%></em>
+
+		<div class="collaborators">
+			<%= duffel_collaborators(@users_by_trip_id[trip.id.to_s]) %>
+		</div>
+	</li>
+<% end %>

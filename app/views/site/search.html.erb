@@ -1,0 +1,69 @@
+<div id="central" class="big">
+    <div>
+	   	<% form_tag search_path, :method => 'get', :id => 'search_form' do %>
+		  <p>
+		    <%= text_field_tag :q, params[:q], :size => 25, :class => 'big', :onfocus => 'if(this.value=="Find a place...")this.value=""', :onblur => 'if(this.value=="")this.value="Find a place...";', :value => (params[:q].nil? ? "Find a place..." : params[:q]) %>
+		    <%= submit_tag "Find", :name => nil, :class => 'big-button', :onclick => "Element.show('spinner');Element.hide('search_result')" %>
+		  </p>
+		<% end %>
+    </div>
+	<div class="clear"></div>
+
+	<div id="spinner" style="display:none;"><p><img src="/images/ajax-loader.gif"></p></div>
+	
+	<div id="search_result" style="margin: 0 0 0 10px">
+		<%= render :partial => "site/site_search_result" %>
+	</div>
+	
+	<div class="clear"></div>
+
+<% cache("most-popular-cities") do %> 
+
+		<h2 class="home">Quick links to our popular cities:</h2>
+
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "cities/138x138/new-york.jpg" %></a><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>"><%= image_tag "cities/138x138/san-francisco.jpg" %></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>"><img src="../images/cities/138x138/los-angeles.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "GB", :city => "london")%>"><img src="../images/cities/138x138/london.jpg"/></a><a href="<%= city_url(:country_code => "GB", :city => "london")%>">London</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "IT", :city => "rome")%>"><img src="../images/cities/138x138/rome.jpg"/></a><a href="<%= city_url(:country_code => "IT", :city => "rome")%>">Rome</a>
+		</div>
+
+
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "TW", :city => "taipei")%>"><img src="../images/cities/138x138/taipei.jpg"/></a><a href="<%= city_url(:country_code => "TW", :city => "taipei")%>">Taipei</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "AU", :city => "sydney")%>"><img src="../images/cities/138x138/sydney.jpg"/></a><a href="<%= city_url(:country_code => "AU", :city => "sydney")%>">Sydney</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "FR", :city => "paris")%>"><img src="../images/cities/138x138/paris.jpg"/></a><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>"><img src="../images/cities/138x138/las-vegas.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a>
+		</div>
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "CA", :region => "QC", :city => "montreal")%>"><img src="../images/cities/138x138/montreal.jpg"/></a><a href="<%= na_city_url(:country_code => "CA", :region => "QC", :city => "montreal")%>">Montreal</a>
+		</div>
+		
+		
+		<div class="city_thumbnail">
+			<a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>"><img src="../images/cities/138x138/tokyo.jpg"/></a><a href="<%= city_url(:country_code => "JP", :city => "tokyo")%>">Tokyo</a>
+		</div>
+
+		<div class="city_thumbnail">
+			<a href="<%= na_city_url(:country_code => "US", :region => "WA", :city => "seattle")%>"><img src="../images/cities/138x138/seattle.jpg"/></a><a href="<%= na_city_url(:country_code => "US", :region => "WA", :city => "seattle")%>">Seattle</a>
+		</div>
+
+	<div class="clear"></div>
+
+<% end %>
+</div>

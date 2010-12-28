@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    function minimize_board_map() {
+		if($('min_checkbox').checked) {
+		   	$('board_gmap').style.display = 'none';
+			$('map_wrapper').style.height = "10px";
+			$('map_wrapper').style.width = "200px";
+			$('map-title').hide();
+		}
+		else {
+		   	$('board_gmap').style.display = 'block';
+			$('map_wrapper').style.height = "300px";
+			$('map_wrapper').style.width = "380px";
+			$('map-title').show();
+		}
+    }
+ </script>
+
+<div id="content" style="width:100%;left:0">
+	<div id="board_events" style="width:67%;">
+		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+		<div class="divider"><h2>My Ideas & Notes</h2></div>
+		<% end %>
+		<%= render :partial => 'events/board_events' %>
+		
+		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+			<% (@trip.duration+1).times do |day| %>
+		
+				<div class="divider"><h2><span class="day">Day <%= day+1 %></span> <span class="date"><%= (@trip.start_date + day).strftime("%A, %B %d") %></span></h2></div>
+				<%= render :partial => 'events/scheduled_board_events', :locals => { :day => day } %>
+			
+			<% end %>
+		<% end %>
+		
+	</div>
+</div>
+
+<div id="map_wrapper">
+	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Preview</span>
+		<!--<span id="size-toggle"><input id="min_checkbox" type="checkbox" name="map" value="map" onClick="minimize_board_map();"> Minimize</span>-->
+		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">View larger map &raquo;</a></div>
+	<div id="board_gmap" class="corkboard" style="display:block;width:96%;height:89%;"></div>
+</div>
+
+<div id="comments_wrapper" <% if @city[0].nil? %>style="bottom:45px;"<% end %>>
+	<%= render :partial => "comments/trip_comments"%>
+</div>
+
+<% if !@city[0].nil? %>
+<div id="footer-promotions" class="clearfix" style="width:100%;left:0;">
+	<div class="title"><img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> <span style="margin-left:15px;font-size:12px;color:#aaa">Deals by BookingBuddy</span></div>
+	<ul class="deals">
+		<%= @hotel_feed %>
+		<li style="float:right;font-size:12px;color:#888;margin-right:50px;position:absolute;bottom:28px;right:30px;">Tip: <a style="color:#ccc;margin:0" href="/user/dashboard?tab=deals">Follow deals on your dashboard</a></li>
+		<li style="float:right;font-size:11px;color:#888;margin-right:50px;position:absolute;bottom:8px;right:30px;">*taxes, fees not included</li>
+	</ul>
+</div>
+<% end %>

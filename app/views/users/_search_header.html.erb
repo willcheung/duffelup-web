@@ -1,0 +1,14 @@
+<div id="searchHeader">
+  <% if @sub_title %>
+  	<strong><a href="/">Duffel</a> &rsaquo; <%= @sub_title %></strong>
+  <% elsif logged_in? %>
+	<strong>Howdy, <%= display_user_name(current_user) %>!</strong>
+  <% end %>
+
+  <% form_tag search_path, :method => 'get', :id => 'search_form' do %>
+    <fieldset>
+      <%= submit_tag "Search", :name => nil, :class => 'button' %>
+      <%= text_field_tag :q, params[:q], :class => 'field' %>
+    </fieldset>
+  <% end %>
+</div>

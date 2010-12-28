@@ -1,0 +1,53 @@
+<div id="myDuffels">
+	<span class="createDuffel"><a href="/trips/new"><img src="/images/transparentPlaceholder.png" alt="Create Duffel" />Create Duffel</a></span>
+	<h2>
+		<% if params[:tab] == "duffels-previous" %>
+		Previous Duffels
+		<% elsif params[:tab] == "duffels-faves" %>
+		Favorite Duffels
+		<% else %>
+		Active Duffels
+		<% end %>
+	</h2>
+  
+	<% if params[:tab] != "duffels-previous" and params[:tab] != "duffels-faves"%>
+  		<div id="duffels-active">
+			<%- if @no_date_trips.empty? and @planned_trips.empty? -%>
+		    <em class="systemComment">You're not planning any trips right now.</em>
+		    <% else %>
+				<%= render :partial => "trips/duffels", :locals => { :trips => @planned_trips, :favorite => false } %>
+				<%= render :partial => "trips/duffels", :locals => { :trips => @no_date_trips, :favorite => false } %>
+		    <%- end -%>
+		 </div> <!-- #duffels-active -->
+  
+  	<% elsif params[:tab] == "duffels-previous" %>
+		<div id="duffels-previous">
+	    <%- if !@past_trips_by_year.empty? -%>
+	    	<% @past_trips_by_year.each do |year, trips| %>
+
+				<div class="clearfix"></div>
+				<h3><strong><%= year %></strong> <small>(<%= pluralize(trips.size, "duffel") %>)</small></h3>
+
+				<div id="year_<%= year %>_container">
+
+				  	<div id="year_<%= year %>_block" class="year">
+						<%= render :partial => "trips/duffels", :locals => { :trips => trips, :favorite => false } %>
+					</div>
+				</div>
+			<% end %>
+	    <%- else -%>
+	      <em class="systemComment">No public duffels here.</em>
+	    <%- end -%>
+	  </div> <!-- #duffels-previous -->
+	<% elsif params[:tab] == "duffels-faves" %>
+  
+  		<div id="duffels-favorite">
+		    <%- if !@favorite_trips.empty? -%>
+		    	<%= render :partial => "trips/duffels", :locals => { :trips => @favorite_trips, :favorite => true } %>
+		    <%- else -%>
+		      <em class="systemComment">No favorite duffels yet. Did you know you can sync favorite duffels directly to your iPhone? <a target="_blank" href="http://itunes.apple.com/app/id371064516">Check it out.</a></em>
+		    <%- end -%>
+		</div> <!-- #duffels-favorite -->
+	<% end %>
+
+</div> <!-- #myDuffels -->

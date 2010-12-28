@@ -1,0 +1,2 @@
+page.visual_effect :fade, 'tour1', :duration => 0.3
+page.visual_effect :fade, 'tour4', :duration => 0.3

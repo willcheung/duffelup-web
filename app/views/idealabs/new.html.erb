@@ -1,0 +1,57 @@
+<% form_for(@idealab, :url => { :controller => :idealabs, :action => :create }) do |form| %>
+
+<%= error_messages_for :idealab, :header_message => "Please correct the errors below:", :message => nil %>
+
+<p><label for="eventable_type">Type: </label>
+<%= form.select("idea_type", Event::EVENT_TYPE)%></p>
+
+<p>
+	<label for="title">Title:</label><br>
+	<%= form.text_field :title %> <br>
+	example: <i>Torys</i>
+</p>
+
+<p>
+	<label for="notes">Notes:</label><br>
+	<%= form.text_area :notes, :rows => 10 %><br>
+</p>
+	
+<p>
+	<label for="address">Address:</label><br>
+	<%= form.text_area :address, :rows => 2 %><br>
+	example: <i>248 E 52nd st. 2nd Floor</i>
+</p>
+
+<p>
+	<label for="phone">Phone:</label><br>
+	<%= form.text_field :phone %><br>
+	example: <i>+1-212-813-1800</i>
+</p>
+
+<p><label for="website">Website:</label><br>
+	<%= form.text_field :website %><br>
+	example: <i>www.torysnyc.com</i>
+</p>
+
+<p>
+	<label for="hours">Hours:</label><br>
+	<%= form.text_field :hours %><br>
+	example: <i>Mon-Sat 5:30pm-11:30pm, Sunday 5:30pm-11pm</i>
+</p>
+
+<p>
+	<label for="transport">Transportation:</label><br>
+	<%= form.text_field :transport %> <br>
+	example: <i>6 train 51st Street, E and V trains Lexington 53rd Street</i>
+</p>
+
+<p><label for="price_range">Price Range:</label><br/>
+	<%= form.radio_button 'price_range', '1' %> $
+	<%= form.radio_button 'price_range', '2' %> $$
+	<%= form.radio_button 'price_range', '3' %> $$$
+	<%= form.radio_button 'price_range', '4' %> $$$$
+</p>
+
+<div id="form-submit" class="clearfix"> <%= submit_tag "Add Activity" %></div>
+
+<% end %>

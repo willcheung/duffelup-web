@@ -1,0 +1,108 @@
+<h1>Add to Duffel</h1>
+
+<!-- Flash accepts id="notice", id="warning", and id="error" -->
+<% flash.each do |key, msg| -%>
+  <%= content_tag :p, msg, :id => key -%>
+<% end -%>
+
+<script type="text/javascript">
+function displayUsername(x)
+{var y=document.getElementById(x).value;
+document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "</b>"}
+</script>
+
+<div id="container">
+	<div class="column">
+		<div class="box">
+			<h3 style="display:inline">New User</h3>
+			
+			<p><strong>Save this idea to your trip in Duffel.</strong> Collaborate and organize travel plans with your friends and family. Sign up here to get started! <%= link_to "Tell me more.", '/site/tour', :target => "_blank" %></p>
+			
+			<div id="signup_link">
+			<p><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or sign in with:</p>
+			<p><%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?src=bookmarklet';});}else{window.location='/users/link_user_accounts?src=bookmarklet'}})", :v => 1) %></p>
+			</div>
+			
+			<div id="signup_form" class="signup_form" style="display:none;">
+				<div class="notice-inline"><%= error_messages_for :user, :header_message => "Please correct the errors below:", :message => nil %></div>
+				
+				<% form_for(@user, :url => user_path) do |f| -%>
+				
+				<div class="form-group"><label for="login">Email</label>
+				<%= f.text_field 'email', :size => 20 %>
+				<br/><%= error_message_for :user, :email, { :tag => :span, :hint => '', :success => 'Emails will be sent here' } %>
+				</div>
+				
+				<input type="hidden" name="redirect" value="<%= params[:redirect] %>" >
+				<input type="hidden" name="from" value="bookmarklet_<%= params[:pid].to_s %>">
+
+				<div class="form-group">
+					<label for="user_home_city">Home City<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span></label>
+					<%= text_field_with_auto_complete :user, :home_city, {:size => 20}, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+				</div>
+
+				<div class="form-group">
+				<label for="user_username">Username</label>
+				<%= f.text_field :username, :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %><br/>
+				<span class="hint" id="username_display">duffelup.com/<b>[username]</b></span>
+				<br/>
+				<%= error_message_for :user, :username, { :tag => :span, :hint => '', :success => 'Username available!' } %>
+
+				</div>
+
+				<div class="form-group">
+				<label for="user_password">Password</label>
+				<%= f.password_field :password, :size => 20, :maxlength => User::PASSWORD_MAX_LENGTH %>
+				<br/><%= error_message_for :user, :password, { :tag => :span, :hint => 'At least 6 characters long', :success => 'Looks good!' } %>
+				</div>
+				<br/>
+
+				<p id="submit"><%= submit_tag 'Sign up', :class => "submit", :onclick => "$('indicator-submit').show();" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></p>
+
+				<div class="clear"></div>
+
+				<% end -%>
+			</div>
+		</div>
+	</div>
+
+	<div class="column">
+		<div class="box" <% if params[:pid].to_s.empty? %>style="height:339px"<% end %>>
+			<h3>Duffel User</h3>
+			<p>Sign in to your account and start clipping travel notes.</p>
+			<div class="login_form">
+			<% form_tag session_path(:redirect => params[:redirect], :from => 'bookmarklet'), :id => "login_form" do -%>
+			<div class="form-group"><label for="login">Email or Username</label>
+			<%= text_field_tag 'login' %></div>
+
+			<div class="form-group"><label for="password">Password</label>
+			<%= password_field_tag 'password' %> </div> 
+
+			<br/>
+			<div class="form-group">Remember me: &nbsp;
+			<%= check_box_tag 'remember_me', '1', true %></div>
+
+			<br/>
+
+			<p id="submit"><%= submit_tag 'Log in', :class => "submit" %> </p>
+
+			<p style="padding:0"><%= link_to "Forgot password?", { :controller => 'users', :action => 'forgot_password' }, :target => "_blank" %></p>
+
+			<div class="clear"></div>
+
+			<% end -%>
+
+			<%= set_focus("login_form") %>
+			</div>
+		</div>
+	</div>
+	
+	<div style="float:left;width:230px;margin-top:10px">
+	<% if params[:pid].to_s == "partner_id" %>
+		<div style="text-align:center;vertical-align:middel;border:1px solid #999;padding:3px">Your logo here</div>
+	<% elsif params[:pid] %>
+		<div style="text-align:center;vertical-align:middel;border:0;height:35px"><img src="http://duffelup-assets.s3.amazonaws.com/pid/<%= params[:pid].to_s %>-logo.png"/></div>
+		<span style="float:right;color:#ccc;font-size:0.8em;">powered by <a style="color:#ccc;text-decoration:none" href="http://duffelup.com" target="_blank">Duffel</a></span>
+	<% end %>
+	</div>
+</div>

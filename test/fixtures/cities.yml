@@ -1,0 +1,1001 @@
+--- 
+city_00080: 
+  region: ""
+  city_country: Georgia
+  city: ""
+  latitude: 42.0
+  country_id: 79
+  rank: 
+  id: 80
+  airport_code: 
+  longitude: 43.5
+city_00058: 
+  region: ""
+  city_country: Germany
+  city: ""
+  latitude: 51.0
+  country_id: 56
+  rank: 
+  id: 58
+  airport_code: 
+  longitude: 9.0
+city_00079: 
+  region: ""
+  city_country: Grenada
+  city: ""
+  latitude: 12.1167
+  country_id: 78
+  rank: 
+  id: 79
+  airport_code: 
+  longitude: -61.6667
+city_00015: 
+  region: ""
+  city_country: Argentina
+  city: ""
+  latitude: -34.0
+  country_id: 12
+  rank: 
+  id: 15
+  airport_code: 
+  longitude: -64.0
+city_00081: 
+  region: ""
+  city_country: French Guiana
+  city: ""
+  latitude: 4.0
+  country_id: 80
+  rank: 
+  id: 81
+  airport_code: 
+  longitude: -53.0
+city_00016: 
+  region: ""
+  city_country: American Samoa
+  city: ""
+  latitude: -14.3333
+  country_id: 13
+  rank: 
+  id: 16
+  airport_code: 
+  longitude: -170.0
+city_00060: 
+  region: ""
+  city_country: Denmark
+  city: ""
+  latitude: 56.0
+  country_id: 58
+  rank: 
+  id: 60
+  airport_code: 
+  longitude: 10.0
+city_00037: 
+  region: ""
+  city_country: Botswana
+  city: ""
+  latitude: -22.0
+  country_id: 35
+  rank: 
+  id: 37
+  airport_code: 
+  longitude: 24.0
+city_00040: 
+  region: ""
+  city_country: Canada
+  city: ""
+  latitude: 60.0
+  country_id: 38
+  rank: 
+  id: 40
+  airport_code: 
+  longitude: -95.0
+city_00017: 
+  region: ""
+  city_country: Austria
+  city: ""
+  latitude: 47.3333
+  country_id: 14
+  rank: 
+  id: 17
+  airport_code: 
+  longitude: 13.3333
+city_00038: 
+  region: ""
+  city_country: Belarus
+  city: ""
+  latitude: 53.0
+  country_id: 36
+  rank: 
+  id: 38
+  airport_code: 
+  longitude: 28.0
+city_00061: 
+  region: ""
+  city_country: Dominica
+  city: ""
+  latitude: 15.4167
+  country_id: 59
+  rank: 
+  id: 61
+  airport_code: 
+  longitude: -61.3333
+city_00082: 
+  region: ""
+  city_country: Ghana
+  city: ""
+  latitude: 8.0
+  country_id: 82
+  rank: 
+  id: 82
+  airport_code: 
+  longitude: -2.0
+city_00059: 
+  region: ""
+  city_country: Djibouti
+  city: ""
+  latitude: 11.5
+  country_id: 57
+  rank: 
+  id: 59
+  airport_code: 
+  longitude: 43.0
+city_00020: 
+  region: ""
+  city_country: Azerbaijan
+  city: ""
+  latitude: 40.5
+  country_id: 18
+  rank: 
+  id: 20
+  airport_code: 
+  longitude: 47.5
+city_00018: 
+  region: ""
+  city_country: Australia
+  city: ""
+  latitude: -27.0
+  country_id: 15
+  rank: 
+  id: 18
+  airport_code: 
+  longitude: 133.0
+city_00041: 
+  region: ""
+  city_country: Cocos (Keeling) Islands
+  city: ""
+  latitude: -12.5
+  country_id: 39
+  rank: 
+  id: 41
+  airport_code: 
+  longitude: 96.8333
+city_00062: 
+  region: ""
+  city_country: Dominican Republic
+  city: ""
+  latitude: 19.0
+  country_id: 60
+  rank: 
+  id: 62
+  airport_code: 
+  longitude: -70.6667
+city_00039: 
+  region: ""
+  city_country: Belize
+  city: ""
+  latitude: 17.25
+  country_id: 37
+  rank: 
+  id: 39
+  airport_code: 
+  longitude: -88.75
+city_00083: 
+  region: ""
+  city_country: Gibraltar
+  city: ""
+  latitude: 36.1833
+  country_id: 83
+  rank: 
+  id: 83
+  airport_code: 
+  longitude: -5.3667
+city_00021: 
+  region: ""
+  city_country: Bosnia and Herzegovina
+  city: ""
+  latitude: 44.0
+  country_id: 19
+  rank: 
+  id: 21
+  airport_code: 
+  longitude: 18.0
+city_00042: 
+  region: ""
+  city_country: Congo
+  city: ""
+  latitude: 0.0
+  country_id: 40
+  rank: 
+  id: 42
+  airport_code: 
+  longitude: 25.0
+city_00019: 
+  region: ""
+  city_country: Aruba
+  city: ""
+  latitude: 12.5
+  country_id: 16
+  rank: 
+  id: 19
+  airport_code: 
+  longitude: -69.9667
+city_00063: 
+  region: ""
+  city_country: Algeria
+  city: ""
+  latitude: 28.0
+  country_id: 61
+  rank: 
+  id: 63
+  airport_code: 
+  longitude: 3.0
+city_00084: 
+  region: ""
+  city_country: Greenland
+  city: ""
+  latitude: 72.0
+  country_id: 84
+  rank: 
+  id: 84
+  airport_code: 
+  longitude: -40.0
+city_00100: 
+  region: ""
+  city_country: Hungary
+  city: ""
+  latitude: 47.0
+  country_id: 100
+  rank: 
+  id: 100
+  airport_code: 
+  longitude: 20.0
+city_00022: 
+  region: ""
+  city_country: Barbados
+  city: ""
+  latitude: 13.1667
+  country_id: 20
+  rank: 
+  id: 22
+  airport_code: 
+  longitude: -59.5333
+city_00043: 
+  region: ""
+  city_country: Central African Republic
+  city: ""
+  latitude: 7.0
+  country_id: 41
+  rank: 
+  id: 43
+  airport_code: 
+  longitude: 21.0
+city_00064: 
+  region: ""
+  city_country: Ecuador
+  city: ""
+  latitude: -2.0
+  country_id: 62
+  rank: 
+  id: 64
+  airport_code: 
+  longitude: -77.5
+city_00085: 
+  region: ""
+  city_country: Gambia
+  city: ""
+  latitude: 13.4667
+  country_id: 85
+  rank: 
+  id: 85
+  airport_code: 
+  longitude: -16.5667
+city_00101: 
+  region: ""
+  city_country: Indonesia
+  city: ""
+  latitude: -5.0
+  country_id: 101
+  rank: 
+  id: 101
+  airport_code: 
+  longitude: 120.0
+city_00023: 
+  region: ""
+  city_country: Bangladesh
+  city: ""
+  latitude: 24.0
+  country_id: 21
+  rank: 
+  id: 23
+  airport_code: 
+  longitude: 90.0
+city_00044: 
+  region: ""
+  city_country: Congo
+  city: ""
+  latitude: -1.0
+  country_id: 42
+  rank: 
+  id: 44
+  airport_code: 
+  longitude: 15.0
+city_00065: 
+  region: ""
+  city_country: Estonia
+  city: ""
+  latitude: 59.0
+  country_id: 63
+  rank: 
+  id: 65
+  airport_code: 
+  longitude: 26.0
+city_00086: 
+  region: ""
+  city_country: Guinea
+  city: ""
+  latitude: 11.0
+  country_id: 86
+  rank: 
+  id: 86
+  airport_code: 
+  longitude: -10.0
+city_00102: 
+  region: ""
+  city_country: Ireland
+  city: ""
+  latitude: 53.0
+  country_id: 102
+  rank: 
+  id: 102
+  airport_code: 
+  longitude: -8.0
+city_00003: 
+  region: ""
+  city_country: Asia Pacific Region
+  city: ""
+  latitude: 35.0
+  country_id: 10
+  rank: 
+  id: 3
+  airport_code: 
+  longitude: 105.0
+city_00024: 
+  region: ""
+  city_country: Belgium
+  city: ""
+  latitude: 50.8333
+  country_id: 22
+  rank: 
+  id: 24
+  airport_code: 
+  longitude: 4.0
+city_00045: 
+  region: ""
+  city_country: Switzerland
+  city: ""
+  latitude: 47.0
+  country_id: 43
+  rank: 
+  id: 45
+  airport_code: 
+  longitude: 8.0
+city_00066: 
+  region: ""
+  city_country: Egypt
+  city: ""
+  latitude: 27.0
+  country_id: 64
+  rank: 
+  id: 66
+  airport_code: 
+  longitude: 30.0
+city_00087: 
+  region: ""
+  city_country: Guadeloupe
+  city: ""
+  latitude: 16.25
+  country_id: 87
+  rank: 
+  id: 87
+  airport_code: 
+  longitude: -61.5833
+city_00025: 
+  region: ""
+  city_country: Burkina Faso
+  city: ""
+  latitude: 13.0
+  country_id: 23
+  rank: 
+  id: 25
+  airport_code: 
+  longitude: -2.0
+city_00046: 
+  region: ""
+  city_country: Cote d'Ivoire
+  city: ""
+  latitude: 8.0
+  country_id: 44
+  rank: 
+  id: 46
+  airport_code: 
+  longitude: -5.0
+city_00067: 
+  region: ""
+  city_country: Western Sahara
+  city: ""
+  latitude: 24.5
+  country_id: 65
+  rank: 
+  id: 67
+  airport_code: 
+  longitude: -13.0
+city_00088: 
+  region: ""
+  city_country: Equatorial Guinea
+  city: ""
+  latitude: 2.0
+  country_id: 88
+  rank: 
+  id: 88
+  airport_code: 
+  longitude: 10.0
+city_00047: 
+  region: ""
+  city_country: Cook Islands
+  city: ""
+  latitude: -21.2333
+  country_id: 45
+  rank: 
+  id: 47
+  airport_code: 
+  longitude: -159.767
+city_00090: 
+  region: ""
+  city_country: South Georgia and the South Sandwich Islands
+  city: ""
+  latitude: -54.5
+  country_id: 90
+  rank: 
+  id: 90
+  airport_code: 
+  longitude: -37.0
+city_00068: 
+  region: ""
+  city_country: Eritrea
+  city: ""
+  latitude: 15.0
+  country_id: 66
+  rank: 
+  id: 68
+  airport_code: 
+  longitude: 39.0
+city_00089: 
+  region: ""
+  city_country: Greece
+  city: ""
+  latitude: 39.0
+  country_id: 89
+  rank: 
+  id: 89
+  airport_code: 
+  longitude: 22.0
+city_00004: 
+  region: ""
+  city_country: Europe
+  city: ""
+  latitude: 47.0
+  country_id: 69
+  rank: 
+  id: 4
+  airport_code: 
+  longitude: 8.0
+city_00070: 
+  region: ""
+  city_country: Ethiopia
+  city: ""
+  latitude: 8.0
+  country_id: 68
+  rank: 
+  id: 70
+  airport_code: 
+  longitude: 38.0
+city_00091: 
+  region: ""
+  city_country: Guatemala
+  city: ""
+  latitude: 15.5
+  country_id: 91
+  rank: 
+  id: 91
+  airport_code: 
+  longitude: -90.25
+city_00069: 
+  region: ""
+  city_country: Spain
+  city: ""
+  latitude: 40.0
+  country_id: 67
+  rank: 
+  id: 69
+  airport_code: 
+  longitude: -4.0
+city_00005: 
+  region: ""
+  city_country: Andorra
+  city: ""
+  latitude: 42.5
+  country_id: 1
+  rank: 
+  id: 5
+  airport_code: 
+  longitude: 1.5
+city_00026: 
+  region: ""
+  city_country: Bulgaria
+  city: ""
+  latitude: 43.0
+  country_id: 24
+  rank: 
+  id: 26
+  airport_code: 
+  longitude: 25.0
+city_00092: 
+  region: ""
+  city_country: Guam
+  city: ""
+  latitude: 13.4667
+  country_id: 92
+  rank: 
+  id: 92
+  airport_code: 
+  longitude: 144.783
+city_00006: 
+  region: ""
+  city_country: United Arab Emirates
+  city: ""
+  latitude: 24.0
+  country_id: 2
+  rank: 
+  id: 6
+  airport_code: 
+  longitude: 54.0
+city_00050: 
+  region: ""
+  city_country: China
+  city: ""
+  latitude: 35.0
+  country_id: 48
+  rank: 
+  id: 50
+  airport_code: 
+  longitude: 105.0
+city_00027: 
+  region: ""
+  city_country: Bahrain
+  city: ""
+  latitude: 26.0
+  country_id: 25
+  rank: 
+  id: 27
+  airport_code: 
+  longitude: 50.55
+city_00071: 
+  region: ""
+  city_country: Finland
+  city: ""
+  latitude: 64.0
+  country_id: 70
+  rank: 
+  id: 71
+  airport_code: 
+  longitude: 26.0
+city_00048: 
+  region: ""
+  city_country: Chile
+  city: ""
+  latitude: -30.0
+  country_id: 46
+  rank: 
+  id: 48
+  airport_code: 
+  longitude: -71.0
+city_00093: 
+  region: ""
+  city_country: Guinea-Bissau
+  city: ""
+  latitude: 12.0
+  country_id: 93
+  rank: 
+  id: 93
+  airport_code: 
+  longitude: -15.0
+city_00030: 
+  region: ""
+  city_country: Bermuda
+  city: ""
+  latitude: 32.3333
+  country_id: 28
+  rank: 
+  id: 30
+  airport_code: 
+  longitude: -64.75
+city_00007: 
+  region: ""
+  city_country: Afghanistan
+  city: ""
+  latitude: 33.0
+  country_id: 3
+  rank: 
+  id: 7
+  airport_code: 
+  longitude: 65.0
+city_00028: 
+  region: ""
+  city_country: Burundi
+  city: ""
+  latitude: -3.5
+  country_id: 26
+  rank: 
+  id: 28
+  airport_code: 
+  longitude: 30.0
+city_00051: 
+  region: ""
+  city_country: Colombia
+  city: ""
+  latitude: 4.0
+  country_id: 49
+  rank: 
+  id: 51
+  airport_code: 
+  longitude: -72.0
+city_00072: 
+  region: ""
+  city_country: Fiji
+  city: ""
+  latitude: -18.0
+  country_id: 71
+  rank: 
+  id: 72
+  airport_code: 
+  longitude: 175.0
+city_00049: 
+  region: ""
+  city_country: Cameroon
+  city: ""
+  latitude: 6.0
+  country_id: 47
+  rank: 
+  id: 49
+  airport_code: 
+  longitude: 12.0
+city_00094: 
+  region: ""
+  city_country: Guyana
+  city: ""
+  latitude: 5.0
+  country_id: 94
+  rank: 
+  id: 94
+  airport_code: 
+  longitude: -59.0
+city_00073: 
+  region: ""
+  city_country: Falkland Islands (Malvinas)
+  city: ""
+  latitude: -51.75
+  country_id: 72
+  rank: 
+  id: 73
+  airport_code: 
+  longitude: -59.0
+city_00031: 
+  region: ""
+  city_country: Brunei Darussalam
+  city: ""
+  latitude: 4.5
+  country_id: 29
+  rank: 
+  id: 31
+  airport_code: 
+  longitude: 114.667
+city_00008: 
+  region: ""
+  city_country: Antigua and Barbuda
+  city: ""
+  latitude: 17.05
+  country_id: 4
+  rank: 
+  id: 8
+  airport_code: 
+  longitude: -61.8
+city_00010: 
+  region: ""
+  city_country: Albania
+  city: ""
+  latitude: 41.0
+  country_id: 6
+  rank: 
+  id: 10
+  airport_code: 
+  longitude: 20.0
+city_00029: 
+  region: ""
+  city_country: Benin
+  city: ""
+  latitude: 9.5
+  country_id: 27
+  rank: 
+  id: 29
+  airport_code: 
+  longitude: 2.25
+city_00052: 
+  region: ""
+  city_country: Costa Rica
+  city: ""
+  latitude: 10.0
+  country_id: 50
+  rank: 
+  id: 52
+  airport_code: 
+  longitude: -84.0
+city_00053: 
+  region: ""
+  city_country: Cuba
+  city: ""
+  latitude: 21.5
+  country_id: 51
+  rank: 
+  id: 53
+  airport_code: 
+  longitude: -80.0
+city_00009: 
+  region: ""
+  city_country: Anguilla
+  city: ""
+  latitude: 18.25
+  country_id: 5
+  rank: 
+  id: 9
+  airport_code: 
+  longitude: -63.1667
+city_00011: 
+  region: ""
+  city_country: Armenia
+  city: ""
+  latitude: 40.0
+  country_id: 7
+  rank: 
+  id: 11
+  airport_code: 
+  longitude: 45.0
+city_00032: 
+  region: ""
+  city_country: Bolivia
+  city: ""
+  latitude: -17.0
+  country_id: 30
+  rank: 
+  id: 32
+  airport_code: 
+  longitude: -65.0
+city_00074: 
+  region: ""
+  city_country: Micronesia
+  city: ""
+  latitude: 6.9167
+  country_id: 73
+  rank: 
+  id: 74
+  airport_code: 
+  longitude: 158.25
+city_00095: 
+  region: ""
+  city_country: Hong Kong
+  city: ""
+  latitude: 22.25
+  country_id: 95
+  rank: 
+  id: 95
+  airport_code: 
+  longitude: 114.167
+city_00096: 
+  region: ""
+  city_country: Heard Island and McDonald Islands
+  city: ""
+  latitude: -53.1
+  country_id: 96
+  rank: 
+  id: 96
+  airport_code: 
+  longitude: 72.5167
+city_00054: 
+  region: ""
+  city_country: Cape Verde
+  city: ""
+  latitude: 16.0
+  country_id: 52
+  rank: 
+  id: 54
+  airport_code: 
+  longitude: -24.0
+city_00033: 
+  region: ""
+  city_country: Brazil
+  city: ""
+  latitude: -10.0
+  country_id: 31
+  rank: 
+  id: 33
+  airport_code: 
+  longitude: -55.0
+city_00012: 
+  region: ""
+  city_country: Netherlands Antilles
+  city: ""
+  latitude: 12.25
+  country_id: 8
+  rank: 
+  id: 12
+  airport_code: 
+  longitude: -68.75
+city_00075: 
+  region: ""
+  city_country: Faroe Islands
+  city: ""
+  latitude: 62.0
+  country_id: 74
+  rank: 
+  id: 75
+  airport_code: 
+  longitude: -7.0
+city_00076: 
+  region: ""
+  city_country: France
+  city: ""
+  latitude: 46.0
+  country_id: 75
+  rank: 
+  id: 76
+  airport_code: 
+  longitude: 2.0
+city_00034: 
+  region: ""
+  city_country: Bahamas
+  city: ""
+  latitude: 24.25
+  country_id: 32
+  rank: 
+  id: 34
+  airport_code: 
+  longitude: -76.0
+city_00013: 
+  region: ""
+  city_country: Angola
+  city: ""
+  latitude: -12.5
+  country_id: 9
+  rank: 
+  id: 13
+  airport_code: 
+  longitude: 18.5
+city_00055: 
+  region: ""
+  city_country: Christmas Island
+  city: ""
+  latitude: -10.5
+  country_id: 53
+  rank: 
+  id: 55
+  airport_code: 
+  longitude: 105.667
+city_00097: 
+  region: ""
+  city_country: Honduras
+  city: ""
+  latitude: 15.0
+  country_id: 97
+  rank: 
+  id: 97
+  airport_code: 
+  longitude: -86.5
+city_00098: 
+  region: ""
+  city_country: Croatia
+  city: ""
+  latitude: 45.1667
+  country_id: 98
+  rank: 
+  id: 98
+  airport_code: 
+  longitude: 15.5
+city_00056: 
+  region: ""
+  city_country: Cyprus
+  city: ""
+  latitude: 35.0
+  country_id: 54
+  rank: 
+  id: 56
+  airport_code: 
+  longitude: 33.0
+city_00014: 
+  region: ""
+  city_country: Antarctica
+  city: ""
+  latitude: -90.0
+  country_id: 11
+  rank: 
+  id: 14
+  airport_code: 
+  longitude: 0.0
+city_00035: 
+  region: ""
+  city_country: Bhutan
+  city: ""
+  latitude: 27.5
+  country_id: 33
+  rank: 
+  id: 35
+  airport_code: 
+  longitude: 90.5
+city_00077: 
+  region: ""
+  city_country: Gabon
+  city: ""
+  latitude: -1.0
+  country_id: 76
+  rank: 
+  id: 77
+  airport_code: 
+  longitude: 11.75
+city_00078: 
+  region: ""
+  city_country: United Kingdom
+  city: ""
+  latitude: 54.0
+  country_id: 77
+  rank: 
+  id: 78
+  airport_code: 
+  longitude: -2.0
+city_00057: 
+  region: ""
+  city_country: Czech Republic
+  city: ""
+  latitude: 49.75
+  country_id: 55
+  rank: 
+  id: 57
+  airport_code: 
+  longitude: 15.5
+city_00036: 
+  region: ""
+  city_country: Bouvet Island
+  city: ""
+  latitude: -54.4333
+  country_id: 34
+  rank: 
+  id: 36
+  airport_code: 
+  longitude: 3.4
+city_00099: 
+  region: ""
+  city_country: Haiti
+  city: ""
+  latitude: 19.0
+  country_id: 99
+  rank: 
+  id: 99
+  airport_code: 
+  longitude: -72.4167

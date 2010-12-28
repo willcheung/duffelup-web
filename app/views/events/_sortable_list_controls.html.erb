@@ -1,0 +1,21 @@
+<%= javascript_tag "Position.includeScrollOffsets = true" %>
+<%= sortable_element 'board', 
+      :dropOnEmpty => true, 
+	  #:scroll => '\'content\'',
+	  :containment => @list_containment,
+	  :constraint => false,
+	  :only => 'sortable',
+	  :overlap => 'horizontal',
+      :url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
+
+<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+<% (@trip.duration+1).times do |i| %>
+	<%= sortable_element 'itinerary_list_'+(i+1).to_s,
+		:dropOnEmpty => true, 
+	  	:containment => @list_containment,
+	  	:constraint => false,
+		#:scroll => '\'sidebar\'',
+		:only => 'sortable',
+      	:url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
+<% end %>
+<% end %>

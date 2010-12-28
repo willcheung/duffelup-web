@@ -1,0 +1,37 @@
+	<div class="right-message" style="width: 230px;">
+  <h1><strong>Try our Clip-It magic!</strong></h1>
+  <p>Did you know that you can add stuff to your duffel in one click using <%= link_to_unless_current "our handy Clip-It Bookmarklet", :controller => 'site', :action => 'tools' %>?</p>
+  	
+  <p>
+	<% if request.user_agent.nil? %>
+		Try it: &nbsp;&nbsp;<a onclick="window.alert('Drag this Duffel Clip-It button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+			<img style="vertical-align:middle;margin-bottom:3px" src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+	<% elsif request.user_agent.include? "MSIE" %>
+		Right-click and "Add to Favorites...": <a onclick="window.alert('Right-click this button and choose Add to Favorites.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+			<img style="vertical-align:middle;margin-bottom:3px" src="/images/button-small-bookmarklet.png" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+	
+	<% elsif request.user_agent.include? "Chrome" %>
+		Drag this to your links bar: 
+		<a style="color:#fff;background-color:#98BF21;padding:5px;border-radius:8px;" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">Add to Duffel</a>			
+
+	<% else %>
+		Try it: &nbsp;&nbsp;<a onclick="window.alert('Drag this Duffel Clip-It button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+			<img style="vertical-align:middle;margin-bottom:3px" src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your links bar"/></a>
+	<% end %>
+	</p>
+</div>
+
+<h1>Create a New Duffel</h1>
+
+<% form_for(:trip, :html => {:id => "trip_form", :multipart => true }, 
+					:url => trips_path(:back => params[:back])) do |form| %>
+					
+	<%= render :partial => "trip_form", :locals => { :form => form } %>
+	
+	<%= hidden_field_tag :invite %>
+	
+	<div id="form-submit"><%= submit_tag "Plan with friends!", :class => "submit", :onclick => "$('spinner').show();$('invite').value='true'" %>&nbsp;&nbsp;&nbsp;<%= submit_tag "Plan alone", :class => "submit", :onclick => "$('spinner').show();" %> <span id="spinner" style="display:none">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+	<div class="clear"></div>
+<% end %>
+
+<%= set_focus("trip_form") %>

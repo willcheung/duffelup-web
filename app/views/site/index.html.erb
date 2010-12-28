@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><%= @title %></title> 
+	<%= stylesheet_link_tag "home" %>
+	<%= javascript_include_tag 'all' %>
+	<meta name="description" content="<%= @meta_description %>" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+    <script language="javascript">
+		 function changeBox()
+		 {
+			document.getElementById('div1').style.display='none';
+			document.getElementById('div2').style.display='';
+			document.getElementById('user_password').focus();
+		 }
+		 function restoreBox()
+		 {
+			if(document.getElementById('user_password').value=='')
+			{
+			  document.getElementById('div1').style.display='';
+			  document.getElementById('div2').style.display='none';
+			}
+		 }
+	</script>
+</head>
+
+<body id="homepage"> 
+	
+	<% flash.each do |key, msg| -%>
+		<%= content_tag :p, msg, :id => key -%>
+	<% end -%>
+ 
+<!-- #header -->  
+	<div id="header" class="clearfix"> 
+		<h2 id="logo">Duffel</h2> 
+       	<ul> 
+			<li><a href="/login">Sign in</a></li> 
+			<li>/</li> 
+			<li><a href="/signup">Sign up</a></li> 
+		</ul> 
+    </div>
+    
+	<div class="clear"></div>     
+
+<!-- #body-intro and signup --> 		
+
+	<div id="intro" class="clearfix">
+	  <div id="features">
+    <h2 id="tagline">The most fun and visual trip planner.</h2>
+            <div id="feature1">
+                <img src="/images/homepage/feat1.png" id="feat1" /><br />
+
+            </div>
+            
+            <div id="feature3">
+                <img src="/images/homepage/feat3_v2.png" id="feat3" /><br />
+      
+            </div>
+            
+            <div id="feature2">
+                <img src="/images/homepage/feat2.png" id="feat2" />
+
+            </div>
+            
+<div id="feature_divider"></div>
+            
+                        <div id="feature1_text">
+                <span class="feat_header">
+                Clip travel reviews<br />
+                </span>
+                <span class="feat_text">
+                and recommendations from<br/>
+				any webpage or email.
+                </span>
+            </div>
+            
+            <div id="feature3_text">
+            <span class="feat_header">
+                Plan the same trip<br />
+                </span>
+                <span class="feat_text">
+                by sharing and collaborating<br/>
+				with friends and family.
+                </span>          
+            </div>
+            
+            <div id="feature2_text">
+                <span class="feat_header">See everything <br />
+                </span>
+                <span class="feat_text">
+                laid out on an interactive<br />
+                corkboard and map.
+                </span>
+            </div>
+            
+            
+        </div>
+        <div id="signup">
+       	  <div id="signup_box">
+                <h2 id="signup_header">Sign up, it's free!</h2>
+                <span class="signup_text_sm">Already have an account? 
+                <a href="/login">Sign in here.</a></span>
+				<% form_for(@user, :url => user_path) do |f| -%>
+
+					<%= f.text_field :email, :size => 24, :maxlength => User::EMAIL_MAX_LENGTH, :style => 'margin-top:5px', 
+												:value => "Email Address",
+												:onFocus => "if(this.value == 'Email Address') {this.value = '';}",
+												:onBlur => "if (this.value == '') {this.value = 'Email Address';}" %>
+
+					<%= text_field_with_auto_complete :user, :home_city, { :size => 24,
+						 													:value => "Home City",
+																			:onFocus => "if(this.value == 'Home City') {this.value = '';}",
+																			:onBlur => "if (this.value == '') {this.value = 'Home City';}"}, 
+																		{ :frequency => ".1", :min_chars => "3" } %>
+
+					<%= f.text_field :username, :size => 24, :maxlength => User::USERNAME_MAX_LENGTH,
+					 							:value => "Username",
+												:onFocus => "if(this.value == 'Username') {this.value = '';}",
+												:onBlur => "if (this.value == '') {this.value = 'Username';}" %>
+					
+					<div id="div1">
+	                <input name="pass_temp" type="text" value="Password" size="24" maxlength="20" onfocus="changeBox();" />
+	                </div>
+	
+					<div id="div2" style="display:none">
+					<%= f.password_field :password, :size => 24, :maxlength => User::PASSWORD_MAX_LENGTH, :onBlur => "restoreBox();" %>
+					</div>
+
+					<%= submit_tag "Sign me up", :class => "submit", :onclick => "$('indicator-submit').show();" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/homepage/ajax-loader.gif" style="margin: 15px 0 0 5px;float:left"></span>
+
+					<% end -%>
+                
+              
+               <img src="/images/homepage/divider3.gif" width="200" height="2" style="margin-bottom:10px;" />
+                
+			<div class="signup_text_med">
+				Or, sign up with accounts from: &nbsp;&nbsp;
+				<div class="login-buttons">
+					<ul>
+						<li class="twitter">
+						<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
+							<%= submit_tag 'twitter' %>
+						<%- end -%>
+						</li>
+						<li class="facebook">
+							<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts';});}else{window.location='/users/link_user_accounts'}})", :v => 1) %></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+                
+        <span class="signup_text_sm">Still not sure? <a href="/explore">Explore Duffel and see why our members love us</a>!</span><br/>
+             
+
+            </div>
+        </div>
+    </div>
+
+<!-- #div --> 	
+	<div id="divider" class="clearfix">
+    
+    </div>
+    
+
+<!-- #main-3 boxes --> 		
+
+<div id="main" class="clearfix">
+    	<div id="app">
+        	<a href="http://itunes.apple.com/us/app/duffel-up-and-go/id371064516?mt=8" target="_blank"><img src="/images/homepage/app.png" id="app_pic" /></a>
+        </div>
+        <div id="social">
+        
+            <a target="_blank" href="http://www.facebook.com/duffelup">
+            <img src="/images/homepage/fb.png" align="center" class="social_pic" /></a>
+            <span class="social_text">
+            <a target="_blank" href="http://www.facebook.com/duffelup">duffel on Facebook</a></span><br /><br />
+            
+            <a target="_blank" href="http://twitter.com/duffelup">
+            <img src="/images/homepage/twitter.png" align="center" class="social_pic" /></a>
+            <span class="social_text">
+            <a target="_blank" href="http://twitter.com/duffelup">duffel on Twitter</a></span><br /><br />
+            
+            <a href="http://blog.duffelup.com">
+            <img src="/images/homepage/blog.png" align="center" class="social_pic" /></a>
+            <span class="social_text">
+            <a href="http://blog.duffelup.com">duffel Blog</a></span>
+            
+</div>
+        <div id="explore">
+          <h2 class="explore_header">Need some travel ideas?</h2>
+          <span class="explore_text">
+          Explore duffels from popular cities!<br />
+          
+          <ul>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/US/NY/new-york">
+              New York</a></li>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/FR/paris"	>
+              Paris</a></li>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/US/CA/san-francisco">
+              San Francisco</a></li>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/JP/tokyo">
+              Tokyo</a></li>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/US/NV/las-vegas">
+              Las Vegas</a></li>
+              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
+              &nbsp;<a href="http://duffelup.com/GB/london">
+              London</a></li>
+          </ul>
+          </span>
+          
+          <span class="explore_text_sm">
+          <a href="http://duffelup.com/explore">
+          Browse on interactive map
+          </a></span>
+  </div>
+    </div>
+    
+ 
+<!-- #footer --> 	
+	<%= render :partial => 'shared/footer' %>
+<!-- #footer --> 
+	<%= render :partial => 'shared/external_javascripts'%>
+</body>
+</html>

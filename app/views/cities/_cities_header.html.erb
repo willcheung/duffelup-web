@@ -1,0 +1,11 @@
+
+	<div id="city-image" style="background-image: url('<%= @image_path %>');">
+		<div class="go-back"><%= link_to "See top cities in #{@city.country_name} &raquo;", "/country/#{params[:country_code]}" %></div>
+	
+		<h1><%= @city.city_country %></h1>
+		<h6>Total <%= pluralize(@duffel_count["0"]+@duffel_count["1"], "duffel") %> to <%= @city.city %>, including <%= pluralize(@duffel_count["1"], "public duffel") %></h6>
+		<%= link_to "Create a duffel to #{@city.city}", new_trip_url(:city => @city.city_country), :class => "create-duffel" %>
+		
+		<div class="by"><%= @div_by_txt %></div>
+	</div>
+	

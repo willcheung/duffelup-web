@@ -1,0 +1,29 @@
+<%= render :partial => 'right_menu'%>
+
+<div id="site">
+<h1>About Duffel</h1>
+<h2><big>Overview</big></h2>
+<p>Duffel is a trip planning and bookmarking tool for travelers and non-travelers.</p>
+<p>Why non-travelers? Because trip planning doesn't begin when you start researching hotels and things to do. It begins when you see a story featuring hip Paris cafés, an interesting article about a Greek temple built 4000 years ago, or when a friend recommends the best beach resort at Maui. Save those articles and ideas with just one click.</p>
+<p>Duffel uses virtual corkboard that organizes and helps you visualize your travel notes.</p>
+<p>When you're thinking about your vacation, you may want to dine out at a <strong>Zagat's top-rated restaurant</strong>, swim in a <strong>hidden beach</strong> that 
+	your friends recommended, and rest your legs at <strong>Trip Advisor's most popular hotel</strong>.	
+	Duffel is not only a place where you can collaboratively store, organize and archive all these 
+	travel ideas and trips, but you can also use them to compile your own itineraries that go hand-in-hand with your
+	favorite travel guidebook.
+</p>  
+
+<%= link_to 'Take a tour', '/site/tour', :style => 'background: url(/images/tour/take-a-tour.png); width: 170px; height: 40px; text-indent: -9595px; display: block; margin: 17px 0 0 15px; float: left;' %>
+<%= link_to 'Sign up now', signup_url, :style => 'background: url(/images/tour/sign-up.png); width: 231px; height: 51px; text-indent: -9595px; display: block; margin: 13px 0 0 15px; float: left;' %>
+
+<div class="clear"></div>
+
+<br/>
+<h2><big>Also Check Out...</big></h2>
+<p>Our <a href="http://blog.duffelup.com">blog</a>, <a href="http://twitter.com/duffelup">Twitter</a>, and <a href="http://www.facebook.com/pages/Duffel/143192490080">Facebook</a> for updates about what's new on 
+	our site and how to plan smarter travel.
+</p>
+
+<br>
+<p>Have questions?  Please <%= link_to "contact us", { :controller => 'site', :action => 'contact' }, :id => 'site' %>.</p>
+</div>

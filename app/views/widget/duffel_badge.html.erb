@@ -1,0 +1,19 @@
+<% cache("api_badge-#{@key.key}") do %>
+(function(){
+
+	var duffelBadge = ' \
+		<style type="text/css"> \
+		#db-box { background: #fff; line-height: 150%; border: 1px solid #eee; padding: 10px; margin: 15px 0; font-size: 12px; color: #000; -moz-border-radius: 5px; -webkit-border-radius: 5px; } \
+		#db-box a { color: #000; } \
+		#db-box #db-logo { width: 79px; height: 23px; background: url(http://duffelup.com/images/db-logo.png) no-repeat; display: block; text-indent: -9999px; outline: 0; float: right; margin-left: 20px; } \
+		</style> \
+		 \
+		<div id="db-box"> \
+			<a id="db-logo" href="http://duffelup.com">Duffel - Visual Trip Planner</a> \
+			<a href="http://duffelup.com/<%= @user.username %>"><strong><%= display_user_name(@user).gsub("\'", "") %>\</strong> is using<br /> Duffel to organize travel notes. <strong>Check it out &#187;</strong></a> \
+		</div> \
+		';
+
+	document.write(duffelBadge);})()
+
+<% end %>

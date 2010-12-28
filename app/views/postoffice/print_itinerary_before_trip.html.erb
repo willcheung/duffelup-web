@@ -1,0 +1,36 @@
+<p>
+	Hello <%= @name %>,
+
+	<br/><br/>
+	
+	Looks like you're getting ready for your trip to <%= @destination %>! 
+	
+	<%- unless @viator_idea_url0.nil? -%> 
+		Check out popular things to do in <%= @destination %>:
+		<br/>
+		<ul> 
+		<li><a href="<%= @viator_idea_url0 %>" target="_blank"><%= @viator_idea_name0 %></a> $<%= @viator_idea_price0 %> (<%= @viator_idea_rating0 %> / 5 stars)</li>
+		<li><a href="<%= @viator_idea_url1 %>" target="_blank"><%= @viator_idea_name1 %></a> $<%= @viator_idea_price1 %> (<%= @viator_idea_rating1 %> / 5 stars)</li>
+		<li><a href="<%= @viator_idea_url2 %>" target="_blank"><%= @viator_idea_name2 %></a> $<%= @viator_idea_price2 %> (<%= @viator_idea_rating2 %> / 5 stars)</li>
+		</ul>
+	<%- else -%>
+	<br/>
+	<%- end -%>
+	
+	Remember you can sync your duffel with you iPhone using our <a href="http://itunes.apple.com/app/id371064516" target="_blank">iPhone App (iTunes link)</a>.
+	
+	Alternatively, Duffel also offers a printable version of your duffel to carry with your favorite travel guide: <a target="_blank" href="<%= @print_trip_url %>"><%= @print_trip_url %></a>
+	
+	<br/><br/>
+	
+	Your adventure awaits.  Have a great trip!
+	
+	<br><br>
+	- The Duffel Team
+	<br>
+	<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>
+
+<p>
+	p.s. You can disable these notices on your <a href="http://duffelup.com/user/edit">account page</a>.
+</p>

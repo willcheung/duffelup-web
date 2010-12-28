@@ -1,0 +1,31 @@
+<p>
+	<strong>Image:</strong> <img src="<%= @landmark.image_url %>"/><br/>
+	<%= @landmark.image_url %>
+</p>
+<p>
+  <strong>Title:</strong> <%= @landmark.name %>
+</p>
+<p>
+	<strong>Address:</strong> <%= @landmark.address %>
+</p>
+<p>
+  <strong>Description:</strong> <%= @landmark.description %>
+</p>
+<p>
+  <strong>Fun Facts:</strong> <%= @landmark.fun_facts %>
+</p>
+<p>
+  <strong>Tips:</strong> <%= @landmark.tips %>
+</p>
+<p>
+  <strong>lat:</strong> <%= @landmark.lat %>
+</p>
+<p>
+  <strong>lng:</strong> <%= @landmark.lng %>
+</p>
+<p><strong>Map to check lat, lng</strong>
+	<img src="http://maps.google.com/maps/api/staticmap?center=<%=@landmark.lat%>,<%=@landmark.lng%>&zoom=16&size=400x300&sensor=false&markers=color:blue|<%=@landmark.lat%>,<%=@landmark.lng%>">
+</p>
+
+<%= link_to 'Edit', edit_guide_landmark_path(@guide, @landmark) %> |
+<%= link_to 'Back', guide_landmarks_path(@guide) %>

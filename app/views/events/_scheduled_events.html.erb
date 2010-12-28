@@ -1,0 +1,98 @@
+<!--
+# Goes through each day and lists out corresponding events for each day 
+-->
+<ul id="itinerary_list_<%= day+1 %>">
+	<% if @trip_properties && @trip_properties.custom_header_label == 1 %>
+	<li class="divider"><%= @trip_properties.itinerary_labels.split("|")[day] %></li>
+	<% else %>
+	<li class="divider"><%= (@trip.start_date + day).strftime("%A, %B %d") %></li>
+	<% end %>
+	<% for event in @itinerary[day+1] %>
+		
+		<li <% if @users.include?(current_user) %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+		
+		<%- if event.eventable_type == "Foodanddrink" -%>
+		<span class="foodanddrink">
+		<%- elsif event.eventable_type == "Transportation" -%>
+		<span class="transport">
+		<%- elsif event.eventable_type == "Activity" -%>
+		<span class="activity">
+		<%- elsif event.eventable_type == "Hotel" -%>
+		<span class="lodging">
+		<%- elsif event.eventable_type == "Notes" -%>
+		<span class="note">
+		<%- elsif event.eventable_type == "CheckIn" %>
+		<span class="checkin">
+		<%- end -%>
+
+		<!-- if map view -->	
+		<% if map %>
+		
+			<!--
+			 #Only Activity, Hotel, Foodanddrink and CheckIn can be mapped 
+			-->
+			<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "CheckIn" %>
+				<% if event.lat and event.lng %>
+				<strong><%= event.index unless event.index.nil? %>. <%= display_title_without_link(event.title) %></strong>
+				<% else %>
+				<strong><%= display_title_without_link(event.title) %></strong>
+				<% end %>
+			<% else %>
+				<strong><%= display_title_without_link(event.title) %></strong>
+			<% end %>
+			
+		<% else %> <!-- if not map view -->
+		
+			<strong><%= display_title_without_link(event.title) %></strong>
+			
+		<% end %>
+		
+		<em class="list-actions">
+		<span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
+		<span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>
+		
+		<%- unless event.eventable_type == "CheckIn" -%>
+		<%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, nil, @trip.permalink) %></span><%- end -%>
+		<%- end -%>
+
+		<% if @users.include?(current_user) %>
+		
+			<!-- 
+			 #Only Activity, Hotel, and Foodanddrink have partner_id 
+			-->
+			<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" %>
+				<% unless event.partner_id == Idea::PARTNER_ID["viator"] %>
+					<!-- if map view, add view=map parameter -->
+					<% if map %>
+						<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit?view=map", "rel=\"ibox\" title=\"Edit\"") %></span>
+					<% else %>
+						<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\"") %></span>
+					<% end %>
+				<% end %>
+			<% elsif event.eventable_type == "CheckIn" %>
+				<!-- cannot edit CheckIn -->
+			<% else %>
+				<% if map %>
+					<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit?view=map", "rel=\"ibox\" title=\"Edit\"") %></span>
+				<% else %>
+					<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\"") %></span>
+				<% end %>
+			<% end %>
+
+			
+		<% end %>
+				
+		<span class="idea-delete" style="display: none;"><%= link_to_remote "[x]", :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
+				:confirm => "Are you sure you want to delete #{event.title}?", 
+				:method => :delete %></span>
+		
+		</em>
+		
+		<!-- event details here -->
+		<div id="<%= event.id %>_details" style="display: none;">
+			<%= render :partial => '/events/event_details', :locals => { :event_detail => event, :trip_permalink => @trip.permalink } %>
+		</div>
+		</span>
+		</li>
+	<% end %> <!-- end of for event loop -->
+</ul>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+<head> 
+	<title><%= @title %></title> 
+	<%= stylesheet_link_tag "business" %>
+	<%= javascript_include_tag 'all' %>
+	<meta name="description" content="<%= @meta_description %>" />
+	<meta name="verify-v1" content="8IBqD8OB/RPT+h27hdBdg+7/u5HhbGdf43oyp43yk/U=" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+</head> 
+<body> 
+
+<% flash.each do |key, msg| -%>
+	<%= content_tag :p, msg, :id => key -%>
+<% end -%>
+
+	<div id="header" class="clearfix">
+		<h2><a id="logo" href="http://duffelup.com">Duffel</a></h2>
+		<ul>
+			<li><a href="/business/overview">Overview</a></li>
+			<li><a href="/business/demo">How It Works</a></li>
+			<li class="selected"><a href="/business/features">Features</a></li>
+		</ul>
+	</div>
+	
+	<div class="seperator" style="margin-top: 10px;"></div>
+	<div id="promo">
+		<div id="what-is">
+		<div class="right">
+			<a href="/business/demo#sign-up" id="start-planning">Sign up now</a>
+			<div class="clear"></div>
+			<!--<%= link_to 'Have an account? <u>Sign in</u>', login_path, :id => 'sign-in' %>-->
+			</div>
+			<h1 style="line-height: 89px; margin-bottom: 0;">Duffel Trip Planner: Features</h1>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="seperator"></div>
+	
+	<div id="details">
+		
+		<div class="section">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/facebook.png"/></div>
+			
+			<p>Leverage our viral channels of social media. Whenever users interact with your itineraries or members content, such as commenting on them or adding them as favorites, we will broadcast to Facebook and Twitter.</p>
+		</div>
+		
+		<div class="section last">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/twitter.png"/></div>
+			
+			<p>Your itineraries and links will be featured on our newsletters, city pages, our blog and tweets, giving you even more exposure via our marketing campaigns.</p>
+		</div>
+		
+		<div class="clear"></div>
+		<!--
+		<div class="section">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/feature_denver.png"/></div>	
+			
+			<p>Sponsor your city and promote your brand. Because of its premium position, every visitors planning a trip to your city would click through into your websites.</p>
+		</div>
+		
+		<div class="section last">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/duffel_denver.png"/></div>
+			
+			<p>Duffel's most valuable asset, our trip planning dashboard, will be branded with the look & feel of your website. Increase brand awareness by promoting your itineraries and content through our social channel.</p>
+		</div>
+		-->
+		
+		<div class="clear"></div>
+		
+		<div class="section">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/advertising.png"/></div>
+			
+			<p>Feature your advertisements whenever users create a new duffel. We can capture the audience during the "planning" stage. For more details about advertising opportunities, please contact <a style="text-decoration:underline;" href="mailto:sales@duffelup.com">sales@duffelup.com</a>.</p>
+		</div>
+		
+		<div class="section last">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/unlimited_photos.png"/></div>
+			
+			<p>Attach photos to attractions and activities. Increase click through rate by displaying photos in your itineraries and travel content. There is no limit on the size or number of photos you can upload.</p>
+		</div>
+		
+		<!--
+		<div class="section last">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/add_to_duffel.png"/></div>
+			
+			<p>Don't have a trip planner? Implement "Add to Duffel" widget for tight integration between your destination site and Duffel. Visitors can clip ideas directly to their own trips on Duffel, which will be increase your sites' search engine page rank and exposure via social channels.</p>
+		</div>
+		-->
+		
+		<div class="clear"></div>
+		
+		<div class="section">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/single-sign-on.png"/></div>
+			
+			<p>One of the biggest problems with other trip planners is that they are not compatible across different websites. If a user has signed up on Duffel already, they can immediately interact with your content without signing up another trip planner, hence increasing conversion.</p>
+		</div>
+		
+		<div class="section last">
+			<div id="screenshot"><img width="430px" height="190px" src="/images/business/archive.png"/></div>
+			
+			<p>Travelers love to document their travel memories and share them with friends. We help them do that by storing their travel plans all in one place, and allowing easy sharing when their friends ask for recommendations.</p>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<p align="center" style="font-size:18px;color:#1C86EE;">Try us out for free! Just follow our simple <a style="text-decoration:underline;" href="/business/demo#sign-up">two-step instructions</a>.</p>
+		
+	</div>
+	
+	<div class="clear"></div>
+	
+
+	
+	<%= render :partial => 'shared/footer' %>
+
+	<%= render :partial => 'shared/external_javascripts_without_fb'%>
+</body>
+</html>

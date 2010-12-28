@@ -1,0 +1,28 @@
+<div id="content">
+	<div id="board_gmap">
+	</div>
+</div>
+
+<div id="itinerary-header" class="clearfix">
+	<%= render :partial => 'trips/itinerary_header' %>
+</div>
+
+<div id="sidebar" style="bottom:35px;border-bottom: 1px solid #ddd;">
+
+	<% if @trip.start_date.nil? or @trip.end_date.nil? %>
+		<% unless @users.include?(current_user) %>
+			<p class="message">User has not scheduled an itinerary, yet.</p>
+		<% else %>
+			<p class="message"><%= link_to "Pick a date range", edit_trip_path(:id => @trip.permalink) %> and drag & drop your activities here!</p>
+		<% end %>
+	<% else %>			
+	<div id="itinerary">
+		<% (@trip.duration+1).times do |day| %>	
+			<div id="itinerary_day_<%= day+1 %>" class="clear">
+			<%= render :partial => 'events/scheduled_events', :locals => { :day => day, :map => true } %>
+			</div>
+		<% end %>
+	</div>
+	<% end %>
+
+</div>

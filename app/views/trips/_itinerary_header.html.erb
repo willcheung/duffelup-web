@@ -1,0 +1,14 @@
+<h2>My Itinerary</h2>
+
+<div id="idea-view-corkboard">
+	<% if !@trip.start_date.nil? and !@trip.end_date.nil? and @users.include?(current_user) %>
+		<a href="#" title="Expand Itinarary" alt="Expand Itinarary" id="idea-expand-all" onclick="<%= expand_all_javascript %> Effect.toggle('idea-collapse-all', 'appear', { duration: 0.0 }); Effect.toggle('idea-expand-all', 'appear', { duration: 0.0 }); return false;">Expand all</a>
+		<a href="#" title="Collapse Itinarary" alt="Collapse Itinarary" style="display:none;" id="idea-collapse-all" onclick="<%= collapse_all_javascript %> Effect.toggle('idea-expand-all', 'appear', { duration: 0.0 }); Effect.toggle('idea-collapse-all', 'appear', { duration: 0.0 }); return false;">Collapse all</a>
+		| <a title="View itinerary on corkboard as guest" alt="View itinerary on corkboard as guest" id="idea-view-as-guest" href="<%= trip_path(:id => @trip, :view => "itinerary") %>">View as guest</a>
+	<% elsif !@users.include?(current_user)%>
+		<a href="#" title="Expand Itinarary" alt="Expand Itinarary" id="idea-expand-all" onclick="<%= expand_all_javascript %> Effect.toggle('idea-collapse-all', 'appear', { duration: 0.0 }); Effect.toggle('idea-expand-all', 'appear', { duration: 0.0 }); return false;">Expand all</a>
+		<a href="#" title="Collapse Itinarary" alt="Collapse Itinarary" style="display:none;" id="idea-collapse-all" onclick="<%= collapse_all_javascript %> Effect.toggle('idea-expand-all', 'appear', { duration: 0.0 }); Effect.toggle('idea-collapse-all', 'appear', { duration: 0.0 }); return false;">Collapse all</a>
+	<% elsif @trip.start_date.nil? or @trip.end_date.nil? %>
+		<a title="View itinerary on corkboard as guest" alt="View as guest" id="idea-view-as-guest" href="<%= trip_path(:id => @trip, :view => "itinerary") %>">View as guest</a>
+	<% end %>
+</div>

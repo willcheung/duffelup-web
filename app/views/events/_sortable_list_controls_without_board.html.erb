@@ -1,0 +1,12 @@
+<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+<%= javascript_tag "Position.includeScrollOffsets = true" %>
+<% (@trip.duration+1).times do |i| %>
+	<%= sortable_element 'itinerary_list_'+(i+1).to_s,
+		:dropOnEmpty => true, 
+		:scroll => '\'sidebar\'',
+	  	:containment => @list_containment,
+	  	:constraint => false,
+		:only => 'sortable',
+      	:url => { :controller => "events", :action => "order_itinerary", :permalink => @trip, :view => "map" } %>
+<% end %>
+<% end %>
