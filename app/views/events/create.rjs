@@ -1,0 +1,8 @@
+page << "iBox.hide();"
+if params[:view] == "map"
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls_without_board')
+else
+  page.replace_html('board_events', :partial => 'events/board_events')
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
+end
+page << "iBox.initialize();"

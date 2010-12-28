@@ -1,0 +1,36 @@
+<title><%= @title %></title> 
+<h2>Synced Trip Schedule for : <%= @trip.title %><br>
+<span class="destination">Location : <%= @trip.destination %></span><br>
+<span class="destination">Timeframe : <%- if @trip.start_date and @trip.end_date -%><%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span>
+</h2>
+
+<h2>Scheduled Events:</h2>
+<ul>
+<% (@trip.duration+1).times do |day| %>
+	<% if @trip.duration != 0 %>
+		<% for event in @itinerary[day+1] %>
+			<% if event.title != nil %>
+        <% if event.eventable_type == "Notes" %>
+          <% next %>
+        <% end %>
+        <br>
+				<li><%= event.title %> : <%= (@trip.start_date + day) %></li>
+        <ul type="circle">
+				<% if event.eventable_type == "Foodanddrink" or event.eventable_type == "Activity" or event.eventable_type == "Hotel" %>
+					<li>Address: <%= event.address if not event.address.empty? %></li>
+					<li>Website: <%= event.website if not event.website.empty? %></li>
+					<li>Phone: <%= event.phone if not event.phone.empty? %></li>
+					<li>Notes: <%= event.note if not event.note.empty? %></li>
+				<% elsif event.eventable_type == "Transportation" %>
+					<li>From: <%= event.from if not event.from.empty? %></li>
+					<li>To: <%= event.to if not event.to.empty? %></li>
+					<li>Dept Time: <%= Time.parse(event.departure_time).strftime("%a %m/%d at %I:%M%p") unless event.departure_time.nil? %></li>
+          <li>Arrival Time: <%= Time.parse(event.arrival_time).strftime("%a %m/%d at %I:%M%p") unless event.arrival_time.nil? %></li>
+					<li>Notes: <%= event.note if not event.note.empty? %></li>
+				<% end %>
+        </ul>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+</ul>

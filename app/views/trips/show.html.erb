@@ -1,0 +1,44 @@
+<div id="content">
+	<div id="board_events">
+		<%= render :partial => 'events/board_events' %>
+	</div>
+</div>
+
+<div id="itinerary-header" class="clearfix">
+	<%= render :partial => 'trips/itinerary_header' %>
+</div>
+
+<div id="sidebar">
+	<% if @trip.start_date.nil? or @trip.end_date.nil? %>
+		<% unless @users.include?(current_user) %>
+			<p class="message"><%= display_user_name(@admins[0]) %> has not built the itinerary, yet.</p>
+		<% else %>
+			<p class="message"><%= link_to "Pick a date range", edit_trip_path(:id => @trip.permalink) %> and drag & drop your activities here.</p>
+		<% end %>
+	<% else %>			
+	<div id="itinerary">
+		<% (@trip.duration+1).times do |day| %>	
+			<div id="itinerary_day_<%= day+1 %>" class="clear">
+			<%= render :partial => 'events/scheduled_events', :locals => { :day => day, :map => false } %>
+			</div>
+		<% end %>
+	</div>
+	<% end %>
+	
+</div>
+
+<div id="map-preview">
+	<div class="map-link clearfix"><span class="map-title">Map Preview</span><a href="<%= trip_url(:id => @trip, :view => 'map') %>">View larger map &raquo;</a></div>
+	<a href="<%= trip_url(:id => @trip, :view => 'map') %>"><img class="center-map" src="<%= @static_map_url %>"/></a>
+</div>
+
+<% if !@city[0].nil? %>
+<div id="footer-promotions" class="clearfix">
+	<div class="title"><img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> <span style="margin-left:15px;font-size:12px;color:#aaa">Deals by BookingBuddy</span></div>
+	<ul class="deals">
+		<%= @hotel_feed %>
+		<li style="float:right;font-size:12px;color:#888;margin-right:50px;position:absolute;bottom:28px;right:30px;">Tip: <a style="color:#ccc;margin:0" href="/user/dashboard?tab=deals">Follow deals on your dashboard</a></li>
+		<li style="float:right;font-size:11px;color:#888;margin-right:50px;position:absolute;bottom:8px;right:30px;">*taxes, fees not included</li>
+	</ul>
+</div>
+<% end %>

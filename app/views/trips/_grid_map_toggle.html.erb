@@ -1,0 +1,11 @@
+<ul id="board-view">
+	<% unless map %>
+		<li id="grid-button" class="selected">Grid View</li>
+		<%= content_tag :li, link_to("Map View", trip_path(:id => @trip.permalink, :view => "map"), :title => "Map View"), :id => "map-button"  %> 
+		<%= content_tag :li, link_to("Print View", trip_print_itinerary_url(@trip), :target => "_blank", :title => "Print View", :onclick => "pageTracker._trackEvent('Duffel', 'click-print-itinerary');"), :id => "print-button" %> 
+	<% else %>
+		<%= content_tag :li, link_to("Grid View", trip_path(:id => @trip.permalink ), :title => "Grid View"), :id => "grid-button" %> 
+		<li id="map-button" class="selected">Map View</li>
+		<%= content_tag :li, link_to("Print View", trip_print_itinerary_url(@trip), :target => "_blank", :title => "Print View", :onclick => "pageTracker._trackEvent('Duffel', 'click-print-itinerary');"), :id => "print-button" %> 
+	<% end %>
+</ul>

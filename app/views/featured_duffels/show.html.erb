@@ -1,0 +1,51 @@
+<h1>Duffel's All-Stars</h1>
+
+<%= link_to 'Back', featured_duffels_path %>
+
+<div id="postbox" style="width: 675px">
+	<div id="post" style="min-height: 270px">
+		<div class="text">
+			<h1 style="text-align:center"><%= @featured_duffel.title %></h1>
+		
+			<div class="user-profile" style="margin-top:80px">
+				<span class="avatar">
+					<%= link_to display_thumbnail(@featured_duffel.user), profile_for(@featured_duffel.user) %>
+				</span>
+				<h3 style="text-align:center;font-size:16px">Created by<br/> <%= link_to display_user_name(@featured_duffel.user), profile_for(@featured_duffel.user) %></h3>
+				<div class="collaborators">
+					
+				</div>
+	
+			</div>
+		
+			<div class="featured-duffel">
+				<% if !@featured_duffel.trip.photo.size.nil? and @featured_duffel.trip.photo.size != "" %>
+				<span><a href="<%=trip_path(@featured_duffel.trip)%>"><img max-width="240" src="<%=@featured_duffel.trip.photo.url(:small) %>" class="duffel-image" /></a></span>
+				<% elsif !@featured_duffel.trip.photo_file_name.nil? %>
+				<span><a href="<%=trip_path(@featured_duffel.trip)%>"><img max-width="240" src="<%=@featured_duffel.trip.photo_file_name.gsub("_s.jpg", "_m.jpg") %>" class="duffel-image" /></a></span>
+				<% end %>
+		
+				<p style="margin-top: 8;padding: 20px 0 0 260px"> 
+					<%= @featured_duffel.trip.destination.gsub(", United States", "").split(";")[0..2].join(" | ") %> <% if @featured_duffel.trip.destination.gsub(", United States", "").split(";").size > 3 %>
+					<span class="mute">and <%= pluralize(@featured_duffel.trip.destination.gsub(", United States", "").split(";").size-3, "more city") %></span><% end %>
+					<span class="date mute"><%- if @featured_duffel.trip.start_date and @featured_duffel.trip.end_date -%><br/> from <%= display_trip_dates(@featured_duffel.trip.start_date,@featured_duffel.trip.end_date) -%><%- end -%></span>
+					<br/><br/>
+					<span class="comments"><a href="/trips/<%= @featured_duffel.trip.permalink %>/comments"><img src="/images/comments-16.png"/> <%= @trip_comments_size["#{@featured_duffel.trip.id}-comments-size"] %> 
+					&nbsp;
+					<img src="/images/ico-loved.png"/> <% if @all_trips_favorite_count[@featured_duffel.trip.id.to_s].nil? %> 0 <% else %> <%= @all_trips_favorite_count[@featured_duffel.trip.id.to_s] %> <% end %></a></span>
+				</p>
+			</div>
+		</div>
+	</div>
+	
+	<div id="postbottom">
+		<div class="meta">
+			<%= @featured_duffel.created_at.strftime("posted %A %m/%d/%Y") %>
+		</div>
+	</div>
+</div>
+
+<% if logged_in? and admin? %>
+<%= link_to 'Edit', edit_featured_duffel_path(@featured_duffel) %> |
+<%= link_to 'Back', featured_duffels_path %>
+<% end %>

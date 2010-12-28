@@ -1,0 +1,36 @@
+<% if event_detail.eventable_type == "Activity" or event_detail.eventable_type == "Hotel" or event_detail.eventable_type == "Foodanddrink" %>
+	
+	<% if event_detail.photo? %>
+	<img style="height:75px;float:left;padding:0 5px 5px 0;" src="<%= get_image_url(event_detail) %>" alt="<%= event_detail.title %>"/>
+	<% end %>
+	
+	<% if event_detail.partner_id == Idea::PARTNER_ID["viator"] %>
+		<div><strong><%= website_link("Website", event_detail.website,"", "onClick=\"pageTracker._trackEvent('Viator', 'click-from-itinerary', 'page-trip-planning');\"") %></strong></div>
+	<% elsif event_detail.partner_id == Idea::PARTNER_ID["ian_hotel"] %>
+		<div><strong><%= website_link("Website", event_detail.website,"", "onClick=\"pageTracker._trackEvent('Ian-Hotel', 'click-from-itinerary', 'page-trip-planning');\"") %></strong></div>
+	<% else %>
+		<div><strong><%= website_link("Website", event_detail.website) %></strong></div>
+	<% end %>
+	
+	<% unless event_detail.address.nil? or event_detail.address.empty? %><strong>Address:</strong> <%= h(event_detail.address) %> (<%= map_link("map", event_detail.address) %>)<br><% end %>
+	<% unless event_detail.phone.nil? or event_detail.phone.empty? %><strong>Phone:</strong> <%= h(event_detail.phone) %><br><% end %>
+	<%= simple_format_without_p(auto_link(h(event_detail.note), :all, :target => '_blank')) %>
+	
+	<div class="clearfix"></div>
+
+<% elsif event_detail.eventable_type == "CheckIn" %>
+	<img style="height:75px;float:left;padding:0 5px 5px 0;" src="<%= get_image_url(event_detail) %>" alt="<%= event_detail.title %>"/>
+	<%= simple_format_without_p(auto_link(h(event_detail.note), :all, :target => '_blank')) %>
+	<div class="clearfix"></div>
+
+<% elsif event_detail.eventable_type == "Transportation" -%>
+	
+	<strong>From:</strong> <%= event_detail.from %> 
+	<%= Time.parse(event_detail.departure_time).strftime("%a %m/%d at %I:%M%p") unless event_detail.departure_time.nil? %><br>
+	<strong>To:</strong> <%= event_detail.to %> 
+	<%= Time.parse(event_detail.arrival_time).strftime("%a %m/%d at %I:%M%p") unless event_detail.arrival_time.nil? %><br>
+	<%= simple_format_without_p(h(event_detail.note)) %>
+
+<% elsif event_detail.eventable_type == "Notes" -%>
+	<%= simple_format_without_p(auto_link(h(event_detail.content), :all, :target => '_blank')) %>
+<% end -%>

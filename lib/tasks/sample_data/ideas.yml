@@ -1,0 +1,181 @@
+ArcDeTriomphe:
+  id: 1000
+  title: Arc De Triomphe
+  address: Place Charles de Gaulle, 8e
+  phone: tel 01 55 37 73 77 (info)
+  transport: underground rail Charles de Gaulle Étoile, George V, Franklin D Roosevelt, Champs Élysées Clemenceau  bus 22, 30, 31, 52,73, 92
+  hours: Oct-Mar 10:00 - 22:30 ; Apr-Sep 10:00 - 23:00
+  website: arc-de-triomphe.monuments-nationaux.fr
+  keyword: monument
+  city_id: 1
+  category_id: 1
+
+Champs-Elysees:
+  id: 1001
+  title: Champs-Élysées
+  address: av des Champs-Élysées, 8e
+  transport: underground rail Charles de Gaulle-Étoile, George V, Franklin D Roosevelt, Champs-Élysées Clemenceau
+  keyword: architectural feature
+  city_id: 1
+  category_id: 1
+
+EiffelTower:
+  id: 1002
+  title: Eiffel Tower
+  address: Champ de Mars, 7e
+  phone: tel 01 44 11 23 23 (info)
+  transport: train Champ de Mars  underground railBir Hakeim, Trocadero
+  website: www.tour-eiffel.fr
+  keyword: tower
+  city_id: 1
+  category_id: 1
+
+MuseeDArtModerneDeLaVilleDeParis:
+  id: 1003
+  title: Musée D'Art Moderne De La Ville De Paris
+  address: 11 av du Président Wilson, 16e
+  phone: tel 01 53 67 40 00 (info)
+  transport: underground rail Iéna
+  hours: Tue, Thu & Sat-Sun 10:00 - 18:00 , Wed & Fri 10:00 - 22:00
+  website: www.mam.paris.fr
+  keyword: art gallery, museum
+  city_id: 1
+  category_id: 1
+
+MuseeDOrsay:
+  id: 1004
+  title: Musée D'Orsay 
+  address: 62 rue de Lille, 7e
+  phone: tel (01) 40 49 48 14 (info)
+  transport: underground railSolférino, Musée d'Orsay
+  hours: Tue, Wed, Fri-Sun 09:30 - 18:00 , Thu 09:30 - 21:45  tours in English Tue-Sat 11:30 ; in-depth tour Tue 14:30 , Thur 16:00 at least once a month
+  website: www.musee-orsay.fr
+  keyword: art gallery, museum, food onsite
+  city_id: 1
+  category_id: 1
+  
+MuseeDuLouvre:
+  id: 1005
+  title: Musée Du Louvre
+  address: place du Louvre, 1er
+  phone: tel (01) 40 20 53 17 (booking)  tel (01) 40 20 51 51 (info)
+  transport: bus 21, 27, 39, 48, 68, 69, 72, 81, 95  underground rail Palais Royal Musée du Louvre
+  hours: Mon, Thu, Sat, Sun 09:00 - 18:00 ; Wed, Fri 09:00 - 21:45
+  website: www.louvre.fr
+  keyword: art gallery, museum
+  city_id: 1
+  category_id: 1
+
+CathedraleDeNotreDameDeParis:
+  id: 1006
+  title: Cathédrale De Notre Dame De Paris
+  address: 6 Place du Parvis Notre Dame, 4e
+  phone: tel (01) 42 34 56 10 (info)
+  transport: underground rail Cité  bus 21, 24, 27, 38, 47, 85, 96
+  website: www.cathedraledeparis.com
+  keyword: religious/spiritual, architectural highlight
+  city_id: 1
+  category_id: 1
+
+OperaBastille:
+  id: 1007
+  title: Opéra Bastille
+  address: 2-6 place de la Bastille, 12e
+  phone: tel (01) 08 92 89 90 90 (info)
+  transport: underground railBastille
+  website: www.opera-de-paris.fr
+  keyword: opera
+  city_id: 1
+  category_id: 1
+
+FamiliaHotel:
+  id: 1008
+  title: Familia Hôtel
+  address: 11 Rue des Écoles, Latin Quarter, 5e
+  price_range: 2
+  keyword: Heritage and Low-key
+  city_id: 1
+  category_id: 3
+
+FamiliaHotel2:
+  id: 1009
+  title: Familia Hôtel 2
+  address: 11 Rue des Écoles, Latin Quarter, 5e
+  price_range: 2
+  keyword: Heritage and Low-key
+  city_id: 1
+  category_id: 3
+
+BlueElephant:
+  id: 1010
+  title: Blue Elephant
+  address: 43-45 rue de la Roquette, Bastille
+  phone: tel 01 47 00 42 00 (info)
+  transport: train Bastille
+  hours: lunch Mon-Fri 12:00 - 14:30 , Sun 12:00 - 15:00 , dinner Mon-Sat 19:00 - 24:00 , Sun 19:00 - 23:00
+  website: www.blueelephant.com
+  price_range: 2
+  keyword: Thai vegetarian, Thai
+  city_id: 1
+  category_id: 2
+
+ChezMarianne:
+  id: 1011
+  title: Chez Marianne
+  address: 2 rue des Hospitalières St-Gervais, 4e
+  phone: tel (01) 42 72 18 86 (info)
+  transport: underground rail St-Paul
+  hours: 12:00 - 24:00
+  price_range: 1
+  keyword: cafe, Kosher
+  category_id: 2
+  city_id: 1
+
+LaTourDArgent:
+  id: 1012
+  title: La Tour D'Argent
+  address: 15 quai de la Tournelle, 5e
+  phone: tel (01) 43 54 23 31 (info)
+  transport: underground rail Cardinal Lemoine or Pont Marie
+  website: www.latourdargent.com
+  price_range: 3
+  keyword: French, expensive/luxury, views
+  category_id: 2
+  city_id: 1
+
+BlueElephant2:
+  id: 1013
+  title: Blue Elephant 2
+  address: 43-45 rue de la Roquette, Bastille
+  phone: tel 01 47 00 42 00 (info)
+  transport: train Bastille
+  hours: lunch Mon-Fri 12:00 - 14:30 , Sun 12:00 - 15:00 , dinner Mon-Sat 19:00 - 24:00 , Sun 19:00 - 23:00
+  website: www.blueelephant.com
+  price_range: 2
+  keyword: Thai vegetarian, Thai
+  city_id: 1
+  category_id: 2
+
+ChezMarianne2:
+  id: 1014
+  title: Chez Marianne 2
+  address: 2 rue des Hospitalières St-Gervais, 4e
+  phone: tel (01) 42 72 18 86 (info)
+  transport: underground rail St-Paul
+  hours: 12:00 - 24:00
+  price_range: 1
+  keyword: cafe, Kosher
+  category_id: 2
+  city_id: 1
+
+LaTourDArgent2:
+  id: 1015
+  title: La Tour D'Argent 2
+  address: 15 quai de la Tournelle, 5e
+  phone: tel (01) 43 54 23 31 (info)
+  transport: underground rail Cardinal Lemoine or Pont Marie
+  website: www.latourdargent.com
+  price_range: 3
+  keyword: French, expensive/luxury, views
+  category_id: 2
+  city_id: 1

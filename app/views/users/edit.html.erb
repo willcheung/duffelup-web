@@ -1,0 +1,108 @@
+<%= render :partial => "settings" %>
+
+<script type="text/javascript">
+	$('tb1').addClassName('selected');
+</script>
+
+<% form_for(:user, :html => { :multipart => true }, :url => { :controller => 'users', :action => 'save' } ) do |f| -%>
+
+<script type="text/javascript">
+function displayUsername(x)
+{var y=document.getElementById(x).value;
+document.getElementById("username").innerHTML="duffelup.com/<b>" + y + "</b>"}
+</script>
+
+<br/>
+
+<fieldset>
+	
+<div class="notice-inline-user"><%= error_messages_for :user, :header_message => "Please correct the errors below:", :message => nil %></div>
+	
+<div style="float:right; padding:0">
+<% if @user.avatar.exists? then %>
+<p><%= image_tag @user.avatar.url(:medium) %></p>
+<% elsif !@user.avatar_file_name.nil? %>
+<p><%= image_tag(@user.avatar_file_name, :class => "image") %>
+<% else %>
+<p><%= image_tag("../images/icon-user.png", :class => "image") %></p>
+<% end %>
+<br/>
+<div class="form-group">
+Upload new profile photo:<br/>
+<%= f.file_field :avatar %>
+<br/><span class="hint">Max size of 1 Mb. JPG, GIF, or PNG.</span>
+</div>
+</div>
+	
+<div class="form-group">
+	<label for="user_full_name">Full Name:</label>
+	<%= f.text_field :full_name, :size => User::FULL_NAME_SIZE,
+                         :maxlength => User::FULL_NAME_MAX_LENGTH %>
+</div>
+
+<div class="form-group">
+	<label for="user_email">Email:</label>
+	<%= f.text_field :email, :size => User::EMAIL_SIZE,
+                         :maxlength => User::EMAIL_MAX_LENGTH %>
+</div>
+
+<div class="form-group">
+<label for="user_username">Username: <br/><br/><span class="hint" style="padding:0" id="username">http://duffelup.com/<b><%= current_user.username %></b></span></label>
+<%= f.text_field :username, :size => User::USERNAME_SIZE,
+                         :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %>
+</div>
+
+<div class="form-group">
+	<label for="user_home_city">Home City:<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span></label>
+	<%= text_field_with_auto_complete :user, :home_city, { :size => User::EMAIL_SIZE }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+</div>
+
+<div class="form-group"><label for="user_homepage">Homepage or Blog:</label>
+<%= f.text_field :homepage, :size => User::EMAIL_SIZE,
+                       		:maxlength => User::EMAIL_MAX_LENGTH %></div>
+
+<div class="form-group"><label for="user_bio">Short Bio:</label>
+<%= f.text_field :bio, :size => User::EMAIL_SIZE %></div>
+
+<div class="form-group"><label for="user_email_updates">Email me:</label>
+<%= check_box_tag :email_newsletter, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_NEWSLETTER) %> Infrequent updates about new features and our community</div>
+
+<div class="form-group"><label></label>
+<%= check_box_tag :email_favorite, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_FAVORITE) %> When someone adds my duffel as favorites</div>
+
+<div class="form-group" style="display:none;"><label></label>
+<%= check_box_tag :email_comment, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_COMMENT) %> When someone comments on my duffel</div>
+
+<div class="form-group"><label></label>
+<%= check_box_tag :email_trip_reminder, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_TRIP_REMINDER) %> Trip reminders a few days before my trip</div>
+
+<div class="form-group">
+	<label for="user_bandwidth">Photo Upload Limit:<br/><span class="hint">Resets 1st of every month</span></label>
+	<div class="progress-container">       
+	    <div style="width:<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 0) %>;"></div>
+	</div>
+	<span style="position:relative;bottom:7px;">&nbsp;<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 1) %> of 30 MB</span>   
+</div>
+
+<div class="form-group">
+<label>Link accounts:</label> 
+<% if current_user.facebook_user? && facebook_session %>
+<span><img src="/images/social/facebook-32x32.png" alt="Facebook" width="32" height="32" style="vertical-align: middle" /> Facebook Linked.</span>
+<% else %>
+<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=/user/edit';});}else{window.location='/users/link_user_accounts?redirect=/user/edit'}})", :v => 2) %>
+<% end %>
+
+<% if current_user.twitter_user? %>
+<span><img src="/images/social/twitter-32x32.png" alt="Facebook" width="32" height="32" style="vertical-align: middle" /> Twitter Linked.</span>
+<% else %>
+	<%= link_to(image_tag('/images/social/twitter-login.png', :style => 'margin:0;vertical-align:middle;'), session_path(:twitter => 'true'), :method => :post) %>
+<% end %>
+</div>
+
+<div id="form-submit" class="clearfix">
+<div class="right" style="margin-top: 7px;"><p class="t11 delete-trip"><%= link_to "Delete my account", user_path, 
+				:confirm => ':( Are you sure you want delete yourself? All the data will be lost!', :method => :delete %></p></div>
+<%= submit_tag "Update Profile", :class => "submit" %></div>
+
+</fieldset>
+<% end -%>

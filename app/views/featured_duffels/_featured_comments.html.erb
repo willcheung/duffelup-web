@@ -1,0 +1,33 @@
+<div class="comments">
+	<div id="comments_for_trip_<%= d.trip.id %>">
+		<% if @trip_comments_size["#{d.trip.id}-comments-size"].to_i > 2 %>
+			<div id="hidden_comments_for_trip_<%= d.trip.id%>" style="display:none;">
+			<%= render :partial => "comments/comment", :collection => d.trip.comments[0..(@trip_comments_size["#{d.trip.id}-comments-size"].to_i-3)] %>
+			</div>
+			<a onclick="$('hidden_comments_for_trip_<%= d.trip.id%>').show();$(this).hide();return false;" href="#" class="more-comments">See all <%= @trip_comments_size["#{d.trip.id}-comments-size"] %> comments...</a>
+			<%= render :partial => "comments/comment", :collection => d.trip.comments[(@trip_comments_size["#{d.trip.id}-comments-size"].to_i-2)..(@trip_comments_size["#{d.trip.id}-comments-size"]).to_i] %> 
+		<% else %>
+			<%= render :partial => "comments/comment", :collection => d.trip.comments %> 
+		<% end %>
+	</div>
+	
+	<% if logged_in? %>
+		<% remote_form_for(:comment, :url => trip_comments_path(d.trip), :loading => "$(\'#{d.trip.id}_spinner\').show();", :complete => "$(\'#{d.trip.id}_comment_textarea\').value=\'\';$(\'#{d.trip.id}_spinner\').hide();") do |form| %> 
+			<span class="thumbnail"><div class='comment-avatar'>
+				<%= link_to display_thumbnail(current_user), profile_for(current_user), :alt => "You!", :title => "You!" %>
+			</div></span>
+			<div class='comment-content'>
+		
+				  <%= form.text_area :body, :id => "#{d.trip.id}_comment_textarea", :cols => '48', :rows => '2' %>
+				  <div class="comment-btn">
+					<%= submit_tag "ADD COMMENT", :class => 'submit' %><span id="<%= d.trip.id %>_spinner" style="display:none;">&nbsp;&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
+				  </div> 
+			</div>
+		<% end %>
+	<% else %>
+		<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> or log into 
+			<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=/featured';});}else{window.location='/users/link_user_accounts?redirect=/featured'}})", :v => 2) %>
+			to comment.</p>
+	<% end %>
+	
+</div>

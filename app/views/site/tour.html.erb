@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+<head> 
+	<title><%= @title %></title> 
+	<%= stylesheet_link_tag "tour" %>
+	<%= javascript_include_tag 'all' %>
+	<meta name="description" content="<%= @meta_description %>" />
+	<meta name="verify-v1" content="8IBqD8OB/RPT+h27hdBdg+7/u5HhbGdf43oyp43yk/U=" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+	
+	<script type="text/javascript">
+	
+Event.observe(window, 'scroll', function() {
+
+if( window.XMLHttpRequest ) {
+        if (document.documentElement.scrollTop > 0 || self.pageYOffset > 0) {
+            $('header').setStyle({
+            	position: 'fixed',
+            	top: '0',
+            });
+
+        } else if (document.documentElement.scrollTop < 0 || self.pageYOffset < 0) {
+            $('header').setStyle({
+            	position: 'absolute',
+            	top: '0',
+            });
+        }
+    }
+    
+    if( window.XMLHttpRequest ) {
+        if (document.documentElement.scrollTop > 70 || self.pageYOffset > 70) {
+            $('header').setStyle({
+            	paddingBottom: '25px'
+            });
+           
+        } else if (document.documentElement.scrollTop < 70 || self.pageYOffset < 70) {
+            $('header').setStyle({
+            	paddingBottom: '0'
+            });
+        }
+    }
+    
+    if( window.XMLHttpRequest ) {
+        if (document.documentElement.scrollTop > 70 || self.pageYOffset > 70) {
+            $('top').setStyle({
+            	position: 'fixed',
+            	top: '190px'
+            });
+           
+        } else if (document.documentElement.scrollTop < 70 || self.pageYOffset < 70) {
+            $('top').setStyle({
+            	position: 'absolute',
+            	top: '260px'
+            });
+        }
+    }
+
+});
+
+
+
+
+
+
+	</script>
+</head> 
+<body> 
+
+
+<div id="header" class="dark">
+	<div class="content">
+		<%= link_to 'Sign up', signup_url, :id => "signup" %>
+	
+		<h1 id="title">Meet Duffel.<br />
+		A visual, versatile trip planner.</h1>
+	</div>
+</div>
+
+<div id="header2" class="dark">
+	<div class="content">
+		<h2>Clip travel ideas from anywhere on the Web into<br />
+		one sortable, mappable, drag-and-droppable interface.</h2>
+	</div>
+</div>
+
+<div class="seperator" id="top"></div>
+
+<div class="content" style="padding-top: 280px;">
+	<h3>Duffel 101: How it works?</h3>
+	
+	<div class="step1">
+		<h1>Create a new "duffel" for your trip</h1>
+		<p>Make it private or share it with the world.</p>
+	</div>
+</div>
+
+<div class="seperator"></div>
+
+<div class="content">
+	<div class="step2">
+		<h1 style="margin-left: 250px">Collect Ideas and Research</h1>
+		<div class="left" style="width: 415px;">
+			<p>Duffel kickstarts your planning by<br />
+			suggesting things to do and places to stay.</p>
+		</div>
+		<div class="left">
+			<p><strong>Clip It:</strong> Clip ideas into your duffel as <br />you browse the web, using <br />our one-click bookmarklet</p>
+			<p><a href="/site/tutorial_bookmarklet" class="mute small" rel="ibox&width=630&height=420">Learn more: Watch a video</a></p>
+		</div>
+	</div>
+</div>
+
+<div class="seperator"></div>
+
+<div class="content">
+	<div class="step3">
+		<h1>Plan it Out Visually</h1>
+		<ul>
+			<li>See your ideas laid out in front of you in two views:<br />
+			our virtual corkboard and map view.</li>
+			<li>Drag and drop them into your itinerary.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="seperator"></div>
+
+<div class="content">
+	<div class="step4">
+		<h1>Collaborate with Friends</h1>
+		<ul>
+			<li>Invite others to plan the trip with you.</li>
+			<li>Leave comments, discuss what to do and when.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="seperator"></div>
+
+<div class="content">
+	<div class="step5">
+		<h1>Print, Share &amp; Enjoy</h1>
+		<ul>
+			<li>When you ready for your trip, simply print and<br />
+			carry your notes and research on the go.</li>
+			<li>Share your duffels on Twitter or Facebook or<br />
+			by embedding a widget on your blog or website.
+			<br/><br/>
+			<div class="mute">Want to learn more? <a href="/site/tutorial" class="mute" rel="ibox&width=635&height=400">Watch our visual tutorial</a></div>
+			</li>
+		</ul>
+	</div>
+	
+</div>
+
+<div class="seperator"></div>
+
+<div id="other" class="dark">
+	<div class="content samples">
+		<h3>Other Ways To Use Duffel</h3>
+		
+		<a href="http://duffelup.com/trips/planning-to-go-to-new-york" class="left" style="margin: 20px 0 0 0;">Plan a "someday" trip</a>
+		
+		<a href="http://duffelup.com/trips/new-york-duffel" class="left" style="margin: 50px 0 0 0;">Keep track of things to do<br /> in your hometown</a>
+
+		<a href="http://duffelup.com/trips/wedding-venue-hunting-in-sf" class="left" style="margin: 80px 0 0 0;">Plan a wedding</a>
+		
+		<a href="http://duffelup.com/trips/ted-2010-schedule-and-places-to-go-in-long-beach" class="left" style="margin: 110px 0 0 0;">Organize a conference</a>
+		
+	</div>
+</div>
+
+<div class="seperator"></div>
+
+<%= render :partial => 'shared/footer' %>
+
+<%= render :partial => 'shared/external_javascripts_without_fb'%>
+</body>
+</html>

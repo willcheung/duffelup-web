@@ -1,0 +1,9 @@
+development:
+  access_key_id: AKIAJMTCT2V5W7NCFUNQ
+  secret_access_key: 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
+test:
+  access_key_id: AKIAJMTCT2V5W7NCFUNQ
+  secret_access_key: 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
+production:
+  access_key_id: AKIAJRMOW6LDLADQPHKQ
+  secret_access_key: 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

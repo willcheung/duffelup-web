@@ -1,0 +1,161 @@
+/*-----------------------------------------------------------------------------------
+	Resets
+-----------------------------------------------------------------------------------*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin: 0;
+	padding: 0;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset,img { 
+	border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+}
+ol,ul {
+	list-style: none;
+}
+caption,th {
+	text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+q:before,q:after {
+	content: '';
+}
+abbr,acronym { 
+	border: 0;
+}
+
+/*-----------------------------------------------------------------------------------
+	Helpers
+-----------------------------------------------------------------------------------*/
+.left {float:  left;}
+.right{float: right;}
+.center{margin-left: auto; margin-right: auto;}
+.mute{color: #999;}
+.hide{display: none;}
+.clear{clear: both;}
+.small { font-size: 11px; }
+.medium { font-size: 15px; }
+.structural {
+	position:absolute;
+	left:-9999px;
+}
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+/*-----------------------------------------------------------------------------------
+	Base Styles + Typography
+-----------------------------------------------------------------------------------*/
+
+html{
+	font-size: 13px;
+	line-height: 20px;
+	font-family: 'Helvetica Neue', Helvetica-Neue, Helvetica, Arial, Sans-serif;
+}
+
+body {background: #212E3D; margin: 0; padding: 0; color: #fff; text-shadow: 0 -1px 0 #000; }
+p {margin: 5px 0 12px;}
+
+
+/*-----------------------------------------------------------------------------------
+	Components
+-----------------------------------------------------------------------------------*/
+
+.content { width: 980px; margin: 0 auto; font-size: 18px; line-height: 20px; }
+.content h1 { font-size: 28px; margin-bottom: 25px; }
+.content ul { list-style: disc; margin: 0 0 0 25px; }
+.content ul li { margin: 0 0 10px 0; }
+.seperator { background: #10171E; border-bottom: 1px solid #263648; height: 1px; }
+
+.dark { background: url(/images/tour/dark-bg.jpg); }
+
+#other { padding: 20px 0; }
+
+#header, #header2, #top { letter-spacing: -1px; position: absolute; width: 100%; left: 0; }
+#header { top: 0; padding: 40px 0 0 0; z-index: 2; }
+#header2 { top: 160px; z-index: 1; padding: 0 0 40px 0; }
+
+#header h1 { font-size: 52px; line-height: 50px; }
+#header2 h2 { font-size: 28px; line-height: 30px; }
+
+#top { top: 260px; }
+
+#signup { display: block; width: 231px; height: 51px; background: url(/images/tour/sign-up.png) no-repeat; text-indent: -99999px; float: right; margin: 47px 0 0 0; outline: 0; }
+#signup:hover { background-position: left center; }
+#signup:active { background-position: left bottom; }
+
+h3 { line-height: 20px; margin: 15px 0; color: #CAED3B; font-size: 16px; font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; text-shadow: 1px 1px 1px #222; }
+
+.step1 { background: url(/images/tour/step-1.jpg) no-repeat; height: 139px; padding: 80px 0 0 70px; }
+.step2 { background: url(/images/tour/step-2.jpg) no-repeat 0 50px; height: 235px; padding: 100px 0 0 75px; }
+.step3 { background: url(/images/tour/step-3.jpg) no-repeat 0 50px; height: 225px; padding: 142px 0 0 75px; }
+.step4 { background: url(/images/tour/step-4.jpg) no-repeat 140px 50px; height: 158px; padding: 128px 0 0 435px; }
+.step5 { background: url(/images/tour/step-5.jpg) no-repeat 0 50px; height: 194px; padding: 120px 0 0 70px; }
+
+.samples { background: url(/images/tour/samples.jpg) no-repeat 0 50px; height: 394px; padding: 0 0 0 8px; }
+.samples a { color: #fff; text-decoration: none; width: 230px; height: 40px; padding: 200px 0 0 0; }
+
+/*-----------------------------------------------------------------------------------
+	Footer
+-----------------------------------------------------------------------------------*/
+
+#footer { background: #233142; border-top: 1px solid #263648; padding: 20px; text-align: center; font-size: 11px; color: #999;}
+#footer a { margin: 0 10px; color: #90979E; text-decoration: none; }
+#footer a:hover { color: #fff; }
+#footer p { margin: 0; padding: 0; }
+
+/*-----------------------
+   ibox
+------------------------*/
+#ibox_wrapper {
+	margin: 0;
+	padding: 20px;
+ 	background: transparent;
+	border: 0;
+}
+
+#ibox_content {
+	font-size: 12px;
+	line-height: 17px;
+	border: 0; 
+	padding: 15px;
+	overflow: hidden;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#ibox_footer_wrapper {margin: 0 -3px 0 0; z-index: 1000002;}
+#ibox_footer_wrapper a{
+	background: url('../images/icon-close.png') no-repeat;
+	display: block;
+	width: 25px;
+	height: 25px;
+	text-indent: -9999px;
+}
+
+#ibox_footer { text-indent: -99999px; }
+
+#ibox_progress {
+    text-indent: -100000px;
+    background: #fff url('../images/loading.gif') center center no-repeat;
+}

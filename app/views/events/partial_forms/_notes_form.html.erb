@@ -1,0 +1,12 @@
+<div id="primarycontent">
+	<p><label for="event_title">Title:</label>
+	<%= form.text_field :title %></p>
+	
+	<% fields_for :notes do |f| -%>
+		<p>
+		<label for="note">Notes:</label>
+		<%= f.text_area :content, :rows => 20, :cols => 85 %>
+		<em class="helper">example: buy carry-on safe bottles. remember to bring toothbrush.</em>
+		</p>
+	<% end -%>
+</div>

@@ -1,0 +1,18 @@
+<div id="updates">
+	<% if (!@activities.nil? and !@activities.empty?) and (!@news_feed_with_total_pages.nil? and !@news_feed_with_total_pages.empty?) %>
+	<div id="activities_container" class="display">
+    	<div id="activities_feed">
+			<%= render :partial => "activities_feeds/activities_feed", :collection => @activities %>
+	    </div>
+
+		<div class="clearfix"></div>
+		
+		<%= will_paginate @news_feed_with_total_pages, 
+						:params => {:controller => 'users', :action => 'more_news_feed'},
+						:renderer => FlowPagination::LinkRenderer %>
+	
+	</div>
+	<% else %>
+	<p>No updates.  Go find some friends!</p>
+	<% end %>
+</div> <!-- #updates -->

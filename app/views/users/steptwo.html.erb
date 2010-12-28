@@ -1,0 +1,27 @@
+<div id="clip-it">
+	
+	<div class="next-step">
+		<div style="margin-top: 80px">
+		<h3>Ready to plan your trip?</h3>
+		<ul style="line-height:22px">
+			<li><big><%= link_to "Yup! Take me to my dashboard &raquo;", dashboard_path(:new => "1") %></big></li>
+			<li><small><a href="/site/tools">Learn more about bookmarker &raquo;</a></small></li>
+		</ul>
+		</div>
+	</div>
+
+	<h1><big>Before you start planning your trip...</big></h1>
+
+	<p style="width: 440px">Try our bookmarker tool! The Duffel Clip-It Bookmarker lets you save travel info and photos from the web with <b>just one click</b>. </p>
+	
+	<%= render :partial => "shared/bookmarklet" %>
+	
+	<br/>
+	<p>With our bookmarker, you can clip:</p>
+	<ul>
+		<li>&rsaquo; Lodging options</li>
+		<li>&rsaquo; Flight confirmation</li>
+		<li>&rsaquo; Photos, maps, and more!</li>
+	</ul>
+</div>
+<br/><br/>

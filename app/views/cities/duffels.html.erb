@@ -1,0 +1,50 @@
+<%= javascript_include_tag 'all' %>
+<div id="central">
+	<%= render :partial => 'cities_header' %>
+	
+	<div class="t11 more-duffels" style="margin-top: 8px; float: right;">
+	Sort by: 
+	<form id="sortby" name="sortby" style="display: inline;">
+	<select name="sortbySelect" id="sortbySelect" onchange="location.href=sortby.sortbySelect.options[selectedIndex].value">
+		<% if params[:country_code] == "US" or params[:country_code] == "CA" %>
+		<option <% if params[:sort] == "recent" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :sort => "recent", :filter => params[:filter]) %>">Recency</option>
+		<option <% if params[:sort] == "popular" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :sort => "popular", :filter => params[:filter]) %>">Popularity</option>
+		<% else %>
+		<option <% if params[:sort] == "recent" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :sort => "recent", :filter => params[:filter]) %>">Recency</option>
+		<option <% if params[:sort] == "popular" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :sort => "popular", :filter => params[:filter]) %>">Popularity</option>
+		<% end %>
+	</select></form>
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    Filter by Length of Stay:
+    <form id="filterby" name="filterby" style="display: inline;">
+    	<select name="filterbySelect" id="filterbySelect" onchange="location.href=filterby.filterbySelect.options[selectedIndex].value">
+    		<% if params[:country_code] == "US" or params[:country_code] == "CA" %>
+			<option <% if params[:filter] == "none" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :filter => "none", :sort => params[:sort]) %>">No filter</option>
+			<option <% if params[:filter] == "short" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :filter => "short", :sort => params[:sort]) %>">1-3 days</option>
+			<option <% if params[:filter] == "medium" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :filter => "medium", :sort => params[:sort]) %>">4-7 days</option>
+			<option <% if params[:filter] == "long" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :filter => "long", :sort => params[:sort]) %>">8+ days</option>
+			<option <% if params[:filter] == "no_dates" %> selected="selected" <% end %> value="<%= na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city], :filter => "no_dates", :sort => params[:sort]) %>">No planned dates</option>
+			<% else %>
+			<option <% if params[:filter] == "none" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :filter => "none", :sort => params[:sort]) %>">No filter</option>
+			<option <% if params[:filter] == "short" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :filter => "short", :sort => params[:sort]) %>">1-3 days</option>
+			<option <% if params[:filter] == "medium" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :filter => "medium", :sort => params[:sort]) %>">4-7 days</option>
+			<option <% if params[:filter] == "long" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :filter => "long", :sort => params[:sort]) %>">8+ days</option>
+			<option <% if params[:filter] == "no_dates" %> selected="selected" <% end %> value="<%= city_duffels_url(:country_code => params[:country_code], :city => params[:city], :filter => "no_dates", :sort => params[:sort]) %>">No planned dates</option>
+			<% end %>
+    	</select>
+    </form>
+
+    </div>
+
+	<h2>Public Duffels to <%= @city.city %></h2>
+
+	<% cache("more-duffels-#{@city.city_country}-#{params[:sort] || "recent"}-#{params[:filter] || "none"}-#{params[:page] || 1}") do %>	
+	<ul id="duffel-list" class="duffel-list">
+		<%= render :partial => 'show_more_duffels'%>
+	</ul>
+	<div class="clear"></div>
+
+	<%= will_paginate @trips, :inner_window => 2, :outer_window => 0 -%>	
+	<% end %>
+</div>

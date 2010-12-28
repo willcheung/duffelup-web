@@ -1,0 +1,180 @@
+/* Resets/Helpers */
+
+/* @group Reset */
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+margin: 0;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+fieldset,img {
+border: 0;
+}
+ol,ul {
+list-style: none;
+}
+/* @end */
+
+/* @group Helpers */
+
+.left {
+float: left;
+}
+
+.right {
+float: right;
+}
+
+.center {
+margin-left: auto;
+margin-right: auto;
+}
+
+.mute {
+color: #ccc;
+}
+
+.hide {
+display: none;
+}
+
+.clear {
+clear: both;
+}
+
+.clearfix:after, .scheduled-item:after{
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+
+.clearfix, .scheduled-item{
+display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix, .scheduled-item{
+height: 1%;
+}
+.clearfix, .scheduled-item{
+display: block;
+}
+/* End hide from IE-mac */
+
+/* @end */
+
+
+/* Typography ---------------- */
+
+html {
+	font-size: 9pt;
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+*html body {
+	font-size: x-small; /*for IE5/WIn */
+	font-size: small; /*for other IE versions */
+}
+
+/* Print Menu ---------------- */
+
+#print-actions{
+	display: none;
+}
+
+/* Itinerary ---------------- */
+
+#itinerary{
+	margin: 0;
+}
+
+#itinerary h1{
+	border-top: 5px solid #000;
+	padding: 15px 0 15px 0;
+	font-size: 3em;
+}
+
+#itinerary h2{
+	border-top: 1px solid #000;
+	line-height: 1.7em;
+	font-size: 2em;
+	margin-top: 30px;
+}
+
+#itinerary h3{
+	padding: 15px 0 0 0;
+	font-size: 1.8em;
+	font-weight: normal;
+	margin: 0 0 10px 0;
+}
+
+#itinerary h3 span {
+	background: #666;
+	color: #000; 
+	font-size: 11px; 
+	padding: 3px 5px;  
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	position: relative;
+	top: -4px;
+ }
+
+#itinerary h3 span.Activity {background: #b3d335;}
+#itinerary h3 span.Hotel {background: #ccc;}
+#itinerary h3 span.Foodanddrink {background: #00aeef;}
+#itinerary h3 span.transport {background: #e91e79;}
+#itinerary h3 span.Notes {background: #fff200;}
+
+#itinerary .destination {
+	font-size: 12px;
+}
+
+.page-break {page-break-before:always}
+
+.scheduled-item{
+	margin: 1.5em 0 3.0em;
+}
+
+.location{
+	margin-right: 15px;
+}
+
+.details p { 
+	margin: 0 0 15px 0;
+	font-size: 12px;
+}
+
+.url { font-size: 11px; }
+
+address { color: #555; margin: 0 0 10px 0; }
+
+.map-checkbox input {
+	margin-left: 15px;
+	margin-top: 3px;
+}
+
+.gmap{
+	width: 300px;
+	height: 300px;
+	border: 1px solid #ddd;
+	background: #f3f3f3;
+	float: right;
+	margin: 0 0 20px 20px;
+	overflow: hidden;
+}
+
+#board_gmap{
+	width: 850px;
+	height: 600px;
+	border: 1px solid #ddd;
+	overflow: hidden;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 4;
+}

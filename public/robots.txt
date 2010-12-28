@@ -1,0 +1,8 @@
+# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
+#
+# To ban all spiders from the entire site uncomment the next two lines:
+
+User-Agent: *
+Crawl-delay: 5 			  # 8 seconds crawl delay (supported by some crawlers)
+Request-rate: 1/5         # maximum rate is one page every 5 seconds
+# Disallow: /

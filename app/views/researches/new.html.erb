@@ -1,0 +1,52 @@
+<% if params[:local] == "true" %>
+	<h1>Copy to Duffel</h1>
+<% else %>
+	<h1>Add to Duffel</h1>
+<% end %>
+
+<!-- Flash accepts id="notice", id="warning", and id="error" -->
+<% flash.each do |key, msg| -%>
+  <%= content_tag :p, msg, :id => key -%>
+<% end -%>
+
+<div id="container">
+	<div class="box">
+	<% form_for(:event, :url => research_url(:trip_permalink => @trip_permalink, :jump => params[:jump], :local => params[:local])) do |form| %>
+	  <%= form.error_messages %>
+
+		<%= render :partial => "events/partial_forms/generic_idea_form", :locals => { :form => form } %>
+
+		<p></p>
+
+		<p id="submit">
+		<% if params[:local] == "true" %>
+		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'copy-idea', '#{@event_id}-#{params[:event_title]}');" %>
+		<% elsif params[:from_map] == "true" %>
+		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'add-idea', 'google-map');" %>
+		<% else %>
+		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>
+		<% end %>
+		
+		<% if params[:v] == "2" %>
+		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="window.location.href='/close.html'">
+		<% end %>
+		
+		<% unless params[:local] == "true" or @trips.empty? %>
+			<span class="right" style="margin-top:4px;font-size:0.9em">or <a target="_blank" href="/trips/<%= @trips[0].permalink %>">see my clipped notes &raquo;</a></span>
+		<% end %>
+		</p>
+	<% end %>
+	</div>
+</div>
+
+<% if params[:v] != "2" %>
+<div id="announcement">
+<p><strong>Great news!</strong> &nbsp;We enhanced our Clip-It bookmarker to give you an even better experience while collecting your travel notes.<br/><br/>
+	<% if request.user_agent.nil? or !request.user_agent.include? "MSIE" %>
+	Please <a id="site" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src='http://duffelup.com/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();"><img style="vertical-align:middle;margin-bottom:1px" src="../images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your Bookmarks Bar"/></a> and enjoy your clipping!
+	<% else %>
+	Please right-click the image below, select "Add to Favorites..." <a id="site" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src='http://duffelup.com/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();"><img src="../images/button-small-bookmarklet.png" alt="Add to Duffel" title="Drag this to your Bookmarks Bar"/></a> and enjoy your clipping!
+	<% end %></p>
+</div>
+<% end %>
+	

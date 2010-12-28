@@ -1,0 +1,13 @@
+<%= javascript_include_tag 'all' %>
+
+<div id="site">
+<h1>Your Feedback</h1>
+<p>Something not working right? Comments or suggestions?  Let us know.</p>
+<p>Also check out discussions on <a href="http://getsatisfaction.com/duffel" id="site">Get Satisfaction</a>.</p>
+<% form_for(:feedback, :html => { :id => "feedback_form" }, :url => { :action => :feedback, :controller => :site, :redirect => params[:redirect] }) do |form| %>
+	<p><%= form.text_area :body, :rows => 10, :cols => 100 %></p>
+	<p><%= submit_tag "Send Feedback", :class => "submit-flush" %></p>
+<% end %>
+</div>
+
+<%= set_focus("feedback_form") %>

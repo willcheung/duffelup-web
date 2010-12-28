@@ -1,0 +1,55 @@
+<h1>Create a New Duffel</h1>
+
+<div id="container">
+	
+<div class="box">
+
+<% form_for(:trip, :html => {:id => "trip_form", :multipart => true }, 
+					:url => trips_path(:back => params[:back], 
+					:idea_website => params[:idea_website], 
+				  	:event_title => params[:event_title], 
+					:jump => params[:jump],
+					:local => params[:local],
+					:event_code => params[:event_code],
+					:trip_code => params[:trip_code],
+					:idea_phone => params[:idea_phone],
+					:idea_address => params[:idea_address],
+					:selection => params[:selection],
+					:type => params[:type])) do |form| %>
+					
+
+<div class="notice-inline"><%= error_messages_for :trip, :header_message => "Please correct the errors below:", :message => nil %></div>
+
+	<p>
+	<label for="title">Duffel Name:</label>
+	<%= form.text_field :title, :size => 36 %>
+	</p>
+
+	<p>
+		<label for="destination">Destination:<span id="indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span><br/><span class="hint" style="padding:0; font-weight: normal; font-size: 11px;">Use semi-colon (;) to separate multiple cities.</span></label>
+		<%= text_field_with_auto_complete :trip, :destination, { :size => 36, :value => params[:city] }, { :indicator => "indicator", :tokens => ";", :frequency => ".1", :min_chars => "3" } %>
+	</p>
+
+	<p>
+		<label for="start_date">Dates: <span class="hint" style="padding:0; font-weight: normal; font-size: 11px;">(optional)</span></label>
+
+	<%= form.calendar_date_select :start_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});",
+	 			:onchange => "if($('trip_end_date').value.length==0){var endDate=new Date($F(this));endDate.setDate(endDate.getDate()+3);if (endDate!='Invalid Date'){$('trip_end_date').value=(endDate.getMonth()+1+'/'+endDate.getDate()+'/'+endDate.getFullYear())};};" %>
+
+	
+	<%= form.calendar_date_select :end_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});" %>
+	</p>
+	
+
+	<p>
+		<%= form.radio_button 'is_public', '0' %> Only people I invite &nbsp;&nbsp; 
+		<%= form.radio_button 'is_public', '1', :checked => true %> Anyone can view this trip 
+	</p>
+	
+
+<p style="padding: 10px 20px; margin-top: 30px" id="submit"><%= submit_tag "Let's go!", :class => "submit" %> &nbsp; or &nbsp;<%= link_to "Go back", @redirect_url %></p>
+<div class="clear"></div>
+<% end %>
+
+</div>
+</div>

@@ -1,0 +1,11 @@
+<% form_tag session_path(:redirect => request.request_uri) do -%>
+
+<label for="login"><small>Email or Username</small></label>
+<%= text_field_tag 'login' %> &nbsp;<a href="/signup">Sign up</a><br />
+
+<label for="password"><small>Password</small></label>
+<%= password_field_tag 'password' %>
+
+<%= submit_tag 'Log in', :class => "Login" %>
+
+<% end -%>

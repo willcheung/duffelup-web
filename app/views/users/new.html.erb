@@ -1,0 +1,114 @@
+<script type="text/javascript">
+function displayUsername(x)
+{var y=document.getElementById(x).value;
+document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "</b>"}
+</script>
+<script type="text/javascript">
+var RecaptchaOptions = {
+   theme : 'clean'
+};
+</script>
+<style type="text/css">
+.recaptchatable .recaptcha_image_cell, #recaptcha_table {
+  background-color:#dfdfdf !important; //reCaptcha widget background color
+}
+
+#recaptcha_table {
+  border-color: #f0f0f0 !important; //reCaptcha widget border color
+}
+
+#errorExplanation {
+	margin-top: 0px; left: 200px;top: 370px;
+}
+</style>
+
+<div id="banner">
+	<h1>Get started with Duffel</h1>
+	<div style="float:right;vertical-align:bottom;line-height:40px">&rsaquo; <%= link_to 'Sign In to Duffel', '/login' %> 
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		&rsaquo; <%= link_to 'About Us', '/site/about' %></div>
+</div>
+
+<div class="clear"></div>
+
+<div id="column" style="width:410px;">
+	<div id="bookmarklet">
+		<div class="header" style="border:0"><h3>Trip planning fun starts now!</h3></div>
+
+		<p style="width:350px;">Trip planning doesn't begin when you start researching hotels and things to do.</p>
+		<p style="width:350px;">Trip planning begins when you see a story featuring hip Paris cafés, an interesting article about a Greek temple built 4000 years ago, or when a friend recommends the best beach resort at Maui.</p>
+		<p>With Duffel, you can:</p>
+		<ul>
+			<li>Save notes, and clip articles and pictures from the web.</li>
+			<li>See everything laid out in front of you on virtual corkboard.</li>
+			<li>Invite friends and collaborate on the same trip.</li>
+		</ul>
+		<br/>
+		<p>Have an account? <a href="/login">Sign in here</a></p>
+	</div>
+</div>
+
+<div id="column">
+	
+	<div id="sign-in-form" style="width:450px">
+		
+		<div class="notice-inline"><%= error_messages_for :user, :header_message => "Please correct the errors below:", :message => nil %></div>
+		
+		<div class="header"><h3>Sign up for a free account</h3></div>
+
+<% form_for(@user, :url => user_path) do |f| -%>
+
+
+	<div class="form-group">
+	<label for="user_email">Email<br /><%= error_message_for :user, :email, { :tag => :span, :hint => 'Emails will be sent here', :success => 'Emails will be sent here' } %></label>
+	<%= f.text_field :email, :size => User::EMAIL_SIZE,
+	                         :maxlength => User::EMAIL_MAX_LENGTH %>
+	</div>
+	
+	<div class="form-group">
+		<label for="user_home_city">Home City<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span><br/><span class="hint">So we can recommend cheap flights</span></label>
+		<%= text_field_with_auto_complete :user, :home_city, { :size => User::EMAIL_SIZE }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+	</div>
+	
+	<div class="form-group">
+	<label for="user_username">Username<br/><span class="hint" id="username_display">duffelup.com/<b>[username]</b></span><br/><%= error_message_for :user, :username, { :tag => :span, :hint => '', :success => 'Username available!' } %>	</label>
+	<%= f.text_field :username, :size => User::USERNAME_SIZE,
+	                         :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %><br/>
+	
+		
+	</div>
+	
+	<div class="form-group">
+	<label for="user_password">Password<br/><%= error_message_for :user, :password, { :tag => :span, :hint => 'At least 6 characters long', :success => 'Looks good!' } %></label>
+	<%= f.password_field :password, :size => User::PASSWORD_SIZE,
+	  								:maxlength => User::PASSWORD_MAX_LENGTH %>
+	</div>
+	
+	<div id="recaptcha">
+	<%= recaptcha_tags %>
+	</div>
+	
+	<%= f.hidden_field :invitation_token %>
+	
+	<br>
+	<div><%= submit_tag "I accept.  Sign me up!", :class => "submit", :onclick => "$('indicator-submit').show();", :style => "font-size:14px;font-weight:bold;" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp; <span class="hint">By signing up, you agree to <%= link_to "Duffel Terms", :controller => 'site', :action => 'terms_of_use' %>.</span></div>
+
+	<% end -%>
+	<div class="login-buttons">
+		<ul>
+			<li> Or, sign up with accounts from: &nbsp;&nbsp; </li>
+			<li class="twitter">
+			<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
+				<%= submit_tag 'twitter' %>
+			<%- end -%>
+			</li>
+			<li class="facebook">
+				<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts';});}else{window.location='/users/link_user_accounts'}})", :v => 1) %></p>
+			</li>
+		</ul>
+	</div>
+	</div>
+	</div>
+</div>
+
+<%= set_focus("new_user") %>

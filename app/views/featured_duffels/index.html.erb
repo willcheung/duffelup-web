@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
+<head> 
+	<title><%= @title %></title> 
+	<%= stylesheet_link_tag "style", :media => :all %>
+	<%= javascript_include_tag 'all' %>
+	<%= javascript_include_tag 'application' %> 
+	
+<!--[if IE 7]>
+<link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+	<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.1/src/mapiconmaker.js" type="text/javascript"></script>
+	<script type="text/javascript" 
+			src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
+	</script>
+	<%- if @ideas_to_map[0] -%>
+    <script type="text/javascript"> 
+      var ideas_to_map = <%= @ideas_to_map[0].to_json %>;
+    </script>
+  	<%- end -%>
+	
+	<meta name="description" content="<%= @meta_description %>" />
+	<link rel="image_src" href="<%= @link %>" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+</head> 
+<body id="simple" onload="initialize_trip_map(false, false)" onunload="GUnload()">
+	
+	<!-- Flash accepts id="notice", id="warning", and id="error" -->
+	<% flash.each do |key, msg| -%>
+	  <%= content_tag :p, msg, :id => key -%>
+	<% end -%>
+
+    <div id="wrapper">
+		<div id="header" class="clearfix">
+			<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
+	    </div> 
+     	
+		<div id="wrapper-inner">
+      <%= render :partial => '/users/search_header' %>		
+			<div id="primary">
+				
+				<div id="featured">
+					<div class="stat">
+						<div class="stat_bubble">
+							<div class="stat_bubble_title">MEMBERS</div>
+							<div class="stat_bubble_content"><%= @counts["users"] %></div>
+						</div>
+						<div class="stat_bubble">
+							<div class="stat_bubble_title">DUFFELS</div>
+							<div class="stat_bubble_content"><%= @counts["duffels"] %></div>
+						</div>
+						<div class="stat_bubble">
+							<div class="stat_bubble_title">CITIES</div>
+							<div class="stat_bubble_content"><%= @counts["cities"] %></div>
+						</div>
+	
+						<div class="clearfix"></div>
+	
+						<!-- AddThis Button BEGIN -->
+						<div class="addthis_toolbox addthis_default_style">
+						<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button_compact">Share</a>
+						<span class="addthis_separator">|</span>
+						<a class="addthis_button_email"></a>
+						<a class="addthis_button_facebook"></a>
+						<a class="addthis_button_twitter"></a>
+						</div>
+						<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=duffel"></script>
+						<!-- AddThis Button END -->
+	
+					</div>
+	
+					<h1>Duffel's All-Stars</h1>
+					<p class="featured">Welcome! This is where we recognize and thank our top duffelers for sharing their thoughtful travel ideas and itineraries.</p>
+					<p class="featured">We hand pick these duffels every month, so keep planning fun trips and we'll find you!</p>
+					<p class="featured" style="margin-bottom: 15px;"></p>
+	
+					<% d = @featured_duffels[0] %>
+		
+						<div id="postbox-primary">
+							<div id="posttop">
+								<div class="meta">
+									<h1 style="text-align:center"><%= d.title %></h1>
+									<span class="destination"><%= d.trip.destination.gsub(", United States", "").split(";")[0] %> <% if d.trip.destination.gsub(", United States", "").split(";").size > 3 %></span>
+									<span class="mute">and <%= pluralize(d.trip.destination.gsub(", United States", "").split(";").size-1, "more city") %></span><% end %>
+									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= d.trip.duration.to_s -%>-day trip</span><%- end -%>
+								</div>
+							</div>
+	
+							<div id="post">
+								<div class="text">
+									<div class="left-container">
+				
+										<% if !d.trip.photo.size.nil? and d.trip.photo.size != "" %>
+										<div><a href="<%=trip_path(d.trip)%>"><img max-width="240" src="<%=d.trip.photo.url(:small) %>" class="duffel-image" /></a></div>
+										<% elsif !d.trip.photo_file_name.nil? %>
+										<div><a href="<%=trip_path(d.trip)%>"><img max-width="240" src="<%=d.trip.photo_file_name.gsub("_s.jpg", "_m.jpg") %>" class="duffel-image" /></a></div>
+										<% end %>
+				
+				
+										<div class="profile">
+											<%= link_to display_thumbnail(d.user, {:width => "40"}), profile_for(d.user) %>
+											<h1><%= link_to display_user_name(d.user), profile_for(d.user) %></h1>
+											<% if @users_by_trip_id[d.trip.id.to_s].size > 1 %>
+												<span class="collaborators">with <%= pluralize(@users_by_trip_id[d.trip.id.to_s].size-1, "collaborator") %> </span>
+											<% end %>
+										</div>
+
+									</div>
+				
+									<div class="right-container-top">
+										<ul>
+											<% @ideas_to_map[0].each_with_index do |event,i| %>
+											<li><div class="event">
+												<h3><%= h(truncate(event.title, :length => 30)) %></h3>
+												<%= simple_format(h(truncate(event.note, :length => 60)))%>
+												</div>
+											</li>
+											<% break if i == 3 %>
+											<% end %>
+											<p class="more">and <%= @ideas_to_map[0].size.to_i - 4 %> more ideas.</p>
+										<ul>
+									</div>
+				
+									<div class="right-container-bottom">
+										<div id="board_gmap" style="top:0"></div>
+									</div>
+									
+									<div class="see-more">
+										<a href="<%=trip_path(d.trip)%>">More about this trip &rarr;</a>
+									</div>
+				
+									<div class="clearfix"></div>
+				
+									<div id="trip_<%= d.trip.id %>_comments" <% unless (@trip_comments_size["#{d.trip.id}-comments-size"].to_i > 0) %> style="display:none;" <% end %>>
+										<%= render :partial => 'featured_duffels/featured_comments', :locals => { :d => d } %>
+									</div>
+				
+				
+								</div>
+							</div>
+		
+							<div id="postbottom">
+								<div class="meta">
+									posted <%= time_ago_or_time_stamp(d.created_at) %>
+									<% if @all_trips_favorite_count[d.trip.id.to_s].nil? %> 
+										<%= link_to "Favorite this (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+									<% else %>
+										<%= link_to "Favorite this (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+									<% end %>
+									<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>
+								</div>
+							</div>
+							
+							<% if logged_in? and admin? %>
+						  	<div id="admin-links">
+							    <p><%= link_to 'Edit', edit_featured_duffel_path(d) %> | 
+							    <%= link_to 'Destroy', d, :confirm => 'Are you sure?', :method => :delete %></p>
+							</div>
+							<% end %>
+						</div>
+					
+						<div id="postbox-secondary">
+						<% @featured_duffels[1..FeaturedDuffel::FEATURED_DUFFELS_PER_PAGE].each_with_index do |d,i| %>
+		
+							<div id="posttop">
+								<div class="meta">
+									<h1 style="text-align:center"><%= d.title %></h1>
+									<span class="destination"><%= d.trip.destination.gsub(", United States", "").split(";")[0] %> <% if d.trip.destination.gsub(", United States", "").split(";").size > 3 %></span>
+									<span class="mute">and <%= pluralize(d.trip.destination.gsub(", United States", "").split(";").size-1, "more city") %></span><% end %>
+									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= d.trip.duration.to_s -%>-day trip</span><%- end -%>
+								</div>
+							</div>
+		
+							<div id="post">
+								<div class="text">
+									<div class="left-container">
+										<% if !d.trip.photo.size.nil? and d.trip.photo.size != "" %>
+										<span><a href="<%=trip_path(d.trip)%>"><img width="125" src="<%=d.trip.photo.url(:small)%>" class="duffel-image" /></a></span>
+										<% elsif !d.trip.photo_file_name.nil? %>
+										<span><a href="<%=trip_path(d.trip)%>"><img width="125" src="<%=d.trip.photo_file_name%>" class="duffel-image" /></a></span>
+										<% end %>
+					
+										<div class="profile">
+											<%= link_to display_thumbnail(d.user, {:width => "30"}), profile_for(d.user) %>
+											<h1 style="line-height:12px;font-size: 14px"><%= link_to display_user_name(d.user), profile_for(d.user) %></h1>
+											<% if @users_by_trip_id[d.trip.id.to_s].size > 1 %>
+												<span class="collaborators">with <%= pluralize(@users_by_trip_id[d.trip.id.to_s].size-1, "collaborator") %> </span>
+											<% end %>
+										</div>
+									</div>
+									
+									<div class="right-container-top" style="width: 420px">
+										<ul>
+											<% @ideas_to_map[i+1].each_with_index do |event,j| %>
+											<li><div class="event">
+												<h3><%= h(truncate(event.title, :length => 30)) %></h3>
+												<%= simple_format(h(truncate(event.note, :length => 60)))%>
+												</div>
+											</li>
+											<% break if j == 2 %>
+											<% end %>
+											<p class="more">and <%= @ideas_to_map[i+1].size.to_i - 3 %> more ideas.</p>
+										<ul>
+									</div>
+									
+									<div class="see-more">
+										<a href="<%=trip_path(d.trip)%>">More about this trip &rarr;</a>
+									</div>
+				
+									<div class="clearfix"></div>
+				
+									<div id="trip_<%= d.trip.id %>_comments" <% unless (@trip_comments_size["#{d.trip.id}-comments-size"].to_i > 0) %> style="display:none;" <% end %>>
+										<%= render :partial => 'featured_duffels/featured_comments', :locals => { :d => d } %>
+									</div>
+								</div>
+							</div>
+			
+							<div id="postbottom">
+								<div class="meta">
+									posted <%= time_ago_or_time_stamp(d.created_at) %>
+									<% if @all_trips_favorite_count[d.trip.id.to_s].nil? %> 
+										<%= link_to "Favorite this (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+									<% else %>
+										<%= link_to "Favorite this (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+									<% end %>
+									<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>
+								</div>
+							</div>
+						
+						
+							<% if logged_in? and admin? %>
+						  	<div id="admin-links">
+							    <p><%= link_to 'Edit', edit_featured_duffel_path(d) %> | 
+							    <%= link_to 'Destroy', d, :confirm => 'Are you sure?', :method => :delete %></p>
+							</div>
+							<% end %>
+						<% end %>
+					</div>
+					
+					<div class="stat members" style="float:left">
+						<% cache("featured-all-stars-members") do %>
+						<h1 style="margin-top:0"><small>Recent All-Stars Members</small></h1>
+						<ul>
+					  	<% @featured_duffels.each_with_index do |d,i| %>	
+							<% break if i==15 %>
+							<li><a href="<%= profile_url(d.user.username) %>" title="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" alt="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" ><%= display_thumbnail(d.user, { :width => "38"}) %></a></li>
+						 <% end %>
+						</ul>
+						<% end %>
+
+						<hr/>
+
+						<h1><small>See Featured Duffels for...</small></h1>
+						<ul class="cities">
+						<% @cities[0..11].each_with_index do |c,i| %>
+							<% if c.country_code == "US" or c.country_code == "CA" %>
+							<li><%= link_to c.city_country.gsub(", United States", ""), na_city_url(:country_code => c.country_code, :region => c.region, :city => city_name_to_url(c.city_name)) %> (<%= c.count %>)</li>
+							<% else %>
+							<li><%= link_to c.city_country, city_url(:country_code => c.country_code, :city => city_name_to_url(c.city_name)) %> (<%= c.count %>)</li>
+							<% end %>
+						<% end %>
+						<% if @cities.size.to_i >= 12 %>
+						<div id="more_cities_toggle" style="margin-top:10px"><a style="color: #555;" onclick="$('more_cities_toggle').hide();$('more_cities').show();return false;" href="#">See all <%= @cities.size.to_s %> cities...</a></div>
+						<div id="more_cities" style="display:none;">
+						<% @cities[12..@cities.size.to_i].each_with_index do |c,i| %>
+							<% if c.country_code == "US" or c.country_code == "CA" %>
+							<li><%= link_to c.city_country.gsub(", United States", ""), na_city_url(:country_code => c.country_code, :region => c.region, :city => city_name_to_url(c.city_name)) %> (<%= c.count %>)</li>
+							<% else %>
+							<li><%= link_to c.city_country, city_url(:country_code => c.country_code, :city => city_name_to_url(c.city_name)) %> (<%= c.count %>)</li>
+							<% end %>
+						<% end %>
+						</div>
+						<% end %>
+						</ul>
+
+						<br/>
+						<hr/>
+						<div class="ads">
+						<br/>
+						<h2>Need a hotel?</h2>
+						<a href="http://www.booking.com/?aid=331036" target="_blank"><img src="https://www.booking.com/images/affiliate/303532/214x60_en_logo_tagline.gif" border="0" alt="Hotels and Lodging"></a>
+						<a href="http://www.mrandmrssmith.com/?affID=duffelup" target="_blank"><img src="/images/partners/mms-170x170.png"></a>
+						<br/><br/>
+						<h2>Looking for activities?</h2>
+						<a href="http://www.partner.viator.com/en/7101?bannerImg=different_234x60.gif" target="_blank"><img src="http://www.partner.viator.com/partner/admin/images/banners/themes/different_234x60.gif" border="0" alt="Book activities" width="195" /></a>
+						</div>
+					</div>
+					
+	
+					<div class="clear"></div>
+	
+					<%= will_paginate @featured_duffels, :inner_window => 2, :outer_window => 0 -%>
+
+					<% if logged_in? and admin? %>
+					<br />
+					<%= link_to 'New Featured Duffel', new_featured_duffel_path %>
+					<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%= render :partial => 'shared/footer' %>
+	</div>
+
+	<%= calendar_date_select_includes %>
+	<%= render :partial => 'shared/external_javascripts' %>
+</body>
+</html>

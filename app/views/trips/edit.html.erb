@@ -1,0 +1,13 @@
+<% if @trip.admins.include?(current_user) or admin? %>
+
+<h1>Edit Duffel Details</h1>
+	<% form_for(@trip, :html => { :multipart => true }, :url => trip_url(:permalink => @trip.permalink)) do |form| %>
+	
+	  <%= render :partial => "trip_form", :locals => { :form => form } %>
+	
+	  <div id="form-submit"><div class="right" style="margin-top: 7px;"><p class="t11 delete-trip"><%= link_to "Delete this duffel", trip_path(:id => @trip), 
+					:confirm => 'All the data in this duffel will be lost!  Are you sure you want to delete this duffel?', :method => :delete %></p></div><%= submit_tag "Save", :class => "submit", :onclick => "$('spinner').show();$('invite').value='true'"%> or <%= link_to "Cancel", trip_path(:id => @trip) %>&nbsp;&nbsp;&nbsp; <span id="spinner" style="display:none">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+	<% end %>
+<% else %>
+	<h3>Sorry, only duffel owner has permission to modify details of this trip.</h3>
+<% end %>

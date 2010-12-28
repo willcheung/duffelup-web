@@ -1,0 +1,35 @@
+<h2>Share this duffel</h2>
+
+	<% if @trip.is_public == 0 %>
+	
+		<p style="margin: 10px 0;">Your duffel is currently private.  <a href="<%= edit_trip_path(:id => @trip) %>">Make it public</a> and you can start sharing!</p>
+	
+		<p style="margin: 40px 0;">
+			<%= image_tag("/images/share-facebook.png", :alt => "Share on Facebook") %>
+			&nbsp; &nbsp; &nbsp;
+			<%= image_tag("/images/share-twitter.png", :alt => "Share on Twitter") %>
+		</p>
+			
+	<% else %>
+
+		<p style="margin: 40px 0;">
+			
+		<% if logged_in? && current_user.facebook_user? && facebook_session %>
+	
+		<%= link_to(image_tag("/images/share-facebook.png", :alt => "Share on Facebook"), "#", :onclick => @fb_onclick_share ) %>
+	
+		<% else %>
+	
+		<%= link_to(image_tag("/images/share-facebook.png", :alt => "Share on Facebook"), "#", :onclick => "FB.Connect.requireSession(function(){FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){#{@fb_onclick_share}window.location='#{@fb_login_button_url}';});}else{#{@fb_onclick_share}window.location='#{@fb_login_button_url}'}});}); return false;" ) %> 
+	
+		<% end %>
+	
+		&nbsp; &nbsp; &nbsp; 
+	
+		<a href="http://twitter.com/home?status=<%=@tweet%>" target="_blank"><img src='/images/share-twitter.png' alt='Tweet this' /></a>
+	
+		</p>
+	<% end %>
+
+
+

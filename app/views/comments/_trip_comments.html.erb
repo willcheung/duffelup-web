@@ -1,0 +1,73 @@
+<h2>Leave a comment or travel tip</h2>
+<div id="sliding-sideBarContentsInner">
+	<div id="comments_for_trip_<%= @trip.id %>">
+		<% if @trip_comments_size.to_i > Trip::NUM_OF_COMMENTS_TO_SHOW %>
+			<div id="hidden_comments_for_trip" style="display:none;">
+			<%= render :partial => "comments/comment", :collection => @trip.comments[0..(@trip_comments_size.to_i-Trip::NUM_OF_COMMENTS_TO_SHOW+1)] %>
+			</div>
+			<a onclick="$('hidden_comments_for_trip').show();$(this).hide();return false;" href="#" class="more-comments">See all <%= @trip_comments_size %> comments...</a>
+			<%= render :partial => "comments/comment", :collection => @trip.comments[(@trip_comments_size.to_i-Trip::NUM_OF_COMMENTS_TO_SHOW)..(@trip_comments_size).to_i] %> 
+		<% else %>
+			<%= render :partial => "comments/comment", :collection => @trip.comments %> 
+		<% end %>
+	</div>
+	
+	<% if logged_in? %>
+		<% remote_form_for(:comment, :url => trip_comments_path(@trip), :loading => "$(\'spinner\').show();", :complete => "$(\'#{@trip.id}_comment_textarea\').value=\'\';$(\'spinner\').hide();") do |form| %> 
+			<div class='comment-avatar'>
+				<%= link_to display_thumbnail(current_user), profile_for(current_user), :alt => "This is you!", :title => "This is you!" %>
+			</div>
+			<div class='comment-form'>
+				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '28', :rows => '3' %>
+				  <div class="comment-btn">
+					<span id="spinner" style="display:none;"><img src="/images/ajax-loader.gif">&nbsp;&nbsp;&nbsp;</span><%= submit_tag "POST", :class => 'submit' %>
+				  </div> 
+			</div>
+		<% end %>
+	<% else %>
+		<div class="comment-btn" style="text-align:center;margin-bottom:10px">
+			<%= submit_tag "POST A COMMENT", :class => 'submit', :onclick => "window.location=\"/signup?redirect=#{request.request_uri}#comments\"" %>
+		</div>
+		<p style="border-top: 1px dotted #999;padding-top:8px">Have an account? <%= link_to "Sign in", login_url(:redirect => request.request_uri+"#comments") %> or log into 
+			<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=#{request.request_uri}#comments';});}else{window.location='/users/link_user_accounts?redirect=#{request.request_uri}#comments'}})", :v => 2) %>
+		</p>
+	<% end %>
+</div>
+
+<div id="sliding-sideBarContentsBottom">
+	<div class="column">
+		<h2>Tripgoers <small>(<%= @users.size %>)</small></h2>
+		<div class="friends-list">
+			<ul>
+		  	<% @users.each_with_index do |user,i| %>	
+				<% break if i== 10 %>
+				<li><a href="<%= profile_url(user.username) %>" title="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" alt="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" ><%= display_thumbnail(user, { :width => "25" }) %></a></li>
+			 <% end %>
+			</ul>
+		</div>
+		<%- if @users.include?(current_user) -%>
+			<span style="font-weight:normal;clear:left;font-size:0.7em;display:block;margin-left:10px;"><%= link_to "Invite more", trip_invitation_path(:permalink => @trip) %></span>
+		<% end %>
+	</div>
+
+	<div class="column">
+		<h2>Favorites <small>(<%= @trip.favorites.size %>)</small></h2>
+		<div class="friends-list" style="min-height:30px;">
+			<% if @trip.favorites.size == 0 %>
+				<%- unless @users.include?(current_user) -%>
+				<p>Like this duffel? Be the first to <%= link_to 'favorite it', trip_create_favorite_path(@trip.permalink) %>.</p>
+				<% else %>
+				<p>Get others excited by 
+					<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">sharing it</a>.</p>
+				<%- end -%>
+			<% else %>
+			<ul>
+		  	<% @trip.favorites.each_with_index do |fav,i| %>
+				<% break if i== 10 %>	
+				<li><a href="<%= profile_url(fav.user.username) %>" title="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" alt="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" ><%= display_thumbnail(fav.user, { :width => "25" }) %></a></li>
+			 <% end %>
+			</ul>
+			<% end %>
+		</div>
+	</div>
+</div>

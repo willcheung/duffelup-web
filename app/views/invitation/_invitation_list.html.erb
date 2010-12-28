@@ -1,0 +1,17 @@
+<% unless @users.empty? %>
+	<ul id="collaborators">
+  <% @users.each do |user| %>
+	  <% if user.user_type == Invitation::USER_TYPE_ADMIN.to_s %>
+  		<li class="creator" title="Organizer" alt="Organizer">
+		<a href="<%= profile_url(user.username) %>"><%= display_thumbnail(user) %></a>
+		<a href="<%= profile_url(user.username) %>"><%= display_user_name(user) %></a>
+		</li>
+	  <% else %>
+		<li>
+		<a href="<%= profile_url(user.username) %>"><%= display_thumbnail(user) %></a>
+		<a href="<%= profile_url(user.username) %>"><%= display_user_name(user) %></a>
+		</li>
+	  <% end %>
+  <% end %>
+	</ul>
+<% end %>

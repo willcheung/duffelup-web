@@ -1,0 +1,106 @@
+<div id="comments">
+	<div class="stat" style="width: 280px">
+		<div class="trip-photo">
+			<% if !@trip.photo.size.nil? and @trip.photo.size != "" %>
+				<%= image_tag(@trip.photo.url(:small), :class => "image", :style => "max-width: 300px; max-height: 300px;") %>
+			<% else %>
+				<% unless @trip.photo_file_name.nil? %>
+				<%= image_tag(@trip.photo_file_name.gsub("_s.jpg", "_m.jpg"), :class => "image") %>
+				<p>Photo courtesy of Flickr</p>
+				<% end %>
+			<% end %>
+		  
+			<div class="clearfix" style="margin-bottom: 10px;"></div>
+		
+			<div class="stat_bubble">
+				<div class="stat_bubble_title">TRIPGOERS</div>
+				<div class="stat_bubble_content"><%= @users.size.to_s %></div>
+			</div>
+			<div class="stat_bubble">
+				<div class="stat_bubble_title">BOOKMARKED</div>
+				<div class="stat_bubble_content"><%= @trip.favorites.size.to_s %></div>
+			</div>
+			<div class="stat_bubble">
+				<div class="stat_bubble_title">COMMENTS</div>
+				<div class="stat_bubble_content"><%= @trip_comments_size %></div>
+			</div>
+		
+		</div>
+		
+		<%- if @admins.include?(current_user) and (@trip.photo.size.nil? or @trip.photo.size == "") %>
+			<%= submit_tag "ATTACH AN IMAGE TO THIS DUFFEL", :class => "submit", :type => "button", :onclick => "window.location='#{edit_trip_url(:id => @trip.permalink)}'" %>
+		<% end %>
+	</div>
+	
+	<div id="body">
+	
+	<div id="comment_header">
+		<h1><%= @trip.title %>&nbsp;&nbsp;&nbsp;&nbsp;
+		<% if @admins.include?(current_user) %>
+		<small><%= link_to "Edit Duffel", edit_trip_path(:id => @trip.permalink), :title => "Edit duffel details", :alt => "Edit duffel details" %></small>
+		<% end %>
+		</h1>
+		
+		<div class="back-link"><%= link_to "Back to planning board &rarr;", trip_path(@trip) %></div>
+		
+		<div class="destination">
+
+		</div>
+		
+		<%- if @trip.start_date and @trip.end_date -%>
+			<div class="date"> from <%= display_trip_dates(@trip.start_date,@trip.end_date) -%></div>
+		<%- end -%>
+	</div>
+	
+	<hr/>
+	
+	<h2>Who saved this as favorite
+		<span style="font-weight:normal;font-size:0.9em;margin-left:10px">
+		<%- unless @trip.favorite?(current_user) -%>
+			<%= link_to 'Favorite this', trip_create_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Bookmark this duffel", :alt => "Bookmark this duffel"  %>
+		<%- else -%>
+			<%= link_to 'Remove from Favorites', trip_delete_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Remove from my bookmarks", :alt => "Remove from my bookmarks"  %>
+		<%- end -%></span></h2>
+	<div class="friends-list">
+		<ul>
+		<% if @trip.favorites.size == 0 %>
+		<p>Be the first to save this duffel as a favorite. You will be able to access it from your dashboard.</p>
+		<% else %>
+	  	<% @trip.favorites.each_with_index do |fav,i| %>
+			<% break if i== 21 %>	
+			<li><a href="<%= profile_url(fav.user.username) %>" title="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" alt="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" ><%= display_thumbnail(fav.user, { :width => "40" }) %></a></li>
+		 <% end %>
+		<% end %>
+		</ul>
+	</div>
+
+	<hr/>
+	
+	<h2>Who's on this trip
+		<%- if @users.include?(current_user) -%>
+			<span style="font-weight:normal;font-size:0.9em;margin-left:10px"><%= link_to "Invite more", trip_invitation_path(:permalink => @trip) %></span>
+			<% end %></h2>
+	<div class="friends-list">
+		<ul>
+	  	<% @users.each_with_index do |user,i| %>	
+			<% break if i== 21 %>
+			<li><a href="<%= profile_url(user.username) %>" title="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" alt="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" ><%= display_thumbnail(user, { :width => "40" }) %></a></li>
+		 <% end %>
+		</ul>
+	</div>
+	
+	<hr/>
+	
+	<h2>What people are talking about</h2>
+
+	<% if @trip.is_public == 0 %>
+		<% if @users.include?(current_user) %>
+			<%= render :partial => 'comments' %>
+		<% end %>
+	<% else %>
+		<%= render :partial => 'comments' %>
+	<% end %>
+	
+	</div>
+</div>
+

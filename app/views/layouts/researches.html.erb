@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
+<head> 
+	<title><%= @title %></title> 
+	<%= stylesheet_link_tag "bookmarklet" %>
+	<%= javascript_include_tag 'all' %>
+	<%= javascript_include_tag 'application' %> 
+	<%= calendar_date_select_includes %>
+
+	<meta name="description" content="<%= @meta_description %>" />
+	<link rel="image_src" href="<%= @link %>" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/png" href="/favicon.png">
+</head> 
+<body> 
+	<div id="wrapper">
+		
+		<% if params[:v] == "2" or (!session[:return_to].nil? and session[:return_to].include?("v=2")) %>
+		<div id="close" class="rightHeader"><a href="/close.html"><img src="/images/icon-close.png"/></a></div>
+		<% end %>
+		
+		<%= yield %>
+	</div>
+	
+	<%- if "production" == RAILS_ENV -%>
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-4735309-1");
+	pageTracker._initData();
+	pageTracker._trackPageview();
+	</script>
+	<%- end -%>
+	
+	<%= fb_connect_javascript_tag %>
+	<%= init_fb_connect "XFBML"%>
+</body>
+</html>

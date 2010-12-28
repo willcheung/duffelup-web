@@ -1,0 +1,41 @@
+<p>
+	Hello <%= @name %>,
+
+	<br/><br/>
+
+	Welcome back! Hope you had a good time in <%= @destination %>!  Just want to let you know that you can share your duffel 
+	<a href="<%= @trip_url %>" target="_blank"><%= @trip_title %></a> with friends and family.
+	By sharing your duffel, you can:
+	
+	<ul>
+		<li>Offer your travel experience and expertise to the duffel community.</li>
+		<li>Let your friends and family know where you went during your vacation.</li>
+		<li>Get featured on our <a href="http://duffelup.com/featured">Duffel All-Stars page</a>.</li>
+	</ul>
+	
+	<br/>
+
+	<% if @trip_is_public == 1 %>
+	You can start by:
+	<% else %>
+	Since your duffel is private right now, you can start by <a href="<%= @trip_edit_url %>" target="_blank">making it public</a> and:
+	<% end %>
+	
+	<ul>
+		<li><a href="http://twitter.com/home?status=Just+returned+from+my+trip+to+<%=@destination.gsub(' ', '+')%>:+<%= @short_trip_url %>+%23duffelup" target="_blank">Sharing on Twitter</a></li>
+		<li><a href="http://www.facebook.com/share.php?u=<%= @trip_url %>" target="_blank">Sharing on Facebook</a></li>
+	</ul>
+	
+	<br/>
+	Thanks for using Duffel to plan your adventure.  We look forward to see you again!
+	<br><br>
+	- The Duffel Team
+	<br>
+	<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+
+</p>
+
+<p>
+	p.s. You can disable these notices on your <a href="http://duffelup.com/user/edit">account page</a>.
+</p>
+

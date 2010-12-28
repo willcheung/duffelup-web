@@ -1,0 +1,30 @@
+html{
+	background: #ccc;
+}
+
+#print-actions{
+	background: #555;
+	color: #fff;
+	padding: 10px 20px;
+	display: block;
+}
+
+#print-actions a{
+	color: #fff;
+	float: right;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+#print-actions form{
+	float: left;
+}
+
+#itinerary{
+	background: #fff;
+	margin: 20px auto;
+	padding: 80px;
+	border-right: 2px solid #999;
+	border-bottom: 2px solid #bbb;
+	width: 850px;
+}

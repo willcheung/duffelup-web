@@ -1,0 +1,60 @@
+<h1>Duffel Metrics and Super Secret Admin Controls</h1>
+<h3 style="color:red">Note: This page is server intensive, so please refrain from hitting refresh like a mad man (or woman)!<h3>
+
+<div style="font-size:18px">
+<p>User count: <span style="color:blue"><%= @user_count %></span></p>
+
+<p>Active users (% / last 30/60 day total)</p>
+<p style="padding-left:15px">30 days: <span style="color:blue"><%= @user_count_30 %> / <%= (@user_count_30.to_f/@user_count.to_f)*100 %>%</span></p>
+<p style="padding-left:15px">60 days: <span style="color:blue"><%= @user_count_60 %> / <%= (@user_count_60.to_f/@user_count.to_f)*100 %>%</span></span></p>
+
+<p>User sign up source by channel</p>
+<% @user_signup_channels.each do |u| %>
+	<p style="padding-left:15px"><strong><%= u.source %></strong> --- <%= u.count_src %></p>
+<% end %>
+
+<p>User count by Fb (% / total): <span style="color:blue"><%= @fb_user_count %> / <%= (@fb_user_count.to_f/@user_count)*100 %>%</span></p>
+
+<p>New users via email invitation (% / total): <span style="color:blue"><%= @email_invitation_signup %> / <%= (@email_invitation_signup.to_f/@user_count)*100 %>%</span></p>
+
+<p>New users via Fb invitation (% / total): <span style="color:blue"><%= @fb_invitation_signup %> / <%= (@fb_invitation_signup.to_f/@user_count)*100 %>%</span></p>
+
+<p>Conversion rate for invitation (# of sign-ups divided by # of invitations sent)</p>
+<p style="padding-left:15px">Email: <span style="color:blue"><%= (@email_invitation_signup.to_f/@email_invitation_sent)*100 %>%</span></p>
+<p style="padding-left:15px">Facebook: <span style="color:blue"><%= (@fb_invitation_signup.to_f/@fb_invitation_sent)*100 %>%</span></p>
+<p style="padding-left:15px">Combined: <span style="color:blue"><%= ((@email_invitation_signup+@fb_invitation_signup).to_f/(@email_invitation_sent+@fb_invitation_sent))*100 %>%</span></p>
+
+<p>Number of users that has at least one duffel (% / total): <span style="color:blue"><%= @has_one_or_more_duffels %> / <%= (@has_one_or_more_duffels.to_f/@user_count)*100 %>%</span></p>
+
+<p>Number of users that has two or more duffels (% / total): <span style="color:blue"><%= @has_two_or_more_duffels %> / <%= (@has_two_or_more_duffels.to_f/@user_count)*100 %>%</span></p>
+
+<p>Duffel count (total / private / public)  </p>
+<p style="padding-left:15px">Private: <span style="color:blue"><%= @duffel_count_private %> / <%= (@duffel_count_private.to_f/(@duffel_count_public+@duffel_count_private)*100) %>%</span></p>
+<p style="padding-left:15px">Public: <span style="color:blue"><%= @duffel_count_public %> / <%= (@duffel_count_public.to_f/(@duffel_count_public+@duffel_count_private)*100) %>%</span></p>
+<p style="padding-left:15px">Total: <span style="color:blue"><%= (@duffel_count_public+@duffel_count_private) %></span></p>
+
+<p>Number of duffels by duration (1-3 days / 4+ days): <span style="color:blue"><%= @one_to_three_days_duffels %> / <%= @four_or_more_days_duffels %></span></p>
+
+<p>Number of duffels that has more than one collaborator (total / %): <span style="color:blue"><%= @has_more_than_one_collabs %> / <%= (@has_more_than_one_collabs.to_f/(@duffel_count_public+@duffel_count_private))*100 %>%</span></p>
+
+<p>Number of Events (% Activities, % Lodging, % Food&Drink, % Notes, % Transportation)</p>
+<p style="padding-left:15px">Activities: <span style="color:blue"><%= @activities_count %> / <%= (@activities_count.to_f/@total_event_count)*100%>%</span></p>
+<p style="padding-left:15px">Lodging: <span style="color:blue"><%= @lodging_count %> / <%= (@lodging_count.to_f/@total_event_count)*100 %>%</span></p>
+<p style="padding-left:15px">Food & Drink: <span style="color:blue"><%= @fooddrink_count %> / <%= (@fooddrink_count.to_f/@total_event_count)*100 %></span></p>
+<p style="padding-left:15px">Transportation: <span style="color:blue"><%= @transportation_count %> / <%= (@transportation_count.to_f/@total_event_count)*100 %>%</span></p>
+<p style="padding-left:15px">Notes: <span style="color:blue"><%= @notes_count %> / <%= (@notes_count.to_f/@total_event_count)*100 %>%</span></p>
+<p style="padding-left:15px">Total: <span style="color:blue"><%= @total_event_count %></span></p>
+
+<p>Number of users logged in only once: <span style="color:blue"><%= @login_once_user_count %> / <%= (@login_once_user_count.to_f/@user_count)*100 %>%</p>
+
+<p>User growth rate (MoM)</p>
+<p style="padding-left:15px">New users last month: <span style="color:blue"><%= @new_user_count_last_month %></span></p>
+<p style="padding-left:15px">New users 2 months ago: <span style="color:blue"><%= @new_user_count_two_months_ago %></span></p>
+
+</div>
+
+<div><br/<br/></div>
+<h2>Users who signed up within last 15 days</h2>
+
+<br/><h2>Others</h2>
+<script src="http://www.gmodules.com/ig/ifr?url=http://widgets.getclicky.com/igdash/clicky.xml&amp;up_siteName=duffelup.com&amp;up_siteID=182191&amp;up_siteKey=804ec765d348b34e&amp;up_resultLimit=15&amp;up_showKeywords=1&amp;up_showEngines=1&amp;up_initalSelection=0-summary&amp;up_showPercent=1&amp;synd=open&amp;w=520&amp;h=350&amp;title=Clicky&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>

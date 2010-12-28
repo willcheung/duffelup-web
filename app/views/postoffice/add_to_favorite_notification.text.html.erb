@@ -1,0 +1,17 @@
+<p>Hello <%= display_user_name(@trip_creator) %>,
+<br><br>
+<%= display_user_name(@user) %> saved your duffel <a target="_blank" href="http://duffelup.com/trips/<%= @trip.permalink %>"><%= @trip.title %></a> into their favorites collection.
+Did you know that by adding duffels as faves, you up rank them?
+<br><br>
+Check out <a target="_blank" href="http://duffelup.com/<%= @user.username %>"><%= display_user_name(@user) %>'s duffels</a> or <a target="_blank" href="http://duffelup.com/search">find other interesting ones</a> to add to faves!
+<br><br>
+Thanks,
+<br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>
+
+<p>
+	p.s. You can disable these notices on your <a href="http://duffelup.com/user/edit">account page</a>.
+</p>

@@ -1,0 +1,119 @@
+(function(){
+	
+	var h = <%= params[:h] %>; // header
+	var p = <%= params[:p] %>; // avatar
+	var a = <%= params[:a] %>; // how many
+	var d = <%= params[:d] %>; // duffel pics
+	
+
+<% cache("api_widget-#{@key.key}") do %>
+	var duffelWidget = ' \
+		<style type="text/css"> \
+		#dw-box, #dw-box * { background: none; padding: 0; margin: 0; border: 0; text-decoration: none; width: auto; height: auto; font: 12px arial, helvetica, sans-serif !important; min-height: auto; min-width: auto; } \
+		#dw-box { background: #212E3D; color: #7C838C; font: 12px/130% arial, helvetica, sans-serif !important; margin: 15px 0; -moz-border-radius: 5px; -webkit-border-radius: 5px; } \
+		#dw-box .clear { clear: both; } \
+		#dw-box a { text-decoration: none !important; background: none !important; border: 0 !important; } \
+		#dw-box a:hover { text-decoration: none !important; background: none !important; border: 0 !important; } \
+		#dw-box img { border: 0 !important; padding: 0 !important; margin: 0 !important; } \
+		 \
+		#dw-header { padding: 10px; } \
+		#dw-header #dw-mypic { width: 35px; height: 35px; float: left; margin-right: 5px !important; } \
+		#dw-header #dw-myname { color: #fff; font-size: 12px !important; font-weight: bold !important; margin-top: 3px; display: block; } \
+		#dw-header #dw-mylocation, #dw-trips .dw-triploc, #dw-trips .dw-tripdate { color: #7C838C; font-size: 11px !important; display: block; } \
+		 \
+		#dw-trips { background: #2A3B4F; } \
+		#dw-trips ul { margin: 0 !important; padding: 0 !important; list-style: none; !important; background: #2A3B4F !important; } \
+		#dw-trips li { padding: 5px 10px !important; margin: 0 !important; border:0 !important; border-bottom: 1px solid #212E3D !important; background: #2A3B4F !important; list-style: none !important; } \
+		#dw-trips li:hover { background: #2C3E56 !important; } \
+		#dw-trips .dw-tripname { font-size: 14px !important; font-weight: bold !important; color: #B2D233 !important; display: block !important; margin-top: 3px !important; *position: absolute; } \
+		#dw-trips .dw-triploc { *margin-top: 3px !important; } \
+		#dw-trips .dw-trippic { width: 50px; height: 50px; float: left; margin-right: 5px !important; } \
+		 \
+		#dw-footer { padding: 5px 10px; _background: #212E3D; } \
+		#dw-footer #dw-logo { width: 46px; height: 13px; background: url(http://duffelup.com/images/dw-logo.png) no-repeat !important; display: block; text-indent: -9999px; outline: 0; float: left; border: 0 !important; } \
+		#dw-footer #dw-slogan { float: right; font-size: 10px !important; color: #7C838C; border: 0 !important; } \
+		</style> \
+		<div id="dw-box"> \
+			<div id="dw-header"> \
+	';
+
+	// if header is on
+
+	if(h==1){
+	duffelWidget += ' \
+				<a href="http://duffelup.com/<%= @user.username %>"> \
+	';
+
+	// if pic is on
+		if(p==1){
+	duffelWidget += ' \
+					<img id="dw-mypic" src="<%= @avatar_url %>" alt="<%= display_user_name(@user).gsub("\'", "") %>" /> \
+	';
+		}
+
+	duffelWidget += ' \
+					<span id="dw-myname"><%= display_user_name(@user).gsub("\'", "") %>\'s active duffels</span> \
+					<span id="dw-mylocation"><%= @user.home_city.gsub("\'", "") if not @user.home_city.nil? or not @user.home_city.blank? %></span> \
+				</a> \
+	';
+	}
+
+	duffelWidget += ' \
+			</div> \
+	<div class="clear"></div> \
+			<div id="dw-trips"> \
+				<ul> \
+	';
+
+	// start adding trips
+	<%- if @trips.empty? -%>
+		duffelWidget += ' \
+						<p style="margin-left:10px"><%= display_user_name(@user).gsub("\'", "") %> has no active duffels right now.</p> \
+		';
+	<%- else -%>
+		<%- i = 0 -%>
+		<%- @trips.each do |t| -%>
+
+		duffelWidget += ' \
+						<li> \
+							<a href="http://duffelup.com/trips/<%= t.permalink %>"> \
+		';
+
+		// if duffel pics are on 
+
+		if(d==1){
+		duffelWidget += ' \
+								<img id="dw-trippic-ID" class="dw-trippic" src="<%= duffel_thumbnail_url(t) %>" alt="Trip Name" /> \
+		';
+		}
+		duffelWidget += ' \
+								<span id="dw-tripname-ID" class="dw-tripname"><%= t.title.gsub("\'", "") %> </span> \
+								<span id="dw-triploc-ID" class="dw-triploc"><%= shorten_trip_destination(t.destination).gsub("\'", "") %></span> \
+								<span id="dw-tripdate-ID" class="dw-tripdate"><%= display_trip_dates(t.start_date, t.end_date) %></span> \
+							</a> \
+							<div class="clear"></div> \
+						</li> \
+		';
+
+		// end adding trips
+		<%- i = i+1 -%>
+		<%- break if i == params[:a].to_i -%>
+		<%- end -%>
+	<%- end -%>
+	
+	duffelWidget += ' \
+				</ul> \
+			</div> \
+			<div class="clear"></div> \
+			<div id="dw-footer"> \
+				<a id="dw-slogan" href="http://duffelup.com">Visual Trip Planner</a> \
+				<a id="dw-logo" href="http://duffelup.com">Duffel</a> \
+				<div class="clear"></div> \
+			</div> \
+		</div> \
+	';
+
+	document.write(duffelWidget);
+<% end %>
+	
+})()

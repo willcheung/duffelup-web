@@ -1,0 +1,19 @@
+<ul id="board" class="clearfix">
+<% for event in @itinerary[0] %>
+
+	<%- if event.eventable_type == "Foodanddrink" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_foodanddrink', :locals => { :event => event } %>
+	<%- elsif event.eventable_type == "Transportation" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_transport', :locals => { :event => event } %>
+	<%- elsif event.eventable_type == "Activity" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_activity', :locals => { :event => event } %>
+	<%- elsif event.eventable_type == "Hotel" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_lodging', :locals => { :event => event } %>
+	<%- elsif event.eventable_type == "Notes" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_note', :locals => { :event => event } %>
+	<%- elsif event.eventable_type == "CheckIn" -%>
+		<%=	render :partial => 'events/partial_tiles/tile_check_in', :locals => { :event => event } %>
+	<%- end -%>
+
+<% end %>
+</ul>

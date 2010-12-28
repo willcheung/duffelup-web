@@ -1,0 +1,56 @@
+<div class="notice-inline"><%= error_messages_for :trip, :header_message => "Please correct the errors below:", :message => nil %></div>
+
+<% if @new_page != true and !@trip.nil? %>
+  <div id="trip-image-block" style="float: right; max-width: 300px; max-height: 400px; margin-bottom:10px">
+	
+	<% if !@trip.photo.size.nil? and @trip.photo.size != "" %>
+		<div class="trip-photo">
+			<%= image_tag(@trip.photo.url(:small), :class => "image", :style => "max-width: 300px; max-height: 300px;") %>
+		</div>
+	<% else %>
+		<% unless @trip.photo_file_name.nil? %>
+			<div class="trip-photo">
+				<%= image_tag(@trip.photo_file_name.gsub("_s.jpg", "_m.jpg"), :class => "image") %>
+				<br/>Photo courtesy of Flickr
+			</div>
+		<% end %>
+	<% end %>
+
+	<div id="new_image">
+		<label for="photo">Attach a Picture:</label>
+		<%= form.file_field :photo, :size => 24 %>
+	</div>
+  </div>
+<% end %>
+
+
+<div class="form-group">
+<label for="title">Duffel Name:</label>
+<%= form.text_field :title, :size => 36 %>
+</div>
+
+<div class="form-group">
+	<label for="destination">Destination:<span id="indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span><br/><span class="hint" style="padding:0">Use semi-colon (;) to separate multiple cities.</span></label>
+	<%= text_field_with_auto_complete :trip, :destination, { :size => 36, :value => params[:city] }, { :indicator => "indicator", :tokens => ";", :frequency => ".1", :min_chars => "3" } %>
+</div>
+
+<div class="form-group">
+	<label for="start_date">Dates:<br /><span class="hint" style="padding:0">Optional</span></label>
+
+<%= form.calendar_date_select :start_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});",
+ 			:onchange => "if($('trip_end_date').value.length==0){var endDate=new Date($F(this));endDate.setDate(endDate.getDate()+3);if (endDate!='Invalid Date'){$('trip_end_date').value=(endDate.getMonth()+1+'/'+endDate.getDate()+'/'+endDate.getFullYear())};};" %>
+
+
+<%= form.calendar_date_select :end_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});" %>
+</div>
+
+
+<div class="form-group">
+	<label for="is_public" style="padding:0;">Privacy Setting:</label>
+	<%= form.radio_button 'is_public', '0' %> Only people I invite &nbsp;&nbsp;
+<% if @new_page == true %> 
+	<%= form.radio_button 'is_public', '1', :checked => true %> Anyone can view this trip 
+<% else %>
+	<%= form.radio_button 'is_public', '1' %> Anyone can view this trip 
+<% end %>
+</div>

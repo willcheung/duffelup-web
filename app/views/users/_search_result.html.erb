@@ -1,0 +1,22 @@
+<% if @friend %>
+<h3><%= link_to(display_user_name(@friend), profile_for(@friend)) -%> has <%= pluralize(@duffelers.total_entries, 'friend') -%>.</h3>
+<% else %>
+<h2 class="home"><%= pluralize(@duffelers.total_entries, 'user') %> found:</h2>
+<% end %>
+
+<%= will_paginate @duffelers, :inner_window => 2, :outer_window => 0 -%>
+
+<ul class="user-list">
+<%- @duffelers.each do |user| -%>
+	<li class="user">
+		<div class="avatar"><%= link_to display_thumbnail(user), profile_for(user) %></div>
+		<h3><%= link_to user.username, profile_for(user) %> <span><%= user.full_name unless (user.full_name.nil? or user.full_name.empty?) %></span></h3>
+		<p class="hometown mute"><%= user.home_city unless (user.home_city.nil? or user.home_city.empty?) %></p>
+
+	</li>
+<%- end -%>
+</ul>
+
+<div class="clear"></div>
+
+<%= will_paginate @duffelers, :inner_window => 2, :outer_window => 0 -%>

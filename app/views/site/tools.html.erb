@@ -1,0 +1,163 @@
+<%= javascript_include_tag 'all' %>
+
+<div id="site">
+
+<ul class="tabnav">
+	<li id="tb1" class="selected" onclick="$('tb2').removeClassName('selected'); $('tb1').addClassName('selected'); $('clip-it').show();$('duffel-widgets').hide();"><a href="#">Clip-It Bookmarker<span>Add ideas to your duffel with one click</span></a></li>
+	<li id="tb2" onclick="$('tb1').removeClassName('selected'); $('tb2').addClassName('selected'); $('clip-it').hide();$('duffel-widgets').show();"><a href="#">Widgets<span>Bring your duffels to your websites or blogs</a></li>
+	<div class="clear"></div>
+</ul>
+
+<br/>
+
+<div id="clip-it">
+
+<object id='stVUhSR0JIR1xZRlRVXl9YVVVT' width='525' height='350' align="right" style="margin: 10px 10px 20px 50px;" type='application/x-shockwave-flash' data='http://www.screentoaster.com/swf/STPlayer.swf'  codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0'><param name='movie' value='http://www.screentoaster.com/swf/STPlayer.swf'/><param name='allowFullScreen' value='true'/><param name='allowScriptAccess' value='always'/><param name='flashvars' value='video=stVUhSR0JIR1xZRlRVXl9YVVVT'/></object>
+
+<h1>"Add to Duffel" Bookmarker</h1>
+
+<p>No more messy bookmarks and emails. The Duffel Clip-It Bookmarker lets you save travel notes from the web with <b>just one click</b>. See something you like, highlight it, "add to duffel" and start planning. </p>
+
+<%= render :partial => "shared/bookmarklet" %>
+
+<br/>
+
+<p>With our bookmarker, you can clip:</p>
+<ul>
+	<li>&rsaquo; Lodging options</li>
+	<li>&rsaquo; Flight confirmation</li>
+	<li>&rsaquo; Photos, maps, and more!</li>
+</ul>
+
+
+</div>
+
+<div id="duffel-widgets" style="display: none;">
+
+<h1>Duffel Widgets</h1>
+
+<p>Copy the code below to embed our widgets on your blogs or websites.<br/>Don't worry, only your public duffels are displayed.</p><br/>
+
+<h2 style="margin-bottom: 25px;">What kind of widget you'd like?</h2>
+
+<div style="width: 280px; float: left;">
+	
+	<h4>Duffel Widget <small><a href="#" onclick="$('dw-box-customize').show();">Customize</a> or <a href="#" onclick="$('code-dw').show();">Grab the code</a></small></h4>
+	
+	<script type="text/javascript">
+	var codeStart = '&lt;script type="text/javascript" src="http://duffelup.com/widget/duffel_widget/<%= @key.key %>';
+	var codeStartReplace = codeStart.replace("&lt;", '<');
+	var codeEnd = '">&lt;/script>';
+	var codeEndReplace = codeEnd.replace("&lt;", '<');
+	
+	var vShowHideInfo = 1;
+	var vShowHideMyPic = 1;
+	var vHowManyDuffels = 0;
+	var vShowHidePics = 1;
+	
+	function formWrite() {
+		$('code-dw-t').value = codeStartReplace + '?h=' + vShowHideInfo + '&p=' + vShowHideMyPic + '&a=' + vHowManyDuffels + '&d=' + vShowHidePics + codeEndReplace;
+	}
+	function showHideInfo(){
+		if(vShowHideInfo==1) {
+			$('dw-mypic').hide();
+			$('dw-myname').hide();
+			$('dw-mylocation').hide();
+			$('showHideMyPic').hide();
+			vShowHideInfo = 0;
+		} else {
+			$('dw-mypic').show();
+			$('dw-myname').show();
+			$('dw-mylocation').show();
+			$('showHideMyPic').show();
+			$('showHideMyPic').show();
+			vShowHideInfo = 1;
+		}
+		formWrite();	
+	}
+	
+	function showHideMyPic(){
+		if(vShowHideMyPic==1) {
+			$('dw-mypic').hide();
+			vShowHideMyPic = 0;
+		} else {
+			$('dw-mypic').show();
+			vShowHideMyPic = 1;
+		}
+		formWrite();
+	}
+	
+	function showHidePics(){
+		if(vShowHidePics==1) {
+			$$('.dw-trippic').each(function (d) { 
+    	 		$(d).hide(); 
+	   		}); 	
+			vShowHidePics = 0;
+		} else {
+			$$('.dw-trippic').each(function (d) { 
+    	 		$(d).show(); 
+	   		});
+			vShowHidePics = 1;
+		}
+		formWrite();
+	}
+	
+	function howManyDuffels(){
+		vHowManyDuffels = $('fHowManyDuffels').value;
+		formWrite();
+	}
+	</script>
+
+	<style type="text/css">
+	#dw-box-customize { background:#DBF0F4; padding: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; font-size: 11px; margin-bottom: 20px; }
+	#dw-box-customize label { height: auto; width: auto; display: block; }
+	#dw-box-customize input { height: auto; width: auto; margin: 0; }
+	
+		#dt-box { font-size: 12px; line-height: 150%; }
+		#dt-box ul { margin: 0 0 0 20px; list-style-type: square; }
+		#dt-box ul li small { font-size: 11px; }
+	</style>
+	
+	<div id="dw-box-customize" style="display: none;">
+		<label><input onchange="showHideInfo()" type="checkbox" checked="checked" /> Show my info</label>
+		<label id="showHideMyPic"><input onchange="showHideMyPic()" type="checkbox" checked="checked" /> Show my picture</label>
+		<label><select id="fHowManyDuffels" onchange="howManyDuffels()"><option value="0">All</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> active duffels <span class="mute">(preview not available)</span></label>
+		<label><input onchange="showHidePics()" type="checkbox" checked="checked" /> Show my duffel pictures</label>
+		<button onclick="$('code-dw').show();">Grab the code</button>
+	</div>
+	
+	<div id="code-dw" style="display: none;">
+		<textarea id="code-dw-t" class="t11" cols="35" rows="3" onClick="javascript:this.focus();this.select();"><script src="http://duffelup.com/widget/duffel_widget/<%= @key.key %>?h=1&p=1&a=0&d=1" type="text/javascript"></script></textarea>
+	</div>
+	
+	<script src="/widget/duffel_widget/<%= @key.key %>?h=1&p=1&a=0&d=1" type="text/javascript"></script>
+</div>
+
+<div style="width: 280px; margin: 0 20px; float: left;">
+	<h4>I'm on Duffel Badge <small><a href="#" onclick="$('code-db').show();">Grab the code</a></small></h4>
+	
+	<div id="code-db" style="display: none;">
+		<textarea class="t11" cols="35" rows="3" onClick="javascript:this.focus();this.select();"><script src="http://duffelup.com/widget/duffel_badge/<%= @key.key %>" type="text/javascript"></script></textarea>
+	</div>
+	
+	<script src="/widget/duffel_badge/<%= @key.key %>" type="text/javascript"></script>
+	
+</div>
+
+<div style="width: 280px; float: left;">
+	<h4>Just Plain Text <small><a href="#" onclick="$('code-dt').show();">Grab the code</a></small></h4>
+	
+	<div id="code-dt" style="display: none;">
+		<textarea class="t11" cols="35" rows="3" onClick="javascript:this.focus();this.select();"><script src="http://duffelup.com/widget/duffel_text/<%= @key.key %>" type="text/javascript"></script></textarea>
+	</div>
+
+	<script src="/widget/duffel_text/<%= @key.key %>" type="text/javascript"></script>		
+</div>
+
+</div>
+
+
+
+</div>
+
+<div class="clear"></div>

@@ -1,0 +1,60 @@
+<div id="banner">
+	<h1>Welcome to Duffel</h1>
+	<div style="float:right;vertical-align:bottom;line-height:40px">&rsaquo; <%= link_to 'Join Duffel', '/signup' %> 
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		&rsaquo; <%= link_to 'Explore Duffel', '/explore' %>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		&rsaquo; <%= link_to 'About Us', '/site/about' %></div>
+</div>
+
+<div class="clear"></div>
+
+<div id="column">
+	<div id="bookmarklet">
+		<div class="header" style="border:0"><h3>Save anything from anywhere to Duffel</h3></div>
+		
+		<p>Use our bookmarker to easily clip travel articles, hotel reviews, and flight confirmations from the web.</p>
+		<%= render :partial => "shared/bookmarklet" %>
+		<br/>
+		<p>	<a href="/site/tools">I want to learn more about bookmarker &raquo;</a></p>
+	</div>
+</div>
+
+<div id="column">
+	
+	<div id="sign-in-form">
+		
+		<div class="header"><h3>Sign in to Duffel</h3></div>
+	
+		<% form_tag session_path(:redirect => params[:redirect]), :id => "login_form" do -%>
+		<div class="form-group"><label for="login">Email or Username</label>
+		<%= text_field_tag 'login' %></div>
+
+		<div class="form-group"><label for="password">Password</label>
+		<%= password_field_tag 'password' %>&nbsp;&nbsp; <%= link_to "Forgot?", :controller => 'users', :action => 'forgot_password' %></div> 
+
+		<div class="form-group"><label for="remember_me"></label>
+		<%= check_box_tag 'remember_me', '1', true %> Keep me logged in!</div>
+
+		<div class="form-submit"><label>&nbsp;</label>
+		<%= submit_tag 'Log in', :class => "submit" %></div>
+
+		<% end -%>
+	
+		<div class="login-buttons">
+			<ul>
+				<li> Or, log in with: &nbsp;&nbsp; </li>
+				<li class="twitter">
+				<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
+					<%= submit_tag 'twitter' %>
+				<%- end -%>
+				</li>
+				<li class="facebook">
+					<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts';});}else{window.location='/users/link_user_accounts'}})", :v => 1) %></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<%= set_focus("login_form") %>

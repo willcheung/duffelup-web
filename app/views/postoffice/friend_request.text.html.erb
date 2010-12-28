@@ -1,0 +1,16 @@
+<p>Hello <%= display_user_name(@friend) %>,
+<br><br>
+You have a new Duffel friend request from <%= display_user_name(@user) %>.  Click <%= @accept_url %> link to confirm this request.
+<br><br>
+Once you accept <%= display_user_name(@user) %>'s friendship request, you'll be able to:<br>
+- Follow this friend's travel updates and trips.<br> 
+- Invite this friend to your duffels.<br>
+<br><br>
+You can view <%= display_user_name(@user) %>'s profile and public duffels here: <a target="_blank" href="<%= @user_url %>"><%= @user_url %></a>
+<br><br>
+Thanks,
+<br>
+- The Duffel Team
+<br>
+<a target="_blank" href="http://duffelup.com/">http://duffelup.com</a>
+</p>

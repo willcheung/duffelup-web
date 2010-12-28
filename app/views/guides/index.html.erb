@@ -1,0 +1,23 @@
+<h1>Listing guides</h1>
+
+<%= link_to 'New guide', new_guide_path %>
+
+<% for guide in @guides %>
+  	<p>
+		<big><strong>City id: <%= guide.city_id %>  <br/>
+		City Name: <%= guide.city.city_country %></strong></big> <br/>
+		Description: <%= guide.description %> <br/>
+		Fun Facts: <%= guide.fun_facts %> <br/>
+		Published: <%= guide.published %> <br/>
+		Last update: <%= guide.updated_at %>
+	
+		<br/><br/>
+    <%= link_to 'Show', guide %> | 
+    <%= link_to 'Edit', edit_guide_path(guide) %> | 
+    <%= link_to 'Destroy', guide, :confirm => 'Are you sure?', :method => :delete %>
+  </p>
+
+	<br/>
+<% end %>
+
+<%= link_to 'New guide', new_guide_path %>

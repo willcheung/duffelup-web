@@ -1,0 +1,24 @@
+
+<% @friends.each do |user| %>
+
+	<% unless @users.include?(user) %>
+		<label class="avatar" onmouseup="$(this).toggleClassName('avatarSelected');">
+			<%= display_thumbnail(user) %>
+			<%= display_user_name(user) %>
+			<% if user.username == "duffel_demo" %>
+				<strong><div style="color:green;padding-top:3px">can't invite me ;)</div></strong>
+				<%= check_box_tag "invitation[user][]", user.username, @users.include?(user), :disabled => true %>
+			<% else %>
+				<%= check_box_tag "invitation[user][]", user.username, @users.include?(user) %>
+			<% end %>
+		</label>
+		
+	<% else %>
+		<label class="avatar avatarSelected">
+			<%= display_thumbnail(user) %>
+			<%= display_user_name(user) %>
+			<%= check_box_tag "invitation[user][]", user.username, @users.include?(user), :disabled => true %>
+		</label>
+	<% end %>
+
+<% end %>

@@ -1,0 +1,11 @@
+<h2><%= display_user_name(@user) %> travels with...</h2>
+<ul>
+<% @friends.each_with_index do |f,i| %>
+	<% break if i== 20 %>
+	<li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li>
+<% end %>
+</ul>
+
+<% if @friends.size >= 20 %>
+	<%= link_to "[see all]", :controller => "users", :action => "search", :q => "friend:#{@user.username}", :class => "t11" %>
+<% end %>

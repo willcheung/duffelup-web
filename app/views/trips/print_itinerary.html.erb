@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+<head> 
+	<title><%= @title %></title> 
+    <link href="/stylesheets/print.css" media="screen,print" rel="stylesheet" type="text/css" />
+	<%= stylesheet_link_tag "print-preview" %>
+	<script type="text/javascript">
+	    function hide_maps() {
+	        var divCollection = document.getElementsByTagName("div");
+	        for (var i=0; i<divCollection.length; i++) {
+	            if(divCollection[i].getAttribute("id") == "gmap") {
+					if(divCollection[i].style.display == 'block')
+					   divCollection[i].style.display = 'none';
+					else
+					   divCollection[i].style.display = 'block';
+	            } 
+	        }
+	    }
+	 </script>
+	<script type="text/javascript">
+	    function hide_board_map() {
+            if(m = $("board_gmap")) {
+				if(m.style.display == 'block')
+				   m.style.display = 'none';
+				else
+				   m.style.display = 'block';
+            } 
+	    }
+	 </script>
+	<%= javascript_include_tag 'all' %>
+	<%= javascript_include_tag 'application' %>
+	<script type="text/javascript" 
+			src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
+	</script>
+	<%- if @ideas_to_map -%>
+    <script type="text/javascript"> 
+      var ideas_to_map = <%= @ideas_to_map.to_json %>;
+    </script>
+  	<%- end -%>
+	<meta name="description" content="<%= @meta_description %>" />
+</head> 
+
+<body onload="initialize_trip_map(false, true)" onunload="GUnload()"> 
+	<div id="wrapper">
+		<div id="print-actions" class="clearfix">
+			<a href="javascript:window.close();">Close This Window</a>
+			<span class="map-checkbox" style="margin-left:70px"><strong>Print Options:</strong> <input type="checkbox" name="map" value="map" onClick="hide_board_map();"> Hide Large Map
+			<input type="checkbox" name="map" value="map" onClick="hide_maps();"> Hide Small Maps</span>
+			<form><input type="button" onClick="window.print();pageTracker._trackEvent('Duffel', 'print-itinerary');" value="Print This Page"/></form>
+		</div>
+		<div id="itinerary">
+			<h1><span style="float: right;"><img src="/images/logo.png" alt="Duffel Up" width="109" height="40"/></span><%= @trip.title %></h1>
+			<span class="destination"><strong><%= @trip.destination %></strong></span><br />
+			<span class="destination"><%- if @trip.start_date and @trip.end_date -%><%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span>			
+			
+			<div id="board_gmap" style="display:block;"></div>
+			
+			<% if not (@trip.start_date.nil? or @trip.start_date.blank?) and not (@trip.end_date.nil? or @trip.end_date.blank?) %>
+				<% (@trip.duration+1).times do |day| %>	
+			
+					<h2><%= (@trip.start_date + day).strftime("%A, %B %d") %></h2>
+				
+					<% for event in @itinerary[day+1] %>
+					<div class="scheduled-item">
+						<div class="details">
+							<%= render :partial => "event_details_for_printing", :locals => { :event => event }%>
+						</div>
+					</div>
+					<% end %>
+				
+				<% end %>
+			<% end %>
+			
+			<h2>Unscheduled Ideas</h2>
+			<% for event in @itinerary[0] %>
+			<div class="scheduled-item">
+				<div class="details">
+					<%= render :partial => "event_details_for_printing", :locals => { :event => event }%>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	
+	<%= render :partial => 'shared/external_javascripts_without_fb' %>
+</body>
+</html>

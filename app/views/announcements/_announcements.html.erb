@@ -1,0 +1,6 @@
+<%- for announcement in current_announcements -%>
+	<div id="announcement_<%= announcement.id %>"><div id="announcement" style="border:3px solid #e0e0e0;">
+	<p class="close"><%= link_to_remote "Hide me", :url => hide_announcement_url(:id => announcement.id) -%></p>
+    <p><%=simple_format(auto_link(announcement.message)) -%></p>
+	</div></div>
+<% end %>

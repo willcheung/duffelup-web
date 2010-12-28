@@ -1,0 +1,71 @@
+<div id="central">
+	<h3>Duffel's popular cities in</h3>
+	<h1><%= @country.city_country %></h1>
+	
+	<div class="gmap" id="city_gmap"></div>
+	
+	<br/>
+	
+	<ul class="cities_box">
+		<% @top_cities.each do |c| %>
+		<li class="cities_list">
+		    <a href="<%= c.url %>"><%= c.city %></a>
+		</li>
+		<% end %>
+	</ul>
+	
+	<div class="clear"></div>
+	<br/>
+	
+	<% unless @trips.empty? %>
+	
+		<h2>Recent duffels to <%= @country.city_country %></h2>
+	
+	<% else %>
+	
+		<p>No public duffels to <%= @country.city_country %> found.   Check out our offerings below, or <%= link_to "search for another city here", trips_url %>.</p>
+	
+	<% end %>
+
+	<ul class="duffel-list">
+		<% @trips.each do |trip| %>
+			<li class="duffel">
+				<div class="seperate"></div>
+				
+				<% if trip.comment_count.to_i != 0 %><% end %>
+				
+				<span class="comment-favorite">
+				<span id="add-comment-trip-<%=trip.id.to_s%>"><%= link_to trip.comment_count, trip_comments_path(:permalink => trip.permalink), :class => 'cf-comment', :title => "Post comment" %></span> 
+				
+				<span class="cf-favorite" title="<%= trip.favorite_count %> added as favorite" alt="<%= trip.favorite_count %> added as favorite"><%= trip.favorite_count %></span>
+				</span>
+				
+				<a href="<%= trip_url(trip) %>" class="duffel-picture" style="<%= duffel_thumbnail_style(trip) %>"></a>
+				
+				<strong><%= link_to h(trip.title), trip_url(:id => trip)  %></strong>
+				<em class="mute"><%= display_trip_dates(trip.start_date,trip.end_date) if (trip.start_date and trip.end_date) -%></em>
+			
+				<div class="collaborators">
+					<%= duffel_collaborators(@users_by_trip_id[trip.id.to_s]) %>
+				</div>
+			</li>
+		<% end %>
+		
+	</ul>
+
+	<div class="clear"></div>
+	<br/>
+	<div style="margin: 10px 0;text-align: center;padding: 5px;">
+	<script type="text/javascript"><!--
+	google_ad_client = "pub-7722047625307836";
+	/* 728x90, created 1/15/10 */
+	google_ad_slot = "0158556184";
+	google_ad_width = 728;
+	google_ad_height = 90;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+	</div>
+</div>

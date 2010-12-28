@@ -1,0 +1,17 @@
+<div id="comments_for_trip_<%= @trip.id %>" style="width:70%"> 
+  <%= render :partial => "comments/comment", :collection => @trip.comments %> 
+</div>
+
+<% if logged_in? %>
+  <div id="new_comment_form_for_trip_<%= @trip.id %>" class="new-comment"> 
+	<span class="thumbnail">
+		<div class="comment-avatar"><%= link_to display_thumbnail(current_user), profile_for(current_user), :alt => display_thumbnail_title(current_user.username, current_user.full_name, current_user.home_city), :title => display_thumbnail_title(current_user.username, current_user.full_name, current_user.home_city) %><br />	
+		</div>
+	</span>
+	<%= render :partial => 'comments/new' %>
+  </div> 
+<% else %>
+	<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> or log into 
+		<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=/trips/#{@trip.permalink}/comments';});}else{window.location='/users/link_user_accounts?redirect=/trips/#{@trip.permalink}/comments'}})", :v => 2) %>
+		to comment.</p>
+<% end %>

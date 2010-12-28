@@ -1,0 +1,16 @@
+
+<% if activities_feed.is_public == 1 or display_private_duffel_feed(activities_feed) %>
+	<div id="activity">
+		<div class='avatar'>
+			<a href="<%= profile_for(activities_feed.user) %>"><%= collaborator_thumbnail(activities_feed.user) %></a>
+		</div>
+		
+		<div class="content">
+			<%= activities_feed.content if !activities_feed.content.nil? %>
+		</div>
+		
+		<div class='timestamp'><%= distance_of_time_in_words(activities_feed.created_at.to_datetime, Time.now) %> ago</div>
+	</div>
+<% end %>
+
+	

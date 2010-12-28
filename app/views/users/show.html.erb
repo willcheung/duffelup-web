@@ -1,0 +1,223 @@
+<noscript>
+  <div id="announcement">
+  <div class="javascript_disabled_notification">
+    <div class="inner">
+      <h1>You need to enable Javascript in your web browser!</h1><br />
+      <p>Duffel requires a browser feature called <strong>JavaScript</strong> for everything to work correctly.</p>
+      <p>Please see: <a href="http://www.google.com/support/bin/answer.py?answer=23852">How to enable JavaScript in your browser</a>.</p>
+      <p>Once you've enabled JavaScript you can <a href="">try loading this page again</a>.</p>
+    <p>-- Duffel Team</p>
+    </div>
+  </div>
+  </div>
+</noscript>
+
+<%= render :partial => "announcements/announcements" unless current_announcements.empty? -%> 
+
+<% if logged_in? and (current_user.email.nil? or current_user.email.blank?) %>
+<div id="announcement" style="border: 3px solid #e0e0e0">
+<h1>We picked out a username just for you - <%= current_user.username %></h1><br/>
+<p>You can change it anytime. Please take a few seconds to <a href="/user/edit">update your profile</a> so we can give you a better Duffel experience.</p>
+</div>
+<% end %>
+
+<div id="primary-inner">
+
+  <div id="sidebar-profile">
+
+    <div id="userProfile">
+      <div class="avatar">
+        <a href="/<%= current_user.username %>"> <%= display_thumbnail(current_user) %></a>
+      </div>
+      <div class="profile">
+        <em><%= link_to display_user_name(current_user), profile_url(current_user.username) %></em>
+        <cite style="color:#999;"><%= current_user.home_city.gsub(", United States", "") unless current_user.home_city.nil? %></cite>
+        <% if founding_member?(current_user) %><cite style="color:#FFD700;">Founding Member</cite><% end %>
+		<span class="action"><%= link_to "Edit Profile", edit_user_url %></span>
+      </div>
+    </div> <!-- #userProfile -->
+
+    <div id="userStats">
+      <dl>
+        <dt>User Stats</dt>
+        <!--<dd><%= link_to(pluralize(@friends.size, "Friend"), :controller => "users", :action => "search", :q => "friend:#{current_user.username}") %></dd>-->
+        <dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>
+		<dd><%= pluralize((@planned_trips.size+@no_date_trips.size), "Active Duffel") %></dd>
+        <dd><%= pluralize(@favorite_trips.size, "Favorite Duffel") %></dd>
+      </dl>
+    </div> <!-- #userStats -->
+
+	<% cache("dashboard-featured-duffel") do %>
+    <div id="featuredUser">
+      <h2>Duffel of the Month</h2>
+      <div class="avatar">
+       	<% if !@duffel_of_the_month.trip.photo.size.nil? and @duffel_of_the_month.trip.photo.size != "" %>
+		<span><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><img max-width="240" src="<%= @duffel_of_the_month.trip.photo.url(:small) %>" class="duffel-image" /></a></span>
+		<% elsif !@duffel_of_the_month.trip.photo_file_name.nil? %>
+		<span><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><img max-width="240" src="<%=@duffel_of_the_month.trip.photo_file_name.gsub("_s.jpg", "_m.jpg") %>" class="duffel-image" /></a></span>
+		<% end %>
+      </div>
+      <div class="profile">
+        <em><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><%=truncate(@duffel_of_the_month.trip.title, :length => 28)%></a></em>
+        <cite><%= @duffel_of_the_month.trip.destination.split(";")[0] %></cite>
+		<cite style="margin-top:5px">
+			<small><span class="cf-favorite" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.favorites.size, "Fave")%></span>
+			<span class="cf-comment" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.comments.size, "Comment")%></span> </small>
+		</cite>
+      </div>
+      <div class="description">
+		<span>
+ 
+		Organized by <a href="/<%= @duffel_of_the_month.trip.admins[0].username %>"> <%= @duffel_of_the_month.trip.admins[0].username %></a>
+		<% if @duffel_of_the_month.trip.users.count > 1 %>
+			and <%= pluralize(@duffel_of_the_month.trip.users.count, "other tripgoer") %>
+		<% end %>
+
+		</span>
+		<span><a style="color:#F20063" href="/featured">See more featured duffels &rarr;</a></span>
+
+      </div>
+    </div> <!-- #featuredUser -->
+	<% end %>
+
+	<% unless @requested_friends.empty? %>
+	<div class="section" id="friends-request">
+		<%= render :partial => 'profile/requested_friends' -%>
+	</div>
+	<% end %>
+
+ 	<div id="friends">
+      <h2>Friends</h2>
+      <ul>
+		<% @friends.each_with_index do |f,i| %>
+			<% break if i== 15 %>
+			<dl><dd><li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li></dl></dd>
+		<% end %>
+		<% if @friends.size >= 15 %>
+			<div class="clearfix"></div>
+			<%= link_to "[see all]", :controller => "users", :action => "search", :q => "friend:#{current_user.username}", :class => "t11" %>
+		<% end %>
+      </ul>
+    </div> <!-- #friends -->
+
+	<div style="margin: 20px 0">
+		<a href="http://itunes.apple.com/app/id371064516" target="_blank" alt="Duffel Up and Go iPhone App" title="Duffel Up and Go iPhone App"><img src="/images/iphone_banner.jpg" style="width:210px"></a>
+	</div>
+
+	<!--<div class="ad square">
+		<span>NEED A HOTEL?</span>
+		<a href="http://www.mrandmrssmith.com/?affID=duffelup" target="_blank"><img src="/images/partners/mms-170x170.png"></a>
+	</div><div class="ad rectangle-65">
+		<span>LOOKING FOR THINGS TO DO?</span>
+		<a href="http://www.partner.viator.com/en/7101?bannerImg=different_234x60.gif" target="_blank"><img style="max-width:170px" src="http://www.partner.viator.com/partner/admin/images/banners/themes/different_234x60.gif" border="0" alt="Book activities" width="195" /></a>
+	</div>-->
+    
+  </div> <!-- #sidebar-profile -->
+
+  <div id="mainContent">
+	
+	<div style="display:none" id="new-duffel-form">
+		<h2>I'm planning to visit:</h2>
+		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
+			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+			<%= submit_tag "Create Duffel", :class => "submit big-button" %>
+			<span id="indicator" style="display:none"><img src="/images/ajax-loader.gif" alt="loading" /></span>
+		<% end %>
+	</div>
+	
+	<div id="dashboard_tabs">
+		<ul class="tabnav">
+			<li id="tb-duffels" <% if params[:tab] != "updates" and params[:tab] != "deals" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
+			</li>
+			<li id="tb-updates" <% if params[:tab] == "updates" %>class="selected"<% end %> onclick="location.search='tab=updates';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;">
+				<a href="#">Recent Updates</a>
+			</li>
+			<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
+				<a href="#">My Travel Deals</a>
+			</li>
+			<span id="loading-spinner" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
+			<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+				<li onclick="location.search='tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
+				<li onclick="location.search='tab=duffels-previous';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Previous (<%= @past_trips.size %>)</a></li>
+				<li style="background: url(/images/icon-bookmarked.png) no-repeat 0 4px;" onclick="location.search='tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
+			</ul>
+		</ul>
+	</div>
+	
+	<% if params[:tab] == "updates" %>	
+		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
+	<% elsif params[:tab] == "deals" %>
+		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
+	<% else %>
+		<%= render :partial => 'users/dashboard_partials/my_duffels' %>
+	<% end %>
+
+
+    <div id="exploreDestinations">
+      <h2>Explore Destinations <small class="right t12"><%= link_to "Browse More &raquo;</strong>", '/explore' %></small></h2>
+      <ul>
+        <li>
+          <dl>
+            <dd><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "cities/85x85/new-york.jpg", :class => "image1" %></a></dd>
+            <dt><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a></dt>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dd><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>"><%= image_tag "cities/85x85/san-francisco.jpg" %></a></dd>
+            <dt><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a></dt>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dd><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>"><img src="../images/cities/85x85/los-angeles.jpg"/></a></dd>
+            <dt><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a></dt>
+          </dl>
+        </li>
+        <li>
+          <dl>
+            <dd><a href="<%= city_url(:country_code => "GB", :city => "london")%>"><img src="../images/cities/85x85/london.jpg"/></a></dd>
+            <dt><a href="<%= city_url(:country_code => "GB", :city => "london")%>">London</a></dt>
+          </dl>
+        </li>
+		<li>
+          <dl>
+            <dd><a href="<%= city_url(:country_code => "FR", :city => "paris")%>"><img src="../images/cities/85x85/paris.jpg"/></a></dd>
+            <dt><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris</a></dt>
+          </dl>
+        </li>
+      </ul>
+    </div> <!-- #exploreDestinations -->
+
+	<% unless @blog_rss.nil? %>
+    <div id="newsfeed">
+      <h2>News from Our Blog</h2>
+      <ul>
+        <li class="display">
+          <dl>
+            <dd><a href="<%= @blog_rss.items[0].link %>" target="_blank"><%= @blog_rss.items[0].title %></a> <cite><%= distance_of_time_in_words(@blog_rss.items[0].pubDate,Time.now) %> ago</cite></dd>
+            <dd><a href="<%= @blog_rss.items[1].link %>" target="_blank"><%= @blog_rss.items[1].title %></a> <cite><%= distance_of_time_in_words(@blog_rss.items[1].pubDate,Time.now) %> ago</cite></dd>
+            <dd><a href="<%= @blog_rss.items[2].link %>" target="_blank"><%= @blog_rss.items[2].title %></a> <cite><%= distance_of_time_in_words(@blog_rss.items[2].pubDate,Time.now) %> ago</cite></dd>
+          </dl>
+        </li>
+      </ul>
+    </div><!-- #newsfeed -->
+	<% end %>
+    
+<!--    <div class="ad banner">
+      	<table style="border: medium none ; margin: auto; height: 60px; text-align: center; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; font-family: arial; font-style: normal; font-variant: normal; font-weight: 800; font-size: 11px; line-height: 12px; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: rgb(238, 238, 238);" width="468"><tbody><tr><td valign="middle">
+
+		</td></tr></tbody></table>
+    </div>--> <!-- .ad .banner -->
+
+  </div> <!-- #mainContent -->
+
+</div> <!-- #primary-inner -->
+
+<% if false #if params[:new] == "1" %>
+<script type="text/javascript">
+iBox.addEvent(window, 'load', function(){iBox.showURL('/site/tutorial_overview','',{width: '635', height: '440'})});
+</script>
+<% end %>
+
