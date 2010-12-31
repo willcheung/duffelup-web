@@ -178,7 +178,7 @@ body {
 }
 
 h1 {
-	font-size:22px;
+	font-size:26px;
 	letter-spacing:-1px;
 }
 
@@ -1141,6 +1141,9 @@ form p {
 }
 .right-message a {
 	color: #333 !important;
+}
+.right-message h1 {
+	font-size: 21px;
 }
 
 .info_box {

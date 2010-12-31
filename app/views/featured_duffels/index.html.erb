@@ -72,7 +72,7 @@
 	
 					</div>
 	
-					<h1>Duffel's All-Stars</h1>
+					<h1>Duffel All-Stars: Featured Members and Trips</h1>
 					<p class="featured">Welcome! This is where we recognize and thank our top duffelers for sharing their thoughtful travel ideas and itineraries.</p>
 					<p class="featured">We hand pick these duffels every month, so keep planning fun trips and we'll find you!</p>
 					<p class="featured" style="margin-bottom: 15px;"></p>
@@ -240,9 +240,9 @@
 						<% end %>
 					</div>
 					
-					<div class="stat members" style="float:left">
+					<div class="stat members" style="float:left;margin-left:30px">
 						<% cache("featured-all-stars-members") do %>
-						<h1 style="margin-top:0"><small>Recent All-Stars Members</small></h1>
+						<h1 style="margin-top:0"><small>Recent All-Star Members</small></h1>
 						<ul>
 					  	<% @featured_duffels.each_with_index do |d,i| %>	
 							<% break if i==15 %>
@@ -272,6 +272,8 @@
 							<li><%= link_to c.city_country, city_url(:country_code => c.country_code, :city => city_name_to_url(c.city_name)) %> (<%= c.count %>)</li>
 							<% end %>
 						<% end %>
+						<br/>
+						<li><big><a href="/explore">Explore more cities &rarr;</a></big></li>
 						</div>
 						<% end %>
 						</ul>
@@ -279,13 +281,13 @@
 						<br/>
 						<hr/>
 						<div class="ads">
-						<br/>
-						<h2>Need a hotel?</h2>
-						<a href="http://www.booking.com/?aid=331036" target="_blank"><img src="https://www.booking.com/images/affiliate/303532/214x60_en_logo_tagline.gif" border="0" alt="Hotels and Lodging"></a>
-						<a href="http://www.mrandmrssmith.com/?affID=duffelup" target="_blank"><img src="/images/partners/mms-170x170.png"></a>
+						<h2 style="margin-bottom:0">Looking for hotels?</h2>
+						<p>Our partner, Splendia, offers over 4000 boutique hotels worldwide.</p>
+						<object height="200" width="200" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="http://www.splendia.com/images/aff/SPL-EN-250x250.swf?clickTag=http%3A%2F%2Feulerian.splendia.com%2Fdynclick%2Fsplendia%2F%3Fetf-name%3DA434%2520%252D%2520ban%2520%252D%2520EN%26etf-prdref%3DPRDREF%26eurl%3Dhttp%253A%252F%252Fwww.splendia.com%252Fen%252F%253Faftrackid%253DA434%2526aftrackmedia%253Dban" name="movie"/><param value="high" name="quality"/><param value="opaque" name="wmode"/><embed height="200" width="200" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" wmode="opaque" quality="high" src="http://www.splendia.com/images/aff/SPL-EN-250x250.swf?clickTag=http%3A%2F%2Feulerian.splendia.com%2Fdynclick%2Fsplendia%2F%3Fetf-name%3DA434%2520%252D%2520ban%2520%252D%2520EN%26etf-prdref%3DPRDREF%26eurl%3Dhttp%253A%252F%252Fwww.splendia.com%252Fen%252F%253Faftrackid%253DA434%2526aftrackmedia%253Dban"/></object>
 						<br/><br/>
-						<h2>Looking for activities?</h2>
-						<a href="http://www.partner.viator.com/en/7101?bannerImg=different_234x60.gif" target="_blank"><img src="http://www.partner.viator.com/partner/admin/images/banners/themes/different_234x60.gif" border="0" alt="Book activities" width="195" /></a>
+						<h2 style="margin-bottom:0">Looking for activities?</h2>
+						<p>Don't get sold out. Pre-book your tours!</p>
+						<a href="http://www.partner.viator.com/en/7101?bannerImg=different_234x60.gif" target="_blank"><img src="http://www.partner.viator.com/partner/admin/images/banners/themes/different_234x60.gif" border="0" alt="Book activities" width="200" /></a>
 						</div>
 					</div>
 					

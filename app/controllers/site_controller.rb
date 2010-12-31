@@ -128,19 +128,8 @@ class SiteController < ApplicationController
       @partner_url = "http://www.tablethotels.com/?affiliateId=1431"
       @title = "Duffel Partner - Boutique and Luxury Hotels"
     else
-      redirect_to :controller => :site, :action => :partners
+      redirect_to :controller => :site, :action => :index
     end
-  end
-  
-  def partners
-    @title = "Partners - Duffel - Visual Trip Planner"
-    @sub_title = "Duffel Partners"
-    
-    #Hotel Search
-    #http://reserve.duffelup.com/index.jsp?cid=261673&pageName=hotSearch&submitted=true&validateDates=true&arrivalMonth=3&arrivalDay=3&departureMonth=3&departureDay=5&mode=2&numberOfRooms=1&numberOfAdults=2&numberOfChildren=0avail=true&passThrough=true&validateCity=true&city=Hoboken, NJ, United States
-  
-    #Air Search
-    #http://reserve.duffelup.com/index.jsp?cid=261673&pageName=airSearch&submitted=true&avail=true&cabin=Y&adults=1&seniors=0&children=0&passThrough=true&showPopUp=true&tripType=R&tempDepTime=ANT&tempRetTime=ANT&isAdvancedSearch=false&destinationCity=lax&departureCity=san francisco&departureMonth=4&departureDay=4&returnMonth=4&returnDay=8
   end
   
   def browser_error
