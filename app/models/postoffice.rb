@@ -208,7 +208,7 @@ class Postoffice < ActionMailer::Base
     from "postoffice@duffelup.com (Duffel)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:user].email
-    subject "You are being featured on Duffel All-Stars"
+    subject "Your trip is being featured on Duffel"
     body mail
     sent_on Time.now
     content_type "text/html"
