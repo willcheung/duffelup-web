@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000027) do
+ActiveRecord::Schema.define(:version => 30000000000028) do
 
   create_table "activities_feeds", :force => true do |t|
     t.integer  "user_id",                 :null => false
@@ -160,12 +160,13 @@ ActiveRecord::Schema.define(:version => 30000000000027) do
   end
 
   create_table "guides", :force => true do |t|
-    t.integer  "city_id",                        :null => false
+    t.integer  "city_id",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.boolean  "published",   :default => false
+    t.boolean  "is_published", :default => false
     t.text     "fun_facts"
+    t.boolean  "is_free",      :default => false
   end
 
   create_table "hotel_images", :force => true do |t|

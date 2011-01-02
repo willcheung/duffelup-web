@@ -72,9 +72,9 @@
 	
 					</div>
 	
-					<h1>Duffel All-Stars: Featured Members and Trips</h1>
+					<h1>Duffel All-Stars: Featured Members and Itineraries</h1>
 					<p class="featured">Welcome! This is where we recognize and thank our top duffelers for sharing their thoughtful travel ideas and itineraries.</p>
-					<p class="featured">We hand pick these duffels every month, so keep planning fun trips and we'll find you!</p>
+					<p class="featured">We hand pick these duffels once a month, so keep planning fun trips and we'll find you!</p>
 					<p class="featured" style="margin-bottom: 15px;"></p>
 	
 					<% d = @featured_duffels[0] %>
@@ -85,7 +85,7 @@
 									<h1 style="text-align:center"><%= d.title %></h1>
 									<span class="destination"><%= d.trip.destination.gsub(", United States", "").split(";")[0] %> <% if d.trip.destination.gsub(", United States", "").split(";").size > 3 %></span>
 									<span class="mute">and <%= pluralize(d.trip.destination.gsub(", United States", "").split(";").size-1, "more city") %></span><% end %>
-									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= d.trip.duration.to_s -%>-day trip</span><%- end -%>
+									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= (d.trip.duration+1).to_s -%>-day trip</span><%- end -%>
 								</div>
 							</div>
 	
@@ -170,7 +170,7 @@
 									<h1 style="text-align:center"><%= d.title %></h1>
 									<span class="destination"><%= d.trip.destination.gsub(", United States", "").split(";")[0] %> <% if d.trip.destination.gsub(", United States", "").split(";").size > 3 %></span>
 									<span class="mute">and <%= pluralize(d.trip.destination.gsub(", United States", "").split(";").size-1, "more city") %></span><% end %>
-									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= d.trip.duration.to_s -%>-day trip</span><%- end -%>
+									<%- if d.trip.start_date and d.trip.end_date -%><span class="date mute"> &middot; <%= (d.trip.duration+1).to_s -%>-day trip</span><%- end -%>
 								</div>
 							</div>
 		

@@ -16,9 +16,14 @@
 		<%= f.text_area :fun_facts %>
 	</p>
 	<p>
-		<%= f.label :published %>
-		<%= f.radio_button :published, :true %> True
-		<%= f.radio_button :published, :false %> False
+		<%= f.label :is_published %>
+		<%= f.radio_button :is_published, :true %> True
+		<%= f.radio_button :is_published, :false %> False
+	</p>
+	<p>
+		<%= f.label :is_free %>
+		<%= f.radio_button :is_free, :true %> True
+		<%= f.radio_button :is_free, :false %> False
 	</p>
 	<p>
 	  <%= f.submit "Update" %>
