@@ -318,11 +318,20 @@ class EventsController < ApplicationController
   end
   
   def check_events_details_cache(trip)
-    # fragment caching TODO where's read_fragment??
-    itinerary = trip.events_details
-    mappables = trip.mappable_ideas # query cached
-    write_fragment("#{trip.id}-events-details", itinerary)
-    write_fragment("#{trip.id}-mappable-ideas", mappables)
+    # Fragment Cache Patch: For some weird reason, reading fragment into these variables doesn't work unless initialized
+    itinerary = Event.new
+    mappables = Event.new
+    
+    if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.week) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.week)
+      itinerary = trip.events_details
+      mappables = trip.mappable_ideas
+      write_fragment("#{trip.id}-events-details", itinerary)
+      write_fragment("#{trip.id}-mappable-ideas", mappables)
+    else
+      itinerary = read_fragment("#{trip.id}-events-details")
+      mappables = read_fragment("#{trip.id}-mappable-ideas")
+    end
+    
     return itinerary
   end
   

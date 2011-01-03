@@ -26,9 +26,9 @@
 <% elsif event_detail.eventable_type == "Transportation" -%>
 	
 	<strong>From:</strong> <%= event_detail.from %> 
-	<%= Time.parse(event_detail.departure_time).strftime("%a %m/%d at %I:%M%p") unless event_detail.departure_time.nil? %><br>
+	<%= display_transportation_datetime(event_detail.departure_time) %><br>
 	<strong>To:</strong> <%= event_detail.to %> 
-	<%= Time.parse(event_detail.arrival_time).strftime("%a %m/%d at %I:%M%p") unless event_detail.arrival_time.nil? %><br>
+	<%= display_transportation_datetime(event_detail.arrival_time) %><br>
 	<%= simple_format_without_p(h(event_detail.note)) %>
 
 <% elsif event_detail.eventable_type == "Notes" -%>
