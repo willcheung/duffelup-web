@@ -26,8 +26,8 @@
 
 <% elsif event.eventable_type == "Transportation" %>
 	<h3>Transportation</h3>
-	From <%= event.from %> departing on <%= Time.parse(event.departure_time).strftime("%a %m/%d at %I:%M%p") unless event.departure_time.nil? %><br/>
-	To <%= event.to %> arriving on <%= Time.parse(event.arrival_time).strftime("%a %m/%d at %I:%M%p") unless event.arrival_time.nil? %><br/>
+	From <%= event.from %> departing on <%= display_transportation_datetime(event.departure_time) %><br/>
+	To <%= event.to %> arriving on <%= display_transportation_datetime(event.arrival_time) %><br/>
 	<%= auto_link(simple_format(event.note)) if not event.note.empty? %><br/>
 
 <% elsif event.eventable_type == "Notes" %>

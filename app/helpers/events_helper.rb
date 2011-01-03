@@ -212,5 +212,9 @@ module EventsHelper
       return false
     end
   end
+  
+  def display_transportation_datetime(t)
+    Time.parse(t).strftime("Departs %m/%d/%y at %I:%M%p") unless t.nil?
+  end 
     
 end
