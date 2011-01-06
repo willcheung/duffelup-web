@@ -12,6 +12,11 @@
     <%= f.text_field :lng %>
   </p>
 
+  <p>
+    <%= f.label :is_public? %>
+    <%= f.check_box :is_public? %>
+  </p>
+
     <p>
       <%= label :event, :trip_id %>
       <%= text_field :event, :trip_id %>
