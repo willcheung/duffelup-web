@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000028) do
+ActiveRecord::Schema.define(:version => 30000000000029) do
 
   create_table "activities_feeds", :force => true do |t|
     t.integer  "user_id",                 :null => false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 30000000000028) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "landmark_id"
+    t.boolean  "is_public",                                   :default => true
   end
 
   add_index "check_ins", ["landmark_id"], :name => "index_check_ins_on_landmark_id"
