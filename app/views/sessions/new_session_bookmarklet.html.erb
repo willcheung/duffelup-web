@@ -19,8 +19,8 @@ document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "
 			<p><strong>Save this idea to your trip in Duffel.</strong> Collaborate and organize travel plans with your friends and family. Sign up here to get started! <%= link_to "Tell me more.", '/site/tour', :target => "_blank" %></p>
 			
 			<div id="signup_link">
-			<p><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or sign in with:</p>
-			<p><%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?src=bookmarklet';});}else{window.location='/users/link_user_accounts?src=bookmarklet'}})", :v => 1) %></p>
+			<p style="font-size:14px;"><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or sign in with:</p>
+			<p><%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}';});}else{window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}'}})", :v => 1) %></p>
 			</div>
 			
 			<div id="signup_form" class="signup_form" style="display:none;">

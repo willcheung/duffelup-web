@@ -502,7 +502,11 @@ class UsersController < ApplicationController
   def link_user_accounts
     unless logged_in? # if not logged in
       # register new user with fb
-      fb_user = User.create_from_fb_connect(facebook_session.user)
+      if params[:from]
+        fb_user = User.create_from_fb_connect(facebook_session.user, params[:from])
+      else
+        fb_user = User.create_from_fb_connect(facebook_session.user)
+      end
       
       Friendship.add_duffel_professor(fb_user)
       
@@ -519,7 +523,7 @@ class UsersController < ApplicationController
       # if request coming from bookmarklet
       if params[:src] == "bookmarklet"
         redirect_back_or_default(new_research_path) and return
-        flash[:notice] = "Welcome #{fb_user.full_name} and hope you enjoy Duffel!"
+        flash[:notice] = "Welcome #{fb_user.full_name} and enjoy planning your trip!"
       else
         redirect_to(steptwo_path) and return
         flash[:notice] = "Hi #{fb_user.full_name}. Thanks for signing up and hope you enjoy Duffel!"
