@@ -142,12 +142,12 @@ class User < ActiveRecord::Base
   #Take the data returned from facebook and create a new user from it.
   #We don't get the email from Facebook and because a facebooker can only login through Connect we just generate a unique login name for them.
   #If you were using username to display to people you might want to get them to select one after registering through Facebook Connect
-  def self.create_from_fb_connect(fb_user) 
+  def self.create_from_fb_connect(fb_user, source="facebook") 
     new_facebooker = User.new(:full_name => fb_user.name.to_s, 
-                              :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(9999).to_s, 
+                              :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(999).to_s, 
                               :password => "", 
                               :email => "",
-                              :source => "facebook",
+                              :source => source,
                               :email_updates => 29,
                               :home_city => !fb_user.hometown_location.nil? ? (fb_user.hometown_location.city.to_s + " " + fb_user.hometown_location.state.to_s + ", " + fb_user.hometown_location.country.to_s) : "",
                               :avatar_file_name => fb_user.pic_square,
