@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 30000000000029) do
   end
 
   create_table "check_ins", :force => true do |t|
-    t.integer  "city_id",                                     :null => false
+    t.integer  "city_id",                                                       :null => false
     t.decimal  "lat",         :precision => 15, :scale => 10
     t.decimal  "lng",         :precision => 15, :scale => 10
     t.datetime "created_at"
