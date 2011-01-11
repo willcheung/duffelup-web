@@ -152,16 +152,17 @@ a#logo{
 -----------------------------------------------------------------------------------*/
 
 #details { padding: 10px 0; color: #ddd; margin-top: 10px; }
-#details .section { width: 450px; margin: 0 0 20px 0; float: left; }
+#details .section { width: 450px; margin: 0 0 10px 0; float: left; }
 #details .last { margin-left: 40px; }
-#details h1 { font-size: 22px; color: #CAED3B; margin-bottom: 5px; }
+#details h1 { font-size: 22px; color: #CAED3B; margin: 20px 0 5px 0; }
 #details ul { list-style: disc; margin-left: 20px; }
 #details em { font-style: italic; }
 #details a { color: #fff; text-decoration: none; }
-#details ul li { margin-bottom: 5px; }
-#details .section span {font-size:19px;color:#f1f1f1;font-weight:bold;letter-spacing:1px;}
+#details ul li { margin: 20px 0 15px 0; }
+#details .section span {font-size:16px;color:#f1f1f1;font-weight:bold;letter-spacing:1px;}
 #details #screenshot { margin-bottom: 8px;}
 #details #screenshot img { border: 5px solid;}
+#details hr {border: 1px solid #E3E3E3;margin: 15px 0;}
 
 /*-----------------------------------------------------------------------------------
 	Footer
