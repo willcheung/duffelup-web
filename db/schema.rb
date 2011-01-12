@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000029) do
+ActiveRecord::Schema.define(:version => 30000000000031) do
+
+  create_table "achievements", :force => true do |t|
+    t.integer  "users_id"
+    t.integer  "stamps_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "activities_feeds", :force => true do |t|
     t.integer  "user_id",                 :null => false
@@ -245,6 +252,12 @@ ActiveRecord::Schema.define(:version => 30000000000029) do
 
   create_table "notes", :force => true do |t|
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stamps", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
