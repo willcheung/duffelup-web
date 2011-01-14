@@ -110,9 +110,6 @@ class User < ActiveRecord::Base
   # get city_id
   before_save :save_user_city_id
   
-  # Fb Connect
-  after_create :register_user_to_fb
-  
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :username, :email, :password, :full_name, :homepage, :bio, :home_city, :invitation_token, :avatar, :home_airport_code, :last_login_at, :avatar_file_name, :avatar_content_type, :email_updates, :hide_tour_at, :source, :twitter_secret, :twitter_token
@@ -135,13 +132,14 @@ class User < ActiveRecord::Base
   #               Facebook Connect              #
   ###############################################
   
-  #find the user in the database, first by the facebook user id and if that fails through the email hash
+  # Find the user in the database, first by the facebook user id and if that fails through the email hash
   def self.find_by_fb_user(fb_user)
     User.find_by_fb_user_id(fb_user.uid) || User.find_by_email_hash(fb_user.email_hashes)
   end
-  #Take the data returned from facebook and create a new user from it.
-  #We don't get the email from Facebook and because a facebooker can only login through Connect we just generate a unique login name for them.
-  #If you were using username to display to people you might want to get them to select one after registering through Facebook Connect
+  
+  # Take the data returned from facebook and create a new user from it.
+  # We don't get the email from Facebook and because a facebooker can only login through Connect we just generate a unique login name for them.
+  # If you were using username to display to people you might want to get them to select one after registering through Facebook Connect
   def self.create_from_fb_connect(fb_user, source="facebook") 
     new_facebooker = User.new(:full_name => fb_user.name.to_s, 
                               :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(999).to_s, 
@@ -155,7 +153,8 @@ class User < ActiveRecord::Base
     new_facebooker.fb_user_id = fb_user.uid.to_i
     new_facebooker.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{rand}--")
     new_facebooker.save(false)
-    new_facebooker.register_user_to_fb
+    # taking register to fb for now b/c of Unknown StandardError.
+    # new_facebooker.register_user_to_fb 
     
     return new_facebooker
   end
@@ -176,9 +175,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  #The Facebook registers user method is going to send the users email hash and our account id to Facebook
-  #We need this so Facebook can find friends on our local application even if they have not connect through connect
-  #We then use the email hash in the database to later identify a user from Facebook with a local user
+  # The Facebook registers user method is going to send the users email hash and our account id to Facebook
+  # We need this so Facebook can find friends on our local application even if they have not connect through connect
+  # We then use the email hash in the database to later identify a user from Facebook with a local user
   def register_user_to_fb
     users = {:email => email, :account_id => id}
     Facebooker::User.register([users])
