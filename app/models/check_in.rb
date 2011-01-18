@@ -1,7 +1,7 @@
 class CheckIn < ActiveRecord::Base
   has_one :event, :as => :eventable
   belongs_to :city
-  belongs_to :landmark
+  # belongs_to :landmark
   
   validates_presence_of :city_id
   validates_associated :event
@@ -11,7 +11,8 @@ class CheckIn < ActiveRecord::Base
   
   before_validation_on_create do |check_in|
     check_in.city = CheckIn.find_city check_in.lat, check_in.lng
-    check_in.landmark = CheckIn.find_landmark check_in.lat, check_in.lng
+    # check_in.landmark = CheckIn.find_landmark check_in.lat, check_in.lng
+    check_in.award_stamp
     check_in.slot_into_itinerary
   end
   
@@ -39,6 +40,12 @@ class CheckIn < ActiveRecord::Base
         end
       end
     end
+  end
+  
+  def award_stamp
+    landmark = CheckIn.find_landmark(lat, lng)
+    stamp = landmark && landmark.stamp
+    event.user.achievements.create(:stamp => stamp) if stamp && !event.user.stamps.include?(stamp)
   end
   
   def event_must_be_present

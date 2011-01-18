@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CheckInsController do
-  fixtures :cities
+  fixtures :cities, :trips
   
   before(:each) do
     controller.stub!(:logged_in?).and_return(true)

@@ -45,6 +45,9 @@ class User < ActiveRecord::Base
   has_many :invitations, :dependent => :destroy
   
   has_many :activities_feeds, :dependent => :destroy
+  
+  has_many :achievements, :dependent => :destroy, :include => :stamp
+  has_many :stamps, :through => :achievements
            
   # Avatar using Paperclip plugin
   has_attached_file :avatar,

@@ -1,0 +1,29 @@
+quentin:
+  username: quentin
+  email: quentin@example.com
+  crypted_password: 75ec3abd661d27d33c3bda57c990766fceeb4e75
+  salt: e7414d1881d2dfc50690e172b626a9552bddec6c
+  created_at: <%= 5.days.ago.to_s :db %>
+
+aaron:
+  username: aaron
+  email: aaron@example.com
+  crypted_password: 75ec3abd661d27d33c3bda57c990766fceeb4e75
+  salt: e7414d1881d2dfc50690e172b626a9552bddec6c
+  created_at: <%= 1.days.ago.to_s :db %>
+
+star8erries:
+  username: amyyuan
+  email: amy.yuan@example.com
+  full_name: Amy Yuan
+  crypted_password: 75ec3abd661d27d33c3bda57c990766fceeb4e75
+  salt: e7414d1881d2dfc50690e172b626a9552bddec6c
+  created_at: <%= 3.days.ago.to_s :db %>
+
+will:
+  username: willcheung
+  email: willycheung@example.com
+  full_name: Will Cheung
+  crypted_password: 75ec3abd661d27d33c3bda57c990766fceeb4e75
+  salt: e7414d1881d2dfc50690e172b626a9552bddec6c
+  created_at: <%=21.days.ago.to_s :db %>
