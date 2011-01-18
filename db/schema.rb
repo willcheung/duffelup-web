@@ -9,13 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000031) do
+ActiveRecord::Schema.define(:version => 30000000000032) do
 
   create_table "achievements", :force => true do |t|
-    t.integer  "users_id"
-    t.integer  "stamps_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "stamp_id"
   end
 
   create_table "activities_feeds", :force => true do |t|
@@ -54,16 +54,13 @@ ActiveRecord::Schema.define(:version => 30000000000031) do
   end
 
   create_table "check_ins", :force => true do |t|
-    t.integer  "city_id",                                                       :null => false
-    t.decimal  "lat",         :precision => 15, :scale => 10
-    t.decimal  "lng",         :precision => 15, :scale => 10
+    t.integer  "city_id",                                                      :null => false
+    t.decimal  "lat",        :precision => 15, :scale => 10
+    t.decimal  "lng",        :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "landmark_id"
-    t.boolean  "is_public",                                   :default => true
+    t.boolean  "is_public",                                  :default => true
   end
-
-  add_index "check_ins", ["landmark_id"], :name => "index_check_ins_on_landmark_id"
 
   create_table "cities", :force => true do |t|
     t.integer "country_id",                :null => false
@@ -80,16 +77,6 @@ ActiveRecord::Schema.define(:version => 30000000000031) do
   add_index "cities", ["city"], :name => "index_cities_on_city"
   add_index "cities", ["city_country"], :name => "city_country_optimization"
   add_index "cities", ["region"], :name => "index_cities_on_region"
-
-  create_table "cities_staging", :force => true do |t|
-    t.string "country"
-    t.string "region"
-    t.string "city"
-    t.string "postal_code"
-    t.float  "latitude"
-    t.float  "longitude"
-    t.string "city_country"
-  end
 
   create_table "cities_trips", :id => false, :force => true do |t|
     t.integer "city_id", :null => false
@@ -244,7 +231,7 @@ ActiveRecord::Schema.define(:version => 30000000000031) do
     t.decimal  "lng",                       :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_url",   :limit => 96
+    t.string   "image_url"
     t.text     "fun_facts"
     t.text     "tips"
     t.string   "address"
@@ -260,7 +247,10 @@ ActiveRecord::Schema.define(:version => 30000000000031) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "landmark_id"
   end
+
+  add_index "stamps", ["landmark_id"], :name => "index_stamps_on_landmark_id"
 
   create_table "transportations", :force => true do |t|
     t.string   "from"

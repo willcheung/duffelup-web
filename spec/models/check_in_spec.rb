@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CheckIn do
-  fixtures :cities, :guides, :landmarks, :trips
+  fixtures :cities, :guides, :landmarks, :trips, :users
   
   before(:each) do
     @valid_attributes = {
@@ -43,6 +43,50 @@ describe CheckIn do
       Time.stub!(:now).and_return(Time.local(2030, 7, 11, 13, 50))
       check_in = CheckIn.create!(@valid_attributes)
       check_in.event.list.should == 0
+    end
+    
+  end
+  
+  describe "award stamp" do
+    it "create achievement on user" do
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
+      event = Event.create!(:trip_id => 1, :title => 'check_in')
+      event.user = users(:will)
+      event.save!
+      lambda do
+        check_in = CheckIn.create!(:lat => 40.41, :lng => -74.02, :event => event)
+      end.should change(Achievement, :count).by(1)
+      users(:will).stamps.should include stamp
+    end
+    
+    it "does not create duplicate achievements" do
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
+      event = Event.create!(:trip_id => 1, :title => 'check_in')
+      event.user = users(:will)
+      event.save!
+      event.user.achievements.create!(:stamp => stamp)
+      lambda do
+        check_in = CheckIn.create!(:lat => 40.41, :lng => -74.02, :event => event)
+      end.should_not change(Achievement, :count)
+    end
+    
+    it "does not create achievement if landmark does not have a stamp" do
+      event = Event.create!(:trip_id => 1, :title => 'check_in')
+      event.user = users(:will)
+      event.save!
+      lambda do
+        check_in = CheckIn.create!(:lat => 40.41, :lng => -74.02, :event => event)
+      end.should_not change(Achievement, :count)
+    end
+    
+    it "does not create achievement if checkin is not close to a landmark" do
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
+      event = Event.create!(:trip_id => 1, :title => 'check_in')
+      event.user = users(:will)
+      event.save!
+      lambda do
+        check_in = CheckIn.create!(:lat => 100, :lng => 100, :event => event)
+      end.should_not change(Achievement, :count)
     end
     
   end
