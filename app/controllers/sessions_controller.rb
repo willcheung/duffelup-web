@@ -18,12 +18,12 @@ class SessionsController < ApplicationController
 
   def create
     if params[:twitter] == "true"
-      oauth.set_callback_url(twitter_callback_session_url)
+      request_token = oauth_consumer.get_request_token(:oauth_callback => twitter_callback_session_url)
+      
+      session['rtoken']  = request_token.token
+      session['rsecret'] = request_token.secret
 
-      session['rtoken']  = oauth.request_token.token
-      session['rsecret'] = oauth.request_token.secret
-
-      redirect_to oauth.request_token.authorize_url and return
+      redirect_to request_token.authorize_url and return
     end
     
     self.current_user = User.authenticate(params[:login], params[:password])
@@ -63,8 +63,8 @@ class SessionsController < ApplicationController
     self.current_user.forget_me if @current_user.is_a? User
     cookies.delete :auth_token
     session[:user] = nil
-    session[:atoken] = nil
-    session[:asecret] = nil
+    session[:atoken] = session[:asecret] = nil
+    session[:rtoken] = session[:rsecret] = nil
     @current_user = false
     reset_session
     clear_facebook_session(true)
@@ -73,17 +73,19 @@ class SessionsController < ApplicationController
   
   # Called when Twitterer logins in
   def twitter_callback
-    oauth.authorize_from_request(session['rtoken'], session['rsecret'], params[:oauth_verifier])
-
-    profile = Twitter::Base.new(oauth).verify_credentials
-    session['rtoken'] = session['rsecret'] = nil
+    request_token = OAuth::RequestToken.new(oauth_consumer, session['rtoken'], session['rsecret'])
+    access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
+    reset_session
+    session['atoken'] = access_token.token
+    session['asecret'] = access_token.secret
+    profile = twitter_client.verify_credentials
     
-    twitter_user = User.find_by_twitter_token_and_twitter_secret(oauth.access_token.token, oauth.access_token.secret)
+    twitter_user = User.find_by_twitter_token_and_twitter_secret(access_token.token, access_token.secret)
     
     # If user is logged in and clicked on "Link"
     if logged_in?
-      current_user.twitter_secret = oauth.access_token.secret
-      current_user.twitter_token = oauth.access_token.token
+      current_user.twitter_secret = oauth_consumer.access_token.secret
+      current_user.twitter_token = oauth_consumer.access_token.token
       current_user.save(false)
       
       twitter_client.update("Checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
@@ -97,7 +99,7 @@ class SessionsController < ApplicationController
 
       redirect_back_or_default(dashboard_path, params[:redirect]) and return
     else # create new user
-      self.current_user = User.create_from_twitter_oauth(profile, oauth.access_token.token, oauth.access_token.secret)
+      self.current_user = User.create_from_twitter_oauth(profile, session['atoken'], session['asecret'])
       
       Friendship.add_duffel_professor(current_user)
       

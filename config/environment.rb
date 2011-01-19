@@ -89,6 +89,8 @@ Rails::Initializer.run do |config|
   config.gem 'contacts'
   # Twitter gem
   config.gem 'twitter'
+  # OAuth gem
+  config.gem 'oauth'
   # Facebooker gem
   config.gem 'facebooker'
 end
