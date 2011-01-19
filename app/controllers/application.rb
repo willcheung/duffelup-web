@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
   
   rescue_from Facebooker::Session::SessionExpired, :with => :clear_facebook_session
   rescue_from Twitter::Unauthorized, :with => :force_sign_in
-  #rescue_from OAuth::Unauthorized, :with => :force_sign_in
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -171,15 +170,18 @@ class ApplicationController < ActionController::Base
   end
   
   ######## Twitter OAuth ###########
-  def oauth
-    @oauth ||= Twitter::OAuth.new(ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET'], :sign_in => true)
+  def oauth_consumer
+    @oauth_consumer ||= OAuth::Consumer.new(ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET'], :site => 'http://api.twitter.com', :request_endpoint => 'http://api.twitter.com', :sign_in => true)
   end
 
   def twitter_client
-    return if current_user.twitter_token.nil? or current_user.twitter_secret.nil?
-    
-    oauth.authorize_from_access(current_user.twitter_token, current_user.twitter_secret)
-    Twitter::Base.new(oauth)
+    Twitter.configure do |config|
+      config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+      config.oauth_token = session['atoken']
+      config.oauth_token_secret = session['asecret']
+    end
+    @twitter_client ||= Twitter::Client.new
   end
   helper_method :twitter_client
 
@@ -198,9 +200,6 @@ class ApplicationController < ActionController::Base
   def truncate(text, *args)
     options = args.extract_options!
     unless args.empty?
-      # ActiveSupport::Deprecation.warn('truncate takes an option hash instead of separate ' +
-      #         'length and omission arguments', caller)
-
       options[:length] = args[0] || 30
       options[:omission] = args[1] || "..."
     end
