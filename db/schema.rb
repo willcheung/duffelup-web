@@ -78,6 +78,16 @@ ActiveRecord::Schema.define(:version => 30000000000032) do
   add_index "cities", ["city_country"], :name => "city_country_optimization"
   add_index "cities", ["region"], :name => "index_cities_on_region"
 
+  create_table "cities_staging", :force => true do |t|
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "postal_code"
+    t.float  "latitude"
+    t.float  "longitude"
+    t.string "city_country"
+  end
+
   create_table "cities_trips", :id => false, :force => true do |t|
     t.integer "city_id", :null => false
     t.integer "trip_id", :null => false
@@ -231,7 +241,7 @@ ActiveRecord::Schema.define(:version => 30000000000032) do
     t.decimal  "lng",                       :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_url"
+    t.string   "image_url",   :limit => 96
     t.text     "fun_facts"
     t.text     "tips"
     t.string   "address"
