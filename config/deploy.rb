@@ -1,4 +1,4 @@
-set :application, "duffelup.com"
+set :application, "duffelup"
 set :user, "duffelup"
 set :repository,  "https://subversion.assembla.com/svn/duffelup-web"
 
@@ -10,7 +10,7 @@ set :runner, user
 # set :deploy_to, "/var/www/#{application}"
 
 #set :port, 8888
-set :deploy_to, "/app/duffelup/#{application}"
+set :deploy_to, "/app/#{application}"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -81,14 +81,14 @@ namespace :deploy do
       end
     end
   
-    # desc "Send email to engineering after deployment"
-    # task :send_email do
-    #   run "echo \"Code deployed!  This email doesn't indicate whether deployment succeeded or not (nor provide any other info, as a matter of fact), so you better check whether the the site is still up!\" | mail -s \"Admin just deployed code to production\" engineering@duffelup.com"
-    # end
+    desc "Send email to engineering after deployment"
+      task :send_email do
+        run "echo \"Code deployed!  This email doesn't indicate whether deployment succeeded or not (nor provide any other info, as a matter of fact), so you better check whether the the site is still up!\" | mail -s \"Admin just deployed code to production\" engineering@duffelup.com"
+    end
 
     after "deploy:update_code", "deploy:copy_database_configuration"
     after "deploy:update_code", "deploy:assets:symlink"
     after "deploy:update_code", "deploy:passenger:restart"
-    #after "deploy:update_code", "deploy:send_email"
+    after "deploy:update_code", "deploy:send_email"
     after "deploy", "deploy:cleanup"
 end

@@ -11,7 +11,7 @@ def load_database_yml(env)
   [host, dbname, user, pass]
 end
 
-LOG_PATH="/home/will/public_html/duffelup.com/shared/mysql_backups"
+LOG_PATH="/app/duffelup/shared/mysql_backups"
 
 ## 
 ## Backup and restore scripts for MySQL backed Rails apps
