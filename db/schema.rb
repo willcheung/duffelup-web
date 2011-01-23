@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000032) do
+ActiveRecord::Schema.define(:version => 30000000000033) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -269,16 +269,6 @@ ActiveRecord::Schema.define(:version => 30000000000032) do
     t.datetime "arrival_time"
     t.datetime "updated_at"
     t.datetime "created_at"
-  end
-
-  create_table "trip_properties", :force => true do |t|
-    t.integer  "trip_id"
-    t.text     "custom_css"
-    t.integer  "custom_header_label", :limit => 1, :default => 1
-    t.string   "itinerary_header"
-    t.string   "itinerary_labels"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "trips", :force => true do |t|

@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  # To Do: Multiple table inheiritance http://mediumexposure.com/multiple-table-inheritance-active-record/
   belongs_to :eventable, :polymorphic => true, :dependent => :delete
   belongs_to :trip
   belongs_to :user, :foreign_key => :created_by

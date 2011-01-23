@@ -2,11 +2,9 @@
 # Goes through each day and lists out corresponding events for each day 
 -->
 <ul id="itinerary_list_<%= day+1 %>">
-	<% if @trip_properties && @trip_properties.custom_header_label == 1 %>
-	<li class="divider"><%= @trip_properties.itinerary_labels.split("|")[day] %></li>
-	<% else %>
+
 	<li class="divider"><%= (@trip.start_date + day).strftime("%A, %B %d") %></li>
-	<% end %>
+
 	<% for event in @itinerary[day+1] %>
 		
 		<li <% if @users.include?(current_user) %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">

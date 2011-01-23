@@ -17,8 +17,7 @@ class Trip < ActiveRecord::Base
   has_many :users,
            :through => :invitations,
            :order => :username
-           
-  has_one :trip_properties, :dependent => :delete
+    
 
   # Photo using Paperclip plugin
   has_attached_file :photo,
