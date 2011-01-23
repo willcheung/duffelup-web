@@ -37,6 +37,7 @@ namespace :deploy do
   # custom task to stop Apache
   desc "duffel - Stops web server"
   task :stop_web_server, :roles => :web do
+    default_run_options[:pty] = true
     sudo "/etc/init.d/httpd stop"
     run "sleep 10"
   end
@@ -44,12 +45,14 @@ namespace :deploy do
   # custom taks to start Apache
   desc "duffel - Starts web server"
   task :start_web_server, :roles => :web do
+    default_run_options[:pty] = true
     sudo "/etc/init.d/httpd start"
   end
 
   # restart Apache web server
   desc "duffel - Restarts web server"
   task :restart_web_server, :roles => :web do
+    default_run_options[:pty] = true
   	sudo "/etc/init.d/httpd restart"
   end
 

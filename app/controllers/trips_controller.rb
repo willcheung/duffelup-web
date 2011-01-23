@@ -269,17 +269,6 @@ class TripsController < ApplicationController
       @trip_comments_size = read_fragment("#{@trip.id}-comments-size")
     end
     
-    ########################################################
-    # Load extended trip properties (for business users)
-    ########################################################
-    @trip_properties = TripProperties.new
-    if !fragment_exist?("#{@trip.id}-trip-properties")
-      @trip_properties = @trip.trip_properties
-      write_fragment("#{@trip.id}-trip-properties", @trip_properties)
-    else
-      @trip_properties = read_fragment("#{@trip.id}-trip-properties")
-    end
-    
     ####################################
     # Load Kayak Flights / BookingBuddy
     ####################################
