@@ -537,7 +537,6 @@ class TripsController < ApplicationController
   def clear_trip_and_events_cache
     expire_fragment "#{@trip.id}-events-details"
     expire_fragment "#{@trip.id}-mappable-ideas"
-    expire_fragment "#{@trip.id}-trip-properties"
     expire_fragment "#{@trip.id}-trip-dest"
   end
   
@@ -546,7 +545,7 @@ class TripsController < ApplicationController
     itinerary = Event.new
     mappables = Event.new
     
-    if !fragment_exist?("#{trip.id}-events-details") or !fragment_exist?("#{trip.id}-mappable-ideas")
+    if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.day) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.day)
       itinerary = trip.events_details
       mappables = trip.mappable_ideas
       write_fragment("#{trip.id}-events-details", itinerary)
