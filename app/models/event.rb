@@ -131,7 +131,7 @@ class Event < ActiveRecord::Base
   end
   
   def add_photo_size_to_user_bandwidth
-    if self.photo_file_size_changed?
+    if self.photo_file_size_changed? and !user.nil?
       user.update_attribute("bandwidth", (user.bandwidth + self.photo_file_size))
       #user = User.find_by_id(self.created_by)
       #user.bandwidth = user.bandwidth + self.photo_file_size

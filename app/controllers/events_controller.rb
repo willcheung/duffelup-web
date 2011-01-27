@@ -304,7 +304,7 @@ class EventsController < ApplicationController
     @trip = Trip.find_by_permalink(params[:permalink])
     @users = User.new
     
-    if !fragment_exist?("#{@trip.id}-users", :time_to_live => 1.day)
+    if !fragment_exist?("#{@trip.id}-users", :time_to_live => 12.hours)
       @users = User.load_trip_users(@trip.id)
       write_fragment("#{@trip.id}-users", @users)
     else
@@ -322,7 +322,7 @@ class EventsController < ApplicationController
     itinerary = Event.new
     mappables = Event.new
     
-    if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.week) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.week)
+    if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.day) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.day)
       itinerary = trip.events_details
       mappables = trip.mappable_ideas
       write_fragment("#{trip.id}-events-details", itinerary)
