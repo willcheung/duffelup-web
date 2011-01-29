@@ -291,6 +291,8 @@ class EventsController < ApplicationController
         end # @trip.duration.times
       end # if params['board']
       
+      clear_events_cache
+      
       # fragment caching
       @itinerary = check_events_details_cache(@trip)
       @list_containment = build_sortable_list_containment(@trip)
