@@ -1,9 +1,9 @@
 class TripsController < ApplicationController
   include ApplicationHelper
   
-  layout "simple", :except => [:show, :print_itinerary, :share]
+  layout "simple", :except => [:show, :print_itinerary, :share, :get_deals]
   
-  before_filter :protect, :except => [:show, :index, :load_trip_and_users, :auto_complete_for_trip_destination, :parse_date, :share]
+  before_filter :protect, :except => [:show, :index, :load_trip_and_users, :auto_complete_for_trip_destination, :parse_date, :share, :get_deals]
   after_filter :clear_trip_and_events_cache, :only => [:update, :destroy]
   
   def index
@@ -269,62 +269,6 @@ class TripsController < ApplicationController
       @trip_comments_size = read_fragment("#{@trip.id}-comments-size")
     end
     
-    ####################################
-    # Load Kayak Flights / BookingBuddy
-    ####################################
-    
-    if !@city[0].nil? and params[:view] != "map"
-      remote_ip = request.remote_ip
-      onclick_analytics = "pageTracker._trackEvent('BookingBuddy', 'click', 'from_trip_planning_footer');"
-      @hotel_feed = ""
-      request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=6&placement=trip_planning_footer&multiple=1&auto_backfill=1&lat=#{@city[0].latitude}&lon=#{@city[0].longitude}&radius=30"
-      request_url = request_url + "&test=1" if "production" != RAILS_ENV
-      doc = WebApp.consume_xml_from_url(request_url)
-      
-      (doc/:Deal).each do |deal|
-        @hotel_feed = @hotel_feed + "<li>"
-        @hotel_feed = @hotel_feed + "<span class=\"price\"><a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('Price').innerHTML}</a></span>"
-        @hotel_feed = @hotel_feed + "<a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('Title').innerHTML}</a>"
-        @hotel_feed = @hotel_feed + "<span class=\"advertiser\"><a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('AdvertiserName').innerHTML}</a></span>"
-        @hotel_feed = @hotel_feed + "</li>"
-      end
-      
-      # Check Kayak.com/rss for flights
-      # if !current_user.home_airport_code.nil? and !current_user.home_airport_code.blank?
-      #         tm = @trip.start_date.nil? ? "" : @trip.start_date.year.to_s + @trip.start_date.month.to_s
-      #         home = Iconv.iconv('ascii//translit', 'utf-8', current_user.home_airport_code).to_s.gsub(/\W/, '')
-      #       
-      #         if !@trip.start_date.nil? and !@trip.end_date.nil?
-      #           d1 = @trip.start_date.strftime("%m/%d/%Y")
-      #           d2 = @trip.end_date.strftime("%m/%d/%Y")
-      #         end
-      #       
-      #         if !@trip.attribute_present?(:airport_code) or @trip.airport_code.nil? # if airport_code is nil or not present
-      #           # don't display kayak bar
-      #           @rss = nil
-      #           #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
-      #         else # use airport-to-airport feed
-      #           kayak_request = "http://www.kayak.com/h/rss/fare?code=" + home + "&dest=" + @trip.airport_code.to_s + "&mc=USD&tm=" + tm.to_s
-      #           kayak_air_search = "http://www.kayak.com/s/search/air?ai=duffelup&l1=" + home + "&l2=" + @trip.airport_code.to_s + "&d1=" + d1.to_s + "&d2=" + d2.to_s
-      #           r = WebApp.consume_rss_feed(kayak_request)
-      #         end 
-      #       
-      #         # Take out the dates from Kayak's response
-      #         if !r.nil? and !r.items.first.nil?
-      #           @rss = r.items.first.title.gsub(/(^.+\$[^\s]+).+\s+(on\s+.+)$/, "\\1 \\2") #take out the dates
-      #           @rss = "<a href=\"" + kayak_air_search + "\" target=\"_blank\" onClick=\"pageTracker._trackEvent('KayakBar', 'click');\">Kayak.com suggests " + @rss + "</a>"
-      #         else
-      #           # don't display kayak bar
-      #           @rss = nil
-      #           #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
-      #         end
-      #       else
-      #         #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
-      #         @rss = "Please <a href=\"/user/edit\">update your profile</a> so we can recommend flights to you."
-      #       end 
-    end
-    
-    
     ########################################################
     # Load duffel events (ideas, transportation, and notes)
     ########################################################
@@ -423,6 +367,81 @@ class TripsController < ApplicationController
       @trip.destroy
       flash[:notice] = "Your duffel #{trip_title} was deleted."
       redirect_to dashboard_path
+    end
+  end
+  
+  def get_deals
+    trip = Trip.find_by_permalink(params[:permalink])
+    @city = City.new
+    @city = read_fragment("#{trip.id}-trip-dest")
+    
+    ####################################
+    # Load Kayak Flights / BookingBuddy
+    ####################################
+    
+    if !@city[0].nil?
+      if !fragment_exist?("#{@city[0].id}-deals-footer", :time_to_live => 6.hours)
+        remote_ip = request.remote_ip
+        onclick_analytics = "pageTracker._trackEvent('BookingBuddy', 'click', 'from_trip_planning_footer');"
+        @deals_feed = ""
+        request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=6&placement=trip_planning_footer&multiple=1&auto_backfill=1&lat=#{@city[0].latitude}&lon=#{@city[0].longitude}&radius=30"
+        request_url = request_url + "&test=1" if "production" != RAILS_ENV
+        doc = WebApp.consume_xml_from_url(request_url)
+      
+        (doc/:Deal).each do |deal|
+          @deals_feed = @deals_feed + "<li>"
+          @deals_feed = @deals_feed + "<span class=\"price\"><a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('Price').innerHTML}</a></span>"
+          @deals_feed = @deals_feed + "<a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('Title').innerHTML}</a>"
+          @deals_feed = @deals_feed + "<span class=\"advertiser\"><a target=\"_blank\" onclick=\"#{onclick_analytics}\" href=\"#{deal.at('URL').innerHTML}\">#{deal.at('AdvertiserName').innerHTML}</a></span>"
+          @deals_feed = @deals_feed + "</li>"
+        end
+        
+        write_fragment("#{@city[0].id}-deals-footer", @deals_feed)
+      else
+        @deals_feed = read_fragment("#{@city[0].id}-deals-footer")
+      end
+      
+      respond_to do |format| 
+        format.js do 
+          render :update do |page|
+            page.replace_html "deals_feed", @deals_feed
+          end
+        end
+      end
+      
+      # Check Kayak.com/rss for flights
+      # if !current_user.home_airport_code.nil? and !current_user.home_airport_code.blank?
+      #         tm = @trip.start_date.nil? ? "" : @trip.start_date.year.to_s + @trip.start_date.month.to_s
+      #         home = Iconv.iconv('ascii//translit', 'utf-8', current_user.home_airport_code).to_s.gsub(/\W/, '')
+      #       
+      #         if !@trip.start_date.nil? and !@trip.end_date.nil?
+      #           d1 = @trip.start_date.strftime("%m/%d/%Y")
+      #           d2 = @trip.end_date.strftime("%m/%d/%Y")
+      #         end
+      #       
+      #         if !@trip.attribute_present?(:airport_code) or @trip.airport_code.nil? # if airport_code is nil or not present
+      #           # don't display kayak bar
+      #           @rss = nil
+      #           #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
+      #         else # use airport-to-airport feed
+      #           kayak_request = "http://www.kayak.com/h/rss/fare?code=" + home + "&dest=" + @trip.airport_code.to_s + "&mc=USD&tm=" + tm.to_s
+      #           kayak_air_search = "http://www.kayak.com/s/search/air?ai=duffelup&l1=" + home + "&l2=" + @trip.airport_code.to_s + "&d1=" + d1.to_s + "&d2=" + d2.to_s
+      #           r = WebApp.consume_rss_feed(kayak_request)
+      #         end 
+      #       
+      #         # Take out the dates from Kayak's response
+      #         if !r.nil? and !r.items.first.nil?
+      #           @rss = r.items.first.title.gsub(/(^.+\$[^\s]+).+\s+(on\s+.+)$/, "\\1 \\2") #take out the dates
+      #           @rss = "<a href=\"" + kayak_air_search + "\" target=\"_blank\" onClick=\"pageTracker._trackEvent('KayakBar', 'click');\">Kayak.com suggests " + @rss + "</a>"
+      #         else
+      #           # don't display kayak bar
+      #           @rss = nil
+      #           #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
+      #         end
+      #       else
+      #         #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
+      #         @rss = "Please <a href=\"/user/edit\">update your profile</a> so we can recommend flights to you."
+      #       end 
     end
   end
   

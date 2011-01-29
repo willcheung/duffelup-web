@@ -18,7 +18,7 @@ module AuthenticatedSystem
       @current_user = new_user || false
       
       # if current_user exists, then log timestamp
-      if @current_user and (@current_user.last_login_at.nil? or @current_user.last_login_at.day != Time.now.day or @current_user.last_login_at.month != Time.now.month)
+      if @current_user and (@current_user.last_login_at.nil? or (Time.now - @current_user.last_login_at) > 15.days)
         @current_user.last_login_at = Time.now
         @current_user.save(false)
       end
