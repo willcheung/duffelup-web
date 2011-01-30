@@ -34,26 +34,25 @@
 		
 	<% if logged_in? and @users.include?(current_user) and (current_user.hide_tour_at.nil? or current_user.hide_tour_at.blank?) %>
 	
-	<div id="tour1" class="tour" style="top: 50%; left: 50%; margin: -64px 0 0 -200px; width: 400px; height: 128px;">
+	<div id="tour1" class="tour" style="top: 50%; left: 50%; margin: -100px 0 0 -190px; width: 280px; height: 128px;">
 		<h1>Welcome to your duffel!</h1>
-		<p>In 3 simple steps, we'll show you some very important features about your trip planning interface.</p>
+		<p>In 3 simple steps, we'll show you important features about your trip planning interface.</p>
 		<p><a onclick="Effect.Fade('tour1', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink" href="#tour2">Let's start, shall we?</a> 
 		<!--<%= link_to_remote "I'm a pro. Skip this.", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourSmallLink'} -%>--></p>
 	</div>
 	
-	<div id="tour2" class="tour" style="top: 130px; left: 22%; margin: 0 0 0 0; width: 400px; height: 167px; display: none;">
+	<div id="tour2" class="tour" style="top: 130px; left: 22%; margin: 0 0 0 0; width: 300px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 280px" />
 		<h1>1. Add anything to your duffel</h1>
-		<p>Click here to add activities, lodging options or any research to your trip.</p>
-		<p>An easier and faster way is to use our <a href="/site/tools" target="_blank">Clip-It Bookmarker</a>, which allows you to add travel notes to your trip without leaving the website you're browsing.</p>
+		<p>Click here to add activity ideas, lodging options or any research to your trip.</p>
 		<p><a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour1', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour1">Previous</a> 
 		   <a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour3">Next</a></p>
 	</div>
 	
-	<div id="tour3" class="tour" style="top: 60px; right: 13%; margin: 0 0 0 0; width: 260px; height: 132px; display: none;">
+	<div id="tour3" class="tour" style="top: 60px; right: 13%; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -35px; left: 170px" />
 		<h1>2. Invite friends and family</h1>
-		<p>Invite fellow tripgoers or local experts to your trip. They can leave their own research, tips and comments here.</p>
+		<p>Invite fellow tripgoers to your trip. They can contribute ideas, research and comments.</p>
 		<p><a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour2">Previous</a> 
 		   <a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour4', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour4">Next</a></p>
 	</div>
@@ -68,11 +67,11 @@
 	</div>
 	-->
 	
-	<div id="tour4" class="tour" style="top: 200px; left: 10%; margin: 0 0 0 0; width: 300px; height: 200px; display: none;">
+	<div id="tour4" class="tour" style="top: 200px; left: 10%; margin: 0 0 0 0; width: 300px; height: 170px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 120px" />
 		<h1>3. Drag & drop your notes to the itinerary</h1>
-		<p>Pick your travel dates (if you haven't done so). Drag & drop your notes here to start planning your itinerary.</p>
-		<p>Please visit <a href="/site/help">help page</a> for more info. Hope you enjoy Duffel and share with your friends!</p>
+		<p>Drag & drop your activities here to start planning your itinerary.</p>
+		<p>Enjoy Duffel and share with your friends!</p>
 		<p><a onclick="Effect.Fade('tour4', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour3">Previous</a> 
 		   <%= link_to_remote "Finish", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourLink tourLinkNext'} -%></p>
 	</div>
