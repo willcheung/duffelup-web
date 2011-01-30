@@ -6,6 +6,8 @@
 	  :constraint => false,
 	  :only => 'sortable',
 	  :overlap => 'horizontal',
+	  :loading => "$('sorting-indicator').show();",
+	  :complete => "$('sorting-indicator').hide();",
       :url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
 
 <% unless @trip.start_date.nil? or @trip.end_date.nil? %>
@@ -14,8 +16,10 @@
 		:dropOnEmpty => true, 
 	  	:containment => @list_containment,
 	  	:constraint => false,
-		#:scroll => '\'sidebar\'',
+		#:scroll => "'sidebar'",
 		:only => 'sortable',
+		:loading => "$('sorting-indicator').show();",
+		:complete => "$('sorting-indicator').hide();",
       	:url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
 <% end %>
 <% end %>

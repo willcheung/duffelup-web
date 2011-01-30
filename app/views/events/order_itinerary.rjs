@@ -13,10 +13,4 @@ elsif params['itinerary_list_'+(@day.to_i+1).to_s]
   end
 end
 
-if params['view'] == "map"
-  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls_without_board')
-else
-  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
-end
-
 page << "iBox.initialize();"

@@ -83,6 +83,8 @@
 		<% flash.each do |key, msg| -%>
 		  <%= content_tag :p, msg, :id => key -%>
 		<% end -%>
+		
+		<div id="sorting-indicator" style="display:none;"><p>Saving... <img style="vertical-align:bottom;" src="/images/ajax-loader-sorting.gif"></p></div>
 
 		<div id="header" class="clearfix">
 
