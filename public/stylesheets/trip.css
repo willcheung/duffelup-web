@@ -1557,6 +1557,25 @@ input.trip_destination_submit {
 	background:#b22;
 }
 
+#sorting-indicator {
+	background:#FFF8C6;
+	padding:3px;
+	font-weight:normal;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius-topleft:0;
+	-webkit-border-top-left-radius:0;
+	-moz-border-radius-topright:0;
+	-webkit-border-top-right-radius:0;
+	position:absolute;
+	top:0;
+	width:100px;
+	left:50%;
+	margin:0 0 0 -50px;
+	z-index: 8	;
+	text-align: center;
+}
+
 
 /*-----------------------------------------------------------------------------------
 	Help

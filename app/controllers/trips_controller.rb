@@ -379,7 +379,7 @@ class TripsController < ApplicationController
     # Load Kayak Flights / BookingBuddy
     ####################################
     
-    if !@city[0].nil?
+    if !@city.nil? and !@city.empty? and !@city[0].nil?
       if !fragment_exist?("#{@city[0].id}-deals-footer", :time_to_live => 6.hours)
         remote_ip = request.remote_ip
         onclick_analytics = "pageTracker._trackEvent('BookingBuddy', 'click', 'from_trip_planning_footer');"
@@ -400,14 +400,17 @@ class TripsController < ApplicationController
       else
         @deals_feed = read_fragment("#{@city[0].id}-deals-footer")
       end
-      
-      respond_to do |format| 
-        format.js do 
-          render :update do |page|
-            page.replace_html "deals_feed", @deals_feed
-          end
+    else
+      @deals_feed = "<p style=\"margin-top:10px;font-size:12px;\"> We did not find any travel deals. :(  <br/>Make sure trip destination is valid (or perhaps it is just too exotic!). </p>"
+    end
+    
+    respond_to do |format| 
+      format.js do 
+        render :update do |page|
+          page.replace_html "deals_feed", @deals_feed
         end
       end
+    end
       
       # Check Kayak.com/rss for flights
       # if !current_user.home_airport_code.nil? and !current_user.home_airport_code.blank?
@@ -442,7 +445,6 @@ class TripsController < ApplicationController
       #         #@rss = "<a href=\"http://www.tkqlhce.com/click-3434717-10638698\" target=\"_blank\" onClick=\"pageTracker._trackEvent('FlightBar', 'click');\">$10 off your next flight ticket to anywhere in the U.S.! Coupon Code: USFLY10</a><img src=\"http://www.awltovhc.com/image-3434717-10638698\" width=\"1\" height=\"1\" border=\"0\"/>"
       #         @rss = "Please <a href=\"/user/edit\">update your profile</a> so we can recommend flights to you."
       #       end 
-    end
   end
   
   def share
