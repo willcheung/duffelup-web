@@ -1545,7 +1545,7 @@ input.trip_destination_submit {
 	width:600px;
 	left:50%;
 	margin:0 0 0 -300px;
-	z-index: 10;
+	z-index: 15;
 	text-align: center;
 }
 
@@ -1572,7 +1572,7 @@ input.trip_destination_submit {
 	width:100px;
 	left:50%;
 	margin:0 0 0 -50px;
-	z-index: 8	;
+	z-index: 10;
 	text-align: center;
 }
 

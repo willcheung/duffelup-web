@@ -401,7 +401,7 @@ class TripsController < ApplicationController
         @deals_feed = read_fragment("#{@city[0].id}-deals-footer")
       end
     else
-      @deals_feed = "<p style=\"margin-top:10px;font-size:12px;\"> We did not find any travel deals. :(  <br/>Make sure trip destination is valid (or perhaps it is just too exotic!). </p>"
+      @deals_feed = "<p style=\"margin-top:10px;font-size:13px;\">We did not find any travel deals for this destination. :-(</p>"
     end
     
     respond_to do |format| 
