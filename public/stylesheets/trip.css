@@ -1590,7 +1590,7 @@ input.trip_destination_submit {
 	-moz-border-radius: 20px;
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
-/*	border: 5px solid #59691A; */
+	/*border: 5px solid #6a7a2b; */
 	font-size: 14px;
 	-webkit-box-shadow: #000 0 0 8px;
 	-moz-box-shadow: #000 0 0 8px;
@@ -1604,6 +1604,7 @@ input.trip_destination_submit {
 
 .tour p {
 	margin: 10px 0;
+	line-height: 18px;
 }
 
 .tour .tourLink, .tour .tourLink2 {
