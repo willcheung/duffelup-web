@@ -1,25 +1,39 @@
-<%= javascript_tag "Position.includeScrollOffsets = true" %>
-<%= sortable_element 'board', 
-      :dropOnEmpty => true, 
-	  #:scroll => '\'content\'',
-	  :containment => @list_containment,
-	  :constraint => false,
-	  :only => 'sortable',
-	  :overlap => 'horizontal',
-	  :loading => "$('sorting-indicator').show();",
-	  :complete => "$('sorting-indicator').hide();",
-      :url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
+<script type="text/javascript">
+	Position.includeScrollOffsets = true;
+	var drag_item = "";
 
-<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
-<% (@trip.duration+1).times do |i| %>
-	<%= sortable_element 'itinerary_list_'+(i+1).to_s,
-		:dropOnEmpty => true, 
-	  	:containment => @list_containment,
-	  	:constraint => false,
-		#:scroll => "'sidebar'",
-		:only => 'sortable',
-		:loading => "$('sorting-indicator').show();",
-		:complete => "$('sorting-indicator').hide();",
-      	:url => { :controller => "events", :action => "order_itinerary", :permalink => @trip } %>
-<% end %>
-<% end %>
+	Sortable.create("board", 
+					{constraint:false, 
+						containment:[<%= @list_containment.join(",") %>],
+						dropOnEmpty:true, 
+						onChange:function(item){drag_item=item}, 
+						onUpdate:function(){new Ajax.Request('/events/order_itinerary?permalink=<%= @trip.permalink %>&drag_item='+drag_item.id.replace(/list_[0-9]+_/,'')+'&drag_item_from='+drag_item.id.replace('list_','').replace(/_[0-9]+/,''), 
+																{asynchronous:true, 
+																evalScripts:true, 
+																onComplete:function(request){$('sorting-indicator').hide();}, 
+																onLoading:function(request){$('sorting-indicator').show();}, 
+																parameters:Sortable.serialize("board")}
+															)}, 
+						only:'sortable', 
+						overlap:'horizontal'});
+						
+	<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+	<% (@trip.duration+1).times do |i| %>
+
+	Sortable.create("<%= 'itinerary_list_'+(i+1).to_s %>", 
+					{constraint:false, 
+						containment:[<%= @list_containment.join(",") %>], 
+						dropOnEmpty:true, 
+						onChange:function(item){drag_item=item}, 
+						onUpdate:function(){new Ajax.Request('/events/order_itinerary?permalink=<%= @trip.permalink %>&drag_item='+drag_item.id.replace(/list_[0-9]+_/,'')+'&drag_item_from='+drag_item.id.replace('list_','').replace(/_[0-9]+/,''), 
+																{asynchronous:true, 
+																evalScripts:true, 
+																onComplete:function(request){$('sorting-indicator').hide();}, 
+																onLoading:function(request){$('sorting-indicator').show();}, 
+																parameters:Sortable.serialize("<%= 'itinerary_list_'+(i+1).to_s %>")}
+															)}, 
+						only:'sortable'});
+
+	<% end %>
+	<% end %>
+</script>

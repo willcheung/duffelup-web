@@ -1,16 +1,37 @@
-if params['board']
-  page.replace_html('board_events', :partial => 'events/board_events')
-  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
-elsif params['itinerary_list_'+(@day.to_i+1).to_s]
-  if params['view'] == "map"
-    page.replace_html('itinerary_day_'+(@day.to_i+1).to_s, :partial => 'events/scheduled_events', :locals => { :day => @day, :map => true })
-    page.replace_html('itinerary-header', :partial => 'trips/itinerary_header')
-    page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls_without_board')
-  else
-    page.replace_html('itinerary_day_'+(@day.to_i+1).to_s, :partial => 'events/scheduled_events', :locals => { :day => @day, :map => false })
-    page.replace_html('itinerary-header', :partial => 'trips/itinerary_header')
-    page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
+if params[:board]
+  params[:board].each do |b|
+    if b.to_s == params[:drag_item].to_s
+      if @event.eventable_type == "Foodanddrink"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_foodanddrink', :locals => { :event => @event })
+      elsif @event.eventable_type == "Activity"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_activity', :locals => { :event => @event })
+      elsif @event.eventable_type == "Hotel"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_lodging', :locals => { :event => @event })
+      elsif @event.eventable_type == "Transportation"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_transport', :locals => { :event => @event })
+      elsif @event.eventable_type == "Notes"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_note', :locals => { :event => @event })
+      elsif @event.eventable_type == "CheckIn"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_check_in', :locals => { :event => @event })
+      end
+    end
   end
+else
+  params['itinerary_list_'+(@day.to_i+1).to_s].each do |i|
+    if i.to_s == params[:drag_item].to_s
+      if params['view'] == "map"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/scheduled_tile', :locals => { :event => @event, :day => @day, :map => true })
+      else
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/scheduled_tile', :locals => { :event => @event, :day => @day, :map => false })
+      end        
+    end
+  end
+end
+
+if params['view'] == "map"
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls_without_board')
+else
+  page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
 end
 
 page << "iBox.initialize();"

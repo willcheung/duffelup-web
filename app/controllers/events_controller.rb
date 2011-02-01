@@ -291,12 +291,27 @@ class EventsController < ApplicationController
         end # @trip.duration.times
       end # if params['board']
       
-      clear_events_cache
+      # find event and event details
+      tmp = Event.find(:first, 
+                  :select => 'id, eventable_type',
+                  :conditions => { :id => params[:drag_item].to_s })
       
-      # fragment caching
-      @itinerary = check_events_details_cache(@trip)
+      if tmp.eventable_type == "Activity" or tmp.eventable_type == "Foodanddrink" or tmp.eventable_type == "Hotel"
+        event = Event.find_ideas(@trip.id, tmp.id)
+      elsif tmp.eventable_type == "Transportation"
+        event = Event.find_transportations(@trip.id, tmp.id)
+      elsif tmp.eventable_type == "Notes"
+        event = Event.find_notes(@trip.id, tmp.id)
+      elsif tmp.eventable_type == "CheckIn"
+        event = Event.find_check_ins(@trip.id, tmp.id)
+      end
+      
+      # first (and only) item in the list
+      @event = event[0]
+      # javascript sortable.create containment
       @list_containment = build_sortable_list_containment(@trip)
-
+      # clear all events cache
+      clear_events_cache
     end
   end
   

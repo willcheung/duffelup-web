@@ -39,11 +39,11 @@ class ApplicationController < ActionController::Base
   
   def build_sortable_list_containment(trip)
     # "Board" is always on the list
-    list_containment = ["board"]
+    list_containment = ["'board'"]
     
     # each "itinerary_list" represents a day on a trip.
     (trip.duration+1).times do |i|
-      list_containment.push("itinerary_list_" + (i+1).to_s)
+      list_containment.push("'itinerary_list_" + (i+1).to_s + "'")
     end
     
     return list_containment
@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
     
     # each "itinerary_list" represents a day on a trip.
     (trip.duration+1).times do |i|
-      list_containment.push("itinerary_list_" + (i+1).to_s)
+      list_containment.push("'itinerary_list_" + (i+1).to_s + "'")
     end
     
     return list_containment
