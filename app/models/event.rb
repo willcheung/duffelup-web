@@ -54,40 +54,74 @@ class Event < ActiveRecord::Base
   
   before_save :add_photo_size_to_user_bandwidth
   
-  def self.find_ideas(trip_id)
-    ideas = self.find_by_sql("SELECT ideas.*, events.*, users.username as author
+  def self.find_ideas(trip_id, event_id=nil)
+    sql = "SELECT ideas.*, events.*, users.username as author
                       FROM `ideas` 
                       INNER JOIN events ON ideas.id = events.eventable_id 
                       LEFT JOIN users ON events.created_by = users.id
-                      WHERE ((`events`.trip_id = #{trip_id}) AND ((events.eventable_type = 'Activity') or (events.eventable_type = 'Hotel') or (events.eventable_type = 'Foodanddrink')))
-                      ORDER BY events.list, events.position")
+                      WHERE ((`events`.trip_id = #{trip_id})"
+    
+    if !event_id.nil?
+      sql = sql + " AND (events.id = #{event_id})"
+    end
+    
+    sql = sql + " AND ((events.eventable_type = 'Activity') 
+                  or (events.eventable_type = 'Hotel') 
+                  or (events.eventable_type = 'Foodanddrink')))
+              ORDER BY events.list, events.position"
+    
+    ideas = self.find_by_sql(sql)
   end
   
-  def self.find_transportations(trip_id)
-    transportations = self.find_by_sql("SELECT transportations.*, events.*, users.username as author
+  def self.find_transportations(trip_id, event_id=nil)
+    sql = "SELECT transportations.*, events.*, users.username as author
                       FROM `transportations` 
                       INNER JOIN events ON transportations.id = events.eventable_id 
                       LEFT JOIN users ON events.created_by = users.id
-                      WHERE ((`events`.trip_id = #{trip_id}) AND (events.eventable_type = 'Transportation'))
-                      ORDER BY events.list, events.position")
+                      WHERE ((`events`.trip_id = #{trip_id})"
+                      
+    if !event_id.nil?
+      sql = sql + " AND (events.id = #{event_id})"
+    end
+                      
+    sql = sql + " AND (events.eventable_type = 'Transportation'))
+              ORDER BY events.list, events.position"
+    
+    transportations = self.find_by_sql(sql)
   end
   
-  def self.find_notes(trip_id)
-    notes = self.find_by_sql("SELECT notes.*, events.*, users.username as author
+  def self.find_notes(trip_id, event_id=nil)
+    sql = "SELECT notes.*, events.*, users.username as author
                       FROM `notes` 
                       INNER JOIN events ON notes.id = events.eventable_id 
                       LEFT JOIN users ON events.created_by = users.id
-                      WHERE ((`events`.trip_id = #{trip_id}) AND (events.eventable_type = 'Notes'))
-                      ORDER BY events.list, events.position")
+                      WHERE ((`events`.trip_id = #{trip_id})"
+    
+    if !event_id.nil?
+      sql = sql + " AND (events.id = #{event_id})"
+    end                  
+                             
+    sql = sql + " AND (events.eventable_type = 'Notes'))
+            ORDER BY events.list, events.position"
+    
+    notes = self.find_by_sql(sql)
   end
   
-  def self.find_check_ins(trip_id)
-    notes = self.find_by_sql("SELECT check_ins.*, events.*, users.username as author
+  def self.find_check_ins(trip_id, event_id=nil)
+    sql = "SELECT check_ins.*, events.*, users.username as author
                       FROM `check_ins` 
                       INNER JOIN events ON check_ins.id = events.eventable_id 
                       LEFT JOIN users ON events.created_by = users.id
-                      WHERE ((`events`.trip_id = #{trip_id}) AND (events.eventable_type = 'CheckIn'))
-                      ORDER BY events.list, events.position")
+                      WHERE ((`events`.trip_id = #{trip_id})"
+    
+    if !event_id.nil?
+      sql = sql + " AND (events.id = #{event_id})"
+    end
+                                       
+    sql = sql + " AND (events.eventable_type = 'CheckIn'))
+          ORDER BY events.list, events.position"
+    
+    notes = self.find_by_sql(sql)
   end
   
   def self.update_itinerary(trip_id, parameters, list)
@@ -113,21 +147,7 @@ class Event < ActiveRecord::Base
     
     statement = statement + p_statement + " END, " + l_statement + " END " + "WHERE trip_id = " + trip_id.to_s + " AND id IN (" + in_list.join(',') + ")"
     
-    #ActiveRecord::Base.connection.execute("LOCK TABLES events WRITE")
-    
-    transaction do
-      # Hack to fix "jitter" problem.  First, remove all events from current list.
-      ActiveRecord::Base.connection.execute("UPDATE events SET list=-1 where list=" + list + " and trip_id=" + trip_id.to_s)
-      # Then update the events in the list
-      ActiveRecord::Base.connection.execute(statement)
-    end
-    
-    #ActiveRecord::Base.connection.execute("UNLOCK TABLES;")
-    
-    # parameters.each_with_index do |id, index|
-    #   Event.update_all(['position=?', index+1], ['id=?', id])
-    # end
-    
+    ActiveRecord::Base.connection.execute(statement)
   end
   
   def add_photo_size_to_user_bandwidth
