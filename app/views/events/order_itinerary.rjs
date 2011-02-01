@@ -16,7 +16,7 @@ if params[:board]
       end
     end
   end
-else
+elsif params['itinerary_list_'+(@day.to_i+1).to_s]
   params['itinerary_list_'+(@day.to_i+1).to_s].each do |i|
     if i.to_s == params[:drag_item].to_s
       if params['view'] == "map"
