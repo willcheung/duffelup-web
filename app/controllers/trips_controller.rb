@@ -372,20 +372,21 @@ class TripsController < ApplicationController
   
   def get_deals
     trip = Trip.find_by_permalink(params[:permalink])
-    @city = City.new
-    @city = read_fragment("#{trip.id}-trip-dest")
+    d = trip.destination.split(";").first
+    city = City.find_city_country_code_by_city_country(d.strip)
     
     ####################################
     # Load Kayak Flights / BookingBuddy
     ####################################
     
-    if !@city.nil? and !@city.empty? and !@city[0].nil?
-      if !fragment_exist?("#{@city[0].id}-deals-footer", :time_to_live => 6.hours)
+    if !city.nil?
+      if !fragment_exist?("#{city.id}-deals-footer", :time_to_live => 6.hours)
         remote_ip = request.remote_ip
         onclick_analytics = "pageTracker._trackEvent('BookingBuddy', 'click', 'from_trip_planning_footer');"
         @deals_feed = ""
-        request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=6&placement=trip_planning_footer&multiple=1&auto_backfill=1&lat=#{@city[0].latitude}&lon=#{@city[0].longitude}&radius=30"
+        request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=6&placement=trip_planning_footer&multiple=1&auto_backfill=1&lat=#{city.latitude}&lon=#{city.longitude}&radius=30"
         request_url = request_url + "&test=1" if "production" != RAILS_ENV
+
         doc = WebApp.consume_xml_from_url(request_url)
       
         (doc/:Deal).each do |deal|
@@ -396,9 +397,9 @@ class TripsController < ApplicationController
           @deals_feed = @deals_feed + "</li>"
         end
         
-        write_fragment("#{@city[0].id}-deals-footer", @deals_feed)
+        write_fragment("#{city.id}-deals-footer", @deals_feed)
       else
-        @deals_feed = read_fragment("#{@city[0].id}-deals-footer")
+        @deals_feed = read_fragment("#{city.id}-deals-footer")
       end
     else
       @deals_feed = "<p style=\"margin-top:10px;font-size:13px;\">We did not find any travel deals for this destination. :-(</p>"
