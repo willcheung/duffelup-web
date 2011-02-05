@@ -46,12 +46,15 @@
 </div>
 
 <% if !@city[0].nil? %>
-<div id="footer-promotions" class="clearfix" style="width:100%;left:0;">
-	<div class="title"><img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> <span style="margin-left:15px;font-size:12px;color:#aaa">Deals by BookingBuddy</span></div>
+<div id="footer-promotions" style="width:100%;left:0;" class="clearfix" onmouseover="<%= remote_function(:loading => "$('spinner').show();", :complete => "$('spinner').hide();", :url => { :controller => :trips, :action => :get_deals, :permalink => @trip.permalink }) %>;this.onmouseover=null;">
+	<div class="title">
+		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> 
+		<span id="spinner" style="display:none;"><img style="vertical-align:middle;margin-left:15px" src="/images/ajax-loader-drk-bg.gif">
+	</div>
 	<ul class="deals">
-		<%= @hotel_feed %>
-		<li style="float:right;font-size:12px;color:#888;margin-right:50px;position:absolute;bottom:28px;right:30px;">Tip: <a style="color:#ccc;margin:0" href="/user/dashboard?tab=deals">Follow deals on your dashboard</a></li>
-		<li style="float:right;font-size:11px;color:#888;margin-right:50px;position:absolute;bottom:8px;right:30px;">*taxes, fees not included</li>
+		<div id="deals_feed"></div>
+		<li style="float:right;font-size:12px;color:#888;margin-right:50px;position:absolute;bottom:28px;right:30px;">Tip: <a style="color:#ccc;margin:0" href="/user/dashboard?tab=deals">Follow these deals on your dashboard</a></li>
+		<li style="float:right;font-size:11px;color:#888;margin-right:50px;position:absolute;bottom:8px;right:30px;">Deals by BookingBuddy. Taxes, fees not included.</li>
 	</ul>
 </div>
 <% end %>
