@@ -1,5 +1,5 @@
 <% if current_user.cities.empty? %>
-	<p style="padding:20px;text-align:center"><big>Follow a city below to see its travel deals.</big></p>
+	<p style="padding:20px;text-align:center"><big>Follow a city below to see its travel deals (updates hourly).</big></p>
 <% end %>
 
 <div id="deals-col2" class="following">
@@ -38,7 +38,7 @@
 	
 	<div class="clearfix"></div>
 	
-	<h2 style="margin-top:7px;">Or search for one:</h2>
+	<h2 style="margin-top:7px;">Or search one:</h2>
 	<% form_for(:subscription, :html => {:id => "search_form"}, :url => subscription_url(:redirect => "/user/dashboard?tab=deals"), :method => :post) do |f| %>
 		<%= text_field_with_auto_complete :subscription, :city, { :class => "search" }, { :frequency => ".1", :min_chars => "3" } %>
 		<%= submit_tag "Follow", :class => "submit" %>
