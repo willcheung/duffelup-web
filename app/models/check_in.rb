@@ -9,6 +9,8 @@ class CheckIn < ActiveRecord::Base
   
   acts_as_mappable
   
+  attr_accessor :recently_achieved
+  
   before_validation_on_create do |check_in|
     check_in.city = CheckIn.find_city check_in.lat, check_in.lng
     # check_in.landmark = CheckIn.find_landmark check_in.lat, check_in.lng
@@ -46,9 +48,16 @@ class CheckIn < ActiveRecord::Base
     landmark = CheckIn.find_landmark(lat, lng)
     stamp = landmark && landmark.stamp
     event.user.achievements.create(:stamp => stamp) if stamp && !event.user.stamps.include?(stamp)
+    self.recently_achieved = stamp
   end
   
   def event_must_be_present
     errors.add(:event, 'must be present') if event.blank?
+  end
+  
+  def to_xml(options = {}, &block)
+    options[:procs] = [Proc.new { |opt| self.recently_achieved.to_xml(:builder => opt[:builder],
+      :skip_instruct => true) if self.recently_achieved }].push(options[:procs]).compact.flatten
+    super
   end
 end

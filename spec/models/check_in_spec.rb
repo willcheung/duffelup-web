@@ -90,4 +90,17 @@ describe CheckIn do
     end
     
   end
+  
+  describe "award stamp" do
+    it "awards stamp if checkin close to landmark" do
+      event = Event.create!(:trip_id => 1, :title => 'check_in')
+      event.user = users(:quentin)
+      event.save!
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "freedom stamp")
+      checkin = CheckIn.create!(:event => event,
+        :lat => 40.4, :lng => -74.02)
+      checkin.recently_achieved.should == stamp
+      checkin.to_xml(:indent => 0).should include stamp.to_xml(:indent => 0, :skip_instruct => true)
+    end
+  end
 end

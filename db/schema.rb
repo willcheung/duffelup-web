@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000033) do
+ActiveRecord::Schema.define(:version => 30000000000034) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -234,7 +234,6 @@ ActiveRecord::Schema.define(:version => 30000000000033) do
   end
 
   create_table "landmarks", :force => true do |t|
-    t.integer  "guide_id",                                                  :null => false
     t.string   "name",        :limit => 50
     t.text     "description"
     t.decimal  "lat",                       :precision => 15, :scale => 10
@@ -245,6 +244,7 @@ ActiveRecord::Schema.define(:version => 30000000000033) do
     t.text     "fun_facts"
     t.text     "tips"
     t.string   "address"
+    t.integer  "city_id"
   end
 
   create_table "notes", :force => true do |t|
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(:version => 30000000000033) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "landmark_id"
+    t.string   "image_url"
   end
 
   add_index "stamps", ["landmark_id"], :name => "index_stamps_on_landmark_id"
