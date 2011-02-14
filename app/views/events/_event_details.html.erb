@@ -6,7 +6,7 @@
 	
 	<% if event_detail.partner_id == Idea::PARTNER_ID["viator"] %>
 		<div><strong><%= website_link("Website", event_detail.website,"", "onClick=\"pageTracker._trackEvent('Viator', 'click-from-itinerary', 'page-trip-planning');\"") %></strong></div>
-	<% elsif event_detail.partner_id == Idea::PARTNER_ID["ian_hotel"] %>
+	<% elsif event_detail.partner_id == Idea::PARTNER_ID["splendia"] %>
 		<div><strong><%= website_link("Website", event_detail.website,"", "onClick=\"pageTracker._trackEvent('Ian-Hotel', 'click-from-itinerary', 'page-trip-planning');\"") %></strong></div>
 	<% else %>
 		<div><strong><%= website_link("Website", event_detail.website) %></strong></div>

@@ -123,7 +123,7 @@ class TripsController < ApplicationController
         # create Viator / Transportation recommendations
         #################################################
         ViatorEvent.insert_recommendation(@trip.destination, @trip.id)
-        Hotels.insert_recommendation(@trip.destination, @trip.id, @trip.start_date, @trip.end_date)
+        SplendiaHotel.insert_recommendation(cities[0], @trip.id, @trip.start_date, @trip.end_date)
         Transportation.create_in_duffel(current_user.home_airport_code, 
                                         cities[0], 
                                         @trip.start_date, @trip.end_date, @trip.id,

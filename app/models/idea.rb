@@ -10,7 +10,7 @@ class Idea < ActiveRecord::Base
   # For partners
   PARTNER_ID = {
     "viator" => "1",
-    "ian_hotel" => "2"
+    "splendia" => "2"
   }
   
   # monkey patch STI / Polymorphic conflict.  What this does is setting "eventable_type" to type of 
