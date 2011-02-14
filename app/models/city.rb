@@ -24,21 +24,21 @@ class City < ActiveRecord::Base
       tmp = nil
       if location.length == 2 or location.length == 3
         if location.length == 3 and (location[0].downcase == "united states" or location[0].downcase == "canada")
-          tmp = self.find_by_sql("select cities.id, cities.airport_code, cities.city from cities inner join countries on cities.country_id = countries.id " +
+          tmp = self.find_by_sql("select cities.id, cities.airport_code, cities.city, cities.latitude, cities.longitude from cities inner join countries on cities.country_id = countries.id " +
                                   "where cities.city = \"" + location[2] + "\" and cities.region = \"" + location[1] + 
                                   "\" and countries.country_name = \"" + location[0] + "\" limit 1")
           unless tmp.empty? or tmp.nil?
             city_ids << tmp.first
           end
         else
-          tmp = self.find_by_sql("select cities.id, cities.airport_code, cities.city from cities inner join countries on cities.country_id = countries.id " +
+          tmp = self.find_by_sql("select cities.id, cities.airport_code, cities.city, cities.latitude, cities.longitude from cities inner join countries on cities.country_id = countries.id " +
                                 "where cities.city = \"" + location[1] + "\" and countries.country_name = \"" + location[0] + "\" limit 1")
           unless tmp.empty? or tmp.nil?
             city_ids << tmp.first
           end  
         end
       elsif location.length == 1
-        tmp = self.find_by_sql("select cities.id, cities.city_country as city, cities.airport_code from cities where city_country = \"" + location[0] + "\" limit 1")
+        tmp = self.find_by_sql("select cities.id, cities.city_country as city, cities.airport_code, cities.latitude, cities.longitude from cities where city_country = \"" + location[0] + "\" limit 1")
         unless tmp.empty? or tmp.nil?
           city_ids << tmp.first
         end

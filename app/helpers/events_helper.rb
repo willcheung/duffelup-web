@@ -47,7 +47,7 @@ module EventsHelper
   		    simple_format(h(truncate(event.note, :length => Event::TRUNCATE_SHORT_NOTE_ON_BOARD_BY)))
 		    elsif partner_id == Idea::PARTNER_ID["viator"]
 		      simple_format(h(truncate(event.note, :length => Event::TRUNCATE_VIATOR_SHORT_NOTE_ON_BOARD_BY)))
-	      elsif partner_id == Idea::PARTNER_ID["ian_hotel"]
+	      elsif partner_id == Idea::PARTNER_ID["splendia"]
 	        simple_format(h(truncate(event.note, :length => Event::TRUNCATE_HOTELS_SHORT_NOTE_ON_BOARD_BY)))
 	      end # Can add other partners here
   	  elsif event.attribute_present?(:address) and not (event.address.nil? or event.address.empty?)
@@ -78,14 +78,8 @@ module EventsHelper
   	  when "CheckIn"
   	    return title
 	    end
-	    
-      # if event.partner_id == Idea::PARTNER_ID["viator"]
-      #   website_link(title, partner_activities_link(website), title, "onClick=\"pageTracker._trackEvent('Viator', 'click-on-link', 'page-trip-planning');\"")
-      #       elsif event.partner_id == Idea::PARTNER_ID["ian_hotel"]
-      #         website_link(title, partner_hotels_link(website), title, "onClick=\"pageTracker._trackEvent('Ian-Hotel', 'click-on-link', 'page-trip-planning');\"")
-      #       else
-			  website_link(title, website, title)
-		  # end
+
+			website_link(title, website, title)
 		end 
 	end
 	

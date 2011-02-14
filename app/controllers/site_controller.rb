@@ -113,8 +113,20 @@ class SiteController < ApplicationController
   
   def splendia_hotels
     @title = "Duffel - Find the perfect luxury hotel for your vacation"
-    # default width is 720px
-    @frame_width = "720"
+    
+    if params[:hotel_id]
+      @iframe_height = "2400"
+      @iframe_url = "http://pl.splendia.com/en/hotel/?partnerid=A434&lang=EN&hotel_id=" + params[:hotel_id].to_s
+      
+      if !params[:datestart].nil? and !params[:dateend].nil?
+        @iframe_url = @iframe_url + "&datestart=" + params[:datestart] + "&dateend=" + params[:dateend]
+      end
+    else
+      # default width is 720px
+      @iframe_height = "720"
+      @iframe_url = "http://pl.splendia.com/?partnerid=A434&lang=EN"
+    end
+
   end
   
   def partner_frame
