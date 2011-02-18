@@ -91,14 +91,14 @@ class TripsController < ApplicationController
         # Get city ids for this duffel and use id to find a random flickr_photo for the city
         cities = City.find_id_by_city_country(@trip.destination)
         #photos = cities[0].flickr_photos unless cities[0].nil?
-        photo = FlickrPhoto.select_random_photo(cities[0].id) if !cities.nil? and !cities.empty? 
+        #photo = FlickrPhoto.select_random_photo(cities[0].id) if !cities.nil? and !cities.empty? 
       end
       
-      if !photo.nil? and !photo[0].nil?
-        @trip.photo_file_name = photo[0].url_square
-        @trip.photo_content_type = "image/jpeg" 
-        @trip.photo_file_size = ""
-      end
+      # if !photo.nil? and !photo[0].nil?
+      #   @trip.photo_file_name = photo[0].url_square
+      #   @trip.photo_content_type = "image/jpeg" 
+      #   @trip.photo_file_size = ""
+      # end
       
       if @trip.save
         news_fb = "is planning a trip to #{@trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" ")} (#{trip_url(:id => @trip)}) on Duffel Visual Trip Planner. Any recommendations?"
@@ -119,11 +119,29 @@ class TripsController < ApplicationController
         #######################
         Notes.create_to_bring_note(@trip.id)
         
-        #################################################
-        # create Viator / Transportation recommendations
-        #################################################
+        ###################################
+        # create Viator recommendations
+        ###################################
         ViatorEvent.insert_recommendation(@trip.destination, @trip.id)
-        SplendiaHotel.insert_recommendation(cities[0], @trip.id, @trip.start_date, @trip.end_date)
+        
+        #################################################
+        # create Splendia Hotel recommendations
+        #################################################
+        if !cities[0].nil?
+          if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+            splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+            write_fragment("#{cities[0].id}-splendia-hotels", splendia_hotels)
+          else
+            splendia_hotels = SplendiaHotel.new
+            splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+          end
+          
+          SplendiaHotel.insert_recommendation(splendia_hotels, @trip.id, @trip.start_date, @trip.end_date)
+        end
+        
+        ###################################
+        # create sample transportation
+        ###################################
         Transportation.create_in_duffel(current_user.home_airport_code, 
                                         cities[0], 
                                         @trip.start_date, @trip.end_date, @trip.id,

@@ -1,16 +1,19 @@
-<h2><%= @label %> 
+<h2><%= @label %> &nbsp;&nbsp;&nbsp;&nbsp;
 	<% unless @viators.nil? or @viators.empty? %>
-		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-tours').removeClassName('menu-selected');$('menu-tours').addClassName('menu');$('results').hide();$('form').show();return false;">on my own</a></span> 
-		<span id="menu-tours" class="menu"><a href="#" onclick="$('menu-tours').removeClassName('menu');$('menu-tours').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">from popular tours</a></span>
+		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-tours').removeClassName('menu-selected');$('menu-tours').addClassName('menu');$('results').hide();$('form').show();return false;">On my own</a></span> 
+		<span id="menu-tours" class="menu"><a href="#" onclick="$('menu-tours').removeClassName('menu');$('menu-tours').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">Popular tours</a></span>
+	<% end %>
+	
+	<% unless @splendia_hotels.nil? or @splendia_hotels.empty? %>
+		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-hotels').removeClassName('menu-selected');$('menu-hotels').addClassName('menu');$('results').hide();$('form').show();return false;">On my own</a></span> 
+		<span id="menu-hotels" class="menu"><a href="#" onclick="$('menu-hotels').removeClassName('menu');$('menu-hotels').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">Boutique hotels</a></span>
 	<% end %>
 </h2>
 
 <% if params[:idea_type] == "activity" %>
 <div id="results" style="display:none;">
-	<p style="margin: 5px 0 15px 0;">Add these ideas to your duffel.  Once you're ready to book, you will be taken to our partner site to checkout.</p>
-
 	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'viator', :view => params[:view])) do |form| %>
-		<div id="viator-list" style="max-height:325px; overflow:auto;">
+		<div id="viator-list" style="max-height:325px; overflow:auto; margin-top:20px;">
 		<ul class="partner-list">
 		<% @viators.each do |v| %>
 			<li>
@@ -24,6 +27,25 @@
 		</div>
 
 		<div id="form-submit" class="clearfix"><%= submit_tag "Add Activities", :onclick => "$('indicator-tour').show();pageTracker._trackEvent('Viator Events', 'add-from-ibox');" %><span id="indicator-tour" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+	<% end %>
+</div>
+<% elsif params[:idea_type] == "hotel" %>
+<div id="results" style="display:none;">
+	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'splendia', :view => params[:view])) do |form| %>
+		<div id="viator-list" style="max-height:325px; overflow:auto; margin-top:20px;">
+		<ul class="partner-list">
+		<% @splendia_hotels.each do |h| %>
+			<li>
+				<%= image_tag(h.image_url)%>
+				<p class="detail"><span style="font-size:14px;"><strong><%= h.name %></strong></span> <span style="color:#888;padding-left:15px;">starts at</span> <span class="price">$<%= h.min_price %></span><br />
+				<%= truncate(h.description, :length => 220)%> <a href="<%= "http://duffelup.com/hotels?hotel_id="+ h.hotel_id.to_s %>" class="more-details-button" target="_blank">More Details</a></p>
+				<label class="price"><%= check_box_tag "event[splendia_hotel_ids][]", h.hotel_id%> Add to my duffel</label>
+			</li>
+		<% end %>
+		</ul>
+		</div>
+
+		<div id="form-submit" class="clearfix"><%= submit_tag "Add Hotels", :onclick => "$('indicator-tour').show();pageTracker._trackEvent('Viator Events', 'add-from-ibox');" %><span id="indicator-tour" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
 	<% end %>
 </div>
 <% end %>

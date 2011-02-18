@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(:version => 30000000000034) do
   end
 
   create_table "landmarks", :force => true do |t|
+    t.integer  "guide_id",                                                  :null => false
     t.string   "name",        :limit => 50
     t.text     "description"
     t.decimal  "lat",                       :precision => 15, :scale => 10
