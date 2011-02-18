@@ -39,9 +39,7 @@ class SplendiaHotel < ActiveRecord::Base
       
       tmp = (hotel/:node/:idhotel).first
       
-      if tmp.nil?
-        next
-      end
+      next if tmp.nil?
     
       hotel_obj = SplendiaHotel.new(
         :hotel_id => tmp.innerHTML,
@@ -67,11 +65,11 @@ class SplendiaHotel < ActiveRecord::Base
     
   end
   
-  def self.insert_recommendation(city, trip_id, start_date=nil, end_date=nil)
-    splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(city.latitude, city.longitude)
+  def self.insert_recommendation(splendia_hotels, trip_id, start_date=nil, end_date=nil, max=2)
+    return if splendia_hotels.nil? or splendia_hotels.empty?
     
     splendia_hotels.each_with_index do |h,i|
-      break if i==2 # only insert 2 hotels
+      break if i==max # only insert 2 hotels
       
       hotel_url = "http://duffelup.com/hotels?hotel_id="+ h.hotel_id.to_s
       if !start_date.nil? and !end_date.nil?

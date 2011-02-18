@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @trip = Trip.find_by_permalink(params[:permalink])
+    @split_dest = @trip.destination.split(";").first # get first destination; might want to expand to multiple destinations later
     
     if params[:idea_type] == "activity"
       @label = "Add Activity"
@@ -20,13 +21,24 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if params[:idea_type] == "activity"
-        @split_dest = @trip.destination.split(";")[0] # get first destination; might want to expand to multiple destinations later
         if !fragment_exist?("viator-trip-#{@split_dest}", :time_to_live => 1.week)
           @viators = ViatorEvent.search(@split_dest)
           write_fragment("viator-trip-#{@split_dest}", @viators)
         else
           @viators = ViatorEvent.new
           @viators = read_fragment("viator-trip-#{@split_dest}")
+        end
+        
+        format.html { render :action => "new", :view => params[:view] }
+      elsif params[:idea_type] == "hotel"
+        cities = City.find_id_by_city_country(@split_dest)
+        
+        if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+          @splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+          write_fragment("#{cities[0].id}-splendia-hotels", @splendia_hotels)
+        else
+          @splendia_hotels = SplendiaHotel.new
+          @splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
         end
         
         format.html { render :action => "new", :view => params[:view] }
@@ -54,15 +66,13 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @activity.save
-          @itinerary = check_events_details_cache(@trip)
-          @list_containment = build_sortable_list_containment(@trip)
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-          format.js 
         end  
       end
       
     when 'viator'
-      ViatorEvent.insert_recommendation(@trip.destination.split(";")[0], @trip.id, params[:event][:viator]) unless params[:event].nil?
+      
+      ViatorEvent.insert_recommendation(@trip.destination.split(";").first, @trip.id, params[:event][:viator]) unless params[:event].nil?
       
       ###################################
       # publish news to activities feed
@@ -70,10 +80,30 @@ class EventsController < ApplicationController
       ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip)
       
       respond_to do |format|
-        @itinerary = check_events_details_cache(@trip)
-        @list_containment = build_sortable_list_containment(@trip)
         format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-        format.js
+      end
+    
+    when 'splendia'
+      added_hotels = []
+      
+      cities = City.find_id_by_city_country(@trip.destination.split(";").first)
+      
+      if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+        splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+        write_fragment("#{cities[0].id}-splendia-hotels", splendia_hotels)
+      else
+        splendia_hotels = SplendiaHotel.new
+        splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+      end
+      
+      splendia_hotels.each do |h|
+        added_hotels << h if (params[:event][:splendia_hotel_ids]).include?(h.hotel_id.to_s)
+      end
+      
+      SplendiaHotel.insert_recommendation(added_hotels, @trip.id, @trip.start_date, @trip.end_date, nil)
+      
+      respond_to do |format|
+        format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
       end
       
     when 'hotel'
@@ -90,10 +120,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @hotel.save  
-          @itinerary = check_events_details_cache(@trip)
-          @list_containment = build_sortable_list_containment(@trip)
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-          format.js 
         end  
       end
     
@@ -111,10 +138,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @foodanddrink.save 
-          @itinerary = check_events_details_cache(@trip)
-          @list_containment = build_sortable_list_containment(@trip)
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-          format.js 
         end  
       end
       
@@ -132,10 +156,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @transportation.save
-          @itinerary = check_events_details_cache(@trip)
-          @list_containment = build_sortable_list_containment(@trip)
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
-          format.js
         end
       end
       
@@ -153,10 +174,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @notes.save 
-          @itinerary = check_events_details_cache(@trip)
-          @list_containment = build_sortable_list_containment(@trip)
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
-          format.js
         end
       end
     end

@@ -1,7 +1,7 @@
 <ul id="add-ideas">
 	<li class="new-activity"><%= link_to "+ Activity", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'activity', :view => map), :rel => "ibox" %></li>
-	<li class="new-eatdrink"><%= link_to "+ Food & Drink", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'foodanddrink', :view => map), :rel => "ibox" %></li>
 	<li class="new-lodging"><%= link_to "+ Lodging", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'hotel', :view => map), :rel => "ibox" %></li>
+	<li class="new-eatdrink"><%= link_to "+ Food & Drink", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'foodanddrink', :view => map), :rel => "ibox" %></li>
 	<li class="new-transport"><%= link_to "+ Transportation", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'transportation', :view => map), :rel => "ibox" %></li>
 	<li class="new-note"><%= link_to "+ Note", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'notes', :view => map), :rel => "ibox" %></li>
 	<li class="new-recommendation" style="display:none;"><%= link_to "+ Recommendation", new_trip_idea_path(:permalink => @trip.permalink, :idea_type => 'viator', :view => map), :rel => "ibox&height=460px&width=700" %></li>

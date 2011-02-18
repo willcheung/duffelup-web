@@ -6,9 +6,9 @@
 		<div class="detail" style="margin-right:27px;">
 			<img src="<%= event.photo_file_name %>" width="100" height="75" alt="name" />
 			
-			<div class="price"><%= number_to_currency(event.price) %><br /><span>per night</span></div>
+			<div class="price"><%= number_to_currency(event.price, :precision => 0) %>&nbsp;<span>per night</span></div>
 			
-			<a href="<%= event.website %>" target="_blank" class="more-details-button" onClick="pageTracker._trackEvent('Ian-Hotel', 'click-on-details', 'page-trip-planning');">Book now</a>
+			<a href="<%= event.website %>" target="_blank" class="more-details-button" onClick="pageTracker._trackEvent('Splendia', 'click-on-details', 'page-trip-planning');">Book now</a>
 		</div>
 		<h3><%= display_title_with_link(event, 40) %></h3>
 		<div class="idea-note"><%= display_short_note_on_board(event, @trip, Idea::PARTNER_ID["splendia"]) %></div>
