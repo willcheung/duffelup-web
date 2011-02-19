@@ -32,13 +32,17 @@ class EventsController < ApplicationController
         format.html { render :action => "new", :view => params[:view] }
       elsif params[:idea_type] == "hotel"
         cities = City.find_id_by_city_country(@split_dest)
-        
-        if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
-          @splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
-          write_fragment("#{cities[0].id}-splendia-hotels", @splendia_hotels)
+       
+        if !cities[0].nil?
+          if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+            @splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+            write_fragment("#{cities[0].id}-splendia-hotels", @splendia_hotels)
+          else
+            @splendia_hotels = SplendiaHotel.new
+            @splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+          end
         else
-          @splendia_hotels = SplendiaHotel.new
-          @splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+          @splendia_hotels = []
         end
         
         format.html { render :action => "new", :view => params[:view] }
