@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000034) do
+ActiveRecord::Schema.define(:version => 30000000000035) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -171,7 +171,6 @@ ActiveRecord::Schema.define(:version => 30000000000034) do
     t.text     "description"
     t.boolean  "is_published", :default => false
     t.text     "fun_facts"
-    t.boolean  "is_free",      :default => false
   end
 
   create_table "hotel_images", :force => true do |t|
@@ -241,7 +240,6 @@ ActiveRecord::Schema.define(:version => 30000000000034) do
     t.decimal  "lng",                       :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_url",   :limit => 96
     t.text     "fun_facts"
     t.text     "tips"
     t.string   "address"
