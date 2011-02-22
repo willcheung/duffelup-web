@@ -97,6 +97,7 @@ class CheckInsController < ApplicationController
   # GET /check_ins/near_by.xml
   def near_by
     @check_ins = CheckIn.paginate(:all, :origin => [params[:lat], params[:lng]], :within => 2, :page => params[:page],
+      :conditions => ["is_public = ?", true],
       :order => "FLOOR(distance / 0.5), created_at DESC")
     respond_to do |format|
       format.xml { render :text => @check_ins.to_xml { |xml| xml.tag! 'next-page', @check_ins.next_page } }
