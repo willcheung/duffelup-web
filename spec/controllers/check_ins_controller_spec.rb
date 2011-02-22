@@ -173,6 +173,14 @@ describe CheckInsController do
       response.body.should match /<next-page>/
       assigns[:check_ins].should == [@checkin6, @checkin5, @checkin3]
     end
+    
+    it "returns public checkins only" do
+      @checkin5.update_attribute(:is_public, false)
+      CheckIn.stub(:per_page).and_return(3)
+      get :near_by, :lat => 36.113, :lng => -115.174
+      response.body.should match /<next-page>/
+      assigns[:check_ins].should == [@checkin6, @checkin3, @checkin1]
+    end
   end
 
 end
