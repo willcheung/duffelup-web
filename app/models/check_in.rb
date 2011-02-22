@@ -11,6 +11,10 @@ class CheckIn < ActiveRecord::Base
   
   attr_accessor :recently_achieved
   
+  # will_paginate results per page
+  cattr_reader :per_page
+  @@per_page = 10
+  
   before_validation_on_create do |check_in|
     check_in.city = CheckIn.find_city check_in.lat, check_in.lng
     # check_in.landmark = CheckIn.find_landmark check_in.lat, check_in.lng
@@ -58,6 +62,11 @@ class CheckIn < ActiveRecord::Base
   def to_xml(options = {}, &block)
     options[:procs] = [Proc.new { |opt| self.recently_achieved.to_xml(:builder => opt[:builder],
       :skip_instruct => true) if self.recently_achieved }].push(options[:procs]).compact.flatten
+    case options[:include].class
+    when Array then (options[:include] << :event).uniq!
+    when Hash then options[:include].merge!(:event => {})
+    else options[:include] = [:event]
+    end
     super
   end
 end
