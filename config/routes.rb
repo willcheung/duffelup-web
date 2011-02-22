@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     guide.resources :landmarks
   end
 
-  map.resources :check_ins
+  map.resources :check_ins, :collection => { :near_by => :get }
   map.resource :subscription
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -155,5 +155,24 @@ describe CheckInsController do
       response.should redirect_to(check_ins_url)
     end
   end
+  
+  describe "GET near_by" do
+    before(:each) do
+      @event = Event.create!(:trip_id => 1, :title => 'check_in')
+      @checkin1 = CheckIn.create!(:lat => 36.113, :lng => -115.184, :event => @event, :created_at => 20.seconds.ago)
+      @checkin2 = CheckIn.create!(:lat => 36.113, :lng => -115.194, :event => @event, :created_at => 19.seconds.ago)
+      @checkin3 = CheckIn.create!(:lat => 36.113, :lng => -115.164, :event => @event, :created_at => 18.seconds.ago)
+      @checkin4 = CheckIn.create!(:lat => 36.113, :lng => -115.154, :event => @event, :created_at => 17.seconds.ago)
+      @checkin5 = CheckIn.create!(:lat => 36.113, :lng => -115.169, :event => @event, :created_at => 16.seconds.ago)
+      @checkin6 = CheckIn.create!(:lat => 36.113, :lng => -115.179, :event => @event, :created_at => 15.seconds.ago)
+    end
+    
+    it "gets near by checkins" do
+      CheckIn.stub(:per_page).and_return(3)
+      get :near_by, :lat => 36.113, :lng => -115.174
+      response.body.should match /<next-page>/
+      assigns[:check_ins].should == [@checkin6, @checkin5, @checkin3]
+    end
+  end
 
 end
