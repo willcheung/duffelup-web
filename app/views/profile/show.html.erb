@@ -94,7 +94,7 @@
 		<div id="no-plans">
 		<div class="clear"></div>
 		<h2 class="home">
-			<small class="right"><%= link_to "Browse More &raquo;</strong>", '/explore' %></small>
+			<div class="right t15"><%= link_to "Browse More &raquo;</strong>", '/explore' %></div>
 			Check out Duffel's popular cities
 		</h2>
 
@@ -143,7 +143,7 @@
 		<h3><%= display_user_name(@user) %></h3>
 		
 		<span class="hometown"><%= @user.home_city unless @user.home_city.nil? %></span>
-		<% if founding_member?(@user) %><div style="color:#FFD700;font-weight:bold">Founding Member</div><% end %>
+		<% if founding_member?(@user) %><div style="color:#FFD700;font-weight:bold;">Founding Member</div><% end %>
 	
 		<p class="clear">
 			<% unless @user.bio.nil? or @user.bio.empty? %><span class="bio">About:</span> <%= @user.bio %><br/><% end %>
