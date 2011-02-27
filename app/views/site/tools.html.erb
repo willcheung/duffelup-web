@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'all' %>
 
 <div id="site">
-
+<!--
 <ul class="tabnav">
 	<li id="tb1" class="selected" onclick="$('tb2').removeClassName('selected'); $('tb1').addClassName('selected'); $('clip-it').show();$('duffel-widgets').hide();"><a href="#">Clip-It Bookmarker<span>Add ideas to your duffel with one click</span></a></li>
 	<li id="tb2" onclick="$('tb1').removeClassName('selected'); $('tb2').addClassName('selected'); $('clip-it').hide();$('duffel-widgets').show();"><a href="#">Widgets<span>Bring your duffels to your websites or blogs</a></li>
@@ -9,27 +9,20 @@
 </ul>
 
 <br/>
-
+-->
 <div id="clip-it">
 
-<object id='stVUhSR0JIR1xZRlRVXl9YVVVT' width='525' height='350' align="right" style="margin: 10px 10px 20px 50px;" type='application/x-shockwave-flash' data='http://www.screentoaster.com/swf/STPlayer.swf'  codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0'><param name='movie' value='http://www.screentoaster.com/swf/STPlayer.swf'/><param name='allowFullScreen' value='true'/><param name='allowScriptAccess' value='always'/><param name='flashvars' value='video=stVUhSR0JIR1xZRlRVXl9YVVVT'/></object>
+<img id="bookmarklet-img" src="/images/bookmarklet.jpg"/>
 
-<h1>"Add to Duffel" Bookmarker</h1>
-
-<p>No more messy bookmarks and emails. The Duffel Clip-It Bookmarker lets you save travel notes from the web with <b>just one click</b>. See something you like, highlight it, "add to duffel" and start planning. </p>
-
-<%= render :partial => "shared/bookmarklet" %>
-
-<br/>
-
-<p>With our bookmarker, you can clip:</p>
+<h1>Clip-It Bookmarker</h1>
 <ul>
-	<li>&rsaquo; Lodging options</li>
-	<li>&rsaquo; Flight confirmation</li>
-	<li>&rsaquo; Photos, maps, and more!</li>
+	<li><big>&bull;</big> Clip travel research from any website</li>
+	<li><big>&bull;</big> Save lodging options and activities</li>
+	<li><big>&bull;</big> Add Photos, maps, and more!</li>
 </ul>
-
-
+<br/>
+<%= render :partial => "shared/bookmarklet" %>
+<br/>
 </div>
 
 <div id="duffel-widgets" style="display: none;">

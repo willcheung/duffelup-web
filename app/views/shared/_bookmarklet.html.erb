@@ -1,34 +1,42 @@
 <% if request.user_agent.nil? %>
-<p style="margin-bottom:10px">Start by dragging the button below to your link bar.</p>
-<div style="margin-left: 50px">
-<a id="site" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+<p style="margin-bottom:10px"><strong>Step 1:</strong> Drag the button below to your link bar.</p>
+<div id="bookmarklet-button">
+<a id="site" onmouseover="$('dragarrow').show();" onmouseout="$('dragarrow').hide();" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
 
-<img src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your Bookmarks Bar"/></a>
+Add to Duffel</a>
+<img src="/images/bookmarklet_arrow.png" id="dragarrow" style="display:none;">
 </div>
 
 <% elsif request.user_agent.include? "MSIE" %>
 
 <p style="margin-bottom:10px">Right-click link below and "Add to Favorites..."</p>
-	<div style="margin-left: 80px;">
-	<a id="site" style="color:#fff;background-color:#98BF21;padding:5px;border-radius:8px;" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+	<div id="bookmarklet-button">
+	<a id="site" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
 
 	Add to Duffel</a></div>
 
 <% elsif request.user_agent.include? "Chrome" %>
 
-<p style="margin-bottom:10px">Start by dragging the link below to your link bar.</p>
-<div style="margin-left: 80px;">
-<a id="site" style="color:#fff;background-color:#98BF21;padding:5px;border-radius:8px;" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+<p style="margin-bottom:10px"><strong>Step 1:</strong> Drag the link below to your link bar.</p>
+<div id="bookmarklet-button">
+<a id="site" onmouseover="$('dragarrow').show();" onmouseout="$('dragarrow').hide();" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
 
-Add to Duffel</a></div>
+Add to Duffel</a>
+<img src="/images/bookmarklet_arrow.png" id="dragarrow" style="display:none;">
+</div>
 
 <% else %>
 
-<p style="margin-bottom:10px">Start by dragging the button below to your link bar.</p>
-<div style="margin-left: 50px">
-<a id="site" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+<p style="margin-bottom:10px"><strong>Step 1:</strong> Drag the button below to your link bar.</p>
+<div id="bookmarklet-button">
+<a id="site" onmouseover="$('dragarrow').show();" onmouseout="$('dragarrow').hide()" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
 
-<img src="/images/small_bookmarklet.gif" alt="Add to Duffel" title="Drag this to your Bookmarks Bar"/></a>
+Add to Duffel</a>
+<img src="/images/bookmarklet_arrow.png" id="dragarrow" style="display:none;">
 </div>
 
 <% end %>
+
+<p><strong>Step 2:</strong> Now you can visit any website and start clipping <br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	travel notes into one organized place.</p>
