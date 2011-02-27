@@ -1,5 +1,5 @@
 <% if current_user.cities.empty? %>
-	<p style="padding:20px;text-align:center"><big>Follow a city below to see its travel deals (updates hourly).</big></p>
+	<p style="padding:20px;text-align:center"><big>Follow a city below to see our Weekly Top 25 travel deals.</big></p>
 <% end %>
 
 <div id="deals-col2" class="following">
@@ -65,21 +65,10 @@
 <div id="travel-deals">
 	
 	<% current_user.cities.each_with_index do |c,i| %>
-		<h2>Top <%= c.city %> Deals</h2>
+		<h2>Top 25 Deals in <%= c.city %></h2>
 		
-		<h3 class="hotel">Hotels</h3>
 		<ul class="deals">
 		<%= @hotel_feed[i] %>
-		</ul>
-		
-		<h3 class="package">Vacation Packages</h3>
-		<ul class="deals">
-		<%= @vacay_feed[i] %>
-		</ul>
-		
-		<h3 class="flight">Flights</h3>
-		<ul class="deals">
-		<%= @flight_feed[i] %>
 		</ul>
 		
 		<p class="footnote">*Deals by BookingBuddy<br/>
