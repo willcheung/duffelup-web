@@ -134,8 +134,6 @@ class UsersController < ApplicationController
     #######################################
     if params[:tab]=="deals"
       @hotel_feed = Array.new
-      @vacay_feed = Array.new
-      @flight_feed = Array.new
       
       rec_cities = City.find([609,610,672,1530])
       @san_francisco = rec_cities[0]
@@ -149,8 +147,8 @@ class UsersController < ApplicationController
       onclick_analytics_f = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'flight');"
       
       current_user.cities.each_with_index do |c,i|
-        ##### Hotels #######
-        h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=8&placement=dashboard&multiple=1&auto_backfill=0&deal_type=hotel&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
+        ##### Deals #######
+        h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=25&placement=dashboard&multiple=1&auto_backfill=0&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
         h_request_url = h_request_url + "&test=1" if "production" != RAILS_ENV
         hotel_doc = WebApp.consume_xml_from_url(h_request_url)
       
@@ -167,47 +165,8 @@ class UsersController < ApplicationController
           @hotel_feed[i] = @hotel_feed[i] + "<br/><span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
           @hotel_feed[i] = @hotel_feed[i] + "</li>"
         end
-        
-        ##### Vacation Packages #####
-        v_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=8&placement=dashboard&multiple=1&auto_backfill=0&deal_type=package&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
-        v_request_url = v_request_url + "&test=1" if "production" != RAILS_ENV
-        vacay_doc = WebApp.consume_xml_from_url(v_request_url)
-      
-        @vacay_feed[i] = ""
-        (vacay_doc/:Deal).each_with_index do |deal,index|
-          @vacay_feed[i] = @vacay_feed[i] + "<a class='clip-it' href='#' alt='Clip this deal to Duffel' title='Clip this deal to Duffel' onclick=\"javascript: (function(){EN_CLIP_HOST='http://duffelup.com';CLIP_URL='#{deal.at('URL').innerHTML}';CLIP_TITLE='#{deal.at('Price').innerHTML} - #{deal.at('Title').innerHTML}';CLIP_NOTES='Deal posted on #{deal.at('PostedDate').innerHTML}. Price subject to change after this date.';CLIP_ADDRESS='';NO_IMG='checked';CLIP_TYPE='Activity';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;\">Add to Duffel</a>"
-          if index%2 == 0
-            @vacay_feed[i] = @vacay_feed[i] + "<li class=\"even\" onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_p}return false;\">"
-          else
-            @vacay_feed[i] = @vacay_feed[i] + "<li onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_p}return false;\">"
-          end
-          @vacay_feed[i] = @vacay_feed[i] + "<span class=\"price\"><a href=\"#\">#{deal.at('Price').innerHTML}</a></span>"
-          @vacay_feed[i] = @vacay_feed[i] + "<a href=\"#\">#{deal.at('Title').innerHTML}</a>"
-          @vacay_feed[i] = @vacay_feed[i] + "<br/><span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
-          @vacay_feed[i] = @vacay_feed[i] + "</li>"
-        end
-        
-        ##### Flights #####
-        f_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=8&placement=dashboard&multiple=1&auto_backfill=0&deal_type=flight&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
-        f_request_url = f_request_url + "&test=1" if "production" != RAILS_ENV
-        flight_doc = WebApp.consume_xml_from_url(f_request_url)
-      
-        @flight_feed[i] = ""
-        (flight_doc/:Deal).each_with_index do |deal,index|
-          @flight_feed[i] = @flight_feed[i] + "<a class='clip-it' href='#' alt='Clip this deal to Duffel' title='Clip this deal to Duffel' onclick=\"javascript: (function(){EN_CLIP_HOST='http://duffelup.com';CLIP_URL='#{deal.at('URL').innerHTML}';CLIP_TITLE='#{deal.at('Price').innerHTML} - #{deal.at('Title').innerHTML}';CLIP_NOTES='#{deal.at('Price').innerHTML} - #{deal.at('Title').innerHTML}. Deal posted on #{deal.at('PostedDate').innerHTML}. Price subject to change after this date.';CLIP_ADDRESS='';NO_IMG='checked';CLIP_TYPE='Transportation';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;\">Add to Duffel</a>"
-          if index%2 == 0
-            @flight_feed[i] = @flight_feed[i] + "<li class=\"even\" onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_f}return false;\">"
-          else
-            @flight_feed[i] = @flight_feed[i] + "<li onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_f}return false;\">"
-          end
-          @flight_feed[i] = @flight_feed[i] + "<span class=\"price\"><a href=\"#\">#{deal.at('Price').innerHTML}</a></span>"
-          @flight_feed[i] = @flight_feed[i] + "<a href=\"#\">#{deal.at('Title').innerHTML}</a>"
-          @flight_feed[i] = @flight_feed[i] + "<br/><span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
-          @flight_feed[i] = @flight_feed[i] + "</li>"
-        end
-      end
-      
-    end
+      end 
+    end # if params[:tab]=="deals"
 
   end
   
