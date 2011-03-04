@@ -447,7 +447,7 @@ text-shadow:0 1px 1px #0060AB;
 	color:#fff;
 }
 
-#profile .edit-link a {
+#profile .edit-link a, .profile .edit-link a{
 	float: right;
 	background:url(../images/button-bg.png) repeat-x center center;
 	color: #333;

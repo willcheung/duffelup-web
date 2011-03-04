@@ -55,9 +55,9 @@
 					:html => { :multipart => true }) do |form| %>
 	
 	<div class="tile-actions" style="margin-top: -40px;">
-		<h3>What now?</h3>	
+		<h3>Want to add ideas more quickly?</h3>	
 		<ul>
-			<li><%= link_to "Want to add ideas more quickly?", {:controller => 'site', :action => 'tools'}, :target => '_blank' %><br \><small class="t11"><%= render :partial => "shared/bookmarklet" %></small></li>
+			<li><small class="t15"><%= render :partial => "shared/bookmarklet", :locals => {:small => true} %></small></li>
 		</ul>
 	</div>
 	
