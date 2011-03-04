@@ -33,7 +33,7 @@
         <em><%= link_to display_user_name(current_user), profile_url(current_user.username) %></em>
         <cite style="color:#999;"><%= current_user.home_city.gsub(", United States", "") unless current_user.home_city.nil? %></cite>
         <% if founding_member?(current_user) %><cite style="color:#FFD700;">Founding Member</cite><% end %>
-		<span class="action"><%= link_to "Edit Profile", edit_user_url %></span>
+		<span class="edit-link" style="float:left;margin-top:5px;"><%= link_to "Edit", edit_user_url %></span>
       </div>
     </div> <!-- #userProfile -->
 
