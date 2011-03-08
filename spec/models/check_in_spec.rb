@@ -21,7 +21,7 @@ describe CheckIn do
   end
   
   it 'finds a landmark based on lag long' do
-    CheckIn.find_landmark(40.4, -74.02).name.should == 'Statue of Liberty'
+    CheckIn.find_landmark(40.409, -74.02).name.should == 'Statue of Liberty'
   end
   
   describe 'trip date slots' do
@@ -49,7 +49,7 @@ describe CheckIn do
   
   describe "award stamp" do
     it "create achievement on user" do
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp", :image_url => "url")
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:will)
       event.save!
@@ -96,9 +96,9 @@ describe CheckIn do
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:quentin)
       event.save!
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "freedom stamp")
+      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "freedom stamp", :image_url => "url")
       checkin = CheckIn.create!(:event => event,
-        :lat => 40.4, :lng => -74.02)
+        :lat => 40.409, :lng => -74.02)
       checkin.recently_achieved.should == stamp
       checkin.to_xml(:indent => 0).should include stamp.to_xml(:indent => 0, :skip_instruct => true)
     end

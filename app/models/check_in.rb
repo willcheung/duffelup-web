@@ -33,7 +33,7 @@ class CheckIn < ActiveRecord::Base
   
   def self.find_landmark(lat, lng)
     return nil unless lat && lng
-    Landmark.find_closest(:origin => [lat, lng], :within => 1)
+    Landmark.find_closest(:origin => [lat, lng], :within => 0.5)
   end
   
   def slot_into_itinerary

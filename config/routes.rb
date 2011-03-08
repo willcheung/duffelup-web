@@ -1,8 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :guides do |guide|
-    guide.resources :landmarks
+  map.resources :cities do |city|
+    city.resources :landmarks
   end
+  
+  map.resources :guides
 
   map.resources :check_ins, :collection => { :near_by => :get }
   map.resource :subscription

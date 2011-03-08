@@ -1,11 +1,7 @@
-<h1>Listing landmarks for <%= @guide.city.city %> (id = <%= @guide.city_id %>)</h1>
+<h1>Listing landmarks for <%= @city.city %> (id = <%= @city.id %>)</h1>
 
 <% for landmark in @landmarks %>
 
-		<p>
-			<strong>Image:</strong> <img src="<%= landmark.image_url %>"/><br/>
-			<%= landmark.image_url %>
-		</p>
 		<p>
 		  <strong>Title:</strong> <%= landmark.name %>
 		</p>
@@ -30,14 +26,20 @@
 		<p><strong>Map to check lat,lng</strong>
 			<img src="http://maps.google.com/maps/api/staticmap?center=<%=landmark.lat%>,<%=landmark.lng%>&zoom=16&size=400x300&sensor=false&markers=color:blue|<%=landmark.lat%>,<%=landmark.lng%>">
 		</p>
+    <p>
+      <strong>Stamp name:</strong> <%= landmark.stamp.name %>
+    </p>
+    <p>
+      <strong>Stamp image url:</strong> <%= landmark.stamp.image_url %>
+    </p>
 
-    <%= link_to 'Show', [@guide, landmark] %> |
-    <%= link_to 'Edit', edit_guide_landmark_path(@guide, landmark) %> |
-    <%= link_to 'Destroy', [@guide, landmark], :confirm => 'Are you sure?', :method => :delete %>
+    <%= link_to 'Show', [@city, landmark] %> |
+    <%= link_to 'Edit', edit_city_landmark_path(@city, landmark) %> |
+    <%= link_to 'Destroy', [@city, landmark], :confirm => 'Are you sure?', :method => :delete %>
 
 <% end %>
 
 
 <br/><br/>
 
-<%= link_to 'New landmark', new_guide_landmark_path(@guide) %> | <%= link_to 'Back', guide_path(@guide) %>
+<%= link_to 'New landmark', new_city_landmark_path(@city) %>
