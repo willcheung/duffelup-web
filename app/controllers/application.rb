@@ -193,7 +193,7 @@ class ApplicationController < ActionController::Base
   
   ########## Other Stuff ###########
   def admin?
-    current_user.username == "will" or current_user.username == "kweinberg"
+    current_user.username == "will" or current_user.username == "kweinberg" or current_user.username == "calvin"
   end
   
   # Source code from file vendor/rails/actionpack/lib/action_view/helpers/text_helper.rb, line 60

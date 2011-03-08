@@ -1,15 +1,11 @@
 <h1>Editing landmark</h1>
 
-<% form_for([@guide, @landmark]) do |f| %>
+<% form_for([@city, @landmark]) do |f| %>
   <%= f.error_messages %>
 
 	<p>
 	    <%= f.label :name %>
 	    <%= f.text_field :name %>
-	  </p>
-	<p>
-	    <%= f.label :image_url %>
-	    <%= f.text_field :image_url %>
 	  </p>
 	  <p>
 	    <%= f.label :lat %>
@@ -19,6 +15,10 @@
 	    <%= f.label :lng %>
 	    <%= f.text_field :lng %>
 	  </p>
+    <p>
+      <%= f.label :guide_id %>
+      <%= f.text_field :guide_id %>
+    </p>
 	<p>
 	    <%= f.label :address %>
 	    <%= f.text_area :address, :rows => 3 %>
@@ -35,10 +35,21 @@
 		<%= f.label :tips %>
 		<%= f.text_area :tips %>
 	</p>
+  <%- fields_for @landmark.stamp do |builder| -%>
+    <p>
+      <%= builder.label :name, "Stamp name" %>
+      <%= builder.text_field :name %>
+    </p>
+    <p>
+      <%= builder.label :image_url, "Stamp image url" %>
+      <%= builder.text_field :image_url %>
+    </p>
+  <%- end -%>
+
   <p>
     <%= f.submit "Update" %>
   </p>
 <% end %>
 
-<%= link_to 'Show', [@guide, @landmark] %> |
-<%= link_to 'Back', guide_landmarks_path(@guide) %>
+<%= link_to 'Show', [@city, @landmark] %> |
+<%= link_to 'Back', city_landmarks_path(@city) %>

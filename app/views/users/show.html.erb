@@ -47,6 +47,7 @@
       </dl>
     </div> <!-- #userStats -->
 
+<%- if @duffel_of_the_month -%>
 	<% cache("dashboard-featured-duffel") do %>
     <div id="featuredUser">
       <h2>Duffel of the Month</h2>
@@ -79,6 +80,7 @@
       </div>
     </div> <!-- #featuredUser -->
 	<% end %>
+<%- end -%>
 
 	<% unless @requested_friends.empty? %>
 	<div class="section" id="friends-request">

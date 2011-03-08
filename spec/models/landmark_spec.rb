@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Landmark do
-  fixtures :guides
+  fixtures :cities
   
   before(:each) do
     @valid_attributes = {
       :name => 'Wall Street',
-      :guide => guides(:new_york)
+      :city => cities(:new_york)
     }
   end
 
