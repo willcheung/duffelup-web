@@ -7,12 +7,22 @@
 
 		<div class="clearfix"></div>
 		
+		<% unless defined?(profile)%>
 		<%= will_paginate @news_feed_with_total_pages, 
 						:params => {:controller => 'users', :action => 'more_news_feed'},
 						:renderer => FlowPagination::LinkRenderer %>
+		<% else %>
+		<%= will_paginate @news_feed_with_total_pages, 
+						:params => {:controller => 'users', :action => 'more_news_feed', :profile => profile},
+						:renderer => FlowPagination::LinkRenderer %>
+		<% end %>
 	
 	</div>
 	<% else %>
-	<p>No updates.  Go find some friends!</p>
+	<% unless defined?(profile)%>
+		<p>No updates.  Go find some friends!</p>
+	<% else %>
+		<p>No updates from <%= params[:username] %>.</p>
+	<% end %>
 	<% end %>
 </div> <!-- #updates -->

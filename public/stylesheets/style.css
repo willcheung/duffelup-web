@@ -2907,29 +2907,33 @@ input.big-button {
   margin-bottom: 20px;
 }
 
-#simple #updates #activities_container #flow_pagination {
+#updates #activities_container #flow_pagination {
 	margin-top: 20px;
 	text-align: center;
 }
 
-#simple #updates #activities_container #flow_pagination input {
+#updates #activities_container #flow_pagination input {
 	padding: 8px 100px;
 	margin-bottom: 10px;
 	font-size: 14px;
 }
 
-#simple #updates #activities_container #activities_feed #activity .avatar {
+#updates #activities_container #activities_feed #activity .avatar {
 	float: left;
 	margin-right: 6px;
 	width: 35px;
 }
 
-#simple #updates #activities_container #activities_feed #activity .content {
+#updates #activities_container #activities_feed #activity .content {
 	width: 430px;
 	float: left;
 }
 
-#simple #updates #activities_container #activities_feed #activity .timestamp {
+#recent-updates #updates #activities_container #activities_feed #activity .content {
+	width: 500px;
+}
+
+#updates #activities_container #activities_feed #activity .timestamp {
 	color:#999999;
 	display:none;
 	font-size:11px;
@@ -2938,11 +2942,11 @@ input.big-button {
 	top:15px;
 }
 
-#simple #updates #activities_container #activities_feed #activity:hover .timestamp {
+#updates #activities_container #activities_feed #activity:hover .timestamp {
 	display:block;
 }
 
-#simple #updates #activities_feed #activity {
+#updates #activities_feed #activity {
 	clear:both;
 	color:#555;
 	font-size:13px;
@@ -3041,6 +3045,7 @@ input.big-button {
 	letter-spacing: 0;
 }
 
+#primary h2.profile,
 #simple #newsfeed h2,
 #simple #updates h2,
 #simple #exploreDestinations h2,
