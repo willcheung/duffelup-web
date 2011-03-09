@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
   layout "simple"
   
-  before_filter :protect, :except => [:validate, :new, :create, :forgot_password, :link_user_accounts, :auto_complete_for_user_home_city]
+  before_filter :protect, :except => [:validate, :new, :create, :forgot_password, :link_user_accounts, :auto_complete_for_user_home_city, :more_news_feed]
   skip_before_filter :set_facebook_session, :only => [:validate, :create]
   
   def validate
@@ -171,21 +171,31 @@ class UsersController < ApplicationController
   end
   
   def more_news_feed
-    ####################################
-    # Load Friends & Requested Friends
-    ####################################
-    if !fragment_exist?("#{current_user.username}-friends", :time_to_live => 1.week)
-      @friends = User.load_all_confirmed_friends(current_user.id)
-      write_fragment("#{current_user.username}-friends", @friends)
-    else
-      @friends = read_fragment("#{current_user.username}-friends")
-    end
+    unless params[:profile]
+      ####################################
+      # Load Friends & Requested Friends
+      ####################################
+      if !fragment_exist?("#{current_user.username}-friends", :time_to_live => 1.week)
+        @friends = User.load_all_confirmed_friends(current_user.id)
+        write_fragment("#{current_user.username}-friends", @friends)
+      else
+        @friends = read_fragment("#{current_user.username}-friends")
+      end
     
-    ####################################
-    # Load News Feed
-    ####################################
-    @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 20)
-    @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+      #####################
+      # Load News Feed
+      #####################
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 20)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+    else # also goes here when user is not logged in (current_user.nil? == true)
+      u = User.find_by_username(params[:profile])
+      
+      ####################
+      # Load News Feed
+      ####################
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 20)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+    end
   end
 
   def new
@@ -286,6 +296,12 @@ class UsersController < ApplicationController
   def edit
     @title = "Duffel - Edit Account"
     @user = current_user
+    
+    respond_to do |format|
+      format.html 
+      format.xml { render :xml => @user } 
+      format.json { render :json => @user } 
+    end
   end
   
   def save

@@ -7,7 +7,7 @@ class ProfileController < ApplicationController
   def show 
     @user = (logged_in? and current_user.username == params[:username]) ? current_user : User.find_by_username(params[:username])
     @planned_trips = []
-    past_trips = []
+    @past_trips = []
     @no_date_trips = []
     @favorite_trips = []
     
@@ -47,7 +47,7 @@ class ProfileController < ApplicationController
         if trip.end_date.nil? or trip.start_date.nil?
           @no_date_trips << trip if trip_is_public(trip, @user)
         elsif trip.end_date < Date.today
-          past_trips << trip if trip_is_public(trip, @user)
+          @past_trips << trip if trip_is_public(trip, @user)
         else
           @planned_trips << trip if trip_is_public(trip, @user)
         end
@@ -57,7 +57,13 @@ class ProfileController < ApplicationController
       @planned_trips.reverse!
       
       # group past trips by year
-      @past_trips_by_year = past_trips.group_by {|e| e.start_date.year}
+      @past_trips_by_year = @past_trips.group_by {|e| e.start_date.year}
+      
+      ######################
+      # Load user updates
+      ######################
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities([@user], params[:page], 28)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
       ####################################
       # Load Friends & Requested Friends
@@ -68,15 +74,6 @@ class ProfileController < ApplicationController
         write_fragment("#{@user.username}-friends", @friends)
       else
         @friends = read_fragment("#{@user.username}-friends")
-      end
-      
-      if @user == current_user
-        @requested_friends = User.load_requested_friends(@user.id)
-        ####################################
-        # Load News Feed
-        ####################################
-        @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 8)
-        @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       end
       
     else

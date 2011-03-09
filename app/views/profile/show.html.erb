@@ -23,28 +23,20 @@
 
 <div id="primary" class="userProfile">
 	<div id="primary-inner">
-		<!--
-		<% if (logged_in? and @user.id == current_user.id) %>
-			<h2 class="home">Howdy <%= display_user_name(@user) %>, where do you want to travel?</h2>
-			<div>
-				<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
-					<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-					<%= submit_tag "Plan", :class => "submit big-button" %>
-					<span id="indicator" style="display:none"><img src="/images/ajax-loader.gif" alt="loading" /></span>
-				<% end %>
-			</div>
-			<div class="clear"></div>
-		<% end %>
-		-->
 		
-		<div id="planned-duffels">
+		<div id="recent-updates">
+			<h2 class="profile"><%= display_user_name(@user) %>'s Updates</h2>
+			<%= render :partial => 'users/dashboard_partials/recent_updates', :locals => {:profile => params[:username]} %>
+		</div>
+		
+		<div id="planned-duffels" style="display:none;">
 			<% if logged_in? and @user.id == current_user.id %>
-				<h2 class="home">Your Active Duffels</h2>
+				<h2 class="profile">Your Active Duffels</h2>
 				<% if @no_date_trips.empty? and @planned_trips.empty? %>
 					<p><em>You're not planning any trips right now.  Why not <a href="/trips/new">create one</a>?</em></p>
 				<% end %>
 			<% else %>
-				<h2 class="home"><%= display_user_name(@user) %>'s Active Duffels</h2>
+				<h2 class="profile"><%= display_user_name(@user) %>'s Active Duffels</h2>
 				<% if @no_date_trips.empty? and @planned_trips.empty? %>
 					<p><em><%= display_user_name(@user) %> is not planning any trips right now, at least not publicly.</em></p>
 				<% end %>
@@ -64,7 +56,7 @@
 		</div>
 
 		<div id="previous-duffels" style="display: none;">
-		<h2 class="home"><%= display_user_name(@user) %>'s Previous Duffels</h2>
+		<h2 class="profile"><%= display_user_name(@user) %>'s Previous Duffels</h2>
 		<% unless @past_trips_by_year.empty? %>
 			<% @past_trips_by_year.each do |year, trips| %>
 				<div id="profile-duffels">
@@ -80,7 +72,7 @@
 		</div>
 		
 		<div id="favorite-duffels" style="display: none;">
-		<h2 class="home"><%= display_user_name(@user) %>'s Favorite Duffels</h2>
+		<h2 class="profile"><%= display_user_name(@user) %>'s Favorite Duffels</h2>
 		<% unless @favorite_trips.empty? %>
 			<div id="profile-duffels">
 			<%= render :partial => "trips/duffels", :locals => { :trips => @favorite_trips, :favorite => true } %>
@@ -152,11 +144,12 @@
 		</div>
 		
 		<div class="section">
-		<h2><%= display_user_name(@user) %>'s Duffels</h2>
+		<h2><%= display_user_name(@user) %>'s Stuff</h2>
 		<ul class="user_menu">
-			<li id="a-duffels" class="active" onclick="$('planned-duffels').show();$('previous-duffels').hide();$('favorite-duffels').hide();$('no-plans').show();this.setAttribute('class','active');$('p-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');return false;"><a href="#">Active Duffels</a></li>
-			<li id="p-duffels" onclick="$('planned-duffels').hide();$('previous-duffels').show();$('favorite-duffels').hide();$('no-plans').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');return false;"><a href="#">Previous Duffels</a></li>
-			<li id="f-duffels" onclick="$('planned-duffels').hide();$('previous-duffels').hide();$('favorite-duffels').show();$('no-plans').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('p-duffels').setAttribute('class','');return false;"><a href="#">Favorite Duffels</a></li>
+			<li id="user-updates" class="active" onclick="$('recent-updates').show();$('planned-duffels').hide();$('previous-duffels').hide();$('favorite-duffels').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('p-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');return false;"><a href="#">Recent Updates</a></li>
+			<li id="a-duffels" onclick="$('recent-updates').hide();$('planned-duffels').show();$('previous-duffels').hide();$('favorite-duffels').hide();this.setAttribute('class','active');$('p-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');$('user-updates').setAttribute('class','');return false;"><a href="#">Active Duffels (<%= (@no_date_trips.size + @planned_trips.size).to_s %>)</a></li>
+			<li id="p-duffels" onclick="$('recent-updates').hide();$('planned-duffels').hide();$('previous-duffels').show();$('favorite-duffels').hide();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('f-duffels').setAttribute('class','');$('user-updates').setAttribute('class','');return false;"><a href="#">Previous Duffels (<%= @past_trips.size.to_s %>)</a></li>
+			<li id="f-duffels" onclick="$('recent-updates').hide();$('planned-duffels').hide();$('previous-duffels').hide();$('favorite-duffels').show();this.setAttribute('class','active');$('a-duffels').setAttribute('class','');$('p-duffels').setAttribute('class','');$('user-updates').setAttribute('class','');return false;"><a href="#">Favorite Duffels (<%= @favorite_trips.size.to_s %>)</a></li>
 		</ul>
 		</div>
 
