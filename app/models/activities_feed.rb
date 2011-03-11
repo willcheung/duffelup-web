@@ -74,10 +74,18 @@ class ActivitiesFeed < ActiveRecord::Base
     
     return if f_ids.empty?
     
-    #feed = ActivitiesFeed.find(:all,
     paginate   :per_page => per_page, :page => page, 
                       :select => "activities_feeds.*", 
                       :conditions => "activities_feeds.user_id in (#{f_ids.join(",")})",
+                      :order => "activities_feeds.created_at DESC",
+                      :include => :user
+
+  end
+  
+  def self.get_all_activities(page, per_page=12)
+
+    paginate   :per_page => per_page, :page => page, 
+                      :select => "activities_feeds.*", 
                       :order => "activities_feeds.created_at DESC",
                       :include => :user
 

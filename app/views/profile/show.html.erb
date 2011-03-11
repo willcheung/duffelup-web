@@ -14,13 +14,6 @@
 
 <%= render :partial => "announcements/announcements" if (logged_in? and current_user.username == params[:username] and not current_announcements.empty?) -%> 
 
-<% if logged_in? and (current_user.email.nil? or current_user.email.blank?) %>
-<div id="announcement">
-<h1>We picked out a username just for you - <%= current_user.username %></h1><br/>
-<p>You can change it anytime. Please take a few seconds to <a href="/user/edit">update your profile</a> so we can give you a better Duffel experience.</p>
-</div>
-<% end %>
-
 <div id="primary" class="userProfile">
 	<div id="primary-inner">
 		
@@ -87,7 +80,7 @@
 		<div class="clear"></div>
 		<h2 class="home">
 			<div class="right t15"><%= link_to "Browse More &raquo;</strong>", '/explore' %></div>
-			Check out Duffel's popular cities
+			Popular Destinations
 		</h2>
 
 		<div id="central" class="closer">

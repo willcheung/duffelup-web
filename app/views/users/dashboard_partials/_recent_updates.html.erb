@@ -1,4 +1,18 @@
-<div id="updates">
+<% unless defined?(profile) %>
+<ul class="updateTabs">
+	<li class="friends"><a id="my-friends-link" <% if (params[:tab]=="updates" and params[:subtab].nil?) or params[:tab].nil? %> class="selected" <% end %> onclick="location.search='tab=updates';$('duffel-network-link').removeClassName('selected');this.addClassName('selected');return false;" href="#">My Friends</a></li>
+	<li class="all"><a id="duffel-network-link" <% if params[:tab]=="updates" and params[:subtab]=="all" %> class="selected" <% end %> onclick="location.search='tab=updates&subtab=all';$('my-friends-link').removeClassName('selected');this.addClassName('selected');return false;" href="#">Duffel Network</a></li>
+</ul>
+<% end %>
+
+<div id="updates" <% unless defined?(profile) %>style="border-top: 1px solid #CCCCCC;"<% end %>>
+	
+	<% unless defined?(profile) %>
+	<div id="active-duffel-header">
+		
+	</div>
+	<% end %>
+	
 	<% if (!@activities.nil? and !@activities.empty?) and (!@news_feed_with_total_pages.nil? and !@news_feed_with_total_pages.empty?) %>
 	<div id="activities_container" class="display">
     	<div id="activities_feed">
@@ -7,13 +21,13 @@
 
 		<div class="clearfix"></div>
 		
-		<% unless defined?(profile)%>
+		<% if defined?(profile) %>
 		<%= will_paginate @news_feed_with_total_pages, 
-						:params => {:controller => 'users', :action => 'more_news_feed'},
+						:params => {:controller => 'users', :action => 'more_news_feed', :profile => profile},
 						:renderer => FlowPagination::LinkRenderer %>
 		<% else %>
 		<%= will_paginate @news_feed_with_total_pages, 
-						:params => {:controller => 'users', :action => 'more_news_feed', :profile => profile},
+						:params => {:controller => 'users', :action => 'more_news_feed', :subtab => params[:subtab]},
 						:renderer => FlowPagination::LinkRenderer %>
 		<% end %>
 	

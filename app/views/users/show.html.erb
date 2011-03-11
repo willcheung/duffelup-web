@@ -16,7 +16,7 @@
 
 <% if logged_in? and (current_user.email.nil? or current_user.email.blank?) %>
 <div id="announcement" style="border: 3px solid #e0e0e0">
-<h1>We picked out a username just for you - <%= current_user.username %></h1><br/>
+<h1>Hi there! We picked a username for you - <%= current_user.username %></h1><br/>
 <p>You can change it anytime. Please take a few seconds to <a href="/user/edit">update your profile</a> so we can give you a better Duffel experience.</p>
 </div>
 <% end %>
@@ -105,35 +105,27 @@
 	<div style="margin: 20px 0">
 		<a href="http://itunes.apple.com/app/id371064516" target="_blank" alt="Duffel Up and Go iPhone App" title="Duffel Up and Go iPhone App"><img src="/images/iphone_banner.jpg" style="width:210px"></a>
 	</div>
-
-	<!--<div class="ad square">
-		<span>NEED A HOTEL?</span>
-		<a href="http://www.mrandmrssmith.com/?affID=duffelup" target="_blank"><img src="/images/partners/mms-170x170.png"></a>
-	</div><div class="ad rectangle-65">
-		<span>LOOKING FOR THINGS TO DO?</span>
-		<a href="http://www.partner.viator.com/en/7101?bannerImg=different_234x60.gif" target="_blank"><img style="max-width:170px" src="http://www.partner.viator.com/partner/admin/images/banners/themes/different_234x60.gif" border="0" alt="Book activities" width="195" /></a>
-	</div>-->
     
   </div> <!-- #sidebar-profile -->
 
   <div id="mainContent">
 	
-	<div style="display:none" id="new-duffel-form">
+	<div id="new-duffel-form">
 		<h2>I'm planning to visit:</h2>
 		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
-			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".2", :min_chars => "3" } %>
 			<%= submit_tag "Create Duffel", :class => "submit big-button" %>
-			<span id="indicator" style="display:none"><img src="/images/ajax-loader.gif" alt="loading" /></span>
+			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
 		<% end %>
 	</div>
 	
 	<div id="dashboard_tabs">
 		<ul class="tabnav">
-			<li id="tb-duffels" <% if params[:tab] != "updates" and params[:tab] != "deals" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
+			<li id="tb-updates" <% if params[:tab] == "updates" or params[:tab].nil? %>class="selected"<% end %> onclick="location.search='tab=updates';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;">
+				<a href="#">Recent Updates</a>
 			</li>
-			<li id="tb-updates" <% if params[:tab] == "updates" %>class="selected"<% end %> onclick="location.search='tab=updates';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;">
-				<a href="#">Friends Updates</a>
+			<li id="tb-duffels" <% if params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
 			</li>
 			<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
 				<a href="#">My Travel Deals</a>
@@ -151,13 +143,15 @@
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
 	<% elsif params[:tab] == "deals" %>
 		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
-	<% else %>
+	<% elsif params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>
 		<%= render :partial => 'users/dashboard_partials/my_duffels' %>
+	<% else %> <!-- by default goes to updates tab -->
+		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
 	<% end %>
 
 
     <div id="exploreDestinations">
-      <h2>Explore Destinations <span class="right t15"><%= link_to "Browse More &raquo;</strong>", '/explore' %></span></h2>
+      <h2>Popular Destinations <span class="right t15"><%= link_to "Browse More &raquo;</strong>", '/explore' %></span></h2>
       <ul>
         <li>
           <dl>

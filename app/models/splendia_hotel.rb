@@ -43,7 +43,7 @@ class SplendiaHotel < ActiveRecord::Base
     
       hotel_obj = SplendiaHotel.new(
         :hotel_id => tmp.innerHTML,
-        :name => (hotel/:name).innerHTML,
+        :name => (hotel/:name).first.innerHTML,
         :min_price => (hotel/:min_price).first.innerHTML,
         :currency => (hotel/:currency).innerHTML,
         :country_code => (hotel/:country_code).innerHTML,
