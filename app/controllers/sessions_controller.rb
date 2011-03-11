@@ -84,11 +84,11 @@ class SessionsController < ApplicationController
     
     # If user is logged in and clicked on "Link"
     if logged_in?
-      current_user.twitter_secret = oauth_consumer.access_token.secret
-      current_user.twitter_token = oauth_consumer.access_token.token
+      current_user.twitter_secret = access_token.secret
+      current_user.twitter_token = access_token.token
       current_user.save(false)
       
-      twitter_client.update("Checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
+      twitter_client.update("I'm using @duffelup's Visual Trip Planner. http://duffelup.com", {})
       flash[:notice] = "You linked your Twitter account!"
       redirect_to(dashboard_path) and return
     end
@@ -107,7 +107,7 @@ class SessionsController < ApplicationController
       Trip.create_duffel_for_new_user({ :title => "#{current_user.username}'s first duffel", :start_date => nil,
                                         :end_date => nil, :is_public => 1, :destination => "#{current_user.home_city}" }, current_user)
       
-      twitter_client.update("Checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
+      twitter_client.update("I'm checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
       
       redirect_to(steptwo_path) and return
     end

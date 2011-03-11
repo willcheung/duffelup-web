@@ -573,6 +573,7 @@ text-shadow:0 1px 1px #0060AB;
 	margin:10px 0;
 	line-height:21px;
 	font-weight:bold;
+	letter-spacing:0px;
 }
 
 #primary h2.home {
@@ -2718,9 +2719,10 @@ input.big-button {
 #mainContent .following,
 #mainContent #new-duffel-form {
 	-moz-border-radius:8px 8px 8px 8px;
+	-webkit-border-radius:8px 8px 8px 8px;
 	background:none repeat scroll 0 0 #ECEFF3;
 	border:1px solid #E3E2DD;
-	padding:10px 15px;
+	padding:6px 15px;
 	margin-bottom: 8px;
 	position:relative;
 	z-index:1;
@@ -2772,6 +2774,13 @@ input.big-button {
 #mainContent #new-duffel-form input.big-button {
 	font-size:15px;
 	width: 22%;
+}
+
+#mainContent #new-duffel-form #indicator img.indicator {
+	position: absolute;
+	top: 38px;
+	right: 162px;
+	z-index: 1;
 }
 
 /**************************
@@ -2851,6 +2860,7 @@ input.big-button {
 	-moz-box-shadow:0 2px 3px #818181;
 	-webkit-box-shadow: 0 2px 3px #818181;
 	box-shadow: 0 2px 3px #818181;
+	margin-left: 180px;
 }
 #mainContent #dashboard_tabs ul .submenu li{
 	background: #26466D;
@@ -2905,6 +2915,45 @@ input.big-button {
 #simple #exploreDestinations,
 #simple #myDuffels {
   margin-bottom: 20px;
+}
+
+#mainContent .updateTabs {
+	float: left;
+	padding: 0;
+	border: none;
+	margin: 0 0 12px 0;
+	width: 255px;
+}
+
+#mainContent ul.updateTabs {
+	list-style: none outside none;
+}
+
+#mainContent .updateTabs li {
+	float: left;
+	margin: 0 8px;
+}
+
+#mainContent .updateTabs a {
+	font-weight: bold;
+	padding:3px 6px;
+}
+
+#mainContent .updateTabs a:hover {
+	background: #e3e3e3;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	padding:3px 6px;
+	text-decoration:none;
+}
+
+#mainContent .updateTabs a.selected {
+	background: #777;
+	color: #FFF;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	padding:3px 6px;
+	text-decoration:none;
 }
 
 #updates #activities_container #flow_pagination {
@@ -3234,12 +3283,11 @@ input.big-button {
   background-color: transparent;
 }
 
-
 #simple span.createDuffel {
-  display: block;
-  position: relative;
-  width: 160px;
-  height: 28px;
+  	display: block;
+  	position: relative;
+  	width: 360px;
+  	height: 28px;
 	padding: 5px 0;
 	margin: 0;
 	float: right;
@@ -3309,13 +3357,11 @@ input.big-button {
   width: auto;
   height: 21px;
   margin-left: 0;
-  padding: 5px 16px 0 16px;
+  padding: 5px 16px 0 9px;
 	color: #333;
-  font-size: 131%;
+  font-size: 110%;
   font-weight: 800;
-
 	float: left;
-
 	/* background: transparent url("../images/button-bg.png") 0 0 repeat-x; */
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -3323,15 +3369,15 @@ input.big-button {
 
 #simple span.createDuffel a img {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  top: -5px;
+  width: 28px;
+  height: 28px;
+  top: -2px;
   left: -24px;
-	background: transparent url("/images/createDuffel-button-gray-md.png") 0 0 no-repeat;
+	background: transparent url("/images/createDuffel-button-gray-sm.png") 0 0 no-repeat;
 }
 
 #simple span.createDuffel a:hover img {
-	background: transparent url("/images/createDuffel-button-green-md.png") 0 0 no-repeat;
+	background: transparent url("/images/createDuffel-button-green-sm.png") 0 0 no-repeat;
 }
 
 

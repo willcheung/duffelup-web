@@ -124,8 +124,11 @@ class UsersController < ApplicationController
     #######################################
     # Updates Tab - Load News Feed
     #######################################
-    if params[:tab]=="updates"
+    if (params[:tab]=="updates" and params[:subtab].nil?) or params[:tab].nil?
       @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 28)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+    elsif (params[:tab]=="updates" and params[:subtab]=="all")
+      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page], 36)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
     
@@ -171,7 +174,23 @@ class UsersController < ApplicationController
   end
   
   def more_news_feed
-    unless params[:profile]
+    if params[:profile]
+      u = User.find_by_username(params[:profile])
+      
+      ####################
+      # Load Single User News Feed
+      ####################
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 20)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+      
+    elsif params[:subtab]=="all"
+      ####################
+      # Load All News Feed
+      ####################
+      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page], 35)
+      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
+      
+    else # params[:updates]
       ####################################
       # Load Friends & Requested Friends
       ####################################
@@ -183,17 +202,9 @@ class UsersController < ApplicationController
       end
     
       #####################
-      # Load News Feed
+      # Load Friends News Feed
       #####################
       @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 20)
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
-    else # also goes here when user is not logged in (current_user.nil? == true)
-      u = User.find_by_username(params[:profile])
-      
-      ####################
-      # Load News Feed
-      ####################
-      @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 20)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
   end
