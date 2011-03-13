@@ -72,7 +72,7 @@ class UsersController < ApplicationController
       end
       
       # Find the single most recently created active duffel
-      if (trip.end_date.nil? or trip.start_date.nil?) or (trip.end_date < Date.today)
+      if (trip.end_date.nil? or trip.start_date.nil?) or (trip.end_date > Date.today)
         if @preview_duffel.nil? or @preview_duffel.created_at < trip.created_at
           @preview_duffel = trip
         end

@@ -111,7 +111,7 @@
   <div id="mainContent">
 	
 	<div id="dashboard-header">
-		<% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) %>
+		<% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) and !@preview_duffel.nil? %>
 		<div id="active-duffel-reminder">
 			<h2>Recently planning: <span class="mute t11"><a href="?tab=duffels-active">(manage your duffels)</a></span></h2>
 			<div id="photo-container"><a href="/trips/<%= @preview_duffel.permalink %>"><img src="<%= duffel_thumbnail_url(@preview_duffel) %>" alt="<%= @preview_duffel.title %>" title="<%= @preview_duffel.title %>"/></a></div>
@@ -134,7 +134,7 @@
 		<div class="clearfix"></div>
 		<% end %>
 		
-		<div id="new-duffel-form" <% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) %>style="display:none;"<% end %>>
+		<div id="new-duffel-form" <% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) and !@preview_duffel.nil? %>style="display:none;"<% end %>>
 			<h2>I'm planning to visit:</h2>
 			<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
 				<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".2", :min_chars => "3" } %>
