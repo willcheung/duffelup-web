@@ -7,8 +7,8 @@
 
   <% form_tag search_path, :method => 'get', :id => 'search_form' do %>
     <fieldset>
-      <%= submit_tag "Search", :name => nil, :class => 'button' %>
-      <%= text_field_tag :q, params[:q], :class => 'field' %>
+      <%= submit_tag "", :name => nil, :class => 'button' %>
+      <%= text_field_tag :q, params[:q], :class => 'field', :value => "Find places or people...", :onfocus => "if(this.value=='Find places or people...')this.value='';", :onblur => "if(this.value=='')this.value='Find places or people...';" %>
     </fieldset>
   <% end %>
 </div>

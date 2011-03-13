@@ -7,12 +7,6 @@
 
 <div id="updates" <% unless defined?(profile) %>style="border-top: 1px solid #CCCCCC;"<% end %>>
 	
-	<% unless defined?(profile) %>
-	<div id="active-duffel-header">
-		
-	</div>
-	<% end %>
-	
 	<% if (!@activities.nil? and !@activities.empty?) and (!@news_feed_with_total_pages.nil? and !@news_feed_with_total_pages.empty?) %>
 	<div id="activities_container" class="display">
     	<div id="activities_feed">

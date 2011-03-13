@@ -65,7 +65,7 @@ class ActivitiesFeed < ActiveRecord::Base
   end
   
   
-  def self.get_activities(friends, page, per_page=12)
+  def self.get_activities(friends, page, per_page=20)
     f_ids = []
     
     friends.each do |f|
@@ -82,12 +82,12 @@ class ActivitiesFeed < ActiveRecord::Base
 
   end
   
-  def self.get_all_activities(page, per_page=12)
+  def self.get_all_activities(page, per_page=25) # Get all public activities
 
     paginate   :per_page => per_page, :page => page, 
                       :select => "activities_feeds.*", 
                       :order => "activities_feeds.created_at DESC",
-                      :include => :user
+                      :conditions => "activities_feeds.is_public = 1"
 
   end
   
