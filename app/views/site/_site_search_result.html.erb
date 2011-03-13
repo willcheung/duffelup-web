@@ -1,10 +1,10 @@
 <% unless @cities_search_result.nil? %>
 	<div id="column" style="padding:15px;">
 		<div class="cities-results">
+			<h2>Cities</h2>
 			<% if @cities_search_result.empty? %>
 				<p>Doh, can't find that place you're looking for.</p>
 			<% else %>
-			<h2>Cities</h2>
 				<ul class="cities">
 				<% @cities_search_result.each do |c| %>
 					<% unless c.city.empty? %>
@@ -25,10 +25,10 @@
 
 <div id="column" style="padding-top:20px">
 <% unless @duffels_search_result.nil? %>
+	<h2>Community Duffels</h2>
 	<% if @duffels_search_result.empty? %>
 		<p>Doh, can't find any trips.</p>
 	<% else %>
-		<h2>Community Duffels</h2>
 		<ul class="duffel-list">
 		<% @duffels_search_result.each do |d| %>
 			<div class="separate"></div>

@@ -2683,15 +2683,16 @@ input.big-button {
 }
 
 #searchHeader form#search_form input.field {
-  width: 200px;
-  height: 17px;
-  background: #fff none;
+  	width: 200px;
+  	height: 18px;
+	background: url("/images/bg-search.png") no-repeat scroll 4px center #FFFFFF;
 	font: 12px/12px Lucida Grande, arial, helvetica, sans-serif;
-  padding: 3px 4px 1px 4px;
-  border: none;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-	border-radius: 0;
+  	padding: 3px 4px 3px 26px;
+  	border: none;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #555555;
 }
 
 #searchHeader form#search_form input.button {
@@ -2717,7 +2718,7 @@ input.big-button {
 ***************************/
 
 #mainContent .following,
-#mainContent #new-duffel-form {
+#mainContent #dashboard-header {
 	-moz-border-radius:8px 8px 8px 8px;
 	-webkit-border-radius:8px 8px 8px 8px;
 	background:none repeat scroll 0 0 #ECEFF3;
@@ -2729,7 +2730,7 @@ input.big-button {
 }
 
 #mainContent .following h2,
-#mainContent #new-duffel-form h2 {
+#mainContent #dashboard-header h2 {
 	margin: 2px 0;
 	color: #32322D;
 	text-shadow:1px 1px 0 #fafafa;
@@ -2765,18 +2766,59 @@ input.big-button {
 	margin: 0;
 }
 
-#mainContent #new-duffel-form input.big {
+#mainContent #dashboard-header #active-duffel-reminder #photo-container {
+	border: 2px solid #DDDDDD;
+    float: left;
+    height: 60px;
+    line-height: 120px;
+    margin-right: 20px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 60px;
+	background-color: #FFFFFF;
+}
+
+#mainContent #dashboard-header #active-duffel-reminder {
+	width: 400px;
+}
+
+#mainContent #dashboard-header #active-duffel-reminder #title {
+	float: left;
+	width: 180px;
+}
+
+#mainContent #dashboard-header #active-duffel-reminder #title a{
+	color: #F23D88;
+    font: 800 14px/16px arial,helvetica,sans-serif;
+    padding: 5px 10px 0 0;
+}
+
+#mainContent #dashboard-header #active-duffel-reminder #details{
+	color: #555555;
+    font-size: 12px;
+    padding-top: 5px;
+    vertical-align: baseline;
+	float:left;
+}
+
+#mainContent #dashboard-header #active-duffel-reminder #destination {
+	clear: right;
+	color: #555;
+}
+
+#mainContent #dashboard-header #new-duffel-form input.big {
 	font-size:15px;
 	padding: 6px;
 	width: 73%;
 }
 
-#mainContent #new-duffel-form input.big-button {
+#mainContent #dashboard-header #new-duffel-form input.big-button {
 	font-size:15px;
 	width: 22%;
 }
 
-#mainContent #new-duffel-form #indicator img.indicator {
+#mainContent #dashboard-header #new-duffel-form #indicator img.indicator {
 	position: absolute;
 	top: 38px;
 	right: 162px;

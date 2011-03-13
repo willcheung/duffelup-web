@@ -126,7 +126,7 @@ class Trip < ActiveRecord::Base
                                     LEFT JOIN comments ON trips.id = comments.trip_id
                                     WHERE (invitations.user_id = ?)
                                     GROUP BY trips.id
-                                    ORDER BY trips.start_date DESC", user_id])
+                                    ORDER BY trips.created_at DESC", user_id])
   end
   
   def self.load_trips_for_widgets_and_comments_count(user_id)

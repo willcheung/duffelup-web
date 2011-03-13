@@ -70,6 +70,13 @@ class UsersController < ApplicationController
       else
         @planned_trips << trip if trip_is_public(trip, current_user)
       end
+      
+      # Find the single most recently created active duffel
+      if (trip.end_date.nil? or trip.start_date.nil?) or (trip.end_date < Date.today)
+        if @preview_duffel.nil? or @preview_duffel.created_at < trip.created_at
+          @preview_duffel = trip
+        end
+      end
     end
     
     # find favorite count for all trips (excluding favorites)
@@ -125,10 +132,10 @@ class UsersController < ApplicationController
     # Updates Tab - Load News Feed
     #######################################
     if (params[:tab]=="updates" and params[:subtab].nil?) or params[:tab].nil?
-      @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 28)
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 30)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     elsif (params[:tab]=="updates" and params[:subtab]=="all")
-      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page], 36)
+      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page])
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
     
@@ -180,14 +187,14 @@ class UsersController < ApplicationController
       ####################
       # Load Single User News Feed
       ####################
-      @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 20)
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 25)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
     elsif params[:subtab]=="all"
       ####################
       # Load All News Feed
       ####################
-      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page], 35)
+      @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page])
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
     else # params[:updates]
@@ -204,7 +211,7 @@ class UsersController < ApplicationController
       #####################
       # Load Friends News Feed
       #####################
-      @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 20)
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 25)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
   end

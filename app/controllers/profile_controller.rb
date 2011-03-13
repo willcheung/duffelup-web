@@ -62,7 +62,7 @@ class ProfileController < ApplicationController
       ######################
       # Load user updates
       ######################
-      @news_feed_with_total_pages = ActivitiesFeed.get_activities([@user], params[:page], 28)
+      @news_feed_with_total_pages = ActivitiesFeed.get_activities([@user], params[:page], 30)
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
       ####################################
