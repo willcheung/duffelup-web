@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
     User.find_by_sql(["SELECT users.id, users.username, users.email, users.full_name, users.category, users.avatar_file_name, users.home_city, users.home_airport_code, users.email_updates,
                                       invitations.status as invite_status, invitations.user_type as user_type
                                FROM users INNER JOIN invitations ON users.id = invitations.user_id
-                               WHERE ((invitations.trip_id = ?)) ORDER BY username", trip_id])
+                               WHERE ((invitations.trip_id = ?))", trip_id])
   end
 
   # Simple User Search

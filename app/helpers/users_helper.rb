@@ -20,7 +20,7 @@ module UsersHelper
     
     users.each_with_index do |user,i|
       return s if (i == max and users.size == max)
-      return s + " and #{diff} more" if (i == max and users.size > max)
+      return s + "&nbsp;and #{diff} more" if (i == max and users.size > max)
       
 			if user.user_type.to_i == Invitation::USER_TYPE_ADMIN
 				s = "<a href=\"#{profile_for(user)}\">#{collaborator_thumbnail(user)}</a> "

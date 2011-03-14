@@ -100,24 +100,15 @@
 			<div id="navigation">
 				<h1>
 				<% if !@trip.photo.size.nil? and @trip.photo.size != "" %>
-				<img width="35" src="<%=@trip.photo.url(:thumb)%>" class="duffel-image" />
+				<img width="40" src="<%=@trip.photo.url(:thumb)%>" class="duffel-image" />
 				<% elsif !@trip.photo_file_name.nil? %>
-				<img width="35" src="<%=@trip.photo_file_name%>" class="duffel-image" />
+				<img width="40" src="<%=@trip.photo_file_name%>" class="duffel-image" />
 				<% end %>
 					
 				<%= h(@trip.title) %>
 				
-				<% if !@admins.include?(current_user) %>
-					<span class="collaborator">- Planned by <%= link_to display_user_name(@admins[0]), profile_for(@admins[0]), :class => 'mute' %></span>
-				<% end %>
+				<span class="collaborator">- Planned by&nbsp;&nbsp;<%= duffel_collaborators(@users) %></span>
 				
-				<%- if @users.size > 1 -%>
-					<%- if @users.include?(current_user) -%>
-						<span class="collaborator">with <%= link_to pluralize(@users.size-1, 'Collaborator'), trip_invitation_path(:permalink => @trip) %></span>
-					<%- else -%>
-						<span class="collaborator">with <%= link_to pluralize(@users.size-1, 'Collaborator'), "#", :id => "check-collaborators", :onclick => "return false;" %></span>
-					<%- end -%>
-				<%- end -%>
 				<br />
 				<% if !@city[0].nil? %>
 				<%= trip_destination_in_trip_header(@city) -%>
