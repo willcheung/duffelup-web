@@ -437,6 +437,12 @@ span.collaborator, span.collaborator a {
 	color: #aaa;
 }
 
+span.collaborator img {
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+}
+
 /*-----------------------------------------------------------------------------------
 	Add Trip Ideas
 -----------------------------------------------------------------------------------*/
@@ -1182,7 +1188,7 @@ span.collaborator, span.collaborator a {
 
 #comments_wrapper #sliding-sideBarContentsInner {
 	width: 94%;
-	height: 50%;
+	height: 56%;
 }
 
 #comments_wrapper #sliding-sideBarContentsInner textarea{

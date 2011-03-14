@@ -35,22 +35,7 @@
 </div>
 
 <div id="sliding-sideBarContentsBottom">
-	<div class="column">
-		<h2>Tripgoers <small>(<%= @users.size %>)</small></h2>
-		<div class="friends-list">
-			<ul>
-		  	<% @users.each_with_index do |user,i| %>	
-				<% break if i== 10 %>
-				<li><a href="<%= profile_url(user.username) %>" title="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" alt="<%=display_thumbnail_title(user.username, user.full_name, user.home_city)%>" ><%= display_thumbnail(user, { :width => "25" }) %></a></li>
-			 <% end %>
-			</ul>
-		</div>
-		<%- if @users.include?(current_user) -%>
-			<span style="font-weight:normal;clear:left;font-size:0.7em;display:block;margin-left:10px;"><%= link_to "Invite more", trip_invitation_path(:permalink => @trip) %></span>
-		<% end %>
-	</div>
 
-	<div class="column">
 		<h2>Favorites <small>(<%= @trip.favorites.size %>)</small></h2>
 		<div class="friends-list" style="min-height:30px;">
 			<% if @trip.favorites.size == 0 %>
@@ -63,11 +48,11 @@
 			<% else %>
 			<ul>
 		  	<% @trip.favorites.each_with_index do |fav,i| %>
-				<% break if i== 10 %>	
+				<% break if i== 15 %>	
 				<li><a href="<%= profile_url(fav.user.username) %>" title="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" alt="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" ><%= display_thumbnail(fav.user, { :width => "25" }) %></a></li>
 			 <% end %>
 			</ul>
 			<% end %>
 		</div>
-	</div>
+
 </div>
