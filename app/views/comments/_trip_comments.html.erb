@@ -1,4 +1,4 @@
-<h2>Leave a comment or travel tip</h2>
+<h2>Comments (<%= @trip_comments_size %>)</h2>
 <div id="sliding-sideBarContentsInner">
 	<div id="comments_for_trip_<%= @trip.id %>">
 		<% if @trip_comments_size.to_i > Trip::NUM_OF_COMMENTS_TO_SHOW %>
@@ -36,7 +36,7 @@
 
 <div id="sliding-sideBarContentsBottom">
 
-		<h2>Favorites <small>(<%= @trip.favorites.size %>)</small></h2>
+		<h2>Favorites (<%= @trip.favorites.size %>)</h2>
 		<div class="friends-list" style="min-height:30px;">
 			<% if @trip.favorites.size == 0 %>
 				<%- unless @users.include?(current_user) -%>

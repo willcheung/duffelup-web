@@ -1136,7 +1136,7 @@ span.collaborator img {
 	/*width: 380px;
 	height: 300px;*/
 	width: 32%;
-	height: 29%;
+	height: 31%;
 	background: #fcfcfc;
 	z-index:4;
 	-webkit-box-shadow: #333 0 0 8px;
@@ -1192,7 +1192,9 @@ span.collaborator img {
 }
 
 #comments_wrapper #sliding-sideBarContentsInner textarea{
-	width: 84%;
+	width: 70%;
+	float: left;
+	height: 45px;
 }
 
 #comments_wrapper #sliding-sideBarContentsBottom {
@@ -1666,7 +1668,7 @@ input.trip_destination_submit {
 #comments_wrapper #sliding-sideBarContentsBottom ul,
 #sliding-sideBar ul{
 	margin:0px 3px;
-	padding:6px;
+	padding:0 6px;
 }
 
 #comments_wrapper #sliding-sideBarContentsBottom li,
@@ -1784,8 +1786,8 @@ input.trip_destination_submit {
 }
 
 #sliding-sideBarContentsInner textarea {
-	width: 238px;
-	height: 65px;
+	width: 250px;
+	height: 45px;
 }
 
 #sliding-sideBarContentsBottom .column {
@@ -1795,10 +1797,9 @@ input.trip_destination_submit {
 }
 
 #sliding-sideBarContentsInner{
-	width:310px;
 	padding: 8px;
 	opacity: 1.0;
-	max-height: 305px;
+	max-height: 340px;
 	overflow: auto;
 	background-color: #F1E7A3;
 	-moz-border-radius: 5px;

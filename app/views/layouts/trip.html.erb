@@ -129,8 +129,6 @@
 		          	<%- if @users.include?(current_user) -%>
 		          		<li class="invite"><%= link_to "Invite Collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite Collaborators", :alt => "Invite Collaborators" %></li>
 		          	<%- end -%>
-
-						<li class="comments"><%= link_to @trip_comments_size + ' Comments', "#", :id => 'add-comment', :title => "Post a tip or comment", :alt => "Post a tip or comment", :onclick => "return false;" %></li>
 					
 						<%- unless @users.include?(current_user) -%> <!-- tripgoers can't add their own duffels to bookmark -->
 							<% cache("user-#{current_user.id}-trip-#{@trip.id}-favorites") do %>
@@ -140,6 +138,8 @@
 								<li class="bookmarked"><%= link_to 'Favorited (remove)', trip_delete_favorite_path(@trip.permalink), :method => :post, :title => "Remove from my bookmarks", :alt => "Remove from my bookmarks"  %></li>
 							<%- end -%>
 							<% end %><!-- end of favorites cache -->
+						<% else %>
+													<li class="comments"><%= link_to @trip_comments_size + ' Comments', "#", :id => 'add-comment', :title => "Post a tip or comment", :alt => "Post a tip or comment", :onclick => "return false;" %></li>
 						<% end %>
 						
 						<li class="share">
