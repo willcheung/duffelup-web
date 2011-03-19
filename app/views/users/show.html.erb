@@ -159,7 +159,7 @@
 			<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 				<li onclick="location.search='tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
 				<li onclick="location.search='tab=duffels-previous';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Previous (<%= @past_trips.size %>)</a></li>
-				<li style="background: url(/images/icon-bookmarked.png) no-repeat 0 4px;" onclick="location.search='tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
+				<li style="background: url(../images/icon-favorite.png) no-repeat 2px -121px;" onclick="location.search='tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
 			</ul>
 		</ul>
 	</div>
