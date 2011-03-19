@@ -134,7 +134,7 @@
 				
 									<div class="clearfix"></div>
 				
-									<div id="trip_<%= d.trip.id %>_comments" <% unless (@trip_comments_size["#{d.trip.id}-comments-size"].to_i > 0) %> style="display:none;" <% end %>>
+									<div id="trip_<%= d.trip.id %>_comments">
 										<%= render :partial => 'featured_duffels/featured_comments', :locals => { :d => d } %>
 									</div>
 				
@@ -146,11 +146,15 @@
 								<div class="meta">
 									posted <%= time_ago_or_time_stamp(d.created_at) %>
 									<% if @all_trips_favorite_count[d.trip.id.to_s].nil? %> 
-										<%= link_to "Favorite this (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<%= link_to "Save as Favorites (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
 									<% else %>
-										<%= link_to "Favorite this (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<% if d.trip.favorite?(current_user) %>
+											<%= link_to "Favorited (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_delete_favorite_path(d.trip.permalink, :redirect => "/featured"), :method => :post, :title => "Remove from Favorites", :alt => "Remove from Favorites", :class => "bookmarked"  %>
+										<% else %>
+											<%= link_to "Save as Favorites (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<% end %>
 									<% end %>
-									<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>
+									<!--<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>-->
 								</div>
 							</div>
 							
@@ -212,7 +216,7 @@
 				
 									<div class="clearfix"></div>
 				
-									<div id="trip_<%= d.trip.id %>_comments" <% unless (@trip_comments_size["#{d.trip.id}-comments-size"].to_i > 0) %> style="display:none;" <% end %>>
+									<div id="trip_<%= d.trip.id %>_comments">
 										<%= render :partial => 'featured_duffels/featured_comments', :locals => { :d => d } %>
 									</div>
 								</div>
@@ -222,11 +226,15 @@
 								<div class="meta">
 									posted <%= time_ago_or_time_stamp(d.created_at) %>
 									<% if @all_trips_favorite_count[d.trip.id.to_s].nil? %> 
-										<%= link_to "Favorite this (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<%= link_to "Save as Favorites (0)", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
 									<% else %>
-										<%= link_to "Favorite this (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<% if d.trip.favorite?(current_user) %>
+											<%= link_to "Favorited (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_delete_favorite_path(d.trip.permalink, :redirect => "/featured"), :method => :post, :title => "Remove from Favorites", :alt => "Remove from Favorites", :class => "bookmarked"  %>
+										<% else %>
+											<%= link_to "Save as Favorites (#{@all_trips_favorite_count[d.trip.id.to_s]})", trip_create_favorite_path(d.trip.permalink, :redirect => "/featured"), :class => "favorite-link", :title => "Favorite this duffel", :alt => "Favorite this duffel" %>
+										<% end %>
 									<% end %>
-									<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>
+									<!--<a class="comments-link" style="margin-right:8px" href="#" onclick="$('trip_<%= d.trip.id %>_comments').show();return false;">Comments (<%= @trip_comments_size["#{d.trip.id}-comments-size"] %>)</a>-->
 								</div>
 							</div>
 						

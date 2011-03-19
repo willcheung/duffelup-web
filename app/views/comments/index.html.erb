@@ -17,7 +17,7 @@
 				<div class="stat_bubble_content"><%= @users.size.to_s %></div>
 			</div>
 			<div class="stat_bubble">
-				<div class="stat_bubble_title">BOOKMARKED</div>
+				<div class="stat_bubble_title">FAVORITED</div>
 				<div class="stat_bubble_content"><%= @trip.favorites.size.to_s %></div>
 			</div>
 			<div class="stat_bubble">
@@ -57,9 +57,9 @@
 	<h2>Who saved this as favorite
 		<span style="font-weight:normal;font-size:0.9em;margin-left:10px">
 		<%- unless @trip.favorite?(current_user) -%>
-			<%= link_to 'Favorite this', trip_create_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Bookmark this duffel", :alt => "Bookmark this duffel"  %>
+			<%= link_to 'Save as Favorites', trip_create_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Favorite this duffel", :alt => "Favorite this duffel"  %>
 		<%- else -%>
-			<%= link_to 'Remove from Favorites', trip_delete_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Remove from my bookmarks", :alt => "Remove from my bookmarks"  %>
+			<%= link_to 'Remove from Favorites', trip_delete_favorite_path(@trip.permalink, :redirect => "/trips/#{@trip.permalink}/comments"), :method => :post, :title => "Remove from Favorites", :alt => "Remove from Favorites"  %>
 		<%- end -%></span></h2>
 	<div class="friends-list">
 		<ul>
