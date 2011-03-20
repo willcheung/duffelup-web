@@ -1,5 +1,5 @@
 statue_of_liberty:
-  city_id: new_york
+  city: new_york
   name: Statue of Liberty
   lat: 40.41
   lng: -74.02

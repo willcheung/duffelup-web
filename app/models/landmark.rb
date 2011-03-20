@@ -8,4 +8,15 @@ class Landmark < ActiveRecord::Base
   validates_presence_of :name
   validates_length_of :name, :maximum => 50
   
+  def to_xml(options = {}, &block)
+    defaults = {:include => :city}
+    options.merge!(defaults) do |key, oldval, newval|
+      case oldval.class
+      when Hash then oldval.merge(newval => {})
+      else [newval].push(oldval).compact.uniq.flatten
+      end
+    end
+    super
+  end
+  
 end

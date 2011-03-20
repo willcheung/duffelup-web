@@ -60,12 +60,13 @@ class CheckIn < ActiveRecord::Base
   end
   
   def to_xml(options = {}, &block)
-    options[:procs] = [Proc.new { |opt| self.recently_achieved.to_xml(:builder => opt[:builder],
-      :skip_instruct => true) if self.recently_achieved }].push(options[:procs]).compact.flatten
-    case options[:include].class
-    when Array then (options[:include] << :event).uniq!
-    when Hash then options[:include].merge!(:event => {})
-    else options[:include] = [:event]
+    defaults = {:procs => Proc.new { |opt| self.recently_achieved.to_xml(:builder => opt[:builder],
+      :skip_instruct => true) if self.recently_achieved }, :include => :event}
+    options.merge!(defaults) do |key, oldval, newval|
+      case oldval.class
+      when Hash then oldval.merge(newval => {})
+      else [newval].push(oldval).compact.uniq.flatten
+      end
     end
     super
   end
