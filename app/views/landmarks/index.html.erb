@@ -26,13 +26,17 @@
 		<p><strong>Map to check lat,lng</strong>
 			<img src="http://maps.google.com/maps/api/staticmap?center=<%=landmark.lat%>,<%=landmark.lng%>&zoom=16&size=400x300&sensor=false&markers=color:blue|<%=landmark.lat%>,<%=landmark.lng%>">
 		</p>
-    <p>
+    <% if landmark.stamp %>
+	<p>
       <strong>Stamp name:</strong> <%= landmark.stamp.name %>
     </p>
     <p>
       <strong>Stamp image url:</strong> <%= landmark.stamp.image_url %>
     </p>
-
+	<% else %>
+	<p>No stamp attached to this landmark.  Please  <%= link_to 'Edit', edit_city_landmark_path(@city, landmark) %> and add stamp.</p>
+	<% end %>
+	
     <%= link_to 'Show', [@city, landmark] %> |
     <%= link_to 'Edit', edit_city_landmark_path(@city, landmark) %> |
     <%= link_to 'Destroy', [@city, landmark], :confirm => 'Are you sure?', :method => :delete %>
