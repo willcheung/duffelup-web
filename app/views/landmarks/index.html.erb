@@ -32,6 +32,7 @@
     </p>
     <p>
       <strong>Stamp image url:</strong> <%= landmark.stamp.image_url %>
+		<img src="<%= landmark.stamp.image_url %>"/>
     </p>
 	<% else %>
 	<p>No stamp attached to this landmark.  Please  <%= link_to 'Edit', edit_city_landmark_path(@city, landmark) %> and add stamp.</p>
