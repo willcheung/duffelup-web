@@ -1,7 +1,3 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+quentin_achieved_statue_of_liberty:
+  user: quentin
+  stamp: statue_of_liberty

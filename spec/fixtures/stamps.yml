@@ -2,3 +2,6 @@ statue_of_liberty:
   landmark: statue_of_liberty
   name: Statue of Liberty
   image_url: http://www.statueofliberty.com/image.png
+jetsetter:
+  name: Jetsetter
+  image_url: http://www.jetsetter.com/image.png
