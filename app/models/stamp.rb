@@ -5,6 +5,8 @@ class Stamp < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :image_url
   
+  attr_accessor :awarded_to_current_user
+  
   def to_xml(options = {}, &block)
     defaults = {:include => :landmark}
     options.merge!(defaults) do |key, oldval, newval|
