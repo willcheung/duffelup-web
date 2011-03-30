@@ -10,7 +10,7 @@
 	<% end %>
 
 	<div id="form-details" <% if @event.photo? %>style="width:340px"<% end %>>
-	<%= (link_to h(@idea.website), @idea.website) unless @idea.website.blank? %><br/>
+	<%= (link_to h(@idea.website), @idea.website, :target => "_blank") unless @idea.website.blank? %><br/>
 	<%= "<h3>Address</h3>" + content_tag('p', h(@idea.address)) + "(" + map_link("map", @idea.address) + ")" unless @idea.address.blank? %>
 	<%= "<h3>Phone</h3>" + content_tag('p', h(@idea.phone))  unless @idea.phone.blank? %>
 	

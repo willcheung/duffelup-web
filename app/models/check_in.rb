@@ -6,6 +6,7 @@ class CheckIn < ActiveRecord::Base
   validates_presence_of :city_id
   validates_associated :event
   validate :event_must_be_present
+  validate :photo_upload_limit_reached
   
   acts_as_mappable
   
@@ -57,6 +58,10 @@ class CheckIn < ActiveRecord::Base
   
   def event_must_be_present
     errors.add(:event, 'must be present') if event.blank?
+  end
+  
+  def photo_upload_limit_reached
+    errors.add(:event, 'photo limit reached') if current_user.bandwidth >= User::UPLOAD_LIMIT
   end
   
   def to_xml(options = {}, &block)

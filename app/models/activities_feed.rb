@@ -107,7 +107,7 @@ class ActivitiesFeed < ActiveRecord::Base
         a.content = a.actor + " commented on " + a.trip + "." 
         grouped_activities << a
       when ADD_FAVORITE
-        a.content = a.actor + " saved " + a.trip + " as their favorites."
+        a.content = a.actor + " saved " + a.trip + " as Favorites."
         grouped_activities << a
       when CREATE_TRIP
         a.content = a.actor + " started planning " + a.trip + ". Any recommendations?"
