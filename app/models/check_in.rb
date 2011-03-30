@@ -61,7 +61,7 @@ class CheckIn < ActiveRecord::Base
   end
   
   def photo_upload_limit_reached
-    errors.add(:event, 'photo limit reached') if current_user.bandwidth >= User::UPLOAD_LIMIT
+    errors.add(:event, 'photo limit reached') if event.user.bandwidth >= User::UPLOAD_LIMIT
   end
   
   def to_xml(options = {}, &block)

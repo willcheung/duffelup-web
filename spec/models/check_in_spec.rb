@@ -1,13 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CheckIn do
-  fixtures :cities, :guides, :landmarks, :trips, :users
+  fixtures :cities, :guides, :landmarks, :trips, :users, :stamps
   
   before(:each) do
+    @user = users(:quentin)
+    @event = Event.create!(:trip_id => 1, :title => 'check_in')
+    @event.user = @user
+    @event.save!
     @valid_attributes = {
       :lat => 37.5081,
       :lng => -122.301,
-      :event => Event.create!(:trip_id => 1, :title => 'check_in')
+      :event => @event
     }
   end
 
@@ -49,7 +53,7 @@ describe CheckIn do
   
   describe "award stamp" do
     it "create achievement on user" do
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp", :image_url => "url")
+      stamp = stamps(:statue_of_liberty)
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:will)
       event.save!
@@ -60,7 +64,7 @@ describe CheckIn do
     end
     
     it "does not create duplicate achievements" do
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
+      stamp = stamps(:statue_of_liberty)
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:will)
       event.save!
@@ -71,6 +75,7 @@ describe CheckIn do
     end
     
     it "does not create achievement if landmark does not have a stamp" do
+      stamps(:statue_of_liberty).destroy
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:will)
       event.save!
@@ -80,7 +85,6 @@ describe CheckIn do
     end
     
     it "does not create achievement if checkin is not close to a landmark" do
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "Statue of Liberty stamp")
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:will)
       event.save!
@@ -89,18 +93,24 @@ describe CheckIn do
       end.should_not change(Achievement, :count)
     end
     
-  end
-  
-  describe "award stamp" do
     it "awards stamp if checkin close to landmark" do
       event = Event.create!(:trip_id => 1, :title => 'check_in')
       event.user = users(:quentin)
       event.save!
-      stamp = landmarks(:statue_of_liberty).create_stamp(:name => "freedom stamp", :image_url => "url")
+      stamp = stamps(:statue_of_liberty)
+      # stamp = landmarks(:statue_of_liberty).create_stamp(:name => "freedom stamp", :image_url => "url")
       checkin = CheckIn.create!(:event => event,
         :lat => 40.409, :lng => -74.02)
       checkin.recently_achieved.should == stamp
       checkin.to_xml(:indent => 0).should include stamp.to_xml(:indent => 0, :skip_instruct => true)
     end
+  end
+  
+  it "reports error if user bandwidth is over the bandwidth limit" do
+    @user.bandwidth = User::UPLOAD_LIMIT
+    @event.stub(:photo_file_size).and_return(1)
+    check_in = CheckIn.create(:event => @event, :lat => 40.409, :lng => -74.02)
+    check_in.errors.should_not be_empty
+    check_in.errors.full_messages[0].should match /Event photo limit reached/
   end
 end

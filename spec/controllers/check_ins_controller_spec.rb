@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe CheckInsController do
-  fixtures :cities, :trips
+  fixtures :cities, :trips, :users
   
   before(:each) do
     controller.stub!(:logged_in?).and_return(true)
     controller.stub!(:load_trip_users)
     controller.stub!(:is_user_invited_to_trip).and_return(true)
+    @user = users(:quentin)
   end
   
   def mock_check_in(stubs={})
@@ -68,6 +69,7 @@ describe CheckInsController do
       end
       
       it 'creates an event for the check_in' do
+        controller.stub(:current_user).and_return(@user)
         post :create, :check_in => { :lat => 37.5081, :lng => -122.301 },
           :event => { :trip_id => 1, :title => 'check_in' }
         assigns[:check_in].event.trip_id.should == 1
@@ -159,6 +161,8 @@ describe CheckInsController do
   describe "GET near_by" do
     before(:each) do
       @event = Event.create!(:trip_id => 1, :title => 'check_in')
+      @event.user = @user
+      @event.save!
       @checkin1 = CheckIn.create!(:lat => 36.113, :lng => -115.184, :event => @event, :created_at => 20.seconds.ago)
       @checkin2 = CheckIn.create!(:lat => 36.113, :lng => -115.194, :event => @event, :created_at => 19.seconds.ago)
       @checkin3 = CheckIn.create!(:lat => 36.113, :lng => -115.164, :event => @event, :created_at => 18.seconds.ago)
