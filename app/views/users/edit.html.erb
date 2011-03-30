@@ -77,7 +77,7 @@ Upload new profile photo:<br/>
 <%= check_box_tag :email_trip_reminder, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_TRIP_REMINDER) %> Trip reminders a few days before my trip</div>
 
 <div class="form-group">
-	<label for="user_bandwidth">Photo Upload Limit:<br/><span class="hint">Resets 1st of every month</span></label>
+	<label for="user_bandwidth">Photo Upload:<br/><span class="hint">Resets 1st of every month</span></label>
 	<div class="progress-container">       
 	    <div style="width:<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 0) %>;"></div>
 	</div>
