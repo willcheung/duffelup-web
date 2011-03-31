@@ -23,7 +23,8 @@
 	<% else %>
 		<label for="photo">Upload a photo:</label>
 	<% end %>
-	<%= form.file_field :photo, :size => 16 %>
+	<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+	<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
 		
 	<label for="event_address">Address (or Lat,Lng):</label>
 		<%= f.text_area :address, :rows => 2, :cols => 22 %>
