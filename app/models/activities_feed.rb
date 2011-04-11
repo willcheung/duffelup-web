@@ -54,9 +54,9 @@ class ActivitiesFeed < ActiveRecord::Base
     else
       a.trip_id = trip.id
       if action == ActivitiesFeed::ADD_COMMENT
-        a.trip = "<a href=\"http://duffelup.com/trips/#{trip.permalink}#comments\">#{trip.title}</a> to #{truncate(trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),90)}"
+        a.trip = "<a href=\"http://duffelup.com/trips/#{trip.permalink}#comments\">#{trip.title}</a> to #{truncate(CGI::escapeHTML(trip.destination).gsub(", United States", "").gsub(";", " & ").squeeze(" "),90)}"
       else
-        a.trip = "<a href=\"http://duffelup.com/trips/#{trip.permalink}\">#{trip.title}</a> to #{truncate(trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),90)}"
+        a.trip = "<a href=\"http://duffelup.com/trips/#{trip.permalink}\">#{trip.title}</a> to #{truncate(CGI::escapeHTML(trip.destination).gsub(", United States", "").gsub(";", " & ").squeeze(" "),90)}"
       end
       a.is_public = trip.is_public
     end
