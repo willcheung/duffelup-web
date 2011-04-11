@@ -131,7 +131,7 @@
 		<% if founding_member?(@user) %><div style="color:#FFD700;font-weight:bold;">Founding Member</div><% end %>
 	
 		<p class="clear">
-			<% unless @user.bio.nil? or @user.bio.empty? %><span class="bio">About:</span> <%= @user.bio %><br/><% end %>
+			<% unless @user.bio.nil? or @user.bio.empty? %><span class="bio">About:</span> <%= h(@user.bio) %><br/><% end %>
 			<% unless @user.homepage.nil? or @user.homepage.empty? %><span class="bio">Web:</span> <%= website_link(@user.homepage, @user.homepage) %><% end %>
 		</p>
 		</div>

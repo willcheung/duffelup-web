@@ -113,7 +113,7 @@
 				<% if !@city[0].nil? %>
 				<%= trip_destination_in_trip_header(@city) -%>
 				<% else %>
-				<span class="destination"><%= @trip.destination.gsub(", United States", "") %></span>
+				<span class="destination"><%= h(@trip.destination.gsub(", United States", "")) %></span>
 				<% end %>
 				<span class="date"><%- if @trip.start_date and @trip.end_date -%> from <%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span>
 				</h1>
