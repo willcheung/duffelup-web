@@ -23,6 +23,7 @@ class ActivitiesFeed < ActiveRecord::Base
   COPY_FOODANDDRINK = 20
   COPY_TRANSPORTATION = 21
   COPY_NOTES = 22
+  ADD_CHECK_IN = 23
   
   CLIP_IT_TEXT = " (via <a href=\"/site/tools/\">Clip-It</a>)."
   
