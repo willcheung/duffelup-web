@@ -17,7 +17,7 @@
 		<div class="caption">
 			<h3><%= display_title_with_link(event, 20) %></h3>
 			<%= simple_format(h(truncate(event.note, :length => 100))) %>
-			<%- unless event.author.nil? -%><p style="margin-top:3px;text-align:left;">by <a href="/<%= event.author %>"><%= event.author %></a></p><%- end -%>
+			<%- unless event.author.nil? -%><p style="margin-top:3px;text-align:left;font-size:10px;">by <a href="/<%= event.author %>"><%= event.author %></a></p><%- end -%>
 		</div>
 	</div>
 </li>

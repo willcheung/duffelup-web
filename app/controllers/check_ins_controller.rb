@@ -1,5 +1,6 @@
 class CheckInsController < ApplicationController
   before_filter :protect
+  before_filter :protect_admin_page, :only => [:new]
   before_filter :load_trip_users, :only => [:create, :destroy, :update]
   before_filter :is_user_invited_to_trip, :only => [:create, :destroy, :update]
   
