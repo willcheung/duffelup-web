@@ -38,7 +38,7 @@ class ActivitiesFeed < ActiveRecord::Base
     @content=body
   end
   
-  def self.insert_activity(actor, action, trip, predicate_text="")
+  def self.insert_activity(actor, action, trip, predicate_text="", event=nil, check_in_is_public=nil)
     a = ActivitiesFeed.new
     
     name = (actor.full_name.nil? or actor.full_name.empty?) ? actor.username : actor.full_name
@@ -47,6 +47,7 @@ class ActivitiesFeed < ActiveRecord::Base
     a.actor = "<a href=\"/#{actor.username}\">#{name}</a>"
     a.action = action
     a.predicate = predicate_text
+    a.title = event.title unless event.nil?
     
     if trip.nil?
       a.trip_id = nil
@@ -59,7 +60,14 @@ class ActivitiesFeed < ActiveRecord::Base
       else
         a.trip = "<a href=\"http://duffelup.com/trips/#{trip.permalink}\">#{trip.title}</a> to #{truncate(CGI::escapeHTML(trip.destination).gsub(", United States", "").gsub(";", " & ").squeeze(" "),90)}"
       end
-      a.is_public = trip.is_public
+      
+      if action == ActivitiesFeed::ADD_CHECK_IN 
+        # check_in is_public flag overwrites trip is_public flag for news feed
+        a.is_public = check_in_is_public
+        a.photo_url = event.photo.url(:thumb)
+      else
+        a.is_public = trip.is_public
+      end
     end
     
     a.save
@@ -94,6 +102,7 @@ class ActivitiesFeed < ActiveRecord::Base
   
   def self.group_activities(activities)
     grouped_activities = []
+    bunch_of_photos = [] # bunch of photo urls for photo spots (check_ins)
     names = "" # used for travelers going on the same trip
     counter = 1 # used to keep track of # of activities added
     
@@ -114,9 +123,7 @@ class ActivitiesFeed < ActiveRecord::Base
         a.content = a.actor + " started planning " + a.trip + ". Any recommendations?"
         grouped_activities << a
       when ADD_ACTIVITY
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added an activity into " + a.trip + "." : a.actor + " added " + counter.to_s + " activities into " + a.trip + "."
@@ -124,9 +131,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when ADD_LODGING
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a lodging into " + a.trip + "." : a.actor + " added " + counter.to_s + " lodgings into " + a.trip + "." 
@@ -134,9 +139,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end   
       when ADD_FOODANDDRINK
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a food & drink into " + a.trip + "." : a.actor + " added " + counter.to_s + " food & drinks into " + a.trip + "." 
@@ -144,9 +147,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when ADD_TRANSPORTATION
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a transportation into " + a.trip + "." : a.actor + " added " + counter.to_s + " transportations into " + a.trip + "." 
@@ -154,9 +155,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when ADD_NOTES
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a note into " + a.trip + "." : a.actor + " added " + counter.to_s + " notes into " + a.trip + "." 
@@ -164,9 +163,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when ADD_ACTIVITY_CLIPIT
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added an activity into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " activities into " + a.trip + CLIP_IT_TEXT 
@@ -174,9 +171,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a
         end
       when ADD_LODGING_CLIPIT
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a lodging into " + a.trip + CLIP_IT_TEXT : a.content = a.actor + " added " + counter.to_s + " lodgings into " + a.trip + CLIP_IT_TEXT 
@@ -184,9 +179,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a
         end
       when ADD_FOODANDDRINK_CLIPIT
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a food & drink into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " food & drinks into " + a.trip + CLIP_IT_TEXT 
@@ -194,9 +187,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a
         end
       when ADD_TRANSPORTATION_CLIPIT
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a transportation into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " transportations into " + a.trip + CLIP_IT_TEXT 
@@ -204,19 +195,37 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a
         end
       when ADD_NOTES_CLIPIT
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a note into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " notes into " + a.trip + CLIP_IT_TEXT 
           counter = 1 #reset counter
           grouped_activities << a
         end
-      when COPY_ACTIVITY
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
+      when ADD_CHECK_IN
+        bunch_of_photos << a.photo_url
+        counter += 1 if same_as_previous_activity(previous_activity, a)
+        
+        if different_from_next_actvity(next_activity, a)
+          if counter == 1
+            a.content = a.actor + " added a photo spot <strong>" + a.title + "</strong> to trip " + a.trip + "."
+          else
+            a.content = a.actor + " added " + counter.to_s + " photo spots " " to trip " + a.trip + "."
+          end
+          
+          # Display photos
+          a.content +=  "<div id=\"photo_spot\"><ul>"
+          bunch_of_photos.each do |p_url|
+            a.content += "<li><img src=\"#{p_url}\"/></li>"
+          end
+          a.content += "</ul></div>"
+          
+          counter = 1 #reset counter
+          bunch_of_photos = [] #reset photos collection
+          grouped_activities << a
         end
+      when COPY_ACTIVITY
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied an activity from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " activities from " + a.predicate + " into " + a.trip + "."  
@@ -224,9 +233,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when COPY_LODGING
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a lodging from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " lodgings from " + a.predicate + " into " + a.trip + "."  
@@ -234,9 +241,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end   
       when COPY_FOODANDDRINK
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a food & drink from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " food & drinks from " + a.predicate + " into " + a.trip + "."  
@@ -244,9 +249,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when COPY_TRANSPORTATION
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a transportation from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " transportations from " + a.predicate + " into " + a.trip + "."  
@@ -254,9 +257,7 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when COPY_NOTES
-        if same_as_previous_activity(previous_activity, a)
-          counter = counter + 1
-        end
+        counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a note from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " notes from " + a.predicate + " into " + a.trip + "."  

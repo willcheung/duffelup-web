@@ -3070,6 +3070,28 @@ input.big-button {
 	position:relative;
 }
 
+#updates #activities_feed #activity #photo_spot img {
+	height: 120px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: #F6F6F6;
+	border: 1px solid #DEDEDE !important;
+	padding: 6px;
+	margin: 4px;
+}
+
+#updates #activities_container #activities_feed #activity .content #photo_spot {
+	width: 500px;
+}
+
+#recent-updates #updates #activities_container #activities_feed #activity .content #photo_spot {
+	width: 590px;
+}
+
+#updates #activities_feed #activity #photo_spot li {
+	float: left;
+}
+
 #simple #featuredUser .avatar,
 #simple #userProfile .avatar {
   float: left;

@@ -56,6 +56,8 @@ class CheckInsController < ApplicationController
     respond_to do |format|
       if @check_in.save
         flash[:notice] = 'CheckIn was successfully created.'
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_CHECK_IN, @check_in.event.trip, "", @check_in.event, @check_in.is_public)
+        
         format.html { redirect_to(@check_in) }
         format.xml  { render :xml => @check_in, :status => :created, :location => @check_in }
       else
