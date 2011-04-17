@@ -508,7 +508,6 @@ class UsersController < ApplicationController
                                         :end_date => nil, :is_public => 1, :destination => "#{fb_user.home_city}" }, fb_user)
       
       WebApp.post_stream_on_fb(fb_user.fb_user_id, 
-                              nil,
                               "http://duffelup.com",
                               "Checking out Duffel's Visual Trip Planner. http://duffelup.com",
                               "Go to Duffel")

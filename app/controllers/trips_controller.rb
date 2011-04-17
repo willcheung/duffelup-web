@@ -152,7 +152,6 @@ class TripsController < ApplicationController
         ################################################################################
         if !current_user.fb_user_id.nil? and @trip.is_public == 1
           WebApp.post_stream_on_fb(current_user.fb_user_id, 
-                                  @trip,
                                   trip_url(:id => @trip),
                                   news_fb,
                                   "Give me ideas") 
@@ -473,7 +472,7 @@ class TripsController < ApplicationController
     if @trip.is_public == 1
       # Setup for Fb stream
       action = WebApp.setup_fb_action_links(@trip, trip_url(:id => @trip))
-      attachment = WebApp.setup_fb_attachments(@trip, trip_url(:id => @trip))
+      attachment = WebApp.setup_fb_trip_attachments(@trip, trip_url(:id => @trip))
     
       @fb_onclick_share = "FB.Connect.streamPublish(
                                     'I am planning a trip to #{shorten_trip_destination(@trip.destination)} on Duffel.  Any recommendations on restaurants or activities?', 
