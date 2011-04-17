@@ -43,14 +43,15 @@ class WebApp < ActiveResource::Base
   ##############
   
   #  Automatically publish stream to fb, even when user is offline
-  def self.post_stream_on_fb(fb_user_id, trip, trip_url, msg, action_text)
+  def self.post_stream_on_fb(fb_user_id, action_url, msg, action_text, attachment=nil)
     f = Facebooker::Session.create
     
     f.post('facebook.stream.publish', 
             :uid => fb_user_id, 
             :target_id => fb_user_id,
             :message => msg, 
-            :action_links => [:text => action_text, :href => trip_url])
+            :attachment => attachment,
+            :action_links => [:text => action_text, :href => action_url])
   
   rescue Facebooker::Session::PermissionError
     return
@@ -62,13 +63,22 @@ class WebApp < ActiveResource::Base
     "[{'text' : 'Check out my trip', 'href' : '#{trip_url}'}]"
   end
   
-  def self.setup_fb_attachments(trip, trip_url)
+  def self.setup_fb_check_in_attachments(title, href, note, image_url)
+    "{'name': '#{title}',
+      'href': '#{href}',
+      'caption': 'duffelup.com',
+      'description': '#{note}',
+      'media': [{'type': 'image', 
+                  'src': '#{image_url}',
+                  'href': '#{href}'}
+                ]}"
+  end
+  
+  def self.setup_fb_trip_attachments(trip, trip_url)
     if !trip.photo.size.nil? and trip.photo.size != ""
       image = trip.photo.url(:thumb)
-    elsif !trip.photo_file_name.nil?
-      image = trip.photo_file_name
     else
-      image = "http://duffelup.com/images/homepage/italy.jpg"
+      image = "http://duffelup-assets.s3.amazonaws.com/logos/iphone4Icon.png"
     end
     
     "{'name': '#{trip.title}',

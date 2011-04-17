@@ -58,6 +58,15 @@ class CheckInsController < ApplicationController
         flash[:notice] = 'CheckIn was successfully created.'
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_CHECK_IN, @check_in.event.trip, "", @check_in.event, @check_in.is_public)
         
+        if !current_user.fb_user_id.nil? and @check_in.is_public == 1
+          attachment = WebApp.setup_fb_check_in_attachments(@check_in.event.title, trip_url(:id => @check_in.event.trip), @check_in.event.note, @check.event.photo.url(:thumb))
+          WebApp.post_stream_on_fb(current_user.fb_user_id, 
+                                  trip_url(:id => @check_in.event.trip),
+                                  @check_in.event.title,
+                                  "See more photos",
+                                  attachment)
+        end
+        
         format.html { redirect_to(@check_in) }
         format.xml  { render :xml => @check_in, :status => :created, :location => @check_in }
       else

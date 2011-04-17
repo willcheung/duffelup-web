@@ -55,7 +55,6 @@ class CommentsController < ApplicationController
         ################################################################################
         # if !current_user.fb_user_id.nil? and @trip.is_public == 1
         #   WebApp.post_stream_on_fb(current_user.fb_user_id, 
-        #                           @trip,
         #                           trip_url(:id => @trip)+"#comments",
         #                           news_fb,
         #                           "Check it out") 
