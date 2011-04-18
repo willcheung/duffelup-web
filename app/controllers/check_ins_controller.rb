@@ -4,6 +4,8 @@ class CheckInsController < ApplicationController
   before_filter :load_trip_users, :only => [:create, :destroy, :update]
   before_filter :is_user_invited_to_trip, :only => [:create, :destroy, :update]
   
+  layout "simple", :only => :new
+  
   # GET /check_ins
   # GET /check_ins.xml
   def index
@@ -67,9 +69,10 @@ class CheckInsController < ApplicationController
                                   attachment)
         end
         
-        format.html { redirect_to(@check_in) }
+        format.html { redirect_to(new_check_in_path) }
         format.xml  { render :xml => @check_in, :status => :created, :location => @check_in }
       else
+        flash[:notice] = "There are errors checking in."
         format.html { render :action => "new" }
         format.xml  { render :xml => @check_in.errors, :status => :unprocessable_entity }
       end
