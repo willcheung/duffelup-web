@@ -150,7 +150,7 @@ class TripsController < ApplicationController
         ################################################################################
         # publish stream on fb (only works if fb user has approved extended permission)
         ################################################################################
-        if !current_user.fb_user_id.nil? and @trip.is_public == 1
+        if current_user.facebook_user? and @trip.is_public
           WebApp.post_stream_on_fb(current_user.fb_user_id, 
                                   trip_url(:id => @trip),
                                   news_fb,
@@ -160,7 +160,7 @@ class TripsController < ApplicationController
         ###################################
         # Twitter status update
         ###################################
-        if current_user.twitter_user? and @trip.is_public == 1
+        if current_user.twitter_user? and @trip.is_public
           s_url = WebApp.shorten_url(trip_url(:id => @trip))
           twitter_client.update("I started planning a trip to #{truncate(@trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
         end

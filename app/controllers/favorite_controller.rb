@@ -15,7 +15,7 @@ class FavoriteController < ApplicationController
       ################################################################################
       # publish stream on fb (only works if fb user has approved extended permission) - suspended for now
       ################################################################################
-      # if !current_user.fb_user_id.nil? and @trip.is_public == 1
+      # if current_user.facebook_user? and @trip.is_public
       #   WebApp.post_stream_on_fb(current_user.fb_user_id, 
       #                           trip_url(:id => @trip),
       #                           news_fb,
@@ -25,7 +25,7 @@ class FavoriteController < ApplicationController
       ###################################
       # Twitter status update - suspended for now
       ###################################
-      # if current_user.twitter_user? and @trip.is_public == 1
+      # if current_user.twitter_user? and @trip.is_public
       #   s_url = WebApp.shorten_url(trip_url(:id => @trip))
       #   twitter_client.update("Added trip #{@trip.title} #{s_url} as my favorite on @duffelup", {})
       # end
