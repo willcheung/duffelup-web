@@ -584,15 +584,15 @@ class TripsController < ApplicationController
     itinerary = Event.new
     mappables = Event.new
     
-    if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.day) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.day)
+    # if !fragment_exist?("#{trip.id}-events-details", :time_to_live => 1.day) or !fragment_exist?("#{trip.id}-mappable-ideas", :time_to_live => 1.day)
       itinerary = trip.events_details
       mappables = trip.mappable_ideas
-      write_fragment("#{trip.id}-events-details", itinerary)
-      write_fragment("#{trip.id}-mappable-ideas", mappables)
-    else
-      itinerary = read_fragment("#{trip.id}-events-details")
-      mappables = read_fragment("#{trip.id}-mappable-ideas")
-    end
+    #   write_fragment("#{trip.id}-events-details", itinerary)
+    #   write_fragment("#{trip.id}-mappable-ideas", mappables)
+    # else
+    #   itinerary = read_fragment("#{trip.id}-events-details")
+    #   mappables = read_fragment("#{trip.id}-mappable-ideas")
+    # end
     
     return itinerary, mappables
   end
