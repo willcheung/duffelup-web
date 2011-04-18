@@ -60,6 +60,9 @@ class CheckInsController < ApplicationController
         flash[:notice] = 'CheckIn was successfully created.'
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_CHECK_IN, @check_in.event.trip, "", @check_in.event, @check_in.is_public)
         
+        #######################
+        # publish stream on fb 
+        #######################
         if current_user.facebook_user? and @check_in.is_public
           attachment = WebApp.setup_fb_check_in_attachments(@check_in.event.title, trip_url(:id => @check_in.event.trip), @check_in.event.note, @check_in.event.photo.url(:thumb))
           WebApp.post_stream_on_fb(current_user.fb_user_id, 
@@ -67,6 +70,14 @@ class CheckInsController < ApplicationController
                                   @check_in.event.title,
                                   "See more photos",
                                   attachment)
+        end
+        
+        ########################
+        # Twitter status update
+        ########################
+        if current_user.twitter_user? and @check_in.is_public
+          s_url = WebApp.shorten_url(trip_url(:id => @check_in.event.trip))
+          twitter_client.update("#{@check_in.event.title} at #{truncate(@trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
         end
         
         format.html { redirect_to(new_check_in_path) }
