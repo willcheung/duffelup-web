@@ -77,7 +77,7 @@ class CheckInsController < ApplicationController
         ########################
         if current_user.twitter_user? and @check_in.is_public
           s_url = WebApp.shorten_url(trip_url(:id => @check_in.event.trip))
-          twitter_client.update("#{@check_in.event.title} at #{truncate(@trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
+          twitter_client.update("#{@check_in.event.title} at #{truncate(@check_in.event.trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
         end
         
         format.html { redirect_to(new_check_in_path) }
