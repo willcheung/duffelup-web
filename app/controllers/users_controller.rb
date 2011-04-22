@@ -268,7 +268,7 @@ class UsersController < ApplicationController
         
           # Create a new duffel as "research duffel"
           Trip.create_duffel_for_new_user({ :title => "#{@user.username}'s first duffel", :start_date => nil,
-                                            :end_date => nil, :is_public => 1, :destination => "#{@user.home_city}" }, current_user)
+                                            :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, current_user)
       
           # Do some more stuff if user is invited by a friend or to a duffel
           if !@user.beta_invitation.nil?

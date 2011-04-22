@@ -143,11 +143,7 @@ module EventsHelper
     if event.photo_file_size.nil?
       return event.photo_file_name
     else
-      if size == "thumb"
-        return event.photo.url(:thumb)
-      else
-        return event.photo.url(:large)
-      end
+      return event.photo.url(size)
     end
   end
   

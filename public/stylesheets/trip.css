@@ -736,8 +736,12 @@ span.collaborator img {
 	margin:0 0 3px 0;
 }
 
-#board_events .checkin .caption p, #board_events .checkin .caption a{
+#board_events .checkin .caption a{
 	color: #e0e0e0;
+}
+
+#board_events .checkin .caption p{
+	color: #f3f3f3;
 }
 
 #board_events .checkin .caption a:hover{
@@ -814,7 +818,6 @@ span.collaborator img {
 	position: absolute;
 	left: 17px;
 	top: 10px;
-	height: 148px;
 	width: 155px;
 }
 
