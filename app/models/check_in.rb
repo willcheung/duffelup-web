@@ -66,7 +66,8 @@ class CheckIn < ActiveRecord::Base
   
   def to_xml(options = {}, &block)
     defaults = {:procs => Proc.new { |opt| self.recently_achieved.to_xml(:builder => opt[:builder],
-      :skip_instruct => true) if self.recently_achieved }, :include => :event}
+      :skip_instruct => true) if self.recently_achieved }, :include => { :event => { :include => {
+        :user => { :only => [:full_name, :username, :avatar_file_name ] }} } } }
     options.merge!(defaults) do |key, oldval, newval|
       case oldval.class
       when Hash then oldval.merge(newval => {})

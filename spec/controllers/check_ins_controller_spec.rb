@@ -163,11 +163,14 @@ describe CheckInsController do
       @event = Event.create!(:trip_id => 1, :title => 'check_in')
       @event.user = @user
       @event.save!
+      @event2 = Event.create!(:trip_id => 1, :title => 'check_in')
+      @event2.user = @user
+      @event2.save!
       @checkin1 = CheckIn.create!(:lat => 36.113, :lng => -115.184, :event => @event, :created_at => 20.seconds.ago)
       @checkin2 = CheckIn.create!(:lat => 36.113, :lng => -115.194, :event => @event, :created_at => 19.seconds.ago)
       @checkin3 = CheckIn.create!(:lat => 36.113, :lng => -115.164, :event => @event, :created_at => 18.seconds.ago)
       @checkin4 = CheckIn.create!(:lat => 36.113, :lng => -115.154, :event => @event, :created_at => 17.seconds.ago)
-      @checkin5 = CheckIn.create!(:lat => 36.113, :lng => -115.169, :event => @event, :created_at => 16.seconds.ago)
+      @checkin5 = CheckIn.create!(:lat => 36.113, :lng => -115.169, :event => @event2, :created_at => 16.seconds.ago)
       @checkin6 = CheckIn.create!(:lat => 36.113, :lng => -115.179, :event => @event, :created_at => 15.seconds.ago)
     end
     
