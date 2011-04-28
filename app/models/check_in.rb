@@ -52,8 +52,10 @@ class CheckIn < ActiveRecord::Base
   def award_stamp
     landmark = CheckIn.find_landmark(lat, lng)
     stamp = landmark && landmark.stamp
-    event.user.achievements.create(:stamp => stamp) if stamp && !event.user.stamps.include?(stamp)
-    self.recently_achieved = stamp
+    if stamp && !event.user.stamps.include?(stamp)
+      event.user.achievements.create(:stamp => stamp)
+      self.recently_achieved = stamp
+    end
   end
   
   def event_must_be_present
