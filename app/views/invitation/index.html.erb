@@ -38,8 +38,7 @@
 		</script>
 		<% end %>
 	<% else %>
-		
-		<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='#{@fb_login_button_url}';});}else{window.location='#{@fb_login_button_url}'}})", :v => 2) %>
+		<%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access', :v => 2 %>
 	<% end %>
 	</div>
 	

@@ -89,7 +89,7 @@ Upload new profile photo:<br/>
 <% if current_user.facebook_user? && facebook_session %>
 <span><img src="/images/social/facebook-32x32.png" alt="Facebook" width="32" height="32" style="vertical-align: middle" /> Facebook Linked.</span>
 <% else %>
-<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=/user/edit';});}else{window.location='/users/link_user_accounts?redirect=/user/edit'}})", :v => 2) %>
+<%= fb_login_button "window.location='/users/link_user_accounts?redirect=/user/edit';", :perms => 'publish_stream,offline_access', :v => 2 %>
 <% end %>
 
 <% if current_user.twitter_user? %>

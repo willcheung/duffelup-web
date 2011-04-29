@@ -50,7 +50,7 @@
 				<%- end -%>
 				</li>
 				<li class="facebook">
-					<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts';});}else{window.location='/users/link_user_accounts'}})", :v => 1) %></p>
+					<%= fb_login_button "window.location='/users/link_user_accounts';", :perms => 'publish_stream,offline_access' %>
 				</li>
 			</ul>
 		</div>

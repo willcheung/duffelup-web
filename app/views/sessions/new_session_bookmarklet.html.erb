@@ -20,7 +20,7 @@ document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "
 			
 			<div id="signup_link">
 			<p style="font-size:14px;"><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or sign in with:</p>
-			<p><%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}';});}else{window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}'}})", :v => 1) %></p>
+			<p><%= fb_login_button "window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}';", :perms => 'publish_stream,offline_access' %></p>
 			</div>
 			
 			<div id="signup_form" class="signup_form" style="display:none;">

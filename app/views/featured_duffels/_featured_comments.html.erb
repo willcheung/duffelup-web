@@ -26,7 +26,7 @@
 		<% end %>
 	<% else %>
 		<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> or log into 
-			<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=/featured';});}else{window.location='/users/link_user_accounts?redirect=/featured'}})", :v => 2) %>
+			<%= fb_login_button "window.location='/users/link_user_accounts/?redirect=/featured';", :perms => 'publish_stream,offline_access', :v => 2 %>
 			to comment.</p>
 	<% end %>
 	
