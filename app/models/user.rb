@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   # If you were using username to display to people you might want to get them to select one after registering through Facebook Connect
   def self.create_from_fb_connect(fb_user, source="facebook") 
     new_facebooker = User.new(:full_name => fb_user.name.to_s, 
-                              :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(999).to_s, 
+                              :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(9).to_s, 
                               :password => "", 
                               :email => "",
                               :source => source,

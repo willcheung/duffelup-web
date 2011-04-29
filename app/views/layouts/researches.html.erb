@@ -35,7 +35,25 @@
 	</script>
 	<%- end -%>
 	
-	<%= fb_connect_javascript_tag %>
-	<%= init_fb_connect "XFBML"%>
+	<div id="fb-root"></div>
+	<script language="javascript">
+		window.fbAsyncInit = function() {
+		    FB.init({ appId: '<%= FB_CONFIG['api_key'] %>', status: true, cookie: true, xfbml: true });
+		  };
+		(function() {
+		    var e = document.createElement('script'); e.async = true;
+		    e.src = document.location.protocol +
+		      '//connect.facebook.net/en_US/all.js';
+		    document.getElementById('fb-root').appendChild(e);
+		  }());
+
+		function facebookLogin() {
+		    FB.login(function(response) {
+		      if (response.session && response.perms) {
+		        window.location = "/users/link_user_accounts"
+		      } 
+		    }, {perms: 'publish_stream,offline_access'});
+		  }  
+	</script>
 </body>
 </html>
