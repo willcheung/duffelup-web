@@ -188,8 +188,8 @@ class Trip < ActiveRecord::Base
       # Create sample foodanddrink
       Idea.create_idea_in_duffel("Foodanddrink", 
                                 t.id, 
-                                "Clip restaurant ideas", 
-                                "Clip restaurant options and delicious images from any website, using our Clip-It bookmarker.",
+                                "Clip restaurant options", 
+                                "and delicious images from any website, using our Clip-It bookmarker.",
                                 "http://duffelup.com/site/tools", 
                                 "", 
                                 "", 
@@ -201,7 +201,7 @@ class Trip < ActiveRecord::Base
       Idea.create_idea_in_duffel("Activity", 
                                 t.id, 
                                 "Add an activity", 
-                                "Add ideas about things to do and see. \n\nInvite friends to help you fill up your duffel with ideas.",
+                                "And invite friends to help you fill up your duffel with ideas. Enjoy!",
                                 "", 
                                 t.destination, 
                                 "", 
@@ -210,23 +210,23 @@ class Trip < ActiveRecord::Base
                                 0)
       
       # Create sample transportation                        
-      Transportation.create_in_duffel("home", 
-                                      nil, 
-                                      nil, nil, t.id,
-                                      "vacation",
-                                      "Save your transportation details here.")
+      # Transportation.create_in_duffel("home", 
+      #                                 nil, 
+      #                                 nil, nil, t.id,
+      #                                 "vacation",
+      #                                 "Save your transportation details here.")
                                       
       # Create sample hotel
-      Idea.create_idea_in_duffel("Hotel", 
-                                t.id, 
-                                "Finally, drag & drop me...", 
-                                "into the itinerary on the left!",
-                                "", 
-                                "", 
-                                "", 
-                                {:file_name => nil, :content => nil, :size => nil}, 
-                                0,
-                                0)
+      # Idea.create_idea_in_duffel("Hotel", 
+      #                           t.id, 
+      #                           "Drag & drop me around the corkboard", 
+      #                           "...and into the itinerary on the left!",
+      #                           "", 
+      #                           "", 
+      #                           "", 
+      #                           {:file_name => nil, :content => nil, :size => nil}, 
+      #                           0,
+      #                           0)
     end
   end
   
