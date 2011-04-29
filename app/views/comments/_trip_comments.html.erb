@@ -29,7 +29,7 @@
 			<%= submit_tag "POST A COMMENT", :class => 'submit', :onclick => "window.location=\"/signup?redirect=#{request.request_uri}#comments\"" %>
 		</div>
 		<p style="border-top: 1px dotted #999;padding-top:8px">Have an account? <%= link_to "Sign in", login_url(:redirect => request.request_uri+"#comments") %> or log into 
-			<%= fb_login_button("FB.Facebook.apiClient.users_hasAppPermission('publish_stream,user_photos,user_location',function(result){if (result == 0){FB.Connect.showPermissionDialog('publish_stream,user_photos,user_location', function(x){window.location='/users/link_user_accounts?redirect=#{request.request_uri}#comments';});}else{window.location='/users/link_user_accounts?redirect=#{request.request_uri}#comments'}})", :v => 2) %>
+			<%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access', :v => 2 %>
 		</p>
 	<% end %>
 </div>

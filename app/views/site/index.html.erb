@@ -145,7 +145,7 @@
 						<%- end -%>
 						</li>
 						<li class="facebook">
-							<a href="#" onclick="facebookLogin();">facebook</a>
+							<%= fb_login_button 'window.location="/users/link_user_accounts";', :perms => 'publish_stream,offline_access' %>
 						</li>
 					</ul>
 				</div>
