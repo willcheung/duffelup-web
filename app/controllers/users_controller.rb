@@ -533,7 +533,12 @@ class UsersController < ApplicationController
     end
     
   rescue NoMethodError
-    redirect_to(login_url)
+    if params[:src] == "bookmarklet"
+      redirect_back_or_default(bookmarklet_login_url)
+    else
+      redirect_to(login_url)
+    end
+    
     flash[:error] = "Doh. Facebook is acting up. Please try again."
   end
   

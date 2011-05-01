@@ -25,12 +25,12 @@
 			</div>
 		<% end %>
 	<% else %>
-		<div class="comment-btn" style="text-align:center;margin-bottom:10px">
-			<%= submit_tag "POST A COMMENT", :class => 'submit', :onclick => "window.location=\"/signup?redirect=#{request.request_uri}#comments\"" %>
+		<div class="fb-button" style="text-align:center"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access' %></div>
+		<p style="padding:10px 10px 0 0;margin:0;color:#555;font-size:12px;float:left">or</p>
+		<div class="comment-btn">
+			<%= submit_tag "Sign in to post a comment", :class => 'submit', :onclick => "window.location=\"/login?redirect=#{request.request_uri}#comments\"" %>
 		</div>
-		<p style="border-top: 1px dotted #999;padding-top:8px">Have an account? <%= link_to "Sign in", login_url(:redirect => request.request_uri+"#comments") %> or log into 
-			<%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access', :v => 2 %>
-		</p>
+		
 	<% end %>
 </div>
 

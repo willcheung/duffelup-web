@@ -1199,6 +1199,27 @@ span.collaborator img {
 	font-weight: bold;
 }
 
+#comments_wrapper div.fb-button a {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left top transparent;
+	float: left;
+	border:0 none;
+	display:block;
+	height:40px;
+	line-height:0;
+	padding:0;
+	margin:0;
+	text-indent:-5000px;
+	width:210px;
+}
+
+#comments_wrapper div.fb-button a:hover {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
+}
+
+#comments_wrapper div.fb-button a span.fb_button_text {
+	display: none;
+}
+
 #comments_wrapper #sliding-sideBarContentsInner {
 	height: 56%;
 }
@@ -1785,8 +1806,7 @@ input.trip_destination_submit {
 }
 
 #sliding-sideBarContentsInner .comment-btn {
-	text-align: right;
-	margin-top: 5px;
+	float: left;
 }
 
 #sliding-sideBarContentsInner .more-comments  {
