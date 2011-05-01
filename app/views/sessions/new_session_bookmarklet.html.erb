@@ -16,11 +16,11 @@ document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "
 		<div class="box">
 			<h3 style="display:inline">New User</h3>
 			
-			<p><strong>Save this idea to your trip in Duffel.</strong> Collaborate and organize travel plans with your friends and family. Sign up here to get started! <%= link_to "Tell me more.", '/site/tour', :target => "_blank" %></p>
+			<p><strong>Save this to Duffel trip planner.</strong> Collaborate and organize travel plans with your friends and family! <%= link_to "Tell me more.", '/site/tour', :target => "_blank" %></p>
 			
 			<div id="signup_link">
-			<p style="font-size:14px;"><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or sign in with:</p>
-			<p><%= fb_login_button "window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}';", :perms => 'publish_stream,offline_access' %></p>
+			<p style="font-size:14px;"><a href="#" onclick="Effect.BlindDown('signup_form', {duration:0.5});Effect.BlindUp('signup_link', {duration:0.5});return false;">Sign up here</a> or:</p>
+			<p class="fb-button"><%= fb_login_button "window.location='/users/link_user_accounts?src=bookmarklet&from=bookmarklet_fb_#{params[:pid].to_s}';", :perms => 'publish_stream,offline_access', :v => 2 %></p>
 			</div>
 			
 			<div id="signup_form" class="signup_form" style="display:none;">
@@ -69,7 +69,7 @@ document.getElementById("username_display").innerHTML="duffelup.com/<b>" + y + "
 	<div class="column">
 		<div class="box" <% if params[:pid].to_s.empty? %>style="height:339px"<% end %>>
 			<h3>Duffel User</h3>
-			<p>Sign in to your account and start clipping travel notes.</p>
+			<p>Sign in to your account and save this travel note.</p>
 			<div class="login_form">
 			<% form_tag session_path(:redirect => params[:redirect], :from => 'bookmarklet'), :id => "login_form" do -%>
 			<div class="form-group"><label for="login">Email or Username</label>
