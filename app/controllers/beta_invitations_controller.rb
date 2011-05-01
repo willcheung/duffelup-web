@@ -33,8 +33,8 @@ class BetaInvitationsController < ApplicationController
         @fb_url = "http://duffelup.com/signup?invitation_token="+b.token
       end
       
-      @fb_string = " invited you to <a href=\"http://duffelup.com\">Duffel</a>, a visual trip planning dashboard." + 
-                   " Start collecting travel ideas and create your own travel guide!"
+      @fb_string = " invited you to <a href=\"http://duffelup.com\">Duffel</a>, the most fun and visual trip planner." + 
+                   " Start collecting travel ideas and plan trips with friends!"
     end
   end
   

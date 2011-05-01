@@ -33,7 +33,7 @@ class InvitationController < ApplicationController
     
       @fb_string = "I'm planning my trip to " + 
                     @trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" ") + 
-                    " and am sharing <b>#{@trip.title}</b> with you on <a href=\"http://duffelup.com\">Duffel</a>, a visual trip planning dashboard. It would be great if you can recommend me some ideas!"
+                    " and am sharing <b>#{@trip.title}</b> with you on <a href=\"http://duffelup.com\">Duffel</a>, the most fun and visual trip planner. Would love if you can recommend me some ideas!"
     end
     
     if !fragment_exist?("#{current_user.username}-invitation-friends-checkbox", :time_to_live => 2.days)

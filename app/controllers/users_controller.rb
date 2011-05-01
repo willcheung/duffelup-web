@@ -507,10 +507,10 @@ class UsersController < ApplicationController
       Trip.create_duffel_for_new_user({ :title => "#{fb_user.username}'s first duffel", :start_date => nil,
                                         :end_date => nil, :is_public => 1, :destination => "#{fb_user.home_city}" }, fb_user)
       
-      WebApp.post_stream_on_fb(fb_user.fb_user_id, 
-                              "http://duffelup.com",
-                              "Checking out Duffel's Visual Trip Planner. http://duffelup.com",
-                              "Go to Duffel")
+      # WebApp.post_stream_on_fb(fb_user.fb_user_id, 
+      #                         "http://duffelup.com",
+      #                         "Checking out Duffel's Visual Trip Planner. http://duffelup.com",
+      #                         "Go to Duffel")
                               
       # if request coming from bookmarklet
       if params[:src] == "bookmarklet"

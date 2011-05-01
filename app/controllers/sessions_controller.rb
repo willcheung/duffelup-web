@@ -107,7 +107,7 @@ class SessionsController < ApplicationController
       Trip.create_duffel_for_new_user({ :title => "#{current_user.username}'s first duffel", :start_date => nil,
                                         :end_date => nil, :is_public => 1, :destination => "#{current_user.home_city}" }, current_user)
       
-      twitter_client.update("I'm checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
+      #twitter_client.update("I'm checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
       
       redirect_to(steptwo_path) and return
     end
