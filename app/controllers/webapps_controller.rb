@@ -1,20 +1,20 @@
-require 'flickr_fu'
+#require 'flickr_fu'
 
 class WebappsController < ApplicationController
   include ApplicationHelper
   
   layout "simple"
   
-  def flickr
-    flickr = Flickr.new("#{RAILS_ROOT}/config/flickr.yml")
-    
-    if request.post?
-      @photos = flickr.photos.search(:tags => params[:flickr_photo][:city], :license => "4,5,6,7", :per_page => 150, :media => 'photo', :page => 1, :sort => 'interestingness-desc')
-    end
-    # @photos_NY = FlickrPhoto.find_by_city_id(610)
-    #     @photos_SF = FlickrPhoto.find_by_city_id(609)
-    #     @photos_LA =
-  end
+  # def flickr
+  #   flickr = Flickr.new("#{RAILS_ROOT}/config/flickr.yml")
+  #   
+  #   if request.post?
+  #     @photos = flickr.photos.search(:tags => params[:flickr_photo][:city], :license => "4,5,6,7", :per_page => 150, :media => 'photo', :page => 1, :sort => 'interestingness-desc')
+  #   end
+  #   # @photos_NY = FlickrPhoto.find_by_city_id(610)
+  #   #     @photos_SF = FlickrPhoto.find_by_city_id(609)
+  #   #     @photos_LA =
+  # end
   
   def import
     @users,@not_users = [],[]

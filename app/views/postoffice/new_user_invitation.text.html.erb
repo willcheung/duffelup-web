@@ -3,7 +3,7 @@ Hi there,
 <br/><br/>
 <%= display_user_name(@inviter) %> (<%= @inviter.email %>) invited you to Duffel, the best trip planning tool to organize and collaborate your travel plans with friends and family.  Start sharing ideas and create your own travel guide!
 <br/><br/>
-<% if not @personal_message.empty? %>
+<% if not @personal_message.nil? and not @personal_message.empty? %>
 	<%= display_user_name(@inviter) %>'s personal message:<br>
 	<%= simple_format("\"" + @personal_message + "\"") %>
 <br/>

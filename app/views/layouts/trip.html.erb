@@ -124,7 +124,10 @@
 		          	<ul>
 			          	<%- if @admins.include?(current_user) %>
 			          		<li class="edit"><%= link_to "Edit", edit_trip_path(:id => @trip.permalink), :title => "Edit duffel details", :alt => "Edit duffel details" %></li>
-			          		<li class="invite"><%= link_to "Invite Collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite Collaborators", :alt => "Invite Collaborators" %></li>
+						<%- end -%>
+						
+						<%- if @users.include?(current_user) %>
+							<li class="invite"><%= link_to "Invite Collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite Collaborators", :alt => "Invite Collaborators" %></li>
 						<%- end -%>
 		
 						<% cache("user-#{current_user.id}-trip-#{@trip.id}-favorites") do %>

@@ -10,15 +10,15 @@
 <% end %>
 </ul>
 
-<div class="clear"></div>
+<div class="clear"><p>&nbsp;</p></div>
 
-<h2 style="margin-top: 20px;">Invite others:</h2>
+<h2 style="padding-top: 25px;">Invite others:</h2>
 <ul>
 <% for u in @not_users %>
-	<li style="width: 49%; float: left; margin-left: %1;">
-		<label style="width: auto;"><input style="margin: 0;" type="checkbox" name="beta_invitation[recipient_email][]" id="email_<%= u %>" value="<%= u[:email] %>" />
-		<%= u[:name] %>
-		<strong class="t11"><%= u[:email]%></strong></label>
+	<li>
+		<p style="line-height:13px"><input style="margin: 0;" type="checkbox" name="beta_invitation[recipient_email][]" id="email_<%= u %>" value="<%= u[:email] %>" />
+		<%= u[:name] %></p>
+		<p style="line-height:13px">&nbsp;&nbsp;&nbsp;&nbsp;<strong class="t11 mute"><%= u[:email]%></strong></p>
 	</li>
 <% end %>
 </ul>
