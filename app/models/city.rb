@@ -4,7 +4,7 @@ class City < ActiveRecord::Base
   has_many :activities
   has_many :foodanddrinks
   has_many :hotels
-  has_many :flickr_photos
+  #has_many :flickr_photos
   has_many :landmarks
   has_and_belongs_to_many :trips
   has_one :guide

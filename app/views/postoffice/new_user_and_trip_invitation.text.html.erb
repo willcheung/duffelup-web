@@ -10,8 +10,6 @@ Hi there,
 <%- end -%>
 
 <br><br>
-Duffel is the best trip planning tool to organize and collaborate your travel plans with friends and family.  Start sharing ideas and create your own travel guide!
-<br><br>
 
 <% if not @personal_message.empty? %>
 	<strong><%= display_user_name(@inviter) %>'s personal message:</strong><br>
@@ -22,6 +20,9 @@ Duffel is the best trip planning tool to organize and collaborate your travel pl
 Please complete our easy sign-up process and start planning the trip!
 <br> 
 <a target="_blank" href="http://duffelup.com/signup?invitation_token=<%= @token %>">http://duffelup.com/signup?invitation_token=<%= @token %></a>
+<br><br>
+
+Duffel is the best trip planning tool to organize and collaborate your travel plans with friends and family.  Start sharing ideas and create your own travel guide!
 <br><br>
 
 We look forward to see you soon!

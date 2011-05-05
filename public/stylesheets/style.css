@@ -3811,11 +3811,10 @@ input.big-button {
 }
 
 .banner {
-  width: 510px;
-  height: 60px;
-  padding: 15px;
-  
-  background: #f5f5f5;
+	width: 510px;
+	height: 60px;
+	padding: 15px;
+	background: #f5f5f5;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
@@ -3826,7 +3825,36 @@ input.big-button {
 #user_email_validator, #user_username_validator, #user_password_validator { font-size: 11px; padding: 0; vertical-align: text-top; }
 
 /*-----------------------------------------------------------------------------------
-	Facebook Connect
+	Invitation
 -----------------------------------------------------------------------------------*/
 
-/*#facebook-login { float: right; margin: 0; padding:0 0 0 20px; width: 330px; height: 190px; border-left: 1px solid #f1f1f1; }*/
+#invitations_left-import {
+	float: left;
+	width: 550px;
+}
+
+#invitations_left-import li, #invitations_left-new li {
+	width: 48%; 
+	float: left; 
+	height: 40px;
+	margin: 3px;
+}
+
+#invitation_right-import {
+	float: left;
+	width: 310px;
+	padding: 10px;
+	background-color: #ECEFF3;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#invitation_right-import p, #invitation_right-import label {
+	color: #636363;
+	font-size: 13px;
+}
+
+#beta_invitation_recipient_email {
+	width: 200px;
+	margin-right: 20px;
+}

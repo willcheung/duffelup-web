@@ -18,8 +18,10 @@
 	<%= password_field_tag 'password' %>
 </p>
 
-<p><%= submit_tag "Find My Friends", :onclick => "pageTracker._trackEvent('Email Import', 'find', '#{current_user.username}');"%><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif">&nbsp;This may take a minute...</span>
+<p><%= submit_tag "Find My Friends", :onclick => "pageTracker._trackEvent('Email Import', 'find', '#{current_user.username}');"%>
 
 <span id="announcement">Don't worry, we don't store your password.</span></p>
+
+<p><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif">&nbsp;This may take a minute...</span></p>
 
 <% end %>

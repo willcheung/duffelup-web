@@ -5,34 +5,37 @@
 	<div class="clear"></div>
 </ul>
 
-<h1>Invite Your Friend to Duffel</h1>
+<h1>Invite Your Friends to Duffel</h1>
 
 
 <!-- email and import -->
 <div id="invitations_left-import">
 	
-	<div id="contact_list_form" style="display:none;">
+	<div id="contact_list_form">
 	<%= render :partial => "webapps/contact_list_form" %>
 	</div>
 	
 	<% form_for @beta_invitation do |f| %>
 	
-	<p id="email_address"><label for="recipient_email">Friend's Email:</label>
-	<%= f.text_field :recipient_email, :size => 30 %>
-	&nbsp;
-	- or - &nbsp;<a href="#" onclick="Effect.BlindDown('contact_list_form', { duration: 0.5 });$('email_address').hide();return false;">import from your contacts</a>
-	</p>
-	
 	<%= error_messages_for :beta_invitation, :header_message => "Failed to send invitation!", :message => nil %>
 		
-		<div id="contact_list" style="margin: 5px 0 15px 0; max-height:350px; overflow:auto;">
+		<div id="contact_list" style="margin: 5px 0 15px 0; max-height:350px; overflow:auto; margin-right: 30px">
 		</div>
 		
-		<p><label for="message">Personal Message: <br /><small>(optional)</small></label>
-		<%= text_area_tag :message, nil, :rows => 6, :cols => 35 %>
-		</p>
+		<label for="message">Personal Message: <br /><small>(optional)</small></label>
+		<%= text_area_tag :message, nil, :rows => 3, :cols => 35 %>
 	
 		<div id="form-submit" class="clearfix"><%= f.submit "Invite!", :class => "submit", :onclick => "pageTracker._trackEvent('Email Import', 'submit', '#{current_user.username}');" %> or <%= link_to "find friends", :controller => 'user', :action => 'search' %> already on Duffel!</div>
 	
+	<% end %>
+</div>
+
+<div id="invitation_right-import">
+	<p>Not finding who you're looking for? Invite friends to Duffel via email.</p>
+	<% form_for @beta_invitation do |f| %>
+	<strong><label for="recipient_email">Friend's Email:</label></strong>
+	<%= f.text_field :recipient_email, :size => 30 %>
+	
+	<%= f.submit "Invite!", :class => "submit", :onclick => "pageTracker._trackEvent('Email Invite', 'submit', '#{current_user.username}');" %>
 	<% end %>
 </div>
