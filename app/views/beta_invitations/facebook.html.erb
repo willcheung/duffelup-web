@@ -9,7 +9,7 @@
 
 
 <!-- facebook --> 
-<div class="fb-friends-checkbox" id="invitations_left-fb">
+<div class="fb-friends-checkbox" id="invitations_left-fb" style="float:left">
 <% if current_user.facebook_user? && facebook_session %>
 	<% fb_serverfbml do %>
 	<script type="text/fbml">
@@ -22,13 +22,23 @@
 	<% fb_request_form("Duffel","invite_user", "#{dashboard_url}", :method => "GET") do %>
 		<%= fb_multi_friend_selector("Invite your friends to Duffel!", :showborder => false,
 			:exclude_ids => facebook_session.user.friends_with_this_app.map(&:id).join(","), :condensed => false, 
-			:cols => 4, :rows => 3, :email_invite => false, :bypass => "cancel") %>
+			:cols => 3, :rows => 4, :email_invite => false, :bypass => "cancel") %>
 	<% end %>
 	
 	</fb:fbml>
 	</script>
 	<% end %>
 <% else %>
-	<%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access', :v => 2 %>
+	<div id="invitation"><div class="fb-button"><%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access' %></div></div>
 <% end %>
+</div>
+
+<div id="invitation_right-import">
+	<p>Not finding who you're looking for? Invite friends to Duffel via email.</p>
+	<% form_for @beta_invitation do |f| %>
+	<strong><label for="recipient_email">Friend's Email:</label></strong>
+	<%= f.text_field :recipient_email, :size => 30 %>
+	
+	<%= f.submit "Invite!", :class => "submit", :onclick => "pageTracker._trackEvent('Email Invite', 'submit', '#{current_user.username}');" %>
+	<% end %>
 </div>

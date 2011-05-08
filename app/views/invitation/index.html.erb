@@ -37,8 +37,10 @@
 		</fb:fbml>
 		</script>
 		<% end %>
+		
+		<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
 	<% else %>
-		<%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access', :v => 2 %>
+		<div class="fb-button"><%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access' %></div>
 	<% end %>
 	</div>
 	

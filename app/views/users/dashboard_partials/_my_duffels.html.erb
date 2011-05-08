@@ -45,7 +45,7 @@
 		    <%- if !@favorite_trips.empty? -%>
 		    	<%= render :partial => "trips/duffels", :locals => { :trips => @favorite_trips, :favorite => true } %>
 		    <%- else -%>
-		      <em class="systemComment">No favorite duffels yet. Did you know you can sync favorite duffels directly to your iPhone? <a target="_blank" href="http://itunes.apple.com/app/id371064516">Check it out.</a></em>
+		      <em class="systemComment">Save any duffel to your favorites.<br/><br/> You can sync favorites directly to your iPhone for offline access. <a target="_blank" href="http://itunes.apple.com/app/id371064516">Check it out.</a></em>
 		    <%- end -%>
 		</div> <!-- #duffels-favorite -->
 	<% end %>

@@ -1295,6 +1295,31 @@ div.progress-container > div {
 	width:508px;
 }
 
+#invitation div.fb-button a {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left top transparent;
+	float: left;
+	border:0 none;
+	display:block;
+	height:40px;
+	line-height:0;
+	padding:0;
+	text-indent:-5000px;
+	width:210px;
+}
+
+#invitation div.fb-button a:hover {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
+}
+
+#invitation div.fb-button {
+	margin:0;
+	padding:0;
+}
+
+#invitation div.fb-button a span.fb_button_text {
+	display: none;
+}
+
 #invitation .avatar {
 	float:left;
 	width:50px;
@@ -3430,9 +3455,8 @@ input.big-button {
   display: block;
   width: 260px;
   margin-top: 2px;
-  
+  color: #6a6a6a;
   font-size: 108%;
-  font-style: italic;
   line-height: 1.2em;
   float: left;
 }
@@ -3828,7 +3852,7 @@ input.big-button {
 	Invitation
 -----------------------------------------------------------------------------------*/
 
-#invitations_left-import {
+#invitations_left-import, #invitations_left-fb {
 	float: left;
 	width: 550px;
 }
