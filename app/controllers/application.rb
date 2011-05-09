@@ -221,7 +221,7 @@ class ApplicationController < ActionController::Base
   end
   
   def meta_defaults
-    @meta_description = "Collaborate and organize travel plans with your friends and family. Start creating your own travel guide with Duffel!"
+    @meta_description = "Duffel trip planner organizes your travel plans on a visual corkboard. Start creating personalized travel guide with friends and family!"
     @title = "Organize Your Travel Itinerary and Plan with Friends - Duffel"
     @link = "http://duffelup.com/images/logo.png"
   end

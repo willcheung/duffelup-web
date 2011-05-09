@@ -2266,6 +2266,10 @@ div.stat_bubble_content {
 }
 
 /*** Stuff by Will Cheung for Explore page ****/
+#sign-up-button { background: url(/images/business/sign-up.png); width: 231px; height: 51px; text-indent: -9595px; display: block; margin: 0 0 0 18px; float: left; }
+#sign-up-button:hover, #what-is #take-a-tour:hover { background-position: left center; }
+#sign-up-button:active, #what-is #take-a-tour:active { background-position: left bottom; }
+
 #central #secondary h3 {
 	color: #666;
 	padding-bottom: 4px;
