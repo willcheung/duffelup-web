@@ -183,7 +183,13 @@
 			<% end %>
 		<% else %>
 			<ul id="add-ideas">
-			<li class="guest">You're currently viewing a public duffel. Like what you see? <a style="padding: 3px 6px;font-size:12px" href="/explore">Explore Duffel</a> or <%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %></li>
+			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel itinerary. Like what you see? 
+			<% if current_user %>
+			<%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %>
+			<% else %>
+			<%= link_to 'Get your own &rarr;', "/explore", :style => "font-size:14px;" %>
+			<% end %>
+			</li>
 			</ul>
 			
 			<% if params[:view] == "map" %>
