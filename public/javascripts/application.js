@@ -69,7 +69,7 @@ function initialize_trip_map(gbar, gcontrol) {
 			function addMarker(latlng, idea) {
 				var html_event_type = null
 				
-				if (idea.index != null && idea.index < 51 && idea.index > 0) {
+				if (idea.index != null && idea.index > 0) {
 					var numberedIcon = new GIcon();
 					numberedIcon.shadow = "http://chart.apis.google.com/chart?chst=d_map_pin_shadow";
 					numberedIcon.iconSize = new GSize(20, 34);
