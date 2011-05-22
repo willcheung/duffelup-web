@@ -295,18 +295,12 @@ class TripsController < ApplicationController
     @itinerary = s[0]
     @ideas_to_map = s[1]
 
-    if params[:view] == "map"
-      @list_containment = build_sortable_list_containment_without_board(@trip)
-    else
-      @list_containment = build_sortable_list_containment(@trip)
-      @static_map_url = "http://maps.google.com/maps/api/staticmap?sensor=false&size=280x170" +  
-                        build_static_map_url(@ideas_to_map)     
-    end
+    @list_containment = build_sortable_list_containment(@trip)
+    @static_map_url = "http://maps.google.com/maps/api/staticmap?sensor=false&size=280x170" + build_static_map_url(@ideas_to_map)     
     
     respond_to do |format|
-      format.html { render :action => 'show', :layout => 'trip' } if (params[:view] != "map" and params[:view] != "itinerary") # show.html.erb 
+      format.html { render :action => 'show', :layout => 'trip' } if params[:view] != "map" # show.html.erb 
       format.html { render :action => 'show_map', :layout => 'trip' } if params[:view] == "map" # show_map.html.erb 
-      format.html { render :action => 'show_itinerary', :layout => 'trip' } if (params[:view] == "itinerary") # show_itinerary.html.erb
       format.xml  { render :xml => { :trip => @trip, :itinerary => @itinerary } }
       format.json { render :json => { :trip => @trip, :itinerary => @itinerary } }
     end

@@ -49,17 +49,6 @@ class ApplicationController < ActionController::Base
     return list_containment
   end
   
-  def build_sortable_list_containment_without_board(trip)
-    list_containment = []
-    
-    # each "itinerary_list" represents a day on a trip.
-    (trip.duration+1).times do |i|
-      list_containment.push("'itinerary_list_" + (i+1).to_s + "'")
-    end
-    
-    return list_containment
-  end
-  
   # takes an array of string and return a string of list with comma and "and"
   def username_list_helper(array)
     if array.size == 0 or array.size == 1

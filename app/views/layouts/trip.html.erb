@@ -6,17 +6,15 @@
 	    <%= stylesheet_link_tag "trip" %>
 		<%= javascript_include_tag 'all' %>
 		<%= javascript_include_tag 'application' %>
-
-		<% if params[:view] == "map" or params[:view] == "itinerary" %>
-			<script type="text/javascript" 
-					src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
-			</script>
-			<%- if @ideas_to_map -%>
-		    <script type="text/javascript"> 
-		      var ideas_to_map = <%= @ideas_to_map.to_json %>;
-		    </script>
-		  	<%- end -%>
-		<% end %>
+		
+		<script type="text/javascript" 
+				src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
+		</script>
+		<%- if @ideas_to_map -%>
+	    <script type="text/javascript"> 
+	      var ideas_to_map = <%= @ideas_to_map.to_json %>;
+	    </script>
+	  	<%- end -%>
 		
 		<meta name="description" content="<%= @meta_description %>" />
 		<link rel="image_src" href="<%= @link %>" />
@@ -26,22 +24,20 @@
 	
 	<% if params[:view] == "map" %>
 	<body onload="initialize_trip_map(true, true)" onunload="GUnload()">
-	<% elsif params[:view] == "itinerary" %>
-	<body onload="initialize_trip_map(false, false)" onunload="GUnload()">
 	<% else %>
-	<body>
+	<body onload="initialize_trip_map(false, false)" onunload="GUnload()">
 	<% end %>
 		
 	<% if logged_in? and @users.include?(current_user) and (current_user.hide_tour_at.nil? or current_user.hide_tour_at.blank?) %>
 	
-	<div id="tour1" class="tour" style="top: 50%; left: 50%; margin: -100px 0 0 -190px; width: 280px; height: 128px;">
+	<div id="tour1" class="tour" style="top: 50%; left: 50%; margin: -100px 0 0 -190px; width: 270px; height: 128px;">
 		<h1>Welcome to your duffel!</h1>
-		<p>In 3 simple steps, we'll show you important features about your trip planning interface.</p>
-		<p><a onclick="Effect.Fade('tour1', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink" href="#tour2">Let's start, shall we?</a> 
-		<!--<%= link_to_remote "I'm a pro. Skip this.", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourSmallLink'} -%>--></p>
+		<p>In 3 simple steps, we'll show you new features about your personal corkboard.</p>
+		<p><a onclick="Effect.Fade('tour1', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink" href="#tour2">Let's start!</a> 
+		<%= link_to_remote "I'm a pro. Skip this.", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourSmallLink'} -%></p>
 	</div>
 	
-	<div id="tour2" class="tour" style="top: 130px; left: 22%; margin: 0 0 0 0; width: 300px; height: 130px; display: none;">
+	<div id="tour2" class="tour" style="top: 140px; left: 22%; margin: 0 0 0 0; width: 300px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 280px" />
 		<h1>1. Add anything to your duffel</h1>
 		<p>Click here to add activity ideas, lodging options or any research to your trip.</p>
@@ -49,10 +45,10 @@
 		   <a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour3">Next</a></p>
 	</div>
 	
-	<div id="tour3" class="tour" style="top: 60px; right: 13%; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
-		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -35px; left: 170px" />
+	<div id="tour3" class="tour" style="top: 70px; right: 275px; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
+		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -35px; right: 20px" />
 		<h1>2. Invite friends and family</h1>
-		<p>Invite fellow tripgoers to your trip. They can contribute ideas, research and comments.</p>
+		<p>Invite fellow tripgoers to your trip. They can contribute ideas and comment.</p>
 		<p><a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour2">Previous</a> 
 		   <a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour4', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour4">Next</a></p>
 	</div>
@@ -67,13 +63,13 @@
 	</div>
 	-->
 	
-	<div id="tour4" class="tour" style="top: 200px; left: 10%; margin: 0 0 0 0; width: 300px; height: 170px; display: none;">
+	<div id="tour4" class="tour" style="top: 280px; left: 5%; margin: 0 0 0 0; width: 270px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 120px" />
-		<h1>3. Drag & drop your notes to the itinerary</h1>
-		<p>Drag & drop your activities here to start planning your itinerary.</p>
+		<h1>3. Drag & drop your notes</h1>
+		<p>Drag to sort or drop into the itinerary.</p>
 		<p>Enjoy Duffel and share with your friends!</p>
 		<p><a onclick="Effect.Fade('tour4', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour3">Previous</a> 
-		   <%= link_to_remote "Finish", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourLink tourLinkNext'} -%></p>
+		   <%= link_to_remote "Done", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourLink tourLinkNext'} -%></p>
 	</div>
 
 	<% end %>
@@ -154,7 +150,6 @@
 		         <% else -%>
 					
 					<ul>
-						<li class="comments"><%= link_to @trip_comments_size + ' Comments', "#", :id => 'add-comment', :title => "Post a tip or comment", :alt => "Post a tip or comment", :onclick => "return false;" %></li>
 						<li class="add-bookmark"><%= link_to 'Favorite this', trip_create_favorite_path(@trip.permalink), :title => "Bookmark this duffel", :alt => "Bookmark this duffel"  %></li>
 						<li class="share">
 							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
@@ -183,7 +178,7 @@
 			<% end %>
 		<% else %>
 			<ul id="add-ideas">
-			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel itinerary. Like what you see? 
+			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel journal. Like what you see? 
 			<% if current_user %>
 			<%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %>
 			<% else %>
@@ -201,18 +196,6 @@
 		</div>
 
 		<%= yield %>
-		
-		<div id="sliding-sideBar" <% if params[:view] == "itinerary" %>style="display:none;"<% end %>>
-			<a href="#" onclick="return false;" id="sliding-sideBarTab"><img src="/images/slide-button.png" alt="Tips & comments" title="Tips & comments"/></a>
-			
-			<div id="sliding-sideBarContents" style="display:none;">
-				<div style="float:right"><a href="#" onclick="return false;" id="close-sideBar"><img src="/images/icon-close-white.png"/></a></div>
-				
-				<%= render :partial => "comments/trip_comments"%>
-				
-			</div>
-
-		</div>
 
 		<div id="footer">
 			<div id="footer-inner">
@@ -290,12 +273,7 @@
 		
 		<% if @users.include?(current_user) %>
 			<div id="sortable_list_controls">
-				<% if params[:view] == "map" -%>
-				<!-- Need a separate partial b/c need to re-render controls after Ajax events calls -->
-				<%= render :partial => 'events/sortable_list_controls_without_board' %>
-				<% else -%>
-				<%= render :partial => 'events/sortable_list_controls' if params[:view] != "itinerary" %>
-				<% end -%>
+				<%= render :partial => 'events/sortable_list_controls' %>
 			</div>
 		<% end %>
 		
