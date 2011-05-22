@@ -7,7 +7,7 @@
 
 	<% for event in @itinerary[day+1] %>
 		
-		<li <% if @users.include?(current_user) %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+		<li id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
 		
 		<%- if event.eventable_type == "Foodanddrink" -%>
 		<span class="foodanddrink">

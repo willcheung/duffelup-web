@@ -152,10 +152,10 @@ a:hover{color: #555;}
 	height: 41px;
 	z-index: 10;
 	top: 80px;
-	width: 77%;
-	left: 23%;
+	width: 100%;
 	border-left: 1px solid #999;
 	text-shadow: 0 1px 0 #e1e1e1;
+	text-align: center;
 }
 
 #footer {
@@ -471,8 +471,7 @@ span.collaborator img {
 }
 
 #add-ideas{
-	float: left;
-	width: 620px;
+	width: 500px;
 	margin: 0 10px;
 	line-height: 41px;
 	font-size: 13px;
@@ -1680,7 +1679,7 @@ input.trip_destination_submit {
 	font-size: 11px;
 	display: block;
 	float: left;
-	margin: 12px 0 0 0;
+	margin: 12px 0 0 15px;
 	padding: 10px;
 }
 

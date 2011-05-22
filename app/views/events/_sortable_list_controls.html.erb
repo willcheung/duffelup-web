@@ -4,6 +4,7 @@
 
 	Sortable.create("board", 
 					{constraint:false, 
+						scroll:'content',
 						containment:[<%= @list_containment.join(",") %>],
 						dropOnEmpty:true, 
 						onChange:function(item){drag_item=item}, 
@@ -22,6 +23,7 @@
 
 	Sortable.create("<%= 'itinerary_list_'+(i+1).to_s %>", 
 					{constraint:false, 
+						scroll:'content',
 						containment:[<%= @list_containment.join(",") %>], 
 						dropOnEmpty:true, 
 						onChange:function(item){drag_item=item}, 
