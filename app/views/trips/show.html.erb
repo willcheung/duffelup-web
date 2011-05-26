@@ -35,17 +35,17 @@
 </div>
 
 <div id="map_wrapper">
-	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Preview</span>
+	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
 		<!--<span id="size-toggle"><input id="min_checkbox" type="checkbox" name="map" value="map" onClick="minimize_board_map();"> Minimize</span>-->
 		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">View larger map &raquo;</a></div>
-	<div id="board_gmap" class="corkboard" style="display:block;width:96%;height:89%;"></div>
+	<div id="board_gmap" class="corkboard" style="display:block;width:96%;height:91%;"></div>
 </div>
 
-<div id="comments_wrapper" <% if @city[0].nil? %>style="bottom:45px;"<% end %>>
+<div id="comments_wrapper">
 	<%= render :partial => "comments/trip_comments"%>
 </div>
 
-<% if !@city[0].nil? %>
+<% if !@city[0].nil? and false %>
 <div id="footer-promotions" style="width:100%;left:0;" class="clearfix" onmouseover="<%= remote_function(:loading => "$('deals-spinner').show();", :complete => "$('deals-spinner').hide();", :url => { :controller => :trips, :action => :get_deals, :permalink => @trip.permalink }) %>;this.onmouseover=null;">
 	<div class="title">
 		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> 

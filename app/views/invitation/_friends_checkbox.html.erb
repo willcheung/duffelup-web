@@ -5,7 +5,7 @@
 		<label class="avatar" onmouseup="$(this).toggleClassName('avatarSelected');">
 			<%= display_thumbnail(user) %>
 			<%= display_user_name(user) %>
-			<% if user.username == "duffel_demo" %>
+			<% if user.id == 44 %>
 				<strong><div style="color:green;padding-top:3px">can't invite me ;)</div></strong>
 				<%= check_box_tag "invitation[user][]", user.username, @users.include?(user), :disabled => true %>
 			<% else %>

@@ -1,5 +1,5 @@
 <h2>Comments (<%= @trip_comments_size %>)</h2>
-<div id="sliding-sideBarContentsInner">
+<div id="CommentsContentsInner">
 	<div id="comments_for_trip_<%= @trip.id %>">
 		<% if @trip_comments_size.to_i > Trip::NUM_OF_COMMENTS_TO_SHOW %>
 			<div id="hidden_comments_for_trip" style="display:none;">
@@ -10,32 +10,35 @@
 		<% else %>
 			<%= render :partial => "comments/comment", :collection => @trip.comments %> 
 		<% end %>
+		
+		<% if @trip_comments_size.to_i == 0 %>
+			<p style="color:#555">Be first to leave a comment!</p>
+		<% end %>
 	</div>
+</div>
+
+<div id="CommentsContentsBottom">
 	
 	<% if logged_in? %>
-		<% remote_form_for(:comment, :url => trip_comments_path(@trip), :loading => "$(\'spinner\').show();", :complete => "$(\'#{@trip.id}_comment_textarea\').value=\'\';$(\'spinner\').hide();") do |form| %> 
+		<% remote_form_for(:comment, :url => trip_comments_path(@trip), :complete => "$(\'#{@trip.id}_comment_textarea\').value=\'\';") do |form| %> 
 			<div class='comment-avatar'>
 				<%= link_to display_thumbnail(current_user), profile_for(current_user), :alt => "This is you!", :title => "This is you!" %>
 			</div>
 			<div class='comment-form'>
-				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '28', :rows => '3' %>
+				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '20', :rows => '3' %>
 				  <div class="comment-btn">
-					<span id="spinner" style="display:none;"><img src="/images/ajax-loader.gif">&nbsp;&nbsp;&nbsp;</span><%= submit_tag "POST", :class => 'submit' %>
+					<%= submit_tag "POST", :class => 'submit' %>
 				  </div> 
 			</div>
 		<% end %>
 	<% else %>
 		<div class="fb-button" style="text-align:center"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access' %></div>
-		<p style="padding:10px 10px 0 0;margin:0;color:#555;font-size:12px;float:left">or</p>
-		<div class="comment-btn">
-			<%= submit_tag "Sign in to post a comment", :class => 'submit', :onclick => "window.location=\"/login?redirect=#{request.request_uri}#comments\"" %>
-		</div>
-		
+		<p style="padding:10px 5px 0 0;margin:0;color:#555;font-size:12px;">or
+		&nbsp;&nbsp;<a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to comment.	
+		</p>
+
 	<% end %>
-</div>
-
-<div id="sliding-sideBarContentsBottom">
-
+<!--
 		<h2>Favorites (<%= @trip.favorites.size %>)</h2>
 		<div class="friends-list" style="min-height:30px;">
 			<% if @trip.favorites.size == 0 %>
@@ -54,5 +57,5 @@
 			</ul>
 			<% end %>
 		</div>
-
+-->
 </div>

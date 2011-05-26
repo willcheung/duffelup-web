@@ -198,25 +198,21 @@
 		<%= yield %>
 
 		<div id="footer">
-			<div id="footer-inner">
-				<p style="padding-top: 3px;">
-					<% if !@city[0].nil? %>
-					<span class="left">See more duffels in 
-					<%= trip_destination_in_trip_header(@city) -%>
-					</span>
-					<% else %>
-					<span class="left">Copyright &copy; 2011 Duffel, Inc.</span>
-					<% end %>
-					<span class="right">
-					<a href="/featured">Duffel All-Stars</a>
-					<a href="/site/tools">Tools</a>
-					<a href="/site/about">About</a>  
-					<a href="http://blog.duffelup.com">Blog</a>
-					<a href="/site/help">Help</a>
-					<a onclick="feedback_widget.show()" href="#">Feedback</a>
-					</span>
-				</p>
-			</div>
+			<% if !@city[0].nil? %>
+			<span class="left">See more duffels in 
+			<%= trip_destination_in_trip_header(@city) -%>
+			</span>
+			<% else %>
+			<span class="left">Copyright &copy; 2011 Duffel, Inc.</span>
+			<% end %>
+			<span class="right">
+			<a href="/featured">Duffel All-Stars</a>
+			<a href="/site/tools">Tools</a>
+			<a href="/site/about">About</a>  
+			<a href="http://blog.duffelup.com">Blog</a>
+			<a href="/site/help">Help</a>
+			<a onclick="feedback_widget.show()" href="#">Feedback</a>
+			</span>
 		</div>
 		
 		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=duffel"></script>
@@ -236,39 +232,6 @@
 			for (var i=0;i<objs.length;i++ ) {
 				document.getElementById(objs[i]).style.display = '';
 			}}
-		</script>
-		
-		<script type="text/javascript">
-			var isExtended = 0;
-		
-			function slidingSideBarinit(){
-				Event.observe('sliding-sideBarTab', 'click', slideSideBar, true);
-				Event.observe('add-comment', 'click', slideSideBar, true);
-				Event.observe('close-sideBar', 'click', slideSideBar, true);
-				<%- unless (@users.include?(current_user) or @users.size == 1) -%>
-				Event.observe('check-collaborators', 'click', slideSideBar, true);
-				<%- end -%>
-			}
-
-			Event.observe(window, 'load', slidingSideBarinit, true);
-		</script>
-		
-		<% unless true#logged_in? %>
-			<script type="text/javascript">
-			/* if user is not logged in, then sliding bar shows by default */
-				var isExtended = 1;
-				$('sliding-sideBarContents').show();
-				$('sliding-sideBarTab').childNodes[0].src = $('sliding-sideBarTab').childNodes[0].src.replace(/(\.[^.]+)$/, '-open$1');
-			</script>
-		<% end %>
-		
-		<script type="text/javascript">
-			/* having #comments in the URL will automatically open comments */
-			if (window.location.hash == "#comments") {
-				var isExtended = 1;
-				$('sliding-sideBarContents').show();
-				$('sliding-sideBarTab').childNodes[0].src = $('sliding-sideBarTab').childNodes[0].src.replace(/(\.[^.]+)$/, '-open$1');
-			}
 		</script>
 		
 		<% if @users.include?(current_user) %>
