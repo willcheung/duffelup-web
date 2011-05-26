@@ -59,10 +59,11 @@ function initialize_trip_map(gbar, gcontrol) {
 	 if (GBrowserIsCompatible() && typeof ideas_to_map != 'undefined') {
 	   	var map = new GMap2(document.getElementById("board_gmap"), {googleBarOptions: googlebar_options});
 	   	map.setCenter(new GLatLng(37.7312, -122.383), 10);
-			map.addControl(new GSmallZoomControl3D());
 			if (gcontrol) { // gcontrol = map type control
 				map.addControl(new GLargeMapControl3D());
 				map.addControl(new GMapTypeControl());
+			} else {
+				map.addControl(new GSmallZoomControl3D());
 			}
 			
 
