@@ -111,4 +111,24 @@ module TripsHelper
     return string
   end
   
+  def build_static_map_url(event, size="320x120")
+    s = "http://maps.google.com/maps/api/staticmap?center=#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}"
+    
+    if event.eventable_type.to_s == "Foodanddrink"
+      s = s + "&markers=size:small|color:blue"
+    elsif event.eventable_type.to_s == "Activity"
+      s = s + "&markers=size:small|color:green"
+    elsif event.eventable_type.to_s == "Hotel"
+      s = s + "&markers=size:small|color:gray"
+    elsif event.eventable_type.to_s == "CheckIn"
+      s = s + "&markers=size:small|color:purple"
+    else
+      s = s + "&markers=size:small|color:gray"
+    end
+    
+    s = s + "|#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}&zoom=15&size="+size+"&maptype=road&sensor=false&style=feature:landscape%7Celement:geometry%7Chue:0xf0eade%7csaturation:8&style=feature:road|element:geometry|hue:0xf0d59f|saturation:34|lightness:30"
+    
+    return s
+  end
+  
 end

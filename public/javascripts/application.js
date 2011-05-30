@@ -92,7 +92,7 @@ function initialize_trip_map(gbar, gcontrol) {
 					}
 					else if (idea.eventable_type == "CheckIn") {
 						regularIcon.image = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + idea.index + "|cc66FF|000000";
-						html_event_type = "<p style=\"background-color:#cc66ff;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Photo Check-in</p><br/>";
+						html_event_type = "<p style=\"background-color:#cc66ff;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Photo Spot</p><br/>";
 					}
 					var marker = new GMarker(latlng, numberedIcon);
 				} else {
@@ -117,7 +117,7 @@ function initialize_trip_map(gbar, gcontrol) {
 					}
 					else if (idea.eventable_type == "CheckIn") {
 						regularIcon.image = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7Ccc66FF|000000";
-						html_event_type = "<p style=\"background-color:#cc66ff;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Photo Check-in</p><br/>";
+						html_event_type = "<p style=\"background-color:#cc66ff;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Photo Spot</p><br/>";
 					}
 					var marker = new GMarker(latlng, regularIcon);
 				}

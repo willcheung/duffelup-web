@@ -1,22 +1,5 @@
-<script type="text/javascript">
-    function minimize_board_map() {
-		if($('min_checkbox').checked) {
-		   	$('board_gmap').style.display = 'none';
-			$('map_wrapper').style.height = "10px";
-			$('map_wrapper').style.width = "200px";
-			$('map-title').hide();
-		}
-		else {
-		   	$('board_gmap').style.display = 'block';
-			$('map_wrapper').style.height = "300px";
-			$('map_wrapper').style.width = "380px";
-			$('map-title').show();
-		}
-    }
- </script>
-
 <div id="content" style="width:100%;left:0">
-	<div id="board_events" style="width:67%;">
+	<div id="board_events" style="width:50%;">
 		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
 		<div class="divider"><h2>My Ideas & Notes</h2></div>
 		<% end %>
@@ -34,15 +17,18 @@
 	</div>
 </div>
 
+<div id="event_details">
+	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary[0][0] } %>
+</div>
+
 <div id="map_wrapper">
 	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
-		<!--<span id="size-toggle"><input id="min_checkbox" type="checkbox" name="map" value="map" onClick="minimize_board_map();"> Minimize</span>-->
 		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">View larger map &raquo;</a></div>
-	<div id="board_gmap" class="corkboard" style="display:block;width:96%;height:91%;"></div>
+	<div id="board_gmap" class="corkboard" style="display:block;width:95%;height:90.5%;"></div>
 </div>
 
 <div id="comments_wrapper">
-	<%= render :partial => "comments/trip_comments"%>
+	<%= render :partial => "comments/trip_comments" %>
 </div>
 
 <% if !@city[0].nil? and false %>

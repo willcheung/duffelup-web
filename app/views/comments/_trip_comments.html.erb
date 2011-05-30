@@ -1,4 +1,4 @@
-<h2>Comments (<%= @trip_comments_size %>)</h2>
+<h2><img height="13" style="float:left;padding-right:5px" src="/images/icon-comment.png"/>Comments (<%= @trip_comments_size %>)</h2>
 <div id="CommentsContentsInner">
 	<div id="comments_for_trip_<%= @trip.id %>">
 		<% if @trip_comments_size.to_i > Trip::NUM_OF_COMMENTS_TO_SHOW %>
@@ -34,7 +34,7 @@
 	<% else %>
 		<div class="fb-button" style="text-align:center"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access' %></div>
 		<p style="padding:10px 5px 0 0;margin:0;color:#555;font-size:12px;">or
-		&nbsp;&nbsp;<a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to comment.	
+		&nbsp;&nbsp;<a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;comment.
 		</p>
 
 	<% end %>
