@@ -637,7 +637,7 @@ span.collaborator img {
 #board_events li{
 	width: 190px;
 	float: left;
-	margin: 10px 0 0 10px;
+	margin: 8px 0 0 8px;
 	position: relative;
 	display: inline;
 }
@@ -867,12 +867,18 @@ span.collaborator img {
     height: 20px;
 }
 
-#board_events .foodanddrink span.idea-label,#board_events .recommendation span.idea-label#fooddrink-rec{background: #40C2F3;}
-#board_events .lodging span.idea-label,#board_events .recommendation span.idea-label#lodging-rec{background: #808080;}
-#board_events .activity span.idea-label,#board_events .recommendation span.idea-label#activity-rec{background: #C6DE68;}
-#board_events .transport span.idea-label{background: #F380B2;}
+#board_events .foodanddrink span.idea-label,#board_events .recommendation span.idea-label#fooddrink-rec,
+#event_details span.foodanddrink {background: #40C2F3;}
+
+#board_events .lodging span.idea-label,#board_events .recommendation span.idea-label#lodging-rec,
+#event_details span.lodging  {background: #808080;}
+
+#board_events .activity span.idea-label,#board_events .recommendation span.idea-label#activity-rec,
+#event_details span.activity {background: #C6DE68;}
+
+#board_events .transport span.idea-label, #event_details span.transport {background: #F380B2;}
+#board_events .check_in span.idea-label, #event_details span.check_in {background: #BB92FF;}
 #board_events .note span.idea-label{background: #fff200; color: #555;}
-#board_events .check_in span.idea-label, #board .recommendation span.idea-label#check_in-rec{background: #BB92FF;}
 
 #board_events h3 a{padding-right: 15px; background: url('../images/icon-link.gif') no-repeat right;}
 #board_events em.list-actions{display: none;} /* Hide itinerary links when dragging to board */
@@ -1096,12 +1102,6 @@ span.collaborator img {
 	height: 170px;
 }
 
-#map_wrapper h2,
-#map-preview h2 {
-	font-size: 0.9em;
-	margin-left: 4px;
-}
-
 #map_wrapper .map-link a,
 #map-preview .map-link a{
 	color:#6666CC;
@@ -1119,11 +1119,13 @@ span.collaborator img {
 
 #map_wrapper span.map-title,
 #map-preview span.map-title{
-	color:#888;
 	text-decoration: none;
 	font-size: 11px;
 	margin-left: 10px;
-	float: left;
+	letter-spacing: 1px;
+	font-weight: bold;
+    text-transform: uppercase;
+	color: #888;
 	font-weight: bold;
 }
 
@@ -1142,12 +1144,12 @@ span.collaborator img {
 #map_wrapper {
 	padding: 3px 8px 8px 8px;
 	/*bottom: 75px;*/
-	top: 126px;
+	top: 130px;
 	position: absolute;
 	right: 20px;
 	/*width: 380px;
 	height: 300px;*/
-	width: 25%;
+	width: 22%;
 	height: 37%;
 	background: #fcfcfc;
 	z-index:4;
@@ -1174,10 +1176,10 @@ span.collaborator img {
 
 #comments_wrapper {
 	position: absolute;
-	padding:9px;
-	width: 25%;
-	max-height: 35%;
+	padding:8px;
+	width: 22%;
 	min-height: 25%;
+	max-height: 35%;
 	right: 20px;
 	bottom: 35px;
 	background: #fcfcfc;
@@ -1197,11 +1199,13 @@ span.collaborator img {
 }
 
 #comments_wrapper h2 {
-	color:#888888;
 	text-decoration: none;
 	margin: 1px 0 4px 10px;
-	font-weight: bold;
 	font-size: 11px;
+    letter-spacing: 1px;
+	font-weight: bold;
+    text-transform: uppercase;
+	color: #888;
 }
 
 #comments_wrapper div.fb-button a {
@@ -1243,6 +1247,110 @@ span.collaborator img {
 	float:left; 
 	width: 46%;
 	min-height: 80px;
+}
+
+#event_details {
+	position: absolute;
+	padding:8px;
+	width: 350px;
+	height: 76%;
+	right: 25.5%;
+	top: 130px;
+	background: url('../images/bg-index.png') repeat;
+	z-index:4;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius: 8px;
+	-webkit-box-shadow: #333 0 0 8px;
+	-moz-box-shadow: #333 0 0 8px;
+	box-shadow: #333 0 0 8px;
+	behavior: url('/PIE.htc');
+}
+
+#event_details span#idea-label {
+	color: #FFFFFF;
+  	font-size: 13px;
+  	font-weight: bold;
+  	margin: 0;
+  	padding: 2px 14px;
+  	position: absolute;
+	left:0;
+  	top: 20px;
+}
+
+#event_details span#paginate {
+	float: right;
+	margin: 15px 10px 0 0;
+}
+
+#event_details #event_details_content {
+	overflow: auto;
+	margin-top: 44px;
+	height: 91%;
+	padding-top: 5px;
+}
+
+#event_details h3{
+	font-size: 15px;
+	line-height: 19px;
+	font-weight: bold;
+	margin: -6px 18px 15px 18px;
+	text-align: center;
+}
+
+#event_details h3 a {
+    background: url("../images/icon-link.gif") no-repeat scroll right center transparent;
+    padding-right: 15px;
+}
+
+#event_details h4{
+	font-size: 11px;
+    letter-spacing: 1px;
+    margin: 15px 0 5px 0;
+    padding: 0 10px;
+	font-weight: bold;
+    text-transform: uppercase;
+	color: #888;
+}
+
+#event_details #photo_container {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#event_details p {
+	margin: 9px 15px;
+	font-size: 12px;
+	line-height:17px;
+}
+
+#event_details .map {
+    border: medium none;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+	margin: 3px 0 3px 10px;
+}
+
+#event_details #photo_container {
+    overflow: hidden;
+}
+
+#event_details img.photo {
+	background-color: #F6F6F6;
+    border: 1px solid #CCCCCC !important;
+    margin: 0;
+    max-height: 240px;
+    max-width: 240px;
+    padding: 8px;
+	border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+	-webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+#event_details img.check_in {
+	max-height: 305px;
+    max-width: 305px;
 }
 
 /*-----------------------------------------------------------------------------------
@@ -1819,7 +1927,7 @@ input.trip_destination_submit {
 }
 
 #CommentsContentsBottom textarea {
-	width: 210px;
+	width: 180px;
 	height: 35px;
 	font-size: 12px;
 }
@@ -1838,7 +1946,7 @@ input.trip_destination_submit {
 #CommentsContentsInner{
 	padding: 5px;
 	opacity: 1.0;
-	max-height: 150px;
+	max-height: 170px;
 	overflow: auto;
 	background-color: #F1E7A3;
 	-moz-border-radius: 5px;

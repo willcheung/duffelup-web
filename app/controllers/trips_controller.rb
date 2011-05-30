@@ -296,7 +296,6 @@ class TripsController < ApplicationController
     @ideas_to_map = s[1]
 
     @list_containment = build_sortable_list_containment(@trip)
-    @static_map_url = "http://maps.google.com/maps/api/staticmap?sensor=false&size=280x170" + build_static_map_url(@ideas_to_map)     
     
     respond_to do |format|
       format.html { render :action => 'show', :layout => 'trip' } if params[:view] != "map" # show.html.erb 
@@ -488,32 +487,6 @@ class TripsController < ApplicationController
   end
   
   private
-  
-  def build_static_map_url(ideas)
-    s = ""
-    index = 0
-    
-    ideas.each do |i|
-      unless i.lat.nil?
-        if i.eventable_type.to_s == "Foodanddrink"
-          s = s + "&markers=size:small|color:blue"
-        elsif i.eventable_type.to_s == "Activity"
-          s = s + "&markers=size:small|color:green"
-        elsif i.eventable_type.to_s == "CheckIn"
-          s = s + "&markers=size:small|color:purple"
-        else
-          s = s + "&markers=size:small|color:gray"
-        end
-        
-        s = s + "|#{i.lat.to_s[0..7]},#{i.lng.to_s[0..7]}"
-        index=index+1
-        
-        return s if index == 29
-      end
-    end
-    
-    return s
-  end
   
   def load_trip_and_users(trip_perma, airport_code=false)
     @admins = []
