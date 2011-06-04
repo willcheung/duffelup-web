@@ -6,12 +6,9 @@
 				  :confirm => "Are you sure you want to delete #{event.title}?", 
 				  :method => :delete },
 				  :title => "Delete",
-				  :alt => "Delete" %></span>
+				  :alt => "Delete",
+				  :title => "Delete" %></span>
 		<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
-	<% else %>
-		<span class="idea-info"><%= fast_link("info", "trips/#{@trip.permalink}/ideas/#{event.id}", "rel=\"ibox\" title=\"More Info\" alt=\"More Info\"") %></span>
-		<% unless event.eventable_type == "Transportation" or event.eventable_type == "Notes" %>
-			<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
-		<% end %>
 	<% end %>
+	<span class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id) %>" alt="More Info" title="More Info">more info</a></span>
 </div>

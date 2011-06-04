@@ -1,34 +1,57 @@
 <% if event.eventable_type == "CheckIn" %>
+<div id="index">
 <span id="idea-label" class="check_in">Photo Spot</span>
 <% elsif event.eventable_type == "Activity" %>
+<div id="index">
 <span id="idea-label" class="activity">Activity</span>
 <% elsif event.eventable_type == "Foodanddrink" %>
+<div id="index">
 <span id="idea-label" class="foodanddrink">Food &amp; Drink</span>
 <% elsif event.eventable_type == "Hotel" %>
+<div id="index">
 <span id="idea-label" class="lodging">Lodging</span>
+<% elsif event.eventable_type == "Transportation" %>
+<div id="index">
+<span id="idea-label" class="transport">Transportation</span>
+<% elsif event.eventable_type == "Notes" %>
+<div id="note">
 <% end %>
 
-<span id="paginate"><%= link_to_remote "Next", :url => "/events/show/", :method => :get %></span>
+	<div id="event_details_content">
+		<% if !event.title.nil? or !event.title.empty? %>
+		<h3><%= display_title_with_link(event, 75) %></h3>
+		<% end %>
 
-<div id="event_details_content">
-	<% if !event.title.nil? or !event.title.empty? %>
-	<h3><%= display_title_with_link(event, 75) %></h3>
-	<% end %>
+		<% if event.photo? %>
+		<div id="photo_container">
+			<% if event.eventable_type == "CheckIn" %>
+			<img class="photo check_in" src="<%= get_image_url(event, 'large') %>"/>
+			<% else %>
+			<img class="photo" src="<%= get_image_url(event, 'large') %>"/>
+			<% end %>
+		</div>
+		<% end %>
+		
+		<% if event.eventable_type == "Transportation" and !event.departure_time.nil? %>
+			<p>&nbsp;&nbsp;&nbsp; <strong>Departs</strong> &nbsp;&nbsp; <%= display_transportation_datetime(event.departure_time) %></p>
+			<p>&nbsp;&nbsp;&nbsp; <strong>Arrives</strong> &nbsp;&nbsp;&nbsp; <%= display_transportation_datetime(event.arrival_time) %></p>
+		<% end %>
 
-	<% if event.photo? %>
-	<div id="photo_container">
-		<% if event.eventable_type == "CheckIn" %>
-		<img class="photo check_in" src="<%= get_image_url(event, 'large') %>"/>
+		<% if event.eventable_type == "Notes" %>
+			<%= auto_link(simple_format(h(event.content))) %>
 		<% else %>
-		<img class="photo" src="<%= get_image_url(event, 'large') %>"/>
+			<%= simple_format(h(event.note)) %>
+		<% end %>
+	
+		<% if event.eventable_type != "Transportation" and event.eventable_type != "Notes" %>
+	
+			<% if !event.lat.nil? and !event.lng.nil? %>
+			<h4><img height="13" style="float:left;padding-right:5px" src="/images/icon-placemark.png"/>Location</h4>
+			<img class="map" src="<%= build_static_map_url(event) %>">
+			<% end %>
+	
 		<% end %>
 	</div>
-	<% end %>
-
-	<%= simple_format(h(event.note)) %>
 	
-	<% if !event.lat.nil? and !event.lng.nil? %>
-	<h4><img height="13" style="float:left;padding-right:5px" src="/images/icon-placemark.png"/>Location</h4>
-	<img class="map" src="<%= build_static_map_url(event) %>">
-	<% end %>
+<div class="bottom"></div>
 </div>

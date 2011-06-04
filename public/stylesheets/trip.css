@@ -636,6 +636,7 @@ span.collaborator img {
 
 #board_events li{
 	width: 190px;
+	height: 190px;
 	float: left;
 	margin: 8px 0 0 8px;
 	position: relative;
@@ -769,11 +770,18 @@ span.collaborator img {
 	text-align: left;
 }
 
+#board_events .highlighted {
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border: 2px dashed #6D3F1F;
+}
+
 #board_events .foodanddrink, #board_events .lodging, #board_events .activity, #board_events .transport{
 	text-align: center;
 	height: 190px; 
+	width: 190px;
 	background: url('../images/tile-index.png') no-repeat top !important;
-	background: url('../images/tile-index-ie.gif') no-repeat top;
 	position: relative;
 	padding: 1px 0;
 	display: block;
@@ -782,8 +790,8 @@ span.collaborator img {
 #board_events .recommendation {
 	text-align: left;
 	height: 190px; 
+	width: 286px;
 	background: url('../images/tile-index-big.png') no-repeat top left !important;
-	background: url('../images/tile-index-big-ie.gif') no-repeat top left;
 	position: relative;
 	padding: 1px 0;
 	display: block;
@@ -799,8 +807,10 @@ span.collaborator img {
 	text-align: left; 
 	padding: 1px 0; 
 	height: 190px; 
+	width: 190px;
+	display: block;
+	position: relative;
 	background: url('../images/tile-note.png') no-repeat top !important;
-	background: url('../images/tile-note-ie.gif') no-repeat top;
 }
 
 #board_events .checkin {
@@ -809,8 +819,8 @@ span.collaborator img {
 	padding: 1px 0;
 	display: block;
 	height: 190px; 
+	width: 190px;
 	background: url('../images/tile-polaroid.png') no-repeat top !important;
-	background: url('../images/tile-polaroid.png') no-repeat top;
 }
 
 #board_events .checkin img {
@@ -828,18 +838,27 @@ span.collaborator img {
  	position: absolute;
    	text-indent: -5000px;
     background: url('../images/icon-info.png') no-repeat !important;
-    background: url('../images/icon-info-ie.gif') no-repeat;
  	right: -3px;
 	top: 153px;
    	width: 20px;
     height: 20px;
 }
 
+#board_events .idea-info-inverse a{
+	right: -3px;
+	top: 150px;
+   	width: 20px;
+    height: 22px;
+	position: absolute;
+   	text-indent: -5000px;
+	background: url("../images/icon-info-inverse.png") no-repeat;
+	z-index: 5;
+}
+
 #board_events span.idea-edit a{
  	position: absolute;
    	text-indent: -5000px;
-    background: url('../images/icon-edit.png') no-repeat !important;
-    background: url('../images/icon-edit-ie.png') no-repeat;    
+    background: url('../images/icon-edit.png') no-repeat;
  	right: -3px;
 	top: 153px;
    	width: 20px;
@@ -849,8 +868,7 @@ span.collaborator img {
 #board_events span.idea-copy a{
  	position: absolute;
    	text-indent: -5000px;
-    background: url('../images/icon-copy.png') no-repeat !important;
-    background: url('../images/icon-copy.png') no-repeat;    
+    background: url('../images/icon-copy.png') no-repeat; 
  	right: 15px;
 	top: 153px;
    	width: 20px;
@@ -1249,14 +1267,13 @@ span.collaborator img {
 	min-height: 80px;
 }
 
-#event_details {
+#event_details #index {
 	position: absolute;
 	padding:8px;
 	width: 350px;
 	height: 76%;
 	right: 25.5%;
 	top: 130px;
-	background: url('../images/bg-index.png') repeat;
 	z-index:4;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -1265,6 +1282,34 @@ span.collaborator img {
 	-moz-box-shadow: #333 0 0 8px;
 	box-shadow: #333 0 0 8px;
 	behavior: url('/PIE.htc');
+	background: url('../images/bg-index.png') repeat;
+}
+
+#event_details #note {
+	position: absolute;
+	padding:8px;
+	width: 336px;
+	height: 73%;
+	right: 25.5%;
+	top: 130px;
+	z-index:4;
+	-moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+	-webkit-box-shadow: #333 0 0 8px;
+	-moz-box-shadow: #333 0 0 8px;
+	box-shadow: #333 0 0 8px;
+	background: url('../images/bg-note-middle.png') repeat;
+}
+
+#event_details #note .bottom {
+	position: absolute;
+	bottom: -30px;
+	right: -5px;
+	width: 360px;
+	height: 112px;
+	background: url('../images/bg-note-bottom.png') no-repeat scroll 0 0 transparent;
+	z-index: 4;
 }
 
 #event_details span#idea-label {
@@ -1278,16 +1323,15 @@ span.collaborator img {
   	top: 20px;
 }
 
-#event_details span#paginate {
-	float: right;
-	margin: 15px 10px 0 0;
-}
-
 #event_details #event_details_content {
 	overflow: auto;
 	margin-top: 44px;
 	height: 91%;
 	padding-top: 5px;
+}
+
+#event_details #note #event_details_content {
+	height: 84%;
 }
 
 #event_details h3{
@@ -1340,8 +1384,8 @@ span.collaborator img {
 	background-color: #F6F6F6;
     border: 1px solid #CCCCCC !important;
     margin: 0;
-    max-height: 240px;
-    max-width: 240px;
+    max-height: 305px;
+    max-width: 305px;
     padding: 8px;
 	border-radius: 0.5em 0.5em 0.5em 0.5em;
 	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;

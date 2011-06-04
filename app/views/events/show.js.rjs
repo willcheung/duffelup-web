@@ -1,0 +1,1 @@
+page.replace_html :event_details, :partial => "events/trip_event_details", :locals => { :event => @event }
