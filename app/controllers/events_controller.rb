@@ -258,29 +258,24 @@ class EventsController < ApplicationController
   end
   
   def show
-      @event = Event.find(params[:id])
+    e = Event.find(params[:id])
+    @title = "Duffel - " + e.title
 
-      if @trip.events.include?(@event)
-        case @event.eventable_type
-        when "Hotel"
-          @title = "Duffel - " + @event.title
-          @idea = Hotel.find(@event.eventable_id)
-        when "Activity"
-          @title = "Duffel - " + @event.title
-          @idea = Activity.find(@event.eventable_id)
-        when "Foodanddrink"
-          @title = "Duffel - " + @event.title
-          @idea = Foodanddrink.find(@event.eventable_id)
-        when "Transportation"
-          @title = "Duffel - " + @event.title
-          @transportation = Transportation.find(@event.eventable_id)
-        when "Notes"
-          @title = "Duffel - " + @event.title
-          @notes = Notes.find(@event.eventable_id)
-        end
-      else
-        redirect_to(:controller => 'site', :action => 'permission_error')
-      end
+    case e.eventable_type
+    when "Hotel", "Activity", "Foodanddrink"
+      @event = Event.find_ideas(@trip.id, e.id).first
+    when "Transportation"
+      @event = Event.find_transportations(@trip.id, e.id).first
+    when "Notes"
+      @event = Event.find_notes(@trip.id, e.id).first
+    when "CheckIn"
+      @event = Event.find_check_ins(@trip.id, e.id).first
+    end
+    
+    respond_to do |format|
+      format.html
+      format.js 
+    end
 
     rescue ActiveRecord::RecordNotFound
       logger.error("ERROR: Trying to access invalid event id = " + params[:id].to_s)

@@ -10,9 +10,9 @@
 	<% end %>
 
 	<div id="form-details" <% if @event.photo? %>style="width:340px"<% end %>>
-	<%= (link_to h(@idea.website), @idea.website, :target => "_blank") unless @idea.website.blank? %><br/>
-	<%= "<h3>Address</h3>" + content_tag('p', h(@idea.address)) + "(" + map_link("map", @idea.address) + ")" unless @idea.address.blank? %>
-	<%= "<h3>Phone</h3>" + content_tag('p', h(@idea.phone))  unless @idea.phone.blank? %>
+	<%= (link_to h(@event.website), @event.website, :target => "_blank") unless @event.website.blank? %><br/>
+	<%= "<h3>Address</h3>" + content_tag('p', h(@event.address)) + "(" + map_link("map", @event.address) + ")" unless @event.address.blank? %>
+	<%= "<h3>Phone</h3>" + content_tag('p', h(@event.phone))  unless @event.phone.blank? %>
 	
 	<% if @event.note? %>
 		<h3>Notes</h3>
@@ -23,9 +23,9 @@
 <% elsif @event.eventable_type == "Transportation" %>
 
 	<div id="form-details">
-	<%= h @transportation.from %> &rarr; <%= h @transportation.to %><br/>
-	Departs <%= h @transportation.departure_time.strftime("%a %m/%d at %I:%M%p") unless @transportation.departure_time.nil? %> <br/>
-	Arrives <%= h @transportation.arrival_time.strftime("%a %m/%d at %I:%M%p") unless @transportation.arrival_time.nil? %><br/><br/>
+	<%= h @event.from %> &rarr; <%= h @event.to %><br/>
+	Departs <%= h @event.departure_time.strftime("%a %m/%d at %I:%M%p") unless @event.departure_time.nil? %> <br/>
+	Arrives <%= h @event.arrival_time.strftime("%a %m/%d at %I:%M%p") unless @event.arrival_time.nil? %><br/><br/>
 	
 	<% if @event.note? %>
 		<h3>Notes</h3>
@@ -35,7 +35,7 @@
 
 <% elsif @event.eventable_type == "Notes" %>
 	<div id="form-details">
-	<%= simple_format_without_p(h(@notes.content)) %>
+	<%= simple_format_without_p(h(@event.content)) %>
 	</div>
 <% end %>
 

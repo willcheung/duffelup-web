@@ -204,7 +204,17 @@ module EventsHelper
   end
   
   def display_transportation_datetime(t)
-    Time.parse(t).strftime("Departs %m/%d/%y at %I:%M%p") unless t.nil?
+    Time.parse(t).strftime("%m/%d/%y at %I:%M%p") unless t.nil?
   end 
+  
+  def display_onclick_event_details(permalink, event_id)
+    return "new Ajax.Request('/trips/#{permalink}/ideas/#{event_id}', {asynchronous:true, evalScripts:true, method:'get'}); 
+            $('event_#{event_id}').down(0).addClassName('highlighted');
+            if (last_highlighted_element != $('event_#{event_id}').down(0)) {
+              last_highlighted_element.removeClassName('highlighted');
+              last_highlighted_element = $('event_#{event_id}').down(0);
+            }
+            return false;"
+  end
     
 end

@@ -18,7 +18,14 @@
 </div>
 
 <div id="event_details">
-	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary[0][0] } %>
+	<% unless @itinerary.flatten.first.nil? %>
+	<script type="text/javascript"> 
+		// highlight first element
+	  	var last_highlighted_element = $('event_<%= @itinerary.flatten.first.id %>').down(0);
+	  	last_highlighted_element.className += ' highlighted';
+	</script>
+	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
+	<% end %>
 </div>
 
 <div id="map_wrapper">
