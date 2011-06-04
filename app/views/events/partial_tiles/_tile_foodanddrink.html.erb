@@ -5,7 +5,7 @@
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 			<div class="detail">
 				<% unless @users.include?(current_user) %>
-					<a href="/trips/<%= @trip.permalink %>/ideas/<%= event.id %>" rel="ibox"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
+					<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
 				<% else %>
 					<img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" />
 				<% end %>
