@@ -24,8 +24,8 @@
 
 	<div id="form-details">
 	<%= h @event.from %> &rarr; <%= h @event.to %><br/>
-	Departs <%= h @event.departure_time.strftime("%a %m/%d at %I:%M%p") unless @event.departure_time.nil? %> <br/>
-	Arrives <%= h @event.arrival_time.strftime("%a %m/%d at %I:%M%p") unless @event.arrival_time.nil? %><br/><br/>
+	Departs <%= display_transportation_datetime(@event.departure_time) %> <br/>
+	Arrives <%= display_transportation_datetime(@event.arrival_time) %><br/><br/>
 	
 	<% if @event.note? %>
 		<h3>Notes</h3>
