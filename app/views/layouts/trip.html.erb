@@ -32,7 +32,7 @@
 	
 	<div id="tour1" class="tour" style="top: 50%; left: 50%; margin: -100px 0 0 -190px; width: 270px; height: 128px;">
 		<h1>Welcome to your duffel!</h1>
-		<p>In 3 simple steps, we'll show you new features about your personal corkboard.</p>
+		<p>In 3 simple steps, we'll show you <strong><i>new</i></strong> features about your personal corkboard.</p>
 		<p><a onclick="Effect.Fade('tour1', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink" href="#tour2">Let's start!</a> 
 		<%= link_to_remote "I'm a pro. Skip this.", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourSmallLink'} -%></p>
 	</div>
@@ -40,7 +40,7 @@
 	<div id="tour2" class="tour" style="top: 140px; left: 22%; margin: 0 0 0 0; width: 300px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 280px" />
 		<h1>1. Add anything to your duffel</h1>
-		<p>Click here to add activity ideas, lodging options or any research to your trip.</p>
+		<p>Click here to add notes, lodging options or any research to your corkboard.</p>
 		<p><a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour1', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour1">Previous</a> 
 		   <a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour3">Next</a></p>
 	</div>
@@ -48,7 +48,7 @@
 	<div id="tour3" class="tour" style="top: 70px; right: 275px; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -35px; right: 20px" />
 		<h1>2. Invite friends and family</h1>
-		<p>Invite fellow tripgoers to your trip. They can contribute ideas and comment.</p>
+		<p>Invite fellow tripgoers to your corkboard. They can contribute ideas and comment.</p>
 		<p><a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour2">Previous</a> 
 		   <a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour4', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour4">Next</a></p>
 	</div>
@@ -66,8 +66,7 @@
 	<div id="tour4" class="tour" style="top: 280px; left: 5%; margin: 0 0 0 0; width: 270px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 120px" />
 		<h1>3. Drag & drop your notes</h1>
-		<p>Drag to sort or drop into the itinerary.</p>
-		<p>Enjoy Duffel and share with your friends!</p>
+		<p>Drag and drop to sort. Shuffle your itinerary on the corkboard. Enjoy!</p>
 		<p><a onclick="Effect.Fade('tour4', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour3">Previous</a> 
 		   <%= link_to_remote "Done", {:url => '/users/hide_tour', :method => :post}, {:class => 'tourLink tourLinkNext'} -%></p>
 	</div>
