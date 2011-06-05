@@ -3,13 +3,21 @@
 <span id="idea-label" class="check_in">Photo Spot</span>
 <% elsif event.eventable_type == "Activity" %>
 <div id="index">
-<span id="idea-label" class="activity">Activity</span>
+	<% if event.partner_id == Idea::PARTNER_ID["viator"] %>
+		<span id="idea-label" class="activity">Recommended Activity</span>
+	<% else %>
+		<span id="idea-label" class="activity">Activity</span>
+	<% end %>
 <% elsif event.eventable_type == "Foodanddrink" %>
 <div id="index">
 <span id="idea-label" class="foodanddrink">Food &amp; Drink</span>
 <% elsif event.eventable_type == "Hotel" %>
 <div id="index">
-<span id="idea-label" class="lodging">Lodging</span>
+	<% if event.partner_id == Idea::PARTNER_ID["splendia"] %>
+		<span id="idea-label" class="lodging">Recommended Lodging</span>
+	<% else %>
+		<span id="idea-label" class="lodging">Lodging</span>
+	<% end %>
 <% elsif event.eventable_type == "Transportation" %>
 <div id="index">
 <span id="idea-label" class="transport">Transportation</span>
@@ -21,13 +29,31 @@
 		<% if !event.title.nil? or !event.title.empty? %>
 		<h3><%= display_title_with_link(event, 75) %></h3>
 		<% end %>
+		
+		<% if event.eventable_type == "Activity" and event.partner_id == Idea::PARTNER_ID["viator"] %>
+			<div id="partner">
+				<span class="price"><%= number_to_currency(event.price) %></span>/ person &nbsp;&nbsp;
+				<span class="more-details-button"><a href="<%= event.website %>" target="_blank" class="more-details-button" onClick="pageTracker._trackEvent('Viator', 'click-on-details', 'page-trip-planning');">Book now</a>
+			</div>
+		<% elsif event.eventable_type == "Hotel" and event.partner_id == Idea::PARTNER_ID["splendia"] %>
+			<div id="partner">
+				<span class="price"><%= number_to_currency(event.price) %></span>/ night &nbsp;&nbsp;
+				<span class="more-details-button"><a href="<%= event.website %>" target="_blank" class="more-details-button" onClick="pageTracker._trackEvent('Splendia', 'click-on-details', 'page-trip-planning');">Book now</a>
+			</div>
+		<% end %>
 
 		<% if event.photo? %>
 		<div id="photo_container">
 			<% if event.eventable_type == "CheckIn" %>
 			<img class="photo check_in" src="<%= get_image_url(event, 'large') %>"/>
 			<% else %>
-			<img class="photo" src="<%= get_image_url(event, 'large') %>"/>
+				<% if event.partner_id == Idea::PARTNER_ID["splendia"] %>
+					<img class="photo" src="<%= event.photo_file_name.sub('_t.jpg', '.jpg') %>"/>
+				<% elsif event.partner_id == Idea::PARTNER_ID["viator"] %>
+					<img class="photo" src="<%= event.photo_file_name.sub('thumbs75/', '') %>"/>
+				<% else %>
+					<img class="photo" src="<%= get_image_url(event, 'large') %>"/>
+				<% end %>
 			<% end %>
 		</div>
 		<% end %>

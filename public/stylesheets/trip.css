@@ -1267,6 +1267,10 @@ span.collaborator img {
 	min-height: 80px;
 }
 
+#event_details, #event_details a {
+	color: #3a3a3a;
+}
+
 #event_details #index {
 	position: absolute;
 	padding:8px;
@@ -1334,7 +1338,35 @@ span.collaborator img {
 	height: 84%;
 }
 
+#event_details #event_details_content #partner {
+	margin-bottom: 15px;
+	text-align: center;
+	color: #444;
+	font-size: 12px;
+}
+
+#event_details #event_details_content .price {
+	font: italic 19px georgia,serif;
+	padding: 0 4px 0 15px;
+	color: #E91E79;
+	margin-top: -6px;
+}
+
+#event_details #event_details_content .more-details-button {
+	background: #999;
+	color: #fff;
+	text-decoration: none;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	font-size: 14px;
+	padding: 3px 5px;
+	margin: 5px 0 0 0;
+	width: 60px;
+}
+
 #event_details h3{
+	color: #111;
 	font-size: 15px;
 	line-height: 19px;
 	font-weight: bold;
@@ -1343,6 +1375,7 @@ span.collaborator img {
 }
 
 #event_details h3 a {
+	color: #111;
     background: url("../images/icon-link.gif") no-repeat scroll right center transparent;
     padding-right: 15px;
 }
