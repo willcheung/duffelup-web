@@ -8,7 +8,7 @@
 		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
 			<% (@trip.duration+1).times do |day| %>
 		
-				<div class="divider"><h2><span class="day">Day <%= day+1 %></span> <span class="date"><%= (@trip.start_date + day).strftime("%A, %B %d") %></span></h2><hr/></div>
+				<div class="divider"><h2><span class="day">Day <%= day+1 %></span> <span class="date"><%= (@trip.start_date + day).strftime("%A, %B %d") %></span><hr/></h2></div>
 				<%= render :partial => 'events/scheduled_board_events', :locals => { :day => day } %>
 			
 			<% end %>
