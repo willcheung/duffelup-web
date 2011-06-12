@@ -1,5 +1,5 @@
-<div id="content" style="width:100%;left:0">
-	<div id="board_events" style="width:50%;">
+<div id="content">
+	<div id="board_events">
 		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
 		<div class="divider"><h2>My Ideas & Notes</h2></div>
 		<% end %>
@@ -28,14 +28,39 @@
 	<% end %>
 </div>
 
-<div id="map_wrapper">
-	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
-		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">View larger map &raquo;</a></div>
-	<div id="board_gmap" class="corkboard" style="display:block;width:95%;height:90.5%;"></div>
-</div>
-
+<!--
 <div id="comments_wrapper">
 	<%= render :partial => "comments/trip_comments" %>
+</div>
+-->
+
+<div id="itinerary-header" class="clearfix">
+	<%= render :partial => 'trips/itinerary_header' %>
+</div>
+
+<div id="sidebar">
+        <% if @trip.start_date.nil? or @trip.end_date.nil? %>
+                <% unless @users.include?(current_user) %>
+                        <p class="message"><%= display_user_name(@admins[0]) %> has not built the itinerary, yet.</p>
+                <% else %>
+                        <p class="message"><%= link_to "Pick a date range", edit_trip_path(:id => @trip.permalink) %> and drag & drop your activities here.</p>
+                <% end %>
+        <% else %>                      
+        <div id="itinerary">
+                <% (@trip.duration+1).times do |day| %> 
+                        <div id="itinerary_day_<%= day+1 %>" class="clear">
+                        <%= render :partial => 'events/scheduled_events', :locals => { :day => day, :map => false } %>
+                        </div>
+                <% end %>
+        </div>
+        <% end %>
+        
+</div>
+
+<div id="map-preview">
+	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
+		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger Map &raquo;</a></div>
+	<div id="board_gmap" class="corkboard" style="display:block;width:222px;height:170px;margin:3px 8px;"></div>
 </div>
 
 <% if !@city[0].nil? and false %>

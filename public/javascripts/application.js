@@ -55,7 +55,7 @@ onGenerateMarkerHtmlCallback : function(marker, html, result) {
 	html.innerHTML += "<br/>" + copy_event; return html; }
 };
 
-function initialize_trip_map(gbar, gcontrol) {
+function initialize_trip_map(gbar, gcontrol, show_bubble) {
 	 if (GBrowserIsCompatible() && typeof ideas_to_map != 'undefined') {
 	   	var map = new GMap2(document.getElementById("board_gmap"), {googleBarOptions: googlebar_options});
 	   	map.setCenter(new GLatLng(37.7312, -122.383), 10);
@@ -127,9 +127,12 @@ function initialize_trip_map(gbar, gcontrol) {
 				} else {
 					var html=html_event_type+"<div style=\"margin-top:3px; padding: 3px 0 0 9px; width: 300px;\"><strong>"+idea.title+"</strong><br/><div style=\"color:#777777;\">"+idea.address+"</div><br/>"+idea.note.truncate(500).gsub(/\n+/, '<br/>') + "</div>";
 				}
+				
+				if (show_bubble) {
 				GEvent.addListener(marker, "mouseover", function() {
 						focusPoint(idea.id, html);
 					});
+				}
 
 				map.addOverlay(marker);
 				return marker;

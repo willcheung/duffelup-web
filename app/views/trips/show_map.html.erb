@@ -7,7 +7,7 @@
 	<%= render :partial => 'trips/itinerary_header' %>
 </div>
 
-<div id="sidebar" style="bottom:35px;border-bottom: 1px solid #ddd;">
+<div id="sidebar" style="bottom:26px;border-bottom: 1px solid #ddd;">
 
 	<% if @trip.start_date.nil? or @trip.end_date.nil? %>
 		<% unless @users.include?(current_user) %>

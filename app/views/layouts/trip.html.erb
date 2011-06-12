@@ -23,9 +23,9 @@
 	</head>
 	
 	<% if params[:view] == "map" %>
-	<body onload="initialize_trip_map(true, true)" onunload="GUnload()">
+	<body onload="initialize_trip_map(true, true, true)" onunload="GUnload()">
 	<% else %>
-	<body onload="initialize_trip_map(false, false)" onunload="GUnload()">
+	<body onload="initialize_trip_map(false, false, false)" onunload="GUnload()">
 	<% end %>
 		
 	<% if logged_in? and @users.include?(current_user) and (current_user.hide_tour_at.nil? or current_user.hide_tour_at.blank?) %>
@@ -161,7 +161,7 @@
 	        </div>
 		</div>
 
-		<div id="board-actions" class="clearfix" <% if params[:view] == "itinerary" %>style="width:100%;left:0"<% end %>>
+		<div id="board-actions" class="clearfix">
 		<% if @users.include?(current_user) %>
 			<% if params[:view] == "map" %>
 				<%= render :partial => 'trips/new_ideas', :locals => { :map => 'map' } %>
