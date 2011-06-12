@@ -31,17 +31,17 @@
 			-->
 			<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "CheckIn" %>
 				<% if event.lat and event.lng %>
-				<strong><%= event.index unless event.index.nil? %>. <%= display_title_without_link(event.title) %></strong>
+				<%= event.index unless event.index.nil? %>. <%= display_title_without_link(event.title) %>
 				<% else %>
-				<strong><%= display_title_without_link(event.title) %></strong>
+				<%= display_title_without_link(event.title) %>
 				<% end %>
 			<% else %>
-				<strong><%= display_title_without_link(event.title) %></strong>
+				<%= display_title_without_link(event.title) %>
 			<% end %>
 			
 		<% else %> <!-- if not map view -->
 		
-			<strong><%= display_title_without_link(event.title) %></strong>
+			<%= display_title_without_link(event.title) %>
 			
 		<% end %>
 		

@@ -111,7 +111,7 @@ module TripsHelper
     return string
   end
   
-  def build_static_map_url(event, size="320x120")
+  def build_static_map_url(event, size="330x120")
     s = "http://maps.google.com/maps/api/staticmap?center=#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}"
     
     if event.eventable_type.to_s == "Foodanddrink"
