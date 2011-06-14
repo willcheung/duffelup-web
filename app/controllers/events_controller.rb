@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   
   before_filter :protect, :only => [:new, :edit, :destroy, :order_itinerary]
   before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache, :new]
-  before_filter :is_user_invited_to_trip, :except => [:load_trip_and_users, :show_detail, :show, :clear_events_cache, :check_events_details_cache, :new, :order_itinerary]
+  before_filter :is_user_invited_to_trip, :except => [:load_trip_and_users, :show, :clear_events_cache, :check_events_details_cache, :new, :order_itinerary]
   after_filter :clear_events_cache, :only => [:create, :update, :destroy, :order_itinerary]
   
   def new
@@ -296,25 +296,40 @@ class EventsController < ApplicationController
   
   def order_itinerary
     if request.xhr?
-      if params['board']
-        Event.update_itinerary(@trip.id, params['board'], 0.to_s)
-      else
-        (@trip.duration+1).times do |i|
-          if params['itinerary_list_'+(i+1).to_s]
-            Event.update_itinerary(@trip.id, params['itinerary_list_'+(i+1).to_s], (i+1).to_s)
-            @day = i
-            break
-          end # if params['itinerary_list_']
-        end # @trip.duration.times
-      end # if params['board']
-      
-      # clear all events cache
-      clear_events_cache
-      
-      respond_to do |format|
-        format.js { render :nothing => true }
+        if params['board']
+          Event.update_itinerary(@trip.id, params['board'], 0.to_s)
+        else
+          (@trip.duration+1).times do |i|
+            if params['itinerary_list_'+(i+1).to_s]
+              Event.update_itinerary(@trip.id, params['itinerary_list_'+(i+1).to_s], (i+1).to_s)
+              @day = i
+              break
+            end # if params['itinerary_list_']
+          end # @trip.duration.times
+        end # if params['board']
+
+        # find event and event details
+        tmp = Event.find(:first, 
+                    :select => 'id, eventable_type',
+                    :conditions => { :id => params[:drag_item].to_s })
+
+        if tmp.eventable_type == "Activity" or tmp.eventable_type == "Foodanddrink" or tmp.eventable_type == "Hotel"
+          event = Event.find_ideas(@trip.id, tmp.id)
+        elsif tmp.eventable_type == "Transportation"
+          event = Event.find_transportations(@trip.id, tmp.id)
+        elsif tmp.eventable_type == "Notes"
+          event = Event.find_notes(@trip.id, tmp.id)
+        elsif tmp.eventable_type == "CheckIn"
+          event = Event.find_check_ins(@trip.id, tmp.id)
+        end
+
+        # first (and only) item in the list
+        @event = event[0]
+        # javascript sortable.create containment
+        @list_containment = build_sortable_list_containment(@trip)
+        # clear all events cache
+        clear_events_cache
       end
-    end
   end
   
   private 

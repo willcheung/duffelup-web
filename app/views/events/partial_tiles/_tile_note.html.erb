@@ -1,4 +1,4 @@
-<li id="event_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
+<li id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="note">
 		<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 		<h3><%= display_title_with_link(event) %></h3>

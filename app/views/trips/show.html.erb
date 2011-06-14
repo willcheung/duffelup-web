@@ -1,11 +1,9 @@
 <div id="content">
 	<div id="board_events">
-		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
 		<div class="divider"><h2>My Ideas & Notes</h2></div>
-		<% end %>
 		<%= render :partial => 'events/board_events' %>
 		
-		<% unless @trip.start_date.nil? or @trip.end_date.nil? %>
+		<% unless true or (@trip.start_date.nil? or @trip.end_date.nil?) %>
 			<% (@trip.duration+1).times do |day| %>
 		
 				<div class="divider"><h2><span class="day">Day <%= day+1 %></span> <span class="date"><%= (@trip.start_date + day).strftime("%A, %B %d") %></span><hr/></h2></div>
@@ -21,7 +19,7 @@
 	<% unless @itinerary.flatten.first.nil? %>
 	<script type="text/javascript"> 
 		// highlight first element
-	  	var last_highlighted_element = $('event_<%= @itinerary.flatten.first.id %>').down(0);
+	  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
 	  	last_highlighted_element.className += ' highlighted';
 	</script>
 	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>

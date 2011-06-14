@@ -784,6 +784,13 @@ span.collaborator img {
 	border: 2px dashed #6D3F1F;
 }
 
+#itinerary li span.highlighted {
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border: 1px dashed #7D4F2F;
+}
+
 #board_events .foodanddrink, #board_events .lodging, #board_events .activity, #board_events .transport{
 	text-align: center;
 	height: 190px; 
@@ -948,15 +955,14 @@ span.collaborator img {
 
 #itinerary-header{
 	top: 80px;
-	z-index: 5; 
 	position: absolute;
 	margin: 0;
 	left: 0;
 	width: 240px;
 	background: #ECEFF3;
-	font-size: 14px;
-	line-height: 38px;
-	height: 35px;
+	font-size: 12px;
+	line-height: 32px;
+	height: 30px;
 	color: #505D81;
 }
 
@@ -969,6 +975,7 @@ span.collaborator img {
 	font-weight: bold;
 	float: left;
 	text-transform: uppercase;
+	letter-spacing: 1px;
 	font-size: 12px;
 }
 #itinerary-header em.printable{float: right;}
@@ -978,9 +985,9 @@ span.collaborator img {
 }
 
 #itinerary li{
-	padding: 0 5px 0 0;
+	padding: 2px 5px 0 0;
 	font-size: 11px;
-	margin: 5px 0;
+	margin: 4px 0;
 }
 
 #itinerary li.sortable {
@@ -1019,11 +1026,11 @@ span.collaborator img {
 
 #itinerary li em.list-actions span.idea-expand a {
    	text-indent: -5000px;
-    background: #fff url('../images/trip/ico-list-actions.png') no-repeat 8px 7px;
+    background: #fff url("../images/icon-info.png") no-repeat 6px 5px;
    	width: 20px;
-    height: 20px;
+    height: 25px;
     float: right;
-		margin-right: 5px;
+	margin-right: 5px;
 }
 
 #itinerary li em.list-actions span.idea-collapse a {
@@ -1032,7 +1039,7 @@ span.collaborator img {
    	width: 25px;
     height: 25px;
     float: right;
-		margin-right: 5px;
+	margin-right: 5px;
 }
 
 #idea-view-corkboard {

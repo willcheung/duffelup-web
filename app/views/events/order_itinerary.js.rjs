@@ -1,0 +1,33 @@
+if params[:board]
+  params[:board].each do |b|
+    if b.to_s == params[:drag_item].to_s
+      if @event.eventable_type == "Foodanddrink"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_foodanddrink', :locals => { :event => @event })
+      elsif @event.eventable_type == "Activity"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_activity', :locals => { :event => @event })
+      elsif @event.eventable_type == "Hotel"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_lodging', :locals => { :event => @event })
+      elsif @event.eventable_type == "Transportation"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_transport', :locals => { :event => @event })
+      elsif @event.eventable_type == "Notes"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_note', :locals => { :event => @event })
+      elsif @event.eventable_type == "CheckIn"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/tile_check_in', :locals => { :event => @event })
+      end
+    end
+  end
+elsif params['itinerary_list_'+(@day.to_i+1).to_s]
+  params['itinerary_list_'+(@day.to_i+1).to_s].each do |i|
+    if i.to_s == params[:drag_item].to_s
+      if params['view'] == "map"
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/scheduled_tile', :locals => { :event => @event, :day => @day, :map => true })
+      else
+        page.replace('list_'+params[:drag_item_from]+'_'+@event.id.to_s, :partial => 'events/partial_tiles/scheduled_tile', :locals => { :event => @event, :day => @day, :map => false })
+      end        
+    end
+  end
+end
+
+page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
+
+page << "iBox.initialize();"

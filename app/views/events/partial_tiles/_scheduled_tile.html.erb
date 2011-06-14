@@ -14,31 +14,11 @@
 <span class="checkin">
 <%- end -%>
 
-<!-- if map view -->	
-<% if map %>
-
-	<!--
-	 #Only Activity, Hotel, Foodanddrink and CheckIn can be mapped 
-	-->
-	<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "CheckIn" %>
-		<% if event.lat and event.lng and event.has_attribute?(:index) %>
-		<strong><%= event.index.to_s + "." unless event.index.nil? %> <%= display_title_without_link(event.title) %></strong>
-		<% else %>
-		<strong><%= display_title_without_link(event.title) %></strong>
-		<% end %>
-	<% else %>
-		<strong><%= display_title_without_link(event.title) %></strong>
-	<% end %>
+<%= display_title_without_link(event.title) %>
 	
-<% else %> <!-- if not map view -->
-
-	<strong><%= display_title_without_link(event.title) %></strong>
-	
-<% end %>
 
 <em class="list-actions">
-<span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
-<span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>
+		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-expand"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list
 
 <%- unless event.eventable_type == "CheckIn" -%>
 <%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, nil, @trip.permalink) %></span><%- end -%>
