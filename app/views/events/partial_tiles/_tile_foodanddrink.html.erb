@@ -1,11 +1,11 @@
 <% if event.photo? %>
-	<li id="event_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
+	<li id="list_0_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="recommendation business">
 			<span class="idea-label" id="fooddrink-rec">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 			<div class="detail">
 				<% unless @users.include?(current_user) %>
-					<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
+					<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
 				<% else %>
 					<img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" />
 				<% end %>
@@ -17,7 +17,7 @@
 	</li>
 <% else %>
 
-	<li id="event_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
+	<li id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="foodanddrink">
 			<span class="idea-label">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>

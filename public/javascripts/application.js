@@ -91,7 +91,7 @@ function initialize_trip_map(gbar, gcontrol, show_bubble) {
 						html_event_type = "<p style=\"background-color:#00aeef;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Food & Drink</p><br/>";
 					}
 					else if (idea.eventable_type == "CheckIn") {
-						regularIcon.image = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + idea.index + "|cc66FF|000000";
+						numberedIcon.image = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + idea.index + "|cc66FF|000000";
 						html_event_type = "<p style=\"background-color:#cc66ff;position:absolute;color:#ffffff;font-size:12px;font-weight:bold;margin:0;padding:1px 3px;\">Photo Spot</p><br/>";
 					}
 					var marker = new GMarker(latlng, numberedIcon);

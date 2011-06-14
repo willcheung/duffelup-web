@@ -207,12 +207,12 @@ module EventsHelper
     Time.parse(t).strftime("%m/%d/%y at %I:%M%p") unless t.nil?
   end 
   
-  def display_onclick_event_details(permalink, event_id)
+  def display_onclick_event_details(permalink, event_id, event_list)
     return "new Ajax.Request('/trips/#{permalink}/ideas/#{event_id}', {asynchronous:true, evalScripts:true, method:'get'}); 
-            $('event_#{event_id}').down(0).addClassName('highlighted');
-            if (last_highlighted_element != $('event_#{event_id}').down(0)) {
+            $('list_#{event_list}_#{event_id}').down(0).addClassName('highlighted');
+            if (last_highlighted_element != $('list_#{event_list}_#{event_id}').down(0)) {
               last_highlighted_element.removeClassName('highlighted');
-              last_highlighted_element = $('event_#{event_id}').down(0);
+              last_highlighted_element = $('list_#{event_list}_#{event_id}').down(0);
             }
             return false;"
   end

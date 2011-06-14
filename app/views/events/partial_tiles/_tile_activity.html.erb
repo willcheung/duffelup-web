@@ -1,5 +1,5 @@
 <% if event.partner_id == Idea::PARTNER_ID["viator"] %>
-<li id="event_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
+<li id="list_0_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="recommendation">
 		<span class="idea-label" id="activity-rec">Recommended Activity</span>
 		<%= render :partial => 'events/partner_idea_actions', :locals => { :event => event } %>
@@ -18,13 +18,13 @@
 </li>
 <% else %>
 	<% if event.photo? %>
-		<li id="event_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
+		<li id="list_0_<%= event.id %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
 			<div class="recommendation business">
 				<span class="idea-label" id="activity-rec">Activity</span>
 				<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 				<div class="detail">
 					<% unless @users.include?(current_user) %>
-						<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
+						<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
 					<% else %>
 						<img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" />
 					<% end %>
@@ -37,7 +37,7 @@
 			</div>
 		</li>
 	<% else %>
-		<li id="event_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
+		<li id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
 			<div class="activity">
 				<span class="idea-label">Activity</span>
 				<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
