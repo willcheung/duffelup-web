@@ -116,7 +116,7 @@ a:hover{color: #555;}
 #header{
 	display: block;
 	width: 100%;
-	height: 80px;
+	height: 60px;
 	z-index: 5;
 	background: #212E3D url('../images/trip/header-bg.jpg');
 	color: #fff;
@@ -124,7 +124,7 @@ a:hover{color: #555;}
 }
 
 #content{
-	top: 121px; 
+	top: 101px; 
 	bottom: 26px; 
 	z-index: 4; 
 	overflow: auto;
@@ -135,7 +135,7 @@ a:hover{color: #555;}
 }
 
 #sidebar{
-	top: 110px; 
+	top: 90px; 
 	bottom: 220px; 
 	z-index: 4; 
 	overflow: auto;
@@ -151,7 +151,7 @@ a:hover{color: #555;}
 	font-size: 16px;
 	height: 41px;
 	z-index: 10;
-	top: 80px;
+	top: 60px;
 	right: 0;
 	left: 240px;
 	border-left: 1px solid #999;
@@ -196,37 +196,41 @@ a:hover{color: #555;}
 
 #footer-promotions {
 	position: absolute;
-	bottom: 35px;
-	left: 23%;
+	bottom: 28px;
+	right: 430px;
+	left:245px;
 	z-index: 10;
 	background: #363743;
-	width: 77%;
-	color: #fff;
-	padding: 4.5px 15px;
+	color: #eee;
+	padding: 3px 15px;
 	border-top: 1px solid #18181E;
-	opacity: 0.80;
-	filter: alpha(opacity=80);
-	font-size:15px;
-	line-height: 24px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	font-size:13px;
+	line-height: 16px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius:10px;
 }
 
 #footer-promotions:hover {
 	height: 170px;
-	opacity: 0.95;
-	filter: alpha(opacity=95);
+	opacity: 0.90;
+	filter: alpha(opacity=90);
 }
 
 #footer-promotions ul.deals {
 	display: none;
 	list-style-type: none;
+	line-height: 20px;
 }
 
 #footer-promotions ul.deals span.price a{
-	width: 70px;
+	width: 40px;
 	float: left;
-	font-size: 0.9em;
-	color: #ddd;
-	margin-left: 15px;
+	font-size: 1.1em;
+	color: #fff;
+	margin-left: 10px;
 	text-decoration: none;
 }
 
@@ -249,7 +253,7 @@ a:hover{color: #555;}
 }
 
 #footer-promotions a {
-	color: #fff;
+	color: #d2d2d2;
 }
 
 #footer-promotions a:hover {
@@ -273,7 +277,7 @@ a:hover{color: #555;}
 	margin: 0;
 	background:url(/images/logo-t-w.png) no-repeat 17px center;
 	width: 110px;
-	height: 75px;
+	height: 60px;
 }
 
 #header h1{
@@ -325,8 +329,8 @@ a:hover{color: #555;}
 	float: left;
 	display: inline;
 	position: absolute;
-	height: 46px;
-	padding: 23px 0 0 22px;
+	height: 36px;
+	padding: 15px 0 0 22px;
 	left: 0;
 	background: url(/images/trip/top-seperator.jpg) no-repeat left center;
 }
@@ -335,7 +339,7 @@ a:hover{color: #555;}
 	float: right;
 	display: inline;
 	margin-right: 10px;
-	padding-top: 28px;
+	padding-top: 20px;
 }
 
 #account li {
@@ -954,7 +958,7 @@ span.collaborator img {
 }
 
 #itinerary-header{
-	top: 80px;
+	top: 60px;
 	position: absolute;
 	margin: 0;
 	left: 0;
@@ -1293,9 +1297,9 @@ span.collaborator img {
 	position: absolute;
 	padding:8px;
 	width: 360px;
-	height: 72%;
+	height: 75.5%;
 	right: 30px;
-	top: 135px;
+	top: 115px;
 	z-index:4;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -1311,9 +1315,9 @@ span.collaborator img {
 	position: absolute;
 	padding:8px;
 	width: 356px;
-	height: 70%;
+	height: 73%;
 	right: 30px;
-	top: 130px;
+	top: 115px;
 	z-index:4;
 	-moz-border-radius:8px 8px 0 0;
 	-webkit-border-radius:8px 8px 0 0;
@@ -1424,7 +1428,7 @@ span.collaborator img {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
 	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
 	-webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
-	margin: 3px 0 3px 10px;
+	margin: 3px 0 10px 10px;
 }
 
 #event_details #photo_container {
