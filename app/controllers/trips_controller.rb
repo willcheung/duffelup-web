@@ -298,12 +298,12 @@ class TripsController < ApplicationController
     @list_containment = build_sortable_list_containment(@trip)
     
     respond_to do |format|
-      format.html { render :action => 'show', :layout => 'trip' } if params[:view] != "map" # show.html.erb 
+      format.html { render :action => 'show', :layout => 'trip' } if (params[:view] != "map" and params[:view] != "itinerary") # show.html.erb 
       format.html { render :action => 'show_map', :layout => 'trip' } if params[:view] == "map" # show_map.html.erb 
+      format.html { render :action => 'show_guest_view', :layout => 'trip' } if (params[:view] == "itinerary") # show_itinerary.html.erb
       format.xml  { render :xml => { :trip => @trip, :itinerary => @itinerary } }
       format.json { render :json => { :trip => @trip, :itinerary => @itinerary } }
     end
-    
   end
   
   def print_itinerary

@@ -161,14 +161,14 @@
 	        </div>
 		</div>
 
-		<div id="board-actions" class="clearfix">
+		<div id="board-actions" class="clearfix" <% if params[:view] == "itinerary" %>style="width:100%;left:0"<% end %>>
 		<% if @users.include?(current_user) %>
 			<% if params[:view] == "map" %>
 				<%= render :partial => 'trips/new_ideas', :locals => { :map => 'map' } %>
 				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => 'map' } %>
 			<% elsif params[:view] == "itinerary" %>
 				<ul id="add-ideas">
-				<li class="guest">This is how third-party guests see your duffel<%- if !@trip.is_public? -%> (but, your duffel is private)<%- end -%>.  <%= link_to 'Back to planning &rarr;', trip_path(:id => @trip) %></li>
+				<li class="guest">This is how other members see your duffel<%- if !@trip.is_public? -%> (but, your duffel is private)<%- end -%>. </li>
 				</ul>
 				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => nil } %>
 			<% else %>
@@ -195,19 +195,6 @@
 		</div>
 
 		<%= yield %>
-		
-		<% if !@city[0].nil? %>
-		<div id="footer-promotions" class="clearfix" onmouseover="<%= remote_function(:loading => "$('deals-spinner').show();", :complete => "$('deals-spinner').hide();", :url => { :controller => :trips, :action => :get_deals, :permalink => @trip.permalink }) %>;this.onmouseover=null;">
-			<div class="title">
-				<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %> 
-				<span id="deals-spinner" style="display:none;"><img style="vertical-align:middle;margin-left:15px" src="/images/ajax-loader-drk-bg.gif">
-			</div>
-			<ul class="deals">
-				<div id="deals_feed"></div>
-				<li style="float:right;font-size:11px;color:#888;margin-right:30px;position:absolute;bottom:5px;right:10px;">*Deals by BookingBuddy. Taxes, fees not included.</li>
-			</ul>
-		</div>
-		<% end %>
 
 		<div id="footer">
 			<% if !@city[0].nil? %>
@@ -248,7 +235,7 @@
 		
 		<% if @users.include?(current_user) %>
 			<div id="sortable_list_controls">
-				<%= render :partial => 'events/sortable_list_controls' %>
+				<%= render :partial => 'events/sortable_list_controls' if params[:view] != "itinerary" %>
 			</div>
 		<% end %>
 		
