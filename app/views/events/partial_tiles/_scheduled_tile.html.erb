@@ -18,7 +18,7 @@
 	
 
 <em class="list-actions">
-		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-expand"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list
+		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-expand"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">
 
 <%- unless event.eventable_type == "CheckIn" -%>
 <%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, nil, @trip.permalink) %></span><%- end -%>

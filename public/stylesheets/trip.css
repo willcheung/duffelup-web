@@ -1293,14 +1293,21 @@ span.collaborator img {
 	color: #3a3a3a;
 }
 
+#event_details {
+	position: absolute;;
+	right: 305px;
+	z-index:4;
+	width: 360px;
+	height: 100%;
+}
+
 #event_details #index {
 	position: absolute;
 	padding:8px;
-	width: 360px;
-	height: 75.5%;
-	right: 30px;
 	top: 115px;
 	z-index:4;
+	width: 360px;
+	height: 75.5%;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
 	border-radius: 8px;
@@ -1313,12 +1320,11 @@ span.collaborator img {
 
 #event_details #note {
 	position: absolute;
-	padding:8px;
-	width: 356px;
-	height: 73%;
-	right: 30px;
+	padding:8px;	
 	top: 115px;
 	z-index:4;
+	width: 356px;
+	height: 73%;
 	-moz-border-radius:8px 8px 0 0;
 	-webkit-border-radius:8px 8px 0 0;
 	border-radius: 8px 8px 0 0;

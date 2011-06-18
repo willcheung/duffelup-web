@@ -1,4 +1,4 @@
-<li id="list_0_<%= event.id %>" <% if @users.include?(current_user) %> class="sortable" <% end %>>
+<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="checkin">
 		<div class="idea-actions">
 			<% if @users.include?(current_user) %>

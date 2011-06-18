@@ -196,7 +196,7 @@ module EventsHelper
   end
   
   def sortable_tile
-    if @users.include?(current_user)
+    if @users.include?(current_user) and params[:view] != "itinerary"
       return true
     else
       return false

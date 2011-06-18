@@ -15,7 +15,7 @@
 	</div>
 </div>
 
-<div id="event_details">
+<div id="event_details" style="right: 40px;">
 	<% unless @itinerary.flatten.first.nil? %>
 	<script type="text/javascript"> 
 		// highlight first element
@@ -25,12 +25,6 @@
 	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
 	<% end %>
 </div>
-
-<!--
-<div id="comments_wrapper">
-	<%= render :partial => "comments/trip_comments" %>
-</div>
--->
 
 <div id="itinerary-header" class="clearfix">
 	<%= render :partial => 'trips/itinerary_header' %>
@@ -59,4 +53,20 @@
 	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
 		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger Map &raquo;</a></div>
 	<div id="board_gmap" class="corkboard" style="display:block;width:222px;height:170px;margin:3px 8px;"></div>
+</div>
+
+
+<div id="footer-promotions" class="clearfix" onmouseover="<%= remote_function(:loading => "$('deals-spinner').show();", :complete => "$('deals-spinner').hide();", :url => { :controller => :trips, :action => :get_deals, :permalink => @trip.permalink }) %>;this.onmouseover=null;">
+	<div class="title">
+		<% if !@city[0].nil? %>
+		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %>.
+		<% else %>
+		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals.
+		<% end %>
+		<span id="deals-spinner" style="display:none;"><img style="vertical-align:middle;margin-left:15px" src="/images/ajax-loader-drk-bg.gif">
+	</div>
+	<ul class="deals">
+		<div id="deals_feed"></div>
+		<li style="float:right;font-size:11px;color:#888;margin-right:30px;position:absolute;bottom:5px;right:10px;">*Deals by BookingBuddy. Taxes, fees not included.</li>
+	</ul>
 </div>

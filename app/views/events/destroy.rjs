@@ -1,4 +1,4 @@
-page.visual_effect(:fade, "event_#{@event.id}", :duration => 0.6)
+page.visual_effect(:fade, "list_0_#{@event.id}", :duration => 0.6)
 page.delay 0.5 do
 page.replace_html('board_events', :partial => 'events/board_events')
 page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
