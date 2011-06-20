@@ -15,6 +15,16 @@
 	      var ideas_to_map = <%= @ideas_to_map.to_json %>;
 	    </script>
 	  	<%- end -%>
+	
+		<script type="text/javascript">
+			Element.observe(window, 'load', function(e)
+			{
+			  var publishedSlida = new Effect.Slida('slida', { 
+					offLabel: 	'Guest View&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', 
+					onLabel: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sortable'
+				});
+			});
+		</script>
 		
 		<meta name="description" content="<%= @meta_description %>" />
 		<link rel="image_src" href="<%= @link %>" />
@@ -218,9 +228,20 @@
 		
 		<script type="text/javascript">
 		var addthis_config = {
-		    services_exclude: "print,favorites,friendster,live,technorati,myspace,yahoomail,google,blogger"
+		    services_exclude: "print,favorites,friendster,live,technorati,myspace,yahoomail,google,blogger,digg,stumbleupon,delicious,reddit,email"
 		}
 		</script>
+		
+		<script type="text/javascript">
+                var isExtended = 0;
+        
+                function slidingSideBarinit(){
+                        Event.observe('sliding-sideBarTab', 'click', slideSideBar, true);
+                        Event.observe('close-sideBar', 'click', slideSideBar, true);
+                }
+
+                Event.observe(window, 'load', slidingSideBarinit, true);
+        </script>
 		
 		<script type="text/javascript"> 
 		  function collapseAll(objs) {

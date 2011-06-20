@@ -1,6 +1,16 @@
 <div id="content">
 	<div id="board_events">
-		<div class="divider"><h2>My Ideas & Notes</h2></div>
+		<div class="divider clearfix"><h2 style="float:left">My Ideas & Notes</h2>
+			<div id="slider-wrapper">
+				<span id="caption">Slide to toggle<big>&rarr;</big></span>
+				<form id="slida" action="/trips/<%=@trip.permalink%>?view=itinerary">
+					<fieldset>
+						<input type="checkbox" name="state" checked="checked"/><label>Sortable</label>
+						<button type="submit">Submit</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
 		<%= render :partial => 'events/board_events' %>
 		
 		<% unless true or (@trip.start_date.nil? or @trip.end_date.nil?) %>
@@ -17,11 +27,6 @@
 
 <div id="event_details" style="right: 40px;">
 	<% unless @itinerary.flatten.first.nil? %>
-	<script type="text/javascript"> 
-		// highlight first element
-	  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
-	  	last_highlighted_element.className += ' highlighted';
-	</script>
 	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
 	<% end %>
 </div>
@@ -49,6 +54,12 @@
         
 </div>
 
+<script type="text/javascript"> 
+	// highlight first element
+  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
+  	last_highlighted_element.className += ' highlighted';
+</script>
+
 <div id="map-preview">
 	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
 		<a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger Map &raquo;</a></div>
@@ -69,4 +80,14 @@
 		<div id="deals_feed"></div>
 		<li style="float:right;font-size:11px;color:#888;margin-right:30px;position:absolute;bottom:5px;right:10px;">*Deals by BookingBuddy. Taxes, fees not included.</li>
 	</ul>
+</div>
+
+<div id="sliding-sideBar">
+	<a href="#" onclick="return false;" id="sliding-sideBarTab"><img src="/images/slide-button.png" alt="Tips & comments" title="Tips & comments"/></a>
+
+	<div id="sliding-sideBarContents" style="display:none;">
+	        <div style="float:right"><a href="#" onclick="return false;" id="close-sideBar"><img src="/images/icon-close-white.png"/></a></div>
+
+	        <%= render :partial => "comments/trip_comments"%>
+	</div>
 </div>
