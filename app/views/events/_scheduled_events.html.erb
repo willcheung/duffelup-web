@@ -7,7 +7,7 @@
 
 	<% for event in @itinerary[day+1] %>
 		
-		<li <% if @users.include?(current_user) %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+		<li <% if @users.include?(current_user) and params[:view] != "map" %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
 		
 		<%- if event.eventable_type == "Foodanddrink" -%>
 		<span class="foodanddrink">
@@ -46,7 +46,9 @@
 		<% end %>
 		
 		<em class="list-actions">
+		<% if params[:view] != "map" %>
 		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-expand"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>
+		<% end %>
 		
 		<%- unless event.eventable_type == "CheckIn" -%>
 		<%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, nil, @trip.permalink) %></span><%- end -%>
@@ -78,17 +80,8 @@
 
 			
 		<% end %>
-				
-		<span class="idea-delete" style="display: none;"><%= link_to_remote "[x]", :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
-				:confirm => "Are you sure you want to delete #{event.title}?", 
-				:method => :delete %></span>
 		
 		</em>
-		
-		<!-- event details here -->
-		<div id="<%= event.id %>_details" style="display: none;">
-			<%= render :partial => '/events/event_details', :locals => { :event_detail => event, :trip_permalink => @trip.permalink } %>
-		</div>
 		</span>
 		</li>
 	<% end %> <!-- end of for event loop -->
