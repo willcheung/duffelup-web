@@ -22,6 +22,7 @@
 		  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
 		  	last_highlighted_element.className += ' highlighted';
 		</script>
+		
         <%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
         <% end %>
 </div>
