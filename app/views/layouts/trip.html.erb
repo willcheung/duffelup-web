@@ -178,7 +178,7 @@
 				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => 'map' } %>
 			<% elsif params[:view] == "itinerary" %>
 				<ul id="add-ideas">
-				<li class="guest">This is how other members see your duffel<%- if !@trip.is_public? -%> (but, your duffel is private)<%- end -%>. </li>
+				<li class="guest">This is how other members see your duffel<%- if !@trip.is_public? -%> (but, your duffel is private)<%- end -%>. <%= link_to 'Back to planning &rarr;', trip_path(:id => @trip) %></li>
 				</ul>
 				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => nil } %>
 			<% else %>

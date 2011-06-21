@@ -1,16 +1,6 @@
 <div id="content">
 	<div id="board_events">
-		<div class="divider clearfix"><h2 style="float:left">My Ideas & Notes</h2>
-			<div id="slider-wrapper">
-				<span id="caption">Slide to toggle<big>&rarr;</big></span>
-				<form id="slida" action="/trips/<%=@trip.permalink%>?view=itinerary">
-					<fieldset>
-						<input type="checkbox" name="state" checked="checked"/><label>Sortable</label>
-						<button type="submit">Submit</button>
-					</fieldset>
-				</form>
-			</div>
-		</div>
+		<div class="divider clearfix"><h2 style="float:left">My Ideas & Notes</h2></div>
 		<%= render :partial => 'events/board_events' %>
 		
 		<% unless true or (@trip.start_date.nil? or @trip.end_date.nil?) %>
