@@ -15,12 +15,6 @@
 	</div>
 </div>
 
-<div id="event_details" style="right: 40px;">
-	<% unless @itinerary.flatten.first.nil? %>
-	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
-	<% end %>
-</div>
-
 <div id="itinerary-header" class="clearfix">
 	<%= render :partial => 'trips/itinerary_header' %>
 </div>
@@ -44,11 +38,17 @@
         
 </div>
 
-<script type="text/javascript"> 
-	// highlight first element
-  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
-  	last_highlighted_element.className += ' highlighted';
-</script>
+<div id="event_details" style="right: 40px;">
+	<% unless @itinerary.flatten.first.nil? %>
+	<script type="text/javascript"> 
+		// highlight first element
+	  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
+	  	last_highlighted_element.className += ' highlighted';
+	</script>
+	
+	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
+	<% end %>
+</div>
 
 <div id="map-preview">
 	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
