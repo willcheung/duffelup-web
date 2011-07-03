@@ -272,6 +272,8 @@ class EventsController < ApplicationController
       @event = Event.find_check_ins(@trip.id, e.id).first
     end
     
+    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @event.nil?
+    
     respond_to do |format|
       format.html
       format.js 
