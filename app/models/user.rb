@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   CATEGORY_BUSINESS = 3
   
   # User Default Bandwidth
-  UPLOAD_LIMIT = 30000000 # 30 MB
+  UPLOAD_LIMIT = 50000000 # 50 MB
   
   # Email Settings
   EMAIL_NEWSLETTER = { "bit_position" => 0, "value" => 1 }

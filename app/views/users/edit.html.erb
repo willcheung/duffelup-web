@@ -81,7 +81,7 @@ Upload new profile photo:<br/>
 	<div class="progress-container">       
 	    <div style="width:<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 0) %>;"></div>
 	</div>
-	<span style="position:relative;bottom:7px;">&nbsp;<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 1) %> of 30 MB</span>   
+	<span style="position:relative;bottom:7px;">&nbsp;<%= number_to_percentage((@user.bandwidth.to_f / User::UPLOAD_LIMIT)*100, :precision => 1) %> of 50 MB</span>   
 </div>
 
 <div class="form-group">
