@@ -24,12 +24,14 @@
 		<% elsif params[:from_map] == "true" %>
 		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'add-idea', 'google-map');" %>
 		<% else %>
-		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>
+			<% unless @trips.empty? %>
+				<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>
+			<% else %>
+				<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');", :disabled => true %>
+			<% end %>
 		<% end %>
 		
-		<% if params[:v] == "2" %>
 		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="window.location.href='/close.html'">
-		<% end %>
 		
 		<% unless params[:local] == "true" or @trips.empty? %>
 			<span class="right" style="margin-top:4px;font-size:0.9em">or <a target="_blank" href="/trips/<%= @trips[0].permalink %>">see my clipped notes &raquo;</a></span>

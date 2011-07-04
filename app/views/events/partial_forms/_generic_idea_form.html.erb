@@ -88,9 +88,9 @@ function onDropDownChange() {
 											  :type => params[:type]) %></span>
 	
 	<% else %>
-		<span>Currently not planning any trips.  
+		<span style="font-weight:bold">No active duffel.  
 		<% unless params[:local] == "true" %>	
-			Please  <%= link_to"Create a New Duffel", new_trip_url(:back => "research_page", 
+			Please  <%= link_to"create a duffel", new_trip_url(:back => "research_page", 
 											  :idea_website => params[:idea_website], 
 											  :event_title => params[:event_title],
 											  :jump => params[:jump],
@@ -100,8 +100,9 @@ function onDropDownChange() {
 											  :idea_phone => params[:idea_phone],
 											  :idea_address => params[:idea_address],
 											  :selection => params[:selection],
-											  :type => params[:type]) %>.
+											  :type => params[:type]), :style => "color:#F20063" %>.
 		<% end %>
+		</span>
 	<% end %>
 
 	<div style="float:left;margin-top:2px">
