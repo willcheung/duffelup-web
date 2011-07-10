@@ -1,5 +1,3 @@
-<h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
-
 <div id="following" class="following" style="display:none;">
 	<ul class="popular">
 		<li><!--<a class="city" href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a>-->New York &ndash; 
@@ -43,11 +41,11 @@
 
 <div class="clearfix"></div>
 
-<div id="travel-deals">
+<div id="travel-deals" style="border: 1px solid #eee; padding: 5px">
 	
 	<% current_user.cities.each_with_index do |c,i| %>
-		<h3 style="margin-top:12px;"><%= c.city %>
-		 <small>- <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard?tab=deals"), :method => :delete %></small>
+		<h3 <% unless i==0 %> style="margin-top:15px;" <% end %>><%= c.city %>
+		 <small>- <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard"), :method => :delete %></small>
 		</h3>
 		
 		<ul class="deals">

@@ -138,45 +138,49 @@ class UsersController < ApplicationController
       @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page])
       @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
-    
+  end
+  
+  def get_deals
     #######################################
     # Deals Tab - Load deals from BookingBuddy and other srcs
     #######################################
-    #if params[:tab]=="deals"
-      @hotel_feed = Array.new
-      
-      rec_cities = City.find([609,610,672,1530])
-      @san_francisco = rec_cities[0]
-      @new_york = rec_cities[1]
-      @los_angeles = rec_cities[2]
-      @las_vegas = rec_cities[3]
-      
-      remote_ip = request.remote_ip
-      onclick_analytics_h = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'hotel');"
-      onclick_analytics_p = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'package');"
-      onclick_analytics_f = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'flight');"
-      
-      current_user.cities.each_with_index do |c,i|
-        ##### Deals #######
-        h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=5&placement=dashboard&multiple=1&auto_backfill=0&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
-        h_request_url = h_request_url + "&test=1" if "production" != RAILS_ENV
-        hotel_doc = WebApp.consume_xml_from_url(h_request_url)
-      
-        @hotel_feed[i] = ""
-        (hotel_doc/:Deal).each_with_index do |deal,index|
-          if index%2 == 0
-            @hotel_feed[i] = @hotel_feed[i] + "<li class=\"even\" onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_h}return false;\">"
-          else
-            @hotel_feed[i] = @hotel_feed[i] + "<li onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_h}return false;\">"
-          end
-          @hotel_feed[i] = @hotel_feed[i] + "<span class=\"price\"><a href=\"#\">#{deal.at('Price').innerHTML}</a></span>"
-          @hotel_feed[i] = @hotel_feed[i] + "<a href=\"#\">#{deal.at('Title').innerHTML}</a>"
-          @hotel_feed[i] = @hotel_feed[i] + "<span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
-          @hotel_feed[i] = @hotel_feed[i] + "</li>"
-        end
-      end 
-    #end # if params[:tab]=="deals"
 
+    @hotel_feed = Array.new
+    
+    rec_cities = City.find([609,610,672,1530])
+    @san_francisco = rec_cities[0]
+    @new_york = rec_cities[1]
+    @los_angeles = rec_cities[2]
+    @las_vegas = rec_cities[3]
+    
+    remote_ip = request.remote_ip
+    onclick_analytics_h = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'hotel');"
+    onclick_analytics_p = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'package');"
+    onclick_analytics_f = "pageTracker._trackEvent('BookingBuddy', 'click_from_dashboard', 'flight');"
+    
+    current_user.cities.each_with_index do |c,i|
+      ##### Deals #######
+      h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=5&placement=dashboard&multiple=1&auto_backfill=0&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
+      h_request_url = h_request_url + "&test=1" if "production" != RAILS_ENV
+      hotel_doc = WebApp.consume_xml_from_url(h_request_url)
+    
+      @hotel_feed[i] = ""
+      (hotel_doc/:Deal).each_with_index do |deal,index|
+        if index%2 == 0
+          @hotel_feed[i] = @hotel_feed[i] + "<li class=\"even\" onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_h}return false;\">"
+        else
+          @hotel_feed[i] = @hotel_feed[i] + "<li onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_h}return false;\">"
+        end
+        @hotel_feed[i] = @hotel_feed[i] + "<span class=\"price\"><a href=\"#\">#{deal.at('Price').innerHTML}</a></span>"
+        @hotel_feed[i] = @hotel_feed[i] + "<a href=\"#\">#{deal.at('Title').innerHTML}</a>"
+        @hotel_feed[i] = @hotel_feed[i] + "<span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
+        @hotel_feed[i] = @hotel_feed[i] + "</li>"
+      end
+    end 
+    
+    respond_to do |format|
+      format.js { render :partial => "/users/dashboard_partials/travel_deals" }
+    end
   end
   
   def more_news_feed
@@ -268,6 +272,9 @@ class UsersController < ApplicationController
           # Create a new duffel as "research duffel"
           Trip.create_duffel_for_new_user({ :title => "#{@user.username}'s first duffel", :start_date => nil,
                                             :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, current_user)
+      
+          # Add a city to follow its travel deals
+          @user.cities << City.find_by_id(609)
       
           # Do some more stuff if user is invited by a friend or to a duffel
           if !@user.beta_invitation.nil?
@@ -505,6 +512,9 @@ class UsersController < ApplicationController
       # Create a new duffel as "research duffel"
       Trip.create_duffel_for_new_user({ :title => "#{fb_user.username}'s first duffel", :start_date => nil,
                                         :end_date => nil, :is_public => 1, :destination => "#{fb_user.home_city}" }, fb_user)
+      
+      # Add a city to follow its travel deals
+      fb_user.cities << City.find_by_id(609)
       
       # WebApp.post_stream_on_fb(fb_user.fb_user_id, 
       #                         "http://duffelup.com",
