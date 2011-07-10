@@ -102,8 +102,8 @@
       </ul>
     </div> <!-- #friends -->
 
+	<h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
 	<div id="travelDeals">
-		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
 	</div>
 
 	<div style="margin: 20px 0">
@@ -239,6 +239,12 @@
   </div> <!-- #mainContent -->
 
 </div> <!-- #primary-inner -->
+
+<script type="text/javascript"> 
+  Event.observe(window, 'load', function() {
+    <%= remote_function(:update => "travelDeals", :url => "/users/get_deals") %>
+  });
+</script>
 
 <% if false #if params[:new] == "1" %>
 <script type="text/javascript">

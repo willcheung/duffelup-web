@@ -107,6 +107,9 @@ class SessionsController < ApplicationController
       Trip.create_duffel_for_new_user({ :title => "#{current_user.username}'s first duffel", :start_date => nil,
                                         :end_date => nil, :is_public => 1, :destination => "#{current_user.home_city}" }, current_user)
       
+      # Add a city to follow its travel deals
+      current_user.cities << City.find_by_id(609)
+      
       #twitter_client.update("I'm checking out @duffelup's Visual Trip Planner. http://duffelup.com", {})
       
       redirect_to(steptwo_path) and return
