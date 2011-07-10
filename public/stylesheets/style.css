@@ -490,9 +490,8 @@ text-shadow:0 1px 1px #0060AB;
 }
 
 #friends li img {
-	width:40px;
-	height:40px;
-	margin:1px;
+	width:24px;
+	height:24px;
 	background:#eee;
 }
 
@@ -549,6 +548,10 @@ text-shadow:0 1px 1px #0060AB;
 
 #sidebar .section {
 	margin: 0 0 20px 0;
+}
+
+#sidebar-profile h3 {
+	font-size: 14px;
 }
 
 	
@@ -2788,34 +2791,13 @@ input.big-button {
 	text-shadow:1px 1px 0 #fafafa;
 }
 
-#mainContent .following ul.popular li {
-	line-height: 20px;
+#sidebar-profile .following ul.popular li {
+	line-height: 16px;
+	color: #555;
 }
 
 #mainContent .following a.city {
 	color:#444;
-}
-
-#mainContent #deals-col1 {
-	float: left;
-	width: 180px;
-	margin: 0 0 10px 0;
-}
-
-#mainContent #deals-col2 {
-	float: left;
-	width: 320px;
-	margin: 0 10px 10px 0;
-}
-
-#mainContent #deals-col2 .popular li {
-	float: left;
-	width: 150px;
-	margin-right: 10px;
-}
-
-#mainContent #deals-col2 input {
-	margin: 0;
 }
 
 #mainContent #dashboard-header #active-duffel-reminder #photo-container {
@@ -2983,6 +2965,7 @@ input.big-button {
 }
 
 #simple #newsfeed,
+#simple #travelDeals,
 #simple #updates,
 #simple #exploreDestinations,
 #simple #myDuffels,
@@ -2995,6 +2978,7 @@ input.big-button {
 }
 
 #simple #newsfeed,
+#simple #travelDeals,
 #simple #exploreDestinations,
 #simple #friends,
 #simple #userStats,
@@ -3005,6 +2989,7 @@ input.big-button {
 }
 
 #simple #newsfeed,
+#simple #travelDeals,
 #simple #updates,
 #simple #exploreDestinations,
 #simple #myDuffels {
@@ -3137,8 +3122,8 @@ input.big-button {
 }
 
 #simple #featuredUser .avatar img {
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 }
 
 #simple #featuredUser .profile,
@@ -3184,8 +3169,8 @@ input.big-button {
 }
 
 #simple #featuredUser .profile em a{
-  font-size: 14px;
-	color: #555;
+  font-size: 13px;
+  color: #555;
 }
 
 #simple #userStats {
@@ -3214,24 +3199,11 @@ input.big-button {
 #simple #newsfeed h2,
 #simple #updates h2,
 #simple #exploreDestinations h2,
-#simple #travel-deals h2,
 #simple #myDuffels h2 {
   font: 600 24px/29px arial, helvetica, sans-serif;
   font-family: arial, helvetica, sans-serif;
 	letter-spacing: 0;
 	margin-top: 0;
-}
-
-#simple #travel-deals h2 {
-	margin-top: 10px;
-	font-size: 22px;
-}
-
-#simple #travel-deals h3 {
-	font: 700 17px/22px arial, helvetica, sans-serif;
-	margin: 10px 0;
-	color: #444;
-	padding: 2px 0 2px 50px;
 }
 
 #simple #travel-deals h3.hotel {
@@ -3259,20 +3231,18 @@ input.big-button {
 }
 
 #simple #travel-deals p.footnote {
-	font-size: 0.9em;
+	font-size: 0.8em;
 	color: #999;
-	margin: 20px;
 	float: right;
 }
 
 #simple #travel-deals li {
-	height: 34px;
-	padding: 10px 8px 2px 0;
+	padding: 5px 3px 3px 3px;
 	cursor:pointer;
 }
 
 #simple #travel-deals li.even {
-	background-color: #eee;
+	background-color: #f3f3f3;
 }
 
 #simple #travel-deals li:hover {
@@ -3280,22 +3250,23 @@ input.big-button {
 }
 
 #simple #travel-deals ul.deals span.price a{
-	width: 65px;
+	width: 30px;
 	float: left;
 	color: #007BB3;
 	font-weight: bold;
-	margin-left: 20px;
+	margin-left: 5px;
+	margin-top: 1px;
 	text-decoration: none;
-	font-size: 15px;
+	font-size: 12px;
 }
 
 #simple #travel-deals ul.deals li a {
 	margin-right: 10px;
-	font-size: 14px;
+	font-size: 0.9em;
 }
 
 #simple #travel-deals ul.deals span.advertiser {
-	font-size: 0.9em;
+	font-size: 0.8em;
 	color: #9a9a9a;
 	text-decoration: none;
 }

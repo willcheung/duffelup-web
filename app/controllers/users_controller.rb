@@ -142,7 +142,7 @@ class UsersController < ApplicationController
     #######################################
     # Deals Tab - Load deals from BookingBuddy and other srcs
     #######################################
-    if params[:tab]=="deals"
+    #if params[:tab]=="deals"
       @hotel_feed = Array.new
       
       rec_cities = City.find([609,610,672,1530])
@@ -158,13 +158,12 @@ class UsersController < ApplicationController
       
       current_user.cities.each_with_index do |c,i|
         ##### Deals #######
-        h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=25&placement=dashboard&multiple=1&auto_backfill=0&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
+        h_request_url = "http://deals.bookingbuddy.com/delivery/deliver?ip_address=#{remote_ip}&publisher_id=92&no_ads=5&placement=dashboard&multiple=1&auto_backfill=0&lat=#{c.latitude}&lon=#{c.longitude}&radius=30"
         h_request_url = h_request_url + "&test=1" if "production" != RAILS_ENV
         hotel_doc = WebApp.consume_xml_from_url(h_request_url)
       
         @hotel_feed[i] = ""
         (hotel_doc/:Deal).each_with_index do |deal,index|
-          @hotel_feed[i] = @hotel_feed[i] + "<a class='clip-it' href='#' alt='Clip this deal to Duffel' title='Clip this deal to Duffel' onclick=\"javascript: (function(){EN_CLIP_HOST='http://duffelup.com';CLIP_URL='#{deal.at('URL').innerHTML}';CLIP_TITLE='#{deal.at('Price').innerHTML} - #{deal.at('Title').innerHTML}';CLIP_NOTES='Deal posted on #{deal.at('PostedDate').innerHTML}. Price subject to change after this date.';CLIP_ADDRESS='';NO_IMG='checked';CLIP_TYPE='Hotel';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})(); return false;\">Add to Duffel</a>"
           if index%2 == 0
             @hotel_feed[i] = @hotel_feed[i] + "<li class=\"even\" onclick=\"window.open('#{deal.at('URL').innerHTML}');#{onclick_analytics_h}return false;\">"
           else
@@ -172,11 +171,11 @@ class UsersController < ApplicationController
           end
           @hotel_feed[i] = @hotel_feed[i] + "<span class=\"price\"><a href=\"#\">#{deal.at('Price').innerHTML}</a></span>"
           @hotel_feed[i] = @hotel_feed[i] + "<a href=\"#\">#{deal.at('Title').innerHTML}</a>"
-          @hotel_feed[i] = @hotel_feed[i] + "<br/><span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
+          @hotel_feed[i] = @hotel_feed[i] + "<span class=\"advertiser\">#{deal.at('AdvertiserName').innerHTML}</span>"
           @hotel_feed[i] = @hotel_feed[i] + "</li>"
         end
       end 
-    end # if params[:tab]=="deals"
+    #end # if params[:tab]=="deals"
 
   end
   
