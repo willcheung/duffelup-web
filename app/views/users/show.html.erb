@@ -60,14 +60,14 @@
       </div>
       <div class="profile">
         <em><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><%=truncate(@duffel_of_the_month.trip.title, :length => 28)%></a></em>
-        <cite><%= @duffel_of_the_month.trip.destination.split(";")[0] %></cite>
+        <cite style="font-size:12px;color:#888"><%= @duffel_of_the_month.trip.destination.split(";")[0] %></cite>
 		<cite style="margin-top:5px">
 			<small><span class="cf-favorite" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.favorites.size, "Fave")%></span>
 			<span class="cf-comment" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.comments.size, "Comment")%></span> </small>
 		</cite>
       </div>
       <div class="description">
-		<span>
+		<span style="font-size:12px; padding-top:5px">
  
 		Organized by <a href="/<%= @duffel_of_the_month.trip.admins[0].username %>"> <%= @duffel_of_the_month.trip.admins[0].username %></a>
 		<% if @duffel_of_the_month.trip.users.count > 1 %>
@@ -75,7 +75,7 @@
 		<% end %>
 
 		</span>
-		<span><a style="color:#F20063" href="/featured">See more featured duffels &rarr;</a></span>
+		<span><a style="color:#F20063" href="/featured">View more &raquo;</a></span>
 
       </div>
     </div> <!-- #featuredUser -->
@@ -92,15 +92,19 @@
       <h2>Friends</h2>
       <ul>
 		<% @friends.each_with_index do |f,i| %>
-			<% break if i== 15 %>
+			<% break if i== 16 %>
 			<dl><dd><li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li></dl></dd>
 		<% end %>
-		<% if @friends.size >= 15 %>
+		<% if @friends.size >= 16 %>
 			<div class="clearfix"></div>
-			<%= link_to "[see all]", :controller => "users", :action => "search", :q => "friend:#{current_user.username}", :class => "t11" %>
+			<%= link_to "View all &raquo;", {:controller => "users", :action => "search", :q => "friend:#{current_user.username}"}, :style => "margin-top:5px" %>
 		<% end %>
       </ul>
     </div> <!-- #friends -->
+
+	<div id="travelDeals">
+		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
+	</div>
 
 	<div style="margin: 20px 0">
 		<a href="http://itunes.apple.com/app/id371064516" target="_blank" alt="Duffel Up and Go iPhone App" title="Duffel Up and Go iPhone App"><img src="/images/iphone_banner.jpg" style="width:210px"></a>
@@ -152,9 +156,9 @@
 			<li id="tb-duffels" <% if params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
 			</li>
-			<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
+			<!--<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
 				<a href="#">My Travel Deals</a>
-			</li>
+			</li>-->
 			<span id="loading-spinner" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
 			<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 				<li onclick="location.search='tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>

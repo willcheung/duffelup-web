@@ -1,64 +1,44 @@
-<% if current_user.cities.empty? %>
-	<p style="padding:20px;text-align:center"><big>Follow a city below to see its <strong>Weekly Top 25</strong> travel deals.</big></p>
-	<br/>
-<% end %>
+<h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
 
-<div id="deals-col2" class="following">
-	
-	<h2>Follow our popular cities for travel deals:</h2>
+<div id="following" class="following" style="display:none;">
 	<ul class="popular">
-		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a> &ndash; 
+		<li><!--<a class="city" href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a>-->New York &ndash; 
 		<% if current_user.cities.include?(@new_york) %>
-			<%= link_to "Unfollow", subscription_path(:city => @new_york, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+			<%= link_to "Unfollow", subscription_path(:city => @new_york, :redirect => "/user/dashboard"), :method => :delete %>
 		<% else %>
-			<%= link_to "Follow", subscription_path(:city => @new_york, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+			<%= link_to "Follow", subscription_path(:city => @new_york, :redirect => "/user/dashboard"), :method => :post %>
 		<% end %>
 		</li>
-		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a> &ndash; 
+		<li><!--<a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a>-->San Francisco &ndash; 
 			<% if current_user.cities.include?(@san_francisco) %>
-				<%= link_to "Unfollow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+				<%= link_to "Unfollow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard"), :method => :delete %>
 			<% else %>
-				<%= link_to "Follow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+				<%= link_to "Follow", subscription_path(:city => @san_francisco, :redirect => "/user/dashboard"), :method => :post %>
 			<% end %>
 		</li>
-		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a> &ndash; 
+		<li><!--<a class="city" href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a>-->Las Vegas &ndash; 
 			<% if current_user.cities.include?(@las_vegas) %>
-				<%= link_to "Unfollow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+				<%= link_to "Unfollow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard"), :method => :delete %>
 			<% else %>
-				<%= link_to "Follow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+				<%= link_to "Follow", subscription_path(:city => @las_vegas, :redirect => "/user/dashboard"), :method => :post %>
 			<% end %>
 		</li>
-		<li><a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a> &ndash; 
+		<li><!--<a class="city" href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a>-->Los Angeles &ndash; 
 			<% if current_user.cities.include?(@los_angeles) %>
-				<%= link_to "Unfollow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard?tab=deals"), :method => :delete %>
+				<%= link_to "Unfollow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard"), :method => :delete %>
 			<% else %>
-				<%= link_to "Follow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard?tab=deals"), :method => :post %>
+				<%= link_to "Follow", subscription_path(:city => @los_angeles, :redirect => "/user/dashboard"), :method => :post %>
 			<% end %>
 		</li>
 	</ul>
 	
 	<div class="clearfix"></div>
 	
-	<h2 style="margin-top:7px;">Or search one:</h2>
-	<% form_for(:subscription, :html => {:id => "search_form"}, :url => subscription_url(:redirect => "/user/dashboard?tab=deals"), :method => :post) do |f| %>
-		<%= text_field_with_auto_complete :subscription, :city, { :class => "search" }, { :frequency => ".1", :min_chars => "3" } %>
-		<%= submit_tag "Follow", :class => "submit" %>
+	<h3 style="margin-top:7px;">Or search a city:</h3>
+	<% form_for(:subscription, :html => {:id => "search_form"}, :url => subscription_url(:redirect => "/user/dashboard"), :method => :post) do |f| %>
+		<%= text_field_with_auto_complete :subscription, :city, { :class => "search", :style => "margin-bottom: 5px;" }, { :frequency => ".1", :min_chars => "3" } %>
+		<%= submit_tag "Follow", :class => "submit", :style => "padding: 3px 8px;margin-bottom:8px;" %> 
 	<% end %>
-</div>
-
-<div id="deals-col1" class="following">
-	<h2>Places you're following:</h2>
-	<ul class="popular">
-	<% current_user.cities.each do |c| %>
-		<li>
-			<% if c.country.country_code == "US" or c.country.country_code == "CA" %>
-			<%= link_to c.city, na_city_url(:country_code => "#{c.country.country_code}", :region => "#{c.region}", :city => "#{c.city}"), :class => 'city' %> 
-			<% else %>
-			<%= link_to c.city, city_url(:country_code => "#{c.country.country_code}", :city => "#{c.city}"), :class => 'city' %>
-			<% end %>
-			&ndash; <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard?tab=deals"), :method => :delete %></li>
-	<% end %>
-	</ul>
 </div>
 
 <div class="clearfix"></div>
@@ -66,14 +46,15 @@
 <div id="travel-deals">
 	
 	<% current_user.cities.each_with_index do |c,i| %>
-		<h2>Top 25 Deals in <%= c.city %></h2>
+		<h3 style="margin-top:12px;"><%= c.city %>
+		 <small>- <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard?tab=deals"), :method => :delete %></small>
+		</h3>
 		
 		<ul class="deals">
 		<%= @hotel_feed[i] %>
 		</ul>
-		
-		<p class="footnote">*Deals by BookingBuddy<br/>
-		**Taxes, fees not included</p>
 	<% end %>
+	
+	<p class="footnote">*Deals by BookingBuddy</p>
 
 </div>
