@@ -7,5 +7,5 @@
 </ul>
 
 <% if @friends.size >= 16 %>
-	<%= link_to "View all &raquo;", {:controller => "users", :action => "search", :q => "friend:#{current_user.username}"} %>
+	<%= link_to "View all &raquo;", {:controller => "users", :action => "search", :q => "friend:#{@user.username}"} %>
 <% end %>
