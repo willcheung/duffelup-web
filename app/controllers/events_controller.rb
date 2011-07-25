@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  layout "ibox_ideas"
+  layout "ibox_ideas", :except => 'show'
   
   before_filter :protect, :only => [:new, :edit, :destroy, :order_itinerary]
   before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache, :new]
@@ -275,7 +275,7 @@ class EventsController < ApplicationController
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @event.nil?
     
     respond_to do |format|
-      format.html
+      format.html { render :layout => 'simple' }
       format.js 
     end
 

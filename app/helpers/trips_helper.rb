@@ -126,7 +126,7 @@ module TripsHelper
       s = s + "&markers=size:small|color:gray"
     end
     
-    s = s + "|#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}&zoom=14&size="+size+"&maptype=road&sensor=false&style=feature:landscape%7Celement:geometry%7Chue:0xf0eade%7csaturation:8&style=feature:road|element:geometry|hue:0xf0d59f|saturation:34|lightness:30"
+    s = s + "|#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}&zoom=15&size="+size+"&maptype=road&sensor=false&style=feature:landscape%7Celement:geometry%7Chue:0xf0eade%7csaturation:8&style=feature:road|element:geometry|hue:0xf0d59f|saturation:34|lightness:30"
     
     return s
   end

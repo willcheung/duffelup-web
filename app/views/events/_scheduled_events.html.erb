@@ -47,7 +47,10 @@
 		
 		<em class="list-actions">
 		<% if params[:view] != "map" %>
-		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-expand"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>
+		<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>
+		<% else %>
+		<span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
+		<span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>
 		<% end %>
 		
 		<%- unless event.eventable_type == "CheckIn" -%>
@@ -82,6 +85,11 @@
 		<% end %>
 		
 		</em>
+		
+		<!-- event details here -->
+           <div id="<%= event.id %>_details" style="display: none;">
+                   <%= render :partial => '/events/event_details', :locals => { :event_detail => event, :trip_permalink => @trip.permalink } %>
+           </div>
 		</span>
 		</li>
 	<% end %> <!-- end of for event loop -->

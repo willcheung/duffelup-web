@@ -1028,10 +1028,19 @@ span.collaborator img {
     padding: 0 !important;
 }
 
-#itinerary li em.list-actions span.idea-expand a {
+#itinerary li em.list-actions span.idea-info a {
    	text-indent: -5000px;
     background: #fff url("../images/icon-info.png") no-repeat 6px 5px;
    	width: 20px;
+    height: 25px;
+    float: right;
+	margin-right: 5px;
+}
+
+#itinerary li em.list-actions span.idea-expand a {
+   	text-indent: -5000px;
+    background: #fff url('../images/trip/ico-list-actions.png') no-repeat 8px 7px;
+   	width: 25px;
     height: 25px;
     float: right;
 	margin-right: 5px;

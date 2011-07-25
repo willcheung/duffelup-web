@@ -1,7 +1,7 @@
 <h2><%= @event.title %></h2>
 <br/>
-<div style="max-height:380px; overflow:auto;">
-<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" %>
+<div>
+<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" or @event.eventable_type == "CheckIn" %>
 
 	<% if @event.photo? %>
 	<div class="event-photo-show">
@@ -9,10 +9,12 @@
 	</div>
 	<% end %>
 
-	<div id="form-details" <% if @event.photo? %>style="width:340px"<% end %>>
-	<%= (link_to h(@event.website), @event.website, :target => "_blank") unless @event.website.blank? %><br/>
-	<%= "<h3>Address</h3>" + content_tag('p', h(@event.address)) + "(" + map_link("map", @event.address) + ")" unless @event.address.blank? %>
-	<%= "<h3>Phone</h3>" + content_tag('p', h(@event.phone))  unless @event.phone.blank? %>
+	<div id="form-details">
+	<% unless @event.eventable_type == "CheckIn" %>
+		<%= (link_to h(@event.website), @event.website, :target => "_blank") unless @event.website.blank? %><br/>
+		<%= "<h3>Address</h3>" + content_tag('p', h(@event.address)) + "(" + map_link("map", @event.address) + ")" unless @event.address.blank? %>
+		<%= "<h3>Phone</h3>" + content_tag('p', h(@event.phone))  unless @event.phone.blank? %>
+	<% end %>
 	
 	<% if @event.note? %>
 		<h3>Notes</h3>
