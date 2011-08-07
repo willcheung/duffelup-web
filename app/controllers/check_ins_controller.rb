@@ -64,9 +64,9 @@ class CheckInsController < ApplicationController
         # publish stream on fb 
         #######################
         if current_user.facebook_user? and @check_in.is_public
-          attachment = WebApp.setup_fb_check_in_attachments(@check_in.event.title, trip_url(:id => @check_in.event.trip), @check_in.event.note, @check_in.event.photo.url(:thumb))
+          attachment = WebApp.setup_fb_check_in_attachments(@check_in.event.title, trip_idea_url(:permalink => @check_in.event.trip.permalink, :id => @check_in.event.id), @check_in.event.note, @check_in.event.photo.url(:thumb))
           WebApp.post_stream_on_fb(current_user.fb_user_id, 
-                                  trip_url(:id => @check_in.event.trip),
+                                  trip_idea_url(:permalink => @check_in.event.trip.permalink, :id => @check_in.event.id),
                                   @check_in.event.title,
                                   "See more photos",
                                   attachment)
@@ -76,7 +76,7 @@ class CheckInsController < ApplicationController
         # Twitter status update
         ########################
         if current_user.twitter_user? and @check_in.is_public
-          s_url = WebApp.shorten_url(trip_url(:id => @check_in.event.trip))
+          s_url = WebApp.shorten_url(trip_idea_url(:permalink => @check_in.event.trip.permalink, :id => @check_in.event.id))
           twitter_client.update("#{@check_in.event.title} at #{truncate(@check_in.event.trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
         end
         

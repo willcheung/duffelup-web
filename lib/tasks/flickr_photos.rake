@@ -1,4 +1,4 @@
-require 'flickr_fu'
+#require 'flickr_fu'
 
 namespace :flickr_photos do
     

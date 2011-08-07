@@ -274,8 +274,11 @@ class EventsController < ApplicationController
     
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @event.nil?
     
+    @author = User.find_by_username(@event.author)
+    @sub_title = "<a href='/trips'>Trips</a> &nbsp;&rsaquo;&nbsp; <a href='/trips/#{@trip.permalink}'>#{@trip.title}</a> &nbsp;&rsaquo;&nbsp; #{truncate(@event.title, :length => 40)}"
+    
     respond_to do |format|
-      format.html { render :layout => 'simple' }
+      format.html
       format.js 
     end
 

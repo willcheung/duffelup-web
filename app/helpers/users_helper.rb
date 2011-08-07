@@ -1,13 +1,13 @@
 module UsersHelper
-  def collaborator_thumbnail(user)
+  def collaborator_thumbnail(user, size=25)
     home_city = (user.home_city.nil? or user.home_city.blank?) ? "" : (" - " + user.home_city)
     
     if user.avatar.exists?
-      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"" + user.avatar.url(:thumb) + "\" width=\"25\" height=\"25\" />"
+      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"" + user.avatar.url(:thumb) + "\" width=\"" + size.to_s + "\" height=\"" + size.to_s + "\" />"
     elsif !user.avatar_file_name.nil?
-      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"" + user.avatar_file_name + "\" width=\"25\" height=\"25\" />"
+      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"" + user.avatar_file_name + "\" width=\"" + size.to_s + "\" height=\"" + size.to_s + "\" />"
     else
-      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"/images/icon-user.png\" width=\"25\" height=\"25\" />"
+      "<img alt=\"" + user.username + home_city + "\" title=\"" + user.username + home_city + "\" src=\"/images/icon-user.png\" width=\"" + size.to_s + "\" height=\"" + size.to_s + "\" />"
     end
   end
   
