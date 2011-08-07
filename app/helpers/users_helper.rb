@@ -1,5 +1,7 @@
 module UsersHelper
   def collaborator_thumbnail(user, size=25)
+    return if user.nil?
+    
     home_city = (user.home_city.nil? or user.home_city.blank?) ? "" : (" - " + user.home_city)
     
     if user.avatar.exists?

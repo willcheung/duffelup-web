@@ -44,12 +44,12 @@
 					<div id="call-to-action">
 						<div class="clearfix">
 							<div class="left" style="margin-right:10px">
-								<a href="/<%= @author.username %>">
+								<a href="/<%= @author.username unless @author.nil? %>">
 									<%= collaborator_thumbnail(@author, 80) %>
 								</a>
 							</div>
 							<div style="margin-bottom:10px" class="pod clearfix">
-								<a href="/<%= @author.username %>"><%= display_user_name(@author) %></a>
+								<a href="/<%= @author.username unless @author.nil? %>"><%= display_user_name(@author) %></a>
 								is using Duffel to plan trips and share travel pictures on the go. Turn your trip into a memory to keep forever.
 							</div>
 							<strong>Download Duffel</strong>
@@ -100,7 +100,7 @@
 					
 					<div style="margin: 15px 10px 0 0">
 						<div class="left" style="margin-right: 10px">
-							<a href="/<%= @author.username %>">
+							<a href="/<%= @author.username unless @author.nil? %>">
 								<%= collaborator_thumbnail(@author, 45) %>
 							</a>
 						</div>

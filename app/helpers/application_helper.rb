@@ -64,6 +64,8 @@ module ApplicationHelper
   end
   
   def display_user_name(user)
+    return if user.nil?
+    
     (user.full_name.nil? or user.full_name.empty?) ? user.username : user.full_name
   end
   
