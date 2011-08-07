@@ -1,6 +1,6 @@
 <div id="searchHeader">
   <% if @sub_title %>
-  	<strong><a href="/">Duffel</a> &rsaquo; <%= @sub_title %></strong>
+  	<strong><a href="/">Duffel</a> &nbsp;&rsaquo;&nbsp; <%= @sub_title %></strong>
   <% elsif logged_in? %>
 	<strong>Howdy, <%= display_user_name(current_user) %>!</strong>
   <% end %>

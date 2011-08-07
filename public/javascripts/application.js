@@ -240,15 +240,14 @@ function initialize_idea_map() {
 	 if (GBrowserIsCompatible() && typeof idea_to_map != 'undefined') {
 	   var map = new GMap2(document.getElementById("gmap"));
 	   map.setCenter(new GLatLng(37.7312, -122.383), 10);
-		 map.addControl(new GSmallMapControl());
+		map.addControl(new GSmallZoomControl3D());
 		
-			// Clicking the marker will hide it
 	    function createMarker(latlng, idea_to_map) {
 	      var marker = new GMarker(latlng);
 	      var html="<strong>"+idea_to_map.title+"</strong><br/>"+idea_to_map.address+"<br/>"+idea_to_map.phone;
-	      GEvent.addListener(marker,"click", function() {
-	        map.openInfoWindowHtml(latlng, html);
-	      });
+	      //GEvent.addListener(marker,"click", function() {
+	      //  map.openInfoWindowHtml(latlng, html);
+	      //});
 	      return marker;
 	    }
 
