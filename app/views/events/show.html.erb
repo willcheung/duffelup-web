@@ -59,16 +59,15 @@
 					<% end %>
 					
 					<div class="pod">
-						
+						<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" %>
 						<div class="item vcard">
-							<% unless @event.eventable_type == "CheckIn" %>
 								<h2>About <%= truncate(@event.title, :length => 45)%>
 									
 								<%= "<h3>Website</h3>" + (link_to h(@event.website), @event.website, :target => "_blank") unless @event.website.blank? %><br/>
 								<%= "<h3>Address</h3>" + content_tag('p', h(@event.address)) + "(" + map_link("map", @event.address) + ")" unless @event.address.blank? %>
 								<%= "<h3>Phone</h3>" + content_tag('p', h(@event.phone))  unless @event.phone.blank? %>
-							<% end %>
 						</div>
+						<% end %>
 						
 						<h2><img height="14" style="float:left;padding:3px 5px 0 0;" src="/images/icon-placemark.png"/>Location</h2>
 						<div id="gmap"></div>
