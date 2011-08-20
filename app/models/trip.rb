@@ -200,8 +200,8 @@ class Trip < ActiveRecord::Base
       # Create sample activity
       Idea.create_idea_in_duffel("Activity", 
                                 t.id, 
-                                "Add an activity", 
-                                "And invite friends to help you fill up your duffel with ideas. Enjoy!",
+                                "Invite friends", 
+                                "to help you fill up your duffel with ideas. Enjoy!",
                                 "", 
                                 t.destination, 
                                 "", 
