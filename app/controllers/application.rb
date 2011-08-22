@@ -182,7 +182,12 @@ class ApplicationController < ActionController::Base
   
   ########## Other Stuff ###########
   def admin?
-    current_user.username == "will" or current_user.username == "duffelup" or current_user.username == "calvin"
+    current_user.username == "will" or current_user.username == "duffelup"
+  end
+  
+  def new_visitor_created_trip?
+    return false if cookies[:new_visitor_trip].nil?
+    return true
   end
   
   # Source code from file vendor/rails/actionpack/lib/action_view/helpers/text_helper.rb, line 60

@@ -232,6 +232,7 @@ class UsersController < ApplicationController
 
   def create
     cookies.delete :auth_token
+    cookies.delete :new_visitor_trip # deletes temp trip
     # protects against session fixation attacks, wreaks havoc with request forgery protection.
     # uncomment at your own risk
     # reset_session
@@ -511,7 +512,7 @@ class UsersController < ApplicationController
       
       # Create a new duffel as "research duffel"
       Trip.create_duffel_for_new_user({ :title => "#{fb_user.username}'s first duffel", :start_date => nil,
-                                        :end_date => nil, :is_public => 1, :destination => "#{fb_user.home_city}" }, fb_user)
+                                        :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, fb_user)
       
       # Add a city to follow its travel deals
       fb_user.cities << City.find_by_id(609)

@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   layout "ibox_ideas", :except => 'show'
   
-  before_filter :protect, :only => [:new, :edit, :destroy, :order_itinerary]
+  before_filter :protect, :only => [:new, :edit, :destroy]
   before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache, :new]
   before_filter :is_user_invited_to_trip, :except => [:load_trip_and_users, :show, :clear_events_cache, :check_events_details_cache, :new, :order_itinerary]
   after_filter :clear_events_cache, :only => [:create, :update, :destroy, :order_itinerary]

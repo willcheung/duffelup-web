@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   include ApplicationHelper
   
-  layout "simple", :except => [:show, :print_itinerary, :share, :get_deals]
+  layout "simple", :only => [:index, :new, :edit]
   
   before_filter :protect, :except => [:show, :index, :load_trip_and_users, :auto_complete_for_trip_destination, :parse_date, :share, :get_deals]
   after_filter :clear_trip_and_events_cache, :only => [:update, :destroy]
@@ -377,6 +377,80 @@ class TripsController < ApplicationController
       @trip.destroy
       flash[:notice] = "Your duffel #{trip_title} was deleted."
       redirect_to dashboard_path
+    end
+  end
+  
+  def create_new_visitor_trip
+    if request.post?
+      # Create some random string as permalink
+      cookies[:new_visitor_trip] = (Digest::SHA1.hexdigest( "#{Time.now.to_s.split(//).sort_by {rand}.join}" )).slice!(2..9)
+      t = Trip.new({ :title => "My first duffel", 
+                 :permalink => cookies[:new_visitor_trip], 
+                 :start_date => Time.now.to_date+30, 
+                 :end_date => Time.now.to_date+34, 
+                 :duration => 4,
+                 :is_public => 1,
+                 :destination => "Destination: somewhere fun", 
+                 :active => 0 })
+      
+      if t.save
+        # Create sample note
+        Notes.create_introduction_note(t.id)
+
+        # Create sample foodanddrink
+        Idea.create_idea_in_duffel("Foodanddrink", 
+                                  t.id, 
+                                  "Clip restaurant options and activities", 
+                                  "Save delicious images from any website, using our Clip-It bookmarker.",
+                                  "http://duffelup.com/site/tools", 
+                                  "", 
+                                  "", 
+                                  {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content => "image/jpeg", :size => nil}, 
+                                  0,
+                                  0)
+      end
+    else
+      render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return
+    end
+  end
+  
+  def show_new_visitor_trip
+    # if there's no temp trip created for new user
+    unless new_visitor_created_trip?
+      redirect_to trip_url(:id => params[:id]) and return
+    else
+      if logged_in?
+        redirect_to trip_url(:id => params[:id]) and return
+      end
+    end
+    
+    @trip = Trip.find_by_permalink(params[:id])
+    
+    redirect_to trip_url(:id => params[:id]) and return if @trip.active == 1
+    
+    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil?
+    
+    @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
+    @city = nil
+    
+    ###################################
+    # Load duffel comments count
+    ###################################
+    @trip_comments_size = "0"
+    
+    ########################################################
+    # Load duffel events (ideas, transportation, and notes)
+    ########################################################
+    
+    # fragment caching
+    s = check_events_details_cache(@trip)
+    @itinerary = s[0]
+    @ideas_to_map = s[1]
+
+    @list_containment = build_sortable_list_containment(@trip)
+    
+    respond_to do |format|
+      format.html { render :action => 'show_new_visitor_trip', :layout => 'trip_new_visitor' }
     end
   end
   
