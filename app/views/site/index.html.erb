@@ -38,7 +38,7 @@
        	<ul> 
 			<li><a href="/login">Sign in</a></li> 
 			<li>/</li> 
-			<li><a href="/signup">Sign up</a></li> 
+			<li><a href="/signup">Sign up</a></li>
 		</ul> 
     </div>
     
@@ -47,26 +47,24 @@
 <!-- #body-intro and signup --> 		
 
 	<div id="intro" class="clearfix">
-	  <div id="features">
-    <h2 id="tagline">The most fun and visual trip planner.</h2>
+		
+	  	<div id="features">
+			<h2 id="tagline">The most fun and visual trip planner.</h2>
             <div id="feature1">
                 <img src="/images/homepage/feat1.png" id="feat1" /><br />
-
             </div>
             
             <div id="feature3">
                 <img src="/images/homepage/feat3_v2.png" id="feat3" /><br />
-      
             </div>
             
             <div id="feature2">
                 <img src="/images/homepage/feat2.png" id="feat2" />
-
             </div>
             
-<div id="feature_divider"></div>
+			<div id="feature_divider"></div>
             
-                        <div id="feature1_text">
+                <div id="feature1_text">
                 <span class="feat_header">
                 Clip travel reviews<br />
                 </span>
@@ -95,78 +93,15 @@
                 </span>
             </div>
             
-            
         </div>
-        <div id="signup">
-       	  <div id="signup_box">
-                <h2 id="signup_header">Sign up, it's free!</h2>
-                <span class="signup_text_sm">Already have an account? 
-                <a href="/login">Sign in here.</a></span>
-				<% form_for(@user, :url => user_path) do |f| -%>
 
-					<%= f.text_field :email, :size => 24, :maxlength => User::EMAIL_MAX_LENGTH, :style => 'margin-top:5px', 
-												:value => "Email Address",
-												:onFocus => "if(this.value == 'Email Address') {this.value = '';}",
-												:onBlur => "if (this.value == '') {this.value = 'Email Address';}" %>
+		<div id="button-container" class="clearfix"><a id="explore" href="/explore">Explore Duffel</a></div>
 
-					<%= text_field_with_auto_complete :user, :home_city, { :size => 24,
-						 													:value => "Home City",
-																			:onFocus => "if(this.value == 'Home City') {this.value = '';}",
-																			:onBlur => "if (this.value == '') {this.value = 'Home City';}"}, 
-																		{ :frequency => ".1", :min_chars => "3" } %>
-
-					<%= f.text_field :username, :size => 24, :maxlength => User::USERNAME_MAX_LENGTH,
-					 							:value => "Username",
-												:onFocus => "if(this.value == 'Username') {this.value = '';}",
-												:onBlur => "if (this.value == '') {this.value = 'Username';}" %>
-					
-					<div id="div1">
-	                <input name="pass_temp" type="text" value="Password" size="24" maxlength="20" onfocus="changeBox();" />
-	                </div>
+	</div>
 	
-					<div id="div2" style="display:none">
-					<%= f.password_field :password, :size => 24, :maxlength => User::PASSWORD_MAX_LENGTH, :onBlur => "restoreBox();" %>
-					</div>
+	<div id="divider" class="clearfix"></div>	
 
-					<%= submit_tag "Sign me up", :class => "submit", :onclick => "$('indicator-submit').show();" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/homepage/ajax-loader.gif" style="margin: 15px 0 0 5px;float:left"></span>
-
-					<% end -%>
-                
-              
-               <img src="/images/homepage/divider3.gif" width="200" height="2" style="margin-bottom:10px;" />
-                
-			<div class="signup_text_med">
-				Or, sign up with accounts from: &nbsp;&nbsp;
-				<div class="login-buttons">
-					<ul>
-						<li class="twitter">
-						<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
-							<%= submit_tag 'twitter' %>
-						<%- end -%>
-						</li>
-						<li class="facebook">
-							<%= fb_login_button 'window.location="/users/link_user_accounts";', :perms => 'publish_stream,offline_access' %>
-						</li>
-					</ul>
-				</div>
-			</div>
-                
-        <span class="signup_text_sm">Still not sure? <a href="/explore">Explore Duffel and see why our members love us</a>!</span><br/>
-             
-
-            </div>
-        </div>
-    </div>
-
-<!-- #div --> 	
-	<div id="divider" class="clearfix">
-    
-    </div>
-    
-
-<!-- #main-3 boxes --> 		
-
-<div id="main" class="clearfix">
+	<div id="main" class="clearfix">
     	<div id="app">
         	<a href="http://itunes.apple.com/us/app/duffel-up-and-go/id371064516?mt=8" target="_blank"><img src="/images/homepage/app.png" id="app_pic" /></a>
         </div>
@@ -187,7 +122,7 @@
             <span class="social_text">
             <a href="http://blog.duffelup.com">duffel Blog</a></span>
             
-</div>
+		</div>
         <div id="explore">
           <h2 class="explore_header">Need some travel ideas?</h2>
           <span class="explore_text">
@@ -219,8 +154,8 @@
           <a href="http://duffelup.com/explore">
           Browse on interactive map
           </a></span>
-  </div>
-    </div>
+		</div>	
+	</div>
     
 <!-- #footer --> 	
 	<%= render :partial => 'shared/footer' %>

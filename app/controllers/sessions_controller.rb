@@ -105,7 +105,7 @@ class SessionsController < ApplicationController
       
       # Create a new duffel as "research duffel"
       Trip.create_duffel_for_new_user({ :title => "#{current_user.username}'s first duffel", :start_date => nil,
-                                        :end_date => nil, :is_public => 1, :destination => "#{current_user.home_city}" }, current_user)
+                                        :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, current_user)
       
       # Add a city to follow its travel deals
       current_user.cities << City.find_by_id(609)
