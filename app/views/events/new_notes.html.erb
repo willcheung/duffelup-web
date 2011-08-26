@@ -1,12 +1,10 @@
 
 <h2>Add a Note</h2>
-<% remote_form_for(:event, :url => trip_ideas_url(:idea_type => 'notes', :view => params[:view]),
-						   :loading => visual_effect(:appear, :indicator),
-						   :success => visual_effect(:fade, :indicator)) do |form| %>
+<% form_for(:event, :url => trip_ideas_url(:idea_type => 'notes', :view => params[:view])) do |form| %>
 
 	<%= error_messages_for :notes, :event %>
 	
 	<%= render :partial => "events/partial_forms/notes_form", :locals => { :form => form } -%>
 
-<div id="form-submit" class="clearfix"><%= submit_tag "Add Note", :class => "submit-flush" %><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+<div id="form-submit" class="clearfix"><%= submit_tag "Add Note", :class => "submit-flush", :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
 <% end %>

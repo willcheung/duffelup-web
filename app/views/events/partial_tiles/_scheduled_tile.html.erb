@@ -1,4 +1,4 @@
-<li <% if @users.include?(current_user) %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+<li <% if sortable_tile %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
 
 <%- if event.eventable_type == "Foodanddrink" -%>
 <span class="foodanddrink">
@@ -14,17 +14,41 @@
 <span class="checkin">
 <%- end -%>
 
-<%= display_title_without_link(event.title) %>
+<!-- if map view -->	
+<% if map %>
+
+	<!--
+	 #Only Activity, Hotel, Foodanddrink and CheckIn can be mapped 
+	-->
+	<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "CheckIn" %>
+		<% if event.lat and event.lng %>
+		<%= event.index unless event.index.nil? %>. <%= display_title_without_link(event.title) %>
+		<% else %>
+		<%= display_title_without_link(event.title) %>
+		<% end %>
+	<% else %>
+		<%= display_title_without_link(event.title) %>
+	<% end %>
 	
+<% else %> <!-- if not map view -->
+
+	<%= display_title_without_link(event.title) %>
+	
+<% end %>
 
 <em class="list-actions">
+<% if params[:view] != "map" %>
 <span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>
+<% else %>
+<span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
+<span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>
+<% end %>
 
 <%- unless event.eventable_type == "CheckIn" -%>
 <%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, nil, @trip.permalink) %></span><%- end -%>
 <%- end -%>
 
-<% if @users.include?(current_user) %>
+<% if sortable_tile %>
 
 	<!-- 
 	 #Only Activity, Hotel, and Foodanddrink have partner_id 
@@ -50,6 +74,12 @@
 
 	
 <% end %>
+
 </em>
+
+<!-- event details here -->
+   <div id="<%= event.id %>_details" style="display: none;">
+           <%= render :partial => '/events/event_details', :locals => { :event_detail => event, :trip_permalink => @trip.permalink } %>
+   </div>
 </span>
 </li>

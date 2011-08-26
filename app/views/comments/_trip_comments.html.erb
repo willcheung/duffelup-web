@@ -37,24 +37,4 @@
 		<p style="padding:3px 5px 0 0;margin:0 0 0 10px;color:#555;font-size:12px;">or <a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to comment.</p>
 
 	<% end %>
-<!--
-		<h2>Favorites (<%= @trip.favorites.size %>)</h2>
-		<div class="friends-list" style="min-height:30px;">
-			<% if @trip.favorites.size == 0 %>
-				<%- unless @users.include?(current_user) -%>
-				<p>Like this duffel? Be the first to <%= link_to 'favorite it', trip_create_favorite_path(@trip.permalink) %>.</p>
-				<% else %>
-				<p>Get others excited by 
-					<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">sharing it</a>.</p>
-				<%- end -%>
-			<% else %>
-			<ul>
-		  	<% @trip.favorites.each_with_index do |fav,i| %>
-				<% break if i== 15 %>	
-				<li><a href="<%= profile_url(fav.user.username) %>" title="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" alt="<%=display_thumbnail_title(fav.user.username, fav.user.full_name, fav.user.home_city)%>" ><%= display_thumbnail(fav.user, { :width => "25" }) %></a></li>
-			 <% end %>
-			</ul>
-			<% end %>
-		</div>
--->
 </div>

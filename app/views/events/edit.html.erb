@@ -1,4 +1,4 @@
-<% if @users.include?(current_user) %>
+<% if sortable_tile %>
 	<h2><%=h @header %></h2>
 
 	<% form_for([@trip, @event], :url => trip_idea_url(:permalink => @trip.permalink, :view => params[:view]),

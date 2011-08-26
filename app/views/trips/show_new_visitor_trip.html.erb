@@ -1,0 +1,83 @@
+<div id="content">
+	<div id="board_events">
+		<div class="divider clearfix"><h2 style="float:left">My Ideas & Notes</h2></div>
+		<%= render :partial => 'events/board_events' %>
+		
+		<% unless true or (@trip.start_date.nil? or @trip.end_date.nil?) %>
+			<% (@trip.duration+1).times do |day| %>
+		
+				<div class="divider"><h2><span class="day">Day <%= day+1 %></span> <span class="date"><%= (@trip.start_date + day).strftime("%A, %B %d") %></span><hr/></h2></div>
+				<%= render :partial => 'events/scheduled_board_events', :locals => { :day => day } %>
+			
+			<% end %>
+		<% end %>
+		
+	</div>
+</div>
+
+<div id="itinerary-header" class="clearfix">
+	<%= render :partial => 'trips/itinerary_header' %>
+</div>
+
+<div id="sidebar">
+        <% if @trip.start_date.nil? or @trip.end_date.nil? %>
+                <% unless @users.include?(current_user) %>
+                        <p class="message"><%= display_user_name(@admins[0]) %> has not built the itinerary, yet.</p>
+                <% else %>
+                        <p class="message"><%= link_to "Pick a date range", edit_trip_path(:id => @trip.permalink) %> and drag & drop your activities here.</p>
+                <% end %>
+        <% else %>                      
+        <div id="itinerary">
+                <% (@trip.duration+1).times do |day| %> 
+                        <div id="itinerary_day_<%= day+1 %>" class="clear">
+                        <%= render :partial => 'events/scheduled_events', :locals => { :day => day, :map => false } %>
+                        </div>
+                <% end %>
+        </div>
+        <% end %>
+        
+</div>
+
+<div id="event_details" style="right: 53px;">
+	<% unless @itinerary.flatten.first.nil? %>
+	<script type="text/javascript"> 
+		// highlight first element
+	  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
+	  	last_highlighted_element.className += ' highlighted';
+	</script>
+	
+	<%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
+	<% end %>
+</div>
+
+<div id="map-preview">
+	<div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
+		<a href="<%= show_new_visitor_trip_url(:id => @trip.permalink, :view => "map") %>">Larger Map &raquo;</a></div>
+	<div id="board_gmap" class="corkboard" style="display:block;width:222px;height:170px;margin:3px 8px;"></div>
+</div>
+
+
+<div id="footer-promotions" class="clearfix" onmouseover="<%= remote_function(:loading => "$('deals-spinner').show();", :complete => "$('deals-spinner').hide();", :url => { :controller => :trips, :action => :get_deals, :permalink => @trip.permalink }) %>;this.onmouseover=null;">
+	<div class="title">
+		<% if !@city[0].nil? %>
+		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals for <%= @city[0].city.blank? ? @city[0].city_country : @city[0].city %>.
+		<% else %>
+		<img style="vertical-align:middle;margin-right:8px" src="/images/icon-pointer.png"/>Mouse over here to see today's travel deals.
+		<% end %>
+		<span id="deals-spinner" style="display:none;"><img style="vertical-align:middle;margin-left:15px" src="/images/ajax-loader-drk-bg.gif">
+	</div>
+	<ul class="deals">
+		<div id="deals_feed"></div>
+		<li style="float:right;font-size:11px;color:#888;margin-right:30px;position:absolute;bottom:5px;right:10px;">*Deals by BookingBuddy. Taxes, fees not included.</li>
+	</ul>
+</div>
+
+<div id="sliding-sideBar">
+	<a href="#" onclick="return false;" id="sliding-sideBarTab"><img src="/images/slide-button.png" alt="Tips & comments" title="Tips & comments"/></a>
+
+	<div id="sliding-sideBarContents" style="display:none;">
+	        <div style="float:right"><a href="#" onclick="return false;" id="close-sideBar"><img src="/images/icon-close-white.png"/></a></div>
+
+	        <%= render :partial => "comments/trip_comments"%>
+	</div>
+</div>

@@ -36,6 +36,8 @@ class SessionsController < ApplicationController
           cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
         end
         
+        cookies.delete :new_visitor_trip # deletes temp trip
+        
         # iPhone verification token
         # TO DO - beef up security here to match the key
         if params[:iphone] == WebApp::IPHONE_API_TOKEN

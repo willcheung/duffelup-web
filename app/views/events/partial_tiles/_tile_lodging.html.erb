@@ -22,11 +22,7 @@
 				<span class="idea-label" id="lodging-rec">Lodging</span>
 				<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 				<div class="detail">
-					<% unless @users.include?(current_user) %>
-						<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
-					<% else %>
-						<img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" />
-					<% end %>
+					<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="125" /></a>
 				</div>
 				<h3><%= display_title_with_link(event, 33) %></h3>
 				<div class="idea-note"><%= display_short_note_on_board(event, @trip) %>

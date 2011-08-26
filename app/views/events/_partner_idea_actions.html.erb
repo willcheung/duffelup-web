@@ -1,5 +1,5 @@
 <div class="idea-actions">
-	<% if @users.include?(current_user) %>
+	<% if sortable_tile %>
 		<span class="delete"><%= link_to_remote "[x]", 
 				{ :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
 				  :confirm => "Are you sure you want to delete #{event.title}?", 

@@ -49,7 +49,7 @@
 	<div id="intro" class="clearfix">
 		
 	  	<div id="features">
-			<h2 id="tagline">The most fun and visual trip planner.</h2>
+			<h2 id="tagline">Fun and corky way to plan your trips.</h2>
             <div id="feature1">
                 <img src="/images/homepage/feat1.png" id="feat1" /><br />
             </div>
@@ -95,7 +95,13 @@
             
         </div>
 
-		<div id="button-container" class="clearfix"><a id="explore" href="/explore">Explore Duffel</a></div>
+		<div id="form-container" class="clearfix">
+		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
+			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+			<%= submit_tag "Create my duffel", :class => "submit" %>
+			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
+		<% end %>
+		</div>
 
 	</div>
 	

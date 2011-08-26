@@ -18,14 +18,18 @@
 <div id="form-location">
 	<div class="optional_block" id="optional_block">
 	
-	<% if @event.photo? %>
-		<label for="photo">Replace photo:</label>
+	<% unless new_visitor_created_trip? %>
+		<% if @event.photo? %>
+			<label for="photo">Replace photo:</label>
+		<% else %>
+			<label for="photo">Upload a photo:</label>
+		<% end %>
+		<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+		<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
 	<% else %>
-		<label for="photo">Upload a photo:</label>
+		<p style="margin-top:5px;"><i>Sign up and you can upload a photo here.</i></p>
 	<% end %>
-	<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
-	<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
-		
+	
 	<label for="event_address">Address (or Lat,Lng):</label>
 		<%= f.text_area :address, :rows => 2, :cols => 22 %>
 	

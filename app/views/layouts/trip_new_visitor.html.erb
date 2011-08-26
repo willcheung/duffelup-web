@@ -26,7 +26,6 @@
 			});
 		</script>
 		
-		<meta name="description" content="<%= @meta_description %>" />
 		<link rel="image_src" href="<%= @link %>" />
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		<link rel="icon" type="image/png" href="/favicon.png">
@@ -62,16 +61,6 @@
 		<p><a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour2">Previous</a> 
 		   <a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour4', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour4">Next</a></p>
 	</div>
-	
-	<!--
-	<div id="tour3" class="tour" style="top: 130px; right: 1%; margin: 0 0 0 0; width: 240px; height: 140px; display: none;">
-		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 220px" />
-		<h1>2. Map your travel notes</h1>
-		<p>Toggle from grid (or corkboard) view to map view. See the location of your hotels, restaurants and activities.</p>
-		<p><a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour2', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour2">Previous</a> 
-		    <a onclick="Effect.Fade('tour3', { duration: '0.3' }); Effect.BlindDown('tour4', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour4">Next</a></p>
-	</div>
-	-->
 	
 	<div id="tour4" class="tour" style="top: 280px; left: 5%; margin: 0 0 0 0; width: 270px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 120px" />
@@ -112,7 +101,7 @@
 					
 				<%= h(@trip.title) %>
 				
-				<span class="collaborator">- Planned by&nbsp;&nbsp;<%= duffel_collaborators(@users) %></span>
+				<span class="collaborator">- Planned by me</span>
 				
 				<br />
 				<% if !@city[0].nil? %>
@@ -125,83 +114,32 @@
 				
 			</div>
 			<div id="account">
-		          <% if logged_in? -%>
-		          	<ul>
-			          	<%- if @admins.include?(current_user) %>
-			          		<li class="edit"><%= link_to "Edit", edit_trip_path(:id => @trip.permalink), :title => "Edit duffel details", :alt => "Edit duffel details" %></li>
-						<%- end -%>
-						
-						<%- if @users.include?(current_user) %>
-							<li class="invite"><%= link_to "Invite collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite collaborators", :alt => "Invite collaborators" %></li>
-						<%- end -%>
-		
-						<% cache("user-#{current_user.id}-trip-#{@trip.id}-favorites") do %>
-						<%- unless @trip.favorite?(current_user) -%>
-							<li class="add-bookmark"><%= link_to 'Save as favorites', trip_create_favorite_path(@trip.permalink), :title => "Favorite this duffel", :alt => "Favorite this duffel"  %></li>
-						<%- else -%>
-							<li class="bookmarked"><%= link_to 'Favorited (remove)', trip_delete_favorite_path(@trip.permalink), :method => :post, :title => "Remove from favorites", :alt => "Remove from favorites"  %></li>
-						<%- end -%>
-						<% end %><!-- end of favorites cache -->
-					
-						<!--
-						<%- if @users.include?(current_user) -%> 
-							<li class="comments"><%= link_to @trip_comments_size + ' Comments', "#", :id => 'add-comment', :title => "Post a tip or comment", :alt => "Post a tip or comment", :onclick => "return false;" %></li>							
-						<% end %>
-						-->
-						
-						<li class="share">
-							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
-						</li>
-					
-		          		<li class="dashboard"><%= link_to_unless_current "My dashboard", dashboard_path, :title => "Back to my dashboard", :alt => "Back to my dashboard" %></li>
-					</ul>
-		          
-		         <% else -%>
-					
-					<ul>
-						<li class="add-bookmark"><%= link_to 'Favorite this', trip_create_favorite_path(@trip.permalink), :title => "Bookmark this duffel", :alt => "Bookmark this duffel"  %></li>
-						<li class="share">
-							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
-						</li>						
-						<li id="trip-login"><a class="signup" href="/signup">Sign Up</a></li>
-						<li id="trip-login"><a class="signin" href="/login?redirect=<%= request.request_uri %>">Sign In</a></li>
-					</ul>
-					
-		         <% end -%>
+	          	<ul>
+		          	<li class="edit"><%= link_to "Edit (privacy setting & dates)", edit_trip_path(:id => @trip.permalink), :title => "Edit duffel details", :alt => "Edit duffel details" %></li>
+					<li class="invite"><%= link_to "Invite collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite Collaborators", :alt => "Invite Collaborators" %></li>
+					<li id="trip-login"><a class="signup" href="/signup">Save this duffel</a></li>
+				</ul>
 	        </div>
 		</div>
 
-		<div id="board-actions" class="clearfix" <% if params[:view] == "itinerary" %>style="width:100%;left:0"<% end %>>
-		<% if @users.include?(current_user) %>
+		<div id="board-actions" class="clearfix">
 			<% if params[:view] == "map" %>
 				<%= render :partial => 'trips/new_ideas', :locals => { :map => 'map' } %>
-				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => 'map' } %>
-			<% elsif params[:view] == "itinerary" %>
-				<ul id="add-ideas">
-				<li class="guest">This is how other members see your duffel<%- if !@trip.is_public? -%> (but, your duffel is private)<%- end -%>. <%= link_to 'Back to planning &rarr;', trip_path(:id => @trip) %></li>
+				<ul id="board-view">
+					<%= content_tag :li, link_to("Grid View", show_new_visitor_trip_url(:id => @trip.permalink ), :title => "Grid View"), :id => "grid-button" %> 
+					<li id="map-button" class="selected">Map View</li>
+					<%= content_tag :li, link_to("Print View", trip_print_itinerary_url(@trip), :target => "_blank", :title => "Print View", :onclick => "pageTracker._trackEvent('Duffel', 'click-print-itinerary');"), :id => "print-button" %>
 				</ul>
-				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => nil } %>
+				<!--<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => 'map' } %>-->
 			<% else %>
 				<%= render :partial => 'trips/new_ideas', :locals => { :map => nil } %>
-				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => nil } %>
+				<ul id="board-view">
+					<li id="grid-button" class="selected">Grid View</li>
+					<%= content_tag :li, link_to("Map View", show_new_visitor_trip_url(:id => @trip.permalink, :view => "map"), :title => "Map View"), :id => "map-button"  %> 
+					<%= content_tag :li, link_to("Print View", trip_print_itinerary_url(@trip), :target => "_blank", :title => "Print View", :onclick => "pageTracker._trackEvent('Duffel', 'click-print-itinerary');"), :id => "print-button" %>
+				</ul>
+				<!--<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => nil } %>-->
 			<% end %>
-		<% else %>
-			<ul id="add-ideas">
-			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel journal. Like what you see? 
-			<% if current_user %>
-			<%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %>
-			<% else %>
-			<%= link_to 'Get your own &rarr;', "/explore", :style => "font-size:14px;" %>
-			<% end %>
-			</li>
-			</ul>
-			
-			<% if params[:view] == "map" %>
-				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => true } %>
-			<% else %>
-				<%= render :partial => 'trips/grid_map_toggle', :locals => { :map => false } %>
-			<% end %>
-		<% end %>
 		</div>
 
 		<%= yield %>
@@ -215,22 +153,12 @@
 			<span class="left">Copyright &copy; 2011 Duffel, Inc.</span>
 			<% end %>
 			<span class="right">
-			<a href="/featured">Duffel All-Stars</a>
-			<a href="/site/tools">Tools</a>
+			<a href="/featured">Explore</a>
 			<a href="/site/about">About</a>  
 			<a href="http://blog.duffelup.com">Blog</a>
 			<a href="/site/help">Help</a>
-			<a onclick="feedback_widget.show()" href="#">Feedback</a>
 			</span>
 		</div>
-		
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=duffel"></script>
-		
-		<script type="text/javascript">
-		var addthis_config = {
-		    services_exclude: "print,favorites,friendster,live,technorati,myspace,yahoomail,google,blogger,digg,stumbleupon,delicious,reddit,email"
-		}
-		</script>
 		
 		<script type="text/javascript">
                 var isExtended = 0;
@@ -254,13 +182,10 @@
 			}}
 		</script>
 		
-		<% if @users.include?(current_user) %>
-			<div id="sortable_list_controls">
-				<%= render :partial => 'events/sortable_list_controls' if params[:view] != "itinerary" %>
-			</div>
-		<% end %>
-		
-		<%= calendar_date_select_includes %>
+		<div id="sortable_list_controls">
+			<%= render :partial => 'events/sortable_list_controls' %>
+		</div>
+
 		<%= render :partial => 'shared/external_javascripts' %>
 	</body>
 </html>

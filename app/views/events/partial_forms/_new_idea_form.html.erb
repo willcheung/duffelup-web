@@ -17,9 +17,13 @@
 	<div id="form-more-info"><a id="link" href="#" onclick="$('optional_block').show();$('form-more-info').hide(); return false;">More details</a></div>
 	<div class="optional_block" id="optional_block" style="display:none;">
 	
-	<label for="photo">Attach a Photo:</label>
-	<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
-	<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+	<% unless new_visitor_created_trip? %>
+		<label for="photo">Attach a Photo:</label>
+		<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+		<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+	<% else %>
+		<p style="margin-top:5px;"><i>Sign up and you can upload a photo here.</i></p>
+	<% end %>	
 		
 	<p><label for="event_address">Address (or lat,lng):</label>
 		<%= f.text_area :address, :rows => 2, :cols => 22 %>

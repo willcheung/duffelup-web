@@ -3,7 +3,7 @@ class TripsController < ApplicationController
   
   layout "simple", :only => [:index, :new, :edit]
   
-  before_filter :protect, :except => [:show, :index, :load_trip_and_users, :auto_complete_for_trip_destination, :parse_date, :share, :get_deals]
+  before_filter :protect, :only => [:new, :create, :print_itinerary, :edit, :update, :destroy]
   after_filter :clear_trip_and_events_cache, :only => [:update, :destroy]
   
   def index
@@ -382,18 +382,23 @@ class TripsController < ApplicationController
   
   def create_new_visitor_trip
     if request.post?
-      # Create some random string as permalink
-      cookies[:new_visitor_trip] = (Digest::SHA1.hexdigest( "#{Time.now.to_s.split(//).sort_by {rand}.join}" )).slice!(2..9)
+      # Create some random string as permalinks
+      token = (Digest::SHA1.hexdigest( "#{Time.now.to_s.split(//).sort_by {rand}.join}" )).slice!(2..9)
+      cookies[:new_visitor_trip] = token
+      
       t = Trip.new({ :title => "My first duffel", 
-                 :permalink => cookies[:new_visitor_trip], 
+                 :permalink => token,
                  :start_date => Time.now.to_date+30, 
                  :end_date => Time.now.to_date+34, 
                  :duration => 4,
                  :is_public => 1,
-                 :destination => "Destination: somewhere fun", 
+                 :destination => params[:trip][:destination], 
                  :active => 0 })
       
-      if t.save
+      t.save!
+        # Add to cities_trips
+        t.cities << City.find_id_by_city_country(params[:trip][:destination])
+        
         # Create sample note
         Notes.create_introduction_note(t.id)
 
@@ -408,30 +413,46 @@ class TripsController < ApplicationController
                                   {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content => "image/jpeg", :size => nil}, 
                                   0,
                                   0)
-      end
+
+      
+      redirect_to show_new_visitor_trip_url(:id => t.permalink)
     else
       render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return
     end
   end
   
   def show_new_visitor_trip
-    # if there's no temp trip created for new user
-    unless new_visitor_created_trip?
-      redirect_to trip_url(:id => params[:id]) and return
-    else
-      if logged_in?
-        redirect_to trip_url(:id => params[:id]) and return
-      end
-    end
-    
     @trip = Trip.find_by_permalink(params[:id])
     
     redirect_to trip_url(:id => params[:id]) and return if @trip.active == 1
     
+    # if there's no temp trip created for new user
+    if new_visitor_created_trip?
+      if logged_in?
+        redirect_to trip_url(:id => params[:id]) and return
+      end
+    else
+      redirect_to trip_url(:id => params[:id]) and return
+    end
+    
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil?
     
     @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
-    @city = nil
+    @city = []
+    
+    ###################################
+    # Get all the cities (well, top 5 cities) for this duffel
+    ###################################
+    if !fragment_exist?("#{@trip.id}-trip-dest", :time_to_live => 1.week)
+      @trip.destination.split(";").each_with_index do |d,i|
+        @city[i] = City.find_city_country_code_by_city_country(d.strip)
+        break if i == 4 # only display 5 destinations
+      end
+      write_fragment("#{@trip.id}-trip-dest", @city)
+    else
+      @city = City.new
+      @city = read_fragment("#{@trip.id}-trip-dest")
+    end
     
     ###################################
     # Load duffel comments count
@@ -450,7 +471,8 @@ class TripsController < ApplicationController
     @list_containment = build_sortable_list_containment(@trip)
     
     respond_to do |format|
-      format.html { render :action => 'show_new_visitor_trip', :layout => 'trip_new_visitor' }
+      format.html { render :action => 'show_new_visitor_trip', :layout => 'trip_new_visitor' } if params[:view] != "map" # show.html.erb 
+      format.html { render :action => 'show_map', :layout => 'trip_new_visitor' } if params[:view] == "map" # show_map.html.erb 
     end
   end
   

@@ -19,7 +19,7 @@ class Notes < ActiveRecord::Base
     notes = Notes.new
     event = notes.create_event
     
-    notes.content = "This corkboard helps organize your travel ideas. \n\nCreate notes, to-dos, and reminders. Drag me around the corkboard and into the itinerary."
+    notes.content = "This corkboard helps organize your travel ideas. \n\nCreate notes, to-dos, and reminders. Drag me into the itinerary on the left."
     
     event.trip_id = trip_id
     event.title = "Welcome to Duffel!"

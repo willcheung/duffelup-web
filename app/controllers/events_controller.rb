@@ -1,9 +1,9 @@
 class EventsController < ApplicationController
   layout "ibox_ideas", :except => 'show'
   
-  before_filter :protect, :only => [:new, :edit, :destroy]
-  before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache, :new]
-  before_filter :is_user_invited_to_trip, :except => [:load_trip_and_users, :show, :clear_events_cache, :check_events_details_cache, :new, :order_itinerary]
+  before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache]
+  before_filter :protect, :only => [:new, :edit, :destroy], :unless => :new_visitor_created_trip?
+  before_filter :is_user_invited_to_trip, :only => [:new, :edit, :create, :update, :destroy], :unless => :new_visitor_created_trip?
   after_filter :clear_events_cache, :only => [:create, :update, :destroy, :order_itinerary]
   
   def new
@@ -59,33 +59,20 @@ class EventsController < ApplicationController
     when 'activity'
       @activity = Activity.new(params[:activity])
       @event = @activity.create_event(params[:event])
-      @event.created_by = current_user.id
+      @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @activity.create_activity(@event, @trip, current_user)
       
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip)
-      
-      respond_to do |format|
-        if @activity.save
-          format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-        end  
+      if @activity.save
+        ###################################
+        # publish news to activities feed
+        ###################################
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip) unless new_visitor_created_trip?
       end
       
     when 'viator'
       
       ViatorEvent.insert_recommendation(@trip.destination.split(";").first, @trip.id, params[:event][:viator]) unless params[:event].nil?
-      
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip)
-      
-      respond_to do |format|
-        format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-      end
     
     when 'splendia'
       added_hotels = []
@@ -106,81 +93,66 @@ class EventsController < ApplicationController
       
       SplendiaHotel.insert_recommendation(added_hotels, @trip.id, @trip.start_date, @trip.end_date, nil)
       
-      respond_to do |format|
-        format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-      end
-      
     when 'hotel'
       @hotel = Hotel.new(params[:hotel])
       @event = @hotel.create_event(params[:event])
-      @event.created_by = current_user.id
+      @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @hotel.create_hotel(@event, @trip, current_user)
       
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING, @trip)
-      
-      respond_to do |format|
-        if @hotel.save  
-          format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-        end  
+      if @hotel.save
+        ###################################
+        # publish news to activities feed
+        ###################################
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING, @trip) unless new_visitor_created_trip?
       end
     
     when 'foodanddrink'
       @foodanddrink = Foodanddrink.new(params[:foodanddrink])
       @event = @foodanddrink.create_event(params[:event])
-      @event.created_by = current_user.id
+      @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @foodanddrink.create_foodanddrink(@event, @trip, current_user)
       
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK, @trip)
-      
-      respond_to do |format|
-        if @foodanddrink.save 
-          format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
-        end  
+      if @foodanddrink.save
+        ###################################
+        # publish news to activities feed
+        ###################################
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK, @trip) unless new_visitor_created_trip?
       end
       
     when 'transportation'
       @transportation = Transportation.new(params[:transportation])
       @event = @transportation.create_event(params[:event])
-      @event.created_by = current_user.id
-      @event.bookmarklet = -1
+      @event.created_by = current_user.id unless new_visitor_created_trip?
+      @event.bookmarklet = 0
       @event = @transportation.create_transportation(@event, @trip)
       
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION, @trip)
-      
-      respond_to do |format|
-        if @transportation.save
-          format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
-        end
+      if @transportation.save
+        ###################################
+        # publish news to activities feed
+        ###################################
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION, @trip) unless new_visitor_created_trip?
       end
       
     when 'notes'
       @notes = Notes.new(params[:notes])
       @event = @notes.create_event(params[:event])
-      @event.created_by = current_user.id
-      @event.bookmarklet = -1
+      @event.created_by = current_user.id unless new_visitor_created_trip?
+      @event.bookmarklet = 0
       @event = @notes.create_notes(@event, @trip)
       
-      ###################################
-      # publish news to activities feed
-      ###################################
-      ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES, @trip)
-      
-      respond_to do |format|
-        if @notes.save 
-          format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
-        end
+      if @notes.save
+        ###################################
+        # publish news to activities feed
+        ###################################
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES, @trip) unless new_visitor_created_trip?
       end
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to show_new_visitor_trip_path(:id => @trip, :view => params[:view]) } if new_visitor_created_trip? 
+      format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }  
     end
   end
   
@@ -220,6 +192,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @event.update_attributes(params[:event]) and @idea.update_attributes(params[:idea])
+          format.html { redirect_to show_new_visitor_trip_path(:id => @trip, :view => params[:view]) } if new_visitor_created_trip? 
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
           format.js
         else
@@ -233,6 +206,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @transportation.update_attributes(params[:transportation]) and @event.update_attributes(params[:event])
+          format.html { redirect_to show_new_visitor_trip_path(:id => @trip, :view => params[:view]) } if new_visitor_created_trip? 
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
           format.js
         else
@@ -247,6 +221,7 @@ class EventsController < ApplicationController
       
       respond_to do |format|
         if @event.update_attributes(params[:event]) and @notes.update_attributes(params[:notes])
+          format.html { redirect_to show_new_visitor_trip_path(:id => @trip, :view => params[:view]) } if new_visitor_created_trip? 
           format.html { redirect_to trip_path(:id => @trip, :view => params[:view]) }
           format.js
         else
