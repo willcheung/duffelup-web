@@ -24,8 +24,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :featured_duffels, :as => 'featured'
   
   # new user trip view (no session)
-  map.show_new_visitor_trip 't/:id', :controller => 'trips', :action => 'show_new_visitor_trip'
-  map.create_new_visitor_trip 't/create', :controller => 'trips', :action => 'create_new_visitor_trip'
+  map.show_new_visitor_trip 't/:id', :controller => 'trips', :action => 'show_new_visitor_trip', :conditions => { :method => :get }
+  map.create_new_visitor_trip 't/create', :controller => 'trips', :action => 'create_new_visitor_trip', :conditions => { :method => :post }
   
   map.resources :trips do |trip| 
     trip.resources :comments, :path_prefix => 'trips/:permalink'

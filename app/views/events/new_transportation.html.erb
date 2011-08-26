@@ -1,12 +1,10 @@
 
 <h2>Add Transportation</h2>
-<% remote_form_for(:event, :url => trip_ideas_url(:idea_type => 'transportation', :view => params[:view]),
-						   :loading => visual_effect(:appear, :indicator),
-						   :success => visual_effect(:fade, :indicator)) do |form| %>
+<% form_for(:event, :url => trip_ideas_url(:idea_type => 'transportation', :view => params[:view])) do |form| %>
 
 	<%= error_messages_for :transportation, :event %>
 
 	<%= render :partial => "events/partial_forms/transportation_form", :locals => { :form => form } %>
 
-<div id="form-submit" class="clearfix"><%= submit_tag "Add Transportation", :class => "submit" %><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+<div id="form-submit" class="clearfix"><%= submit_tag "Add Transportation", :class => "submit", :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
 <% end %>

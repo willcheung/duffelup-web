@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
   end
   
   def is_user_invited_to_trip
-    unless @users.include?(current_user)
+    if !(new_visitor_created_trip? or (!@users.nil? and @users.include?(current_user)))
       respond_to do |format|
         format.html { redirect_to(:controller => 'site', :action => 'permission_error') }
         format.xml  { render :xml => { :error => "Permission denied.", :status => :unprocessable_entity } }
@@ -183,11 +183,6 @@ class ApplicationController < ActionController::Base
   ########## Other Stuff ###########
   def admin?
     current_user.username == "will" or current_user.username == "duffelup"
-  end
-  
-  def new_visitor_created_trip?
-    return false if cookies[:new_visitor_trip].nil?
-    return true
   end
   
   # Source code from file vendor/rails/actionpack/lib/action_view/helpers/text_helper.rb, line 60

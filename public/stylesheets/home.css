@@ -212,12 +212,40 @@ img.twfb_login {
 	margin: 0 auto;
 }
 
-#button-container a#explore {
-	top: 35px;
-	left: 410px;
+#button-container a#main {
+	top: 50px;
+	left: 400px;
 	position: relative;
-	padding:8px 14px;
-	width: 130px;
+	padding:13px 14px 11px 14px;
+	width: 150px;
+	height: 25px;
+	vertical-align: middle;
+	text-align: center;
+	color:#606060;
+	cursor:pointer;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	background:#f1f1f1 url('/images/button-bookmarklet.gif') no-repeat scroll 0 0;
+	border-bottom: 1px solid #999;
+	font-size: 20px;
+	margin:8px auto;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px white;
+	text-decoration: none;
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#button-container a#main:hover, #button-container a#header:hover {
+	color: #F20063;
+}
+
+#button-container a#header {
+	background:#f1f1f1 url('/images/button-bg.png') repeat-x center center;
+	padding:7px 14px;
+	width: 120px;
 	height: 20px;
 	vertical-align: middle;
 	text-align: center;
@@ -226,26 +254,69 @@ img.twfb_login {
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
 	border-radius:8px;
-	background:#f1f1f1 url('/images/button-bg.png') repeat-x center center;
-	border-bottom: 1px solid #999;
-	font-size: 18px;
-	margin:8px auto;
+	font-size: 16px;
 	font-weight: bold;
 	text-shadow: 1px 1px 1px white;
 	text-decoration: none;
-	-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.5);
-	box-shadow: 0 1px 4px rgba(0,0,0,0.5);
-}
-
-#button-container a#explore:hover {
-	color: #F20063;
 }
 	
 
 /*-----------------------------------------------------------------------------------
 	Forms
 -----------------------------------------------------------------------------------*/
+#form-container {
+	margin: 16px auto;
+	padding: 18px 0 22px 25px;
+	width: 700px;
+	height: 50px;
+}
+
+#form-container input#trip_destination {
+	padding: 5px 0 5px 20px;
+	width: 450px;
+	height: 35px;
+	color:#777;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+	background:#f1f1f1;
+	border: 0 none;
+	font-size: 23px;
+	margin:0 auto;
+	box-shadow: 0 1px 1px #555 inset;
+	webkit-box-shadow: 0 1px 1px #555 inset;
+	moz-box-shadow: 0 1px 1px #555 inset;
+}
+
+#form-container input#trip_destination:focus {
+	color: #000;
+}
+
+#form-container input[type="submit"] {
+	background:#666 url('/images/button-bg.png');
+	padding:6px 10px;
+	text-align: center;
+	color:#606060;
+	cursor:pointer;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+	font-size: 17px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px white;
+	text-decoration: none;
+	border: 0;
+}
+
+#form-container input[type="submit"]:hover {
+	color: #F20063;
+}
+
+#form-container #indicator {
+	position: relative;
+	right: 210px;
+}
+
 #user_home_city_auto_complete {
 	text-align: left;
 	font-size: 12px;

@@ -34,7 +34,7 @@ module EventsHelper
   # Displays short note on the board.
   def display_short_note_on_board(event, trip, partner_id=0)
     if event.eventable_type == "Transportation"
-      if (event.note.nil? or event.note.empty?) and @users.include?(current_user)
+      if (event.note.nil? or event.note.empty?)
         "<p>" + fast_link("(Add notes)", "trips/#{trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\"") + "</p>"
       else
         simple_format(h(truncate(event.note, :length => Event::TRUNCATE_SHORT_NOTE_ON_BOARD_BY)))
@@ -196,7 +196,7 @@ module EventsHelper
   end
   
   def sortable_tile
-    if @users.include?(current_user) and params[:view] != "itinerary"
+    if new_visitor_created_trip? or (!@users.nil? and @users.include?(current_user) and params[:view] != "itinerary" and params[:view] != "map")
       return true
     else
       return false

@@ -1,5 +1,5 @@
 <div class="idea-actions">
-	<% if @users.include?(current_user) and params[:view] != "itinerary" %>
+	<% if sortable_tile %>
 		<span class="idea-edit"><%= fast_link("info", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\" alt=\"Edit\"") %></span>
 		<span class="delete"><%= link_to_remote "[x]", 
 				{ :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 

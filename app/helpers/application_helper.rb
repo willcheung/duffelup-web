@@ -69,6 +69,12 @@ module ApplicationHelper
     (user.full_name.nil? or user.full_name.empty?) ? user.username : user.full_name
   end
   
+  # If trip permalink == trip permalink saved in new visitor cookie
+  def new_visitor_created_trip?
+    return true if !cookies[:new_visitor_trip].nil? and (!@trip.nil? and @trip.permalink == cookies[:new_visitor_trip])
+    return false
+  end
+  
   # Parameters:
   # display - link display name
   # website - website url

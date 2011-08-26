@@ -45,7 +45,7 @@ class Trip < ActiveRecord::Base
   DASHBOARD_TITLE_TRUNCATE_SIZE = 60
   NUM_OF_COMMENTS_TO_SHOW = 4
   
-  attr_accessible :start_date, :end_date, :title, :destination, :photo, :is_public
+  attr_accessible :start_date, :end_date, :title, :destination, :photo, :is_public, :active, :permalink, :duration
   
   before_save :add_photo_size_to_user_bandwidth
   
