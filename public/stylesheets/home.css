@@ -267,13 +267,13 @@ img.twfb_login {
 #form-container {
 	margin: 16px auto;
 	padding: 18px 0 22px 25px;
-	width: 700px;
+	width: 750px;
 	height: 50px;
 }
 
 #form-container input#trip_destination {
 	padding: 5px 0 5px 20px;
-	width: 450px;
+	width: 480px;
 	height: 35px;
 	color:#777;
 	-moz-border-radius:20px;
@@ -293,8 +293,8 @@ img.twfb_login {
 }
 
 #form-container input[type="submit"] {
-	background:#666 url('/images/button-bg.png');
-	padding:6px 10px;
+	background:#666 url('/images/button-bookmarklet.gif');
+	padding:10px 10px;
 	text-align: center;
 	color:#606060;
 	cursor:pointer;
@@ -314,7 +314,7 @@ img.twfb_login {
 
 #form-container #indicator {
 	position: relative;
-	right: 210px;
+	right: 235px;
 }
 
 #user_home_city_auto_complete {
