@@ -193,7 +193,7 @@ class Trip < ActiveRecord::Base
                                 "http://duffelup.com/site/tools", 
                                 "", 
                                 "", 
-                                {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content => "image/jpeg", :size => nil}, 
+                                {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content_type => "image/jpeg", :file_size => nil}, 
                                 0,
                                 0)
       

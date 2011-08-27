@@ -405,12 +405,12 @@ class TripsController < ApplicationController
         # Create sample foodanddrink
         Idea.create_idea_in_duffel("Foodanddrink", 
                                   t.id, 
-                                  "Clip restaurant options and activities", 
+                                  "Clip restaurants and things to do", 
                                   "Save delicious images from any website, using our Clip-It bookmarker.",
                                   "http://duffelup.com/site/tools", 
                                   "", 
                                   "", 
-                                  {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content => "image/jpeg", :size => nil}, 
+                                  {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content_type => "image/jpeg", :file_size => nil}, 
                                   0,
                                   0)
 

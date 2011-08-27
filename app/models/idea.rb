@@ -33,6 +33,8 @@ class Idea < ActiveRecord::Base
     event.note = note.gsub(/<\/?[^>]*>/, "") # remove HTML tags
     event.price = price
     event.photo_file_name = photo[:file_name]
+    event.photo_content_type = photo[:content_type]
+    event.photo_file_size = photo[:file_size]
     idea.lat = lat unless lat.nil?
     idea.lng = lng unless lng.nil?
     idea.website = website
