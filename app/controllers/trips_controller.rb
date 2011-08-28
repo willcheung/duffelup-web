@@ -386,34 +386,35 @@ class TripsController < ApplicationController
       token = (Digest::SHA1.hexdigest( "#{Time.now.to_s.split(//).sort_by {rand}.join}" )).slice!(2..9)
       cookies[:new_visitor_trip] = token
       
+      dest = params[:trip][:destination].empty? ? "San Francisco, CA, United States" : params[:trip][:destination]
+      
       t = Trip.new({ :title => "My first duffel", 
                  :permalink => token,
                  :start_date => Time.now.to_date+30, 
                  :end_date => Time.now.to_date+34, 
                  :duration => 4,
                  :is_public => 1,
-                 :destination => params[:trip][:destination], 
+                 :destination => dest, 
                  :active => 0 })
       
       t.save!
-        # Add to cities_trips
-        t.cities << City.find_id_by_city_country(params[:trip][:destination])
-        
-        # Create sample note
-        Notes.create_introduction_note(t.id)
+      # Add to cities_trips
+      t.cities << City.find_id_by_city_country(params[:trip][:destination])
+      
+      # Create sample note
+      Notes.create_introduction_note(t.id)
 
-        # Create sample foodanddrink
-        Idea.create_idea_in_duffel("Foodanddrink", 
-                                  t.id, 
-                                  "Add restaurants and things to do", 
-                                  "Clip delicious images from any website, using our Clip-It bookmarker.",
-                                  "http://duffelup.com/site/tools", 
-                                  "", 
-                                  "", 
-                                  {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content_type => "image/jpeg", :file_size => nil}, 
-                                  0,
-                                  0)
-
+      # Create sample foodanddrink
+      Idea.create_idea_in_duffel("Foodanddrink", 
+                                t.id, 
+                                "Add restaurants and things to do", 
+                                "Clip delicious images from any website, using our Clip-It bookmarker.",
+                                "http://duffelup.com/site/tools", 
+                                "", 
+                                "", 
+                                {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content_type => "image/jpeg", :file_size => nil}, 
+                                0,
+                                0)
       
       redirect_to show_new_visitor_trip_url(:id => t.permalink)
     else

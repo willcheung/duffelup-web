@@ -8,22 +8,6 @@
 	<meta name="description" content="<%= @meta_description %>" />
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="icon" type="image/png" href="/favicon.png">
-    <script language="javascript">
-		 function changeBox()
-		 {
-			document.getElementById('div1').style.display='none';
-			document.getElementById('div2').style.display='';
-			document.getElementById('user_password').focus();
-		 }
-		 function restoreBox()
-		 {
-			if(document.getElementById('user_password').value=='')
-			{
-			  document.getElementById('div1').style.display='';
-			  document.getElementById('div2').style.display='none';
-			}
-		 }
-	</script>
 </head>
 
 <body id="homepage"> 
@@ -98,7 +82,7 @@
 		<div id="form-container" class="clearfix">
 		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
 			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-			<%= submit_tag "Create a duffel, free", :class => "submit" %>
+			<%= submit_tag "Create one now, free", :class => "submit" %>
 			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
 		<% end %>
 		</div>
