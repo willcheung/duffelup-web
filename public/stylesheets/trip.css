@@ -1767,9 +1767,9 @@ input[type="text"], textarea, input[type="password"] {
 	padding: 3px; border: 1px solid #999;
 	border-bottom-color: #ccc;
 	border-right-color: #ccc;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 	}
 input[type="button"], input[type="submit"] {
 	border:0;
@@ -1793,7 +1793,50 @@ input.trip_destination_home {
 input.trip_destination_submit {
 	font-size: 18px;
 	}
-	
+
+#signup_bubble label {
+	vertical-align:top;
+	float:left;
+	width:150px;
+	color:#222;
+	display:block;
+	font-weight: bold;
+}
+
+* #signup_bubble label {
+	float: none;
+	display: inline-block;
+}
+
+#signup_bubble .hint {
+	font-size: 11.5px;
+	color: #111;
+	vertical-align: text-top;
+	font-weight: normal;
+}
+
+#signup_bubble .form-group {
+	margin: 15px 0;
+}
+
+#signup_bubble .tourSmallLink {
+	font-size: 11px;
+	float: right;
+	margin: 0 135px 0 0;
+	padding: 10px;
+}
+
+#signup_bubble input[type="text"], #signup_bubble input[type="password"] {
+	height: 20px;
+}
+
+#user_email_validator, #user_username_validator, #user_password_validator { font-size: 11px; padding: 0; vertical-align: text-top; }
+
+#signup_bubble .error {
+	font-size:12px;
+	color:red;
+	padding:0 10px;
+}
 	
 /*-----------------------------------------------------------------------------------
 	Notifications

@@ -9,8 +9,6 @@ class SiteController < ApplicationController
     if logged_in?
       redirect_to dashboard_path
     end
-    
-    @user = User.new
   end
 
   def about

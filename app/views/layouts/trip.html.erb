@@ -15,16 +15,6 @@
 	      var ideas_to_map = <%= @ideas_to_map.to_json %>;
 	    </script>
 	  	<%- end -%>
-	
-		<script type="text/javascript">
-			Element.observe(window, 'load', function(e)
-			{
-			  var publishedSlida = new Effect.Slida('slida', { 
-					offLabel: 	'Guest View&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', 
-					onLabel: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sortable'
-				});
-			});
-		</script>
 		
 		<meta name="description" content="<%= @meta_description %>" />
 		<link rel="image_src" href="<%= @link %>" />
