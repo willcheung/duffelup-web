@@ -439,6 +439,7 @@ class TripsController < ApplicationController
     
     @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
     @city = []
+    @user = User.new
     
     ###################################
     # Get all the cities (well, top 5 cities) for this duffel

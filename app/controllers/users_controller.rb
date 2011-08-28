@@ -270,9 +270,18 @@ class UsersController < ApplicationController
           Friendship.add_duffel_professor(@user)
           Postoffice.deliver_welcome(@user)
         
-          # Create a new duffel as "research duffel"
-          Trip.create_duffel_for_new_user({ :title => "#{@user.username}'s first duffel", :start_date => nil,
+          if params[:new_visitor_trip]
+            # Save new_visitor_trip as new user's trip
+            t = Trip.find_by_permalink(params[:new_visitor_trip])
+            t.active = 1
+            t.save!
+            
+            Invitation.invite_self(@user, t)
+          else
+            # Create a new duffel as "research duffel"
+            Trip.create_duffel_for_new_user({ :title => "#{@user.username}'s first duffel", :start_date => nil,
                                             :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, current_user)
+          end
       
           # Add a city to follow its travel deals
           @user.cities << City.find_by_id(609)
@@ -293,6 +302,8 @@ class UsersController < ApplicationController
           flash[:notice] = "Thanks for signing up.  We sent you an email confirmation."
           if params[:from]
             format.html { redirect_back_or_default('researches/new') }
+          elsif params[:new_visitor_trip]
+            format.html { redirect_to("/trips/#{params[:new_visitor_trip]}")}
           else
             format.xml { render :xml => { :status => :login_successful, :username => current_user.username, :iphone_auth_token => key } }
             format.json { render :json => { :status => :login_successful, :username => current_user.username, :iphone_auth_token => key } }
