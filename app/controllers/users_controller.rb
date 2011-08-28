@@ -273,7 +273,7 @@ class UsersController < ApplicationController
           if params[:new_visitor_trip]
             # Save new_visitor_trip as new user's trip
             t = Trip.find_by_permalink(params[:new_visitor_trip])
-            t.active = 1
+            t.active = 1 # activate trip so signed up user can see it
             t.save!
             
             Invitation.invite_self(@user, t)
@@ -302,8 +302,6 @@ class UsersController < ApplicationController
           flash[:notice] = "Thanks for signing up.  We sent you an email confirmation."
           if params[:from]
             format.html { redirect_back_or_default('researches/new') }
-          elsif params[:new_visitor_trip]
-            format.html { redirect_to("/trips/#{params[:new_visitor_trip]}")}
           else
             format.xml { render :xml => { :status => :login_successful, :username => current_user.username, :iphone_auth_token => key } }
             format.json { render :json => { :status => :login_successful, :username => current_user.username, :iphone_auth_token => key } }

@@ -34,8 +34,8 @@
 	<% end %>
 		
 	
-	<div id="signup_bubble" class="tour" style="top: 40%; left: 50%; margin: -100px 0 0 -190px; width: 390px; height: 278px;">
-		<h1>Sign up and save this duffel</h1>
+	<div id="signup_bubble" class="tour" style="top: 40%; left: 50%; margin: -100px 0 0 -190px; width: 390px; height: 278px;display:none;">
+		<h1 id="bubble_title">Sign up and save this duffel</h1>
 		<% form_for(@user, :url => user_path(:new_visitor_trip => "#{@trip.permalink}")) do |f| -%>
 
 			<div class="form-group">
@@ -108,9 +108,9 @@
 			</div>
 			<div id="account">
 	          	<ul>
-		          	<li class="edit"><a onclick="$('signup_bubble').show();return false;", href="#">Edit (privacy setting & dates)</a></li>
-					<li class="invite"><a onclick="$('signup_bubble').show();return false;", href="#">Invite collaborators</a></li>
-					<li id="trip-login"><a class="signup" onclick="$('signup_bubble').show();return false;" href="#">Save this duffel</a></li>
+		          	<li class="edit"><a onclick="$('bubble_title').innerHTML='Sign up and edit duffel settings';$('signup_bubble').show();return false;", href="#">Edit (privacy setting & dates)</a></li>
+					<li class="invite"><a onclick="$('bubble_title').innerHTML='Sign up and invite others to this duffel';$('signup_bubble').show();return false;", href="#">Invite collaborators</a></li>
+					<li id="trip-login"><a class="signup" onclick="$('bubble_title').innerHTML='Sign up and save this duffel';$('signup_bubble').show();return false;" href="#">Save this duffel</a></li>
 				</ul>
 	        </div>
 		</div>
