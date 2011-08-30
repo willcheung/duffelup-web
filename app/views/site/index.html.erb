@@ -33,7 +33,7 @@
 	<div id="intro" class="clearfix">
 		
 	  	<div id="features">
-			<h2 id="tagline">Fun and corky way to plan your trips.</h2>
+			<h2 id="tagline">Plan better trips.</h2>
             <div id="feature1">
                 <img src="/images/homepage/feat1.png" id="feat1" /><br />
             </div>
@@ -50,21 +50,21 @@
             
                 <div id="feature1_text">
                 <span class="feat_header">
-                Clip travel reviews<br />
+                Clip travel ideas<br />
                 </span>
                 <span class="feat_text">
-                and recommendations from<br/>
-				any webpage or email.
+                and notes from any<br/>
+				webpage or email.
                 </span>
             </div>
             
             <div id="feature3_text">
             <span class="feat_header">
-                Plan the same trip<br />
+                Invite others<br />
                 </span>
                 <span class="feat_text">
-                by sharing and collaborating<br/>
-				with friends and family.
+                and collaborate on</br>
+				the same trip.
                 </span>          
             </div>
             
@@ -72,7 +72,7 @@
                 <span class="feat_header">See everything <br />
                 </span>
                 <span class="feat_text">
-                laid out on an interactive<br />
+                laid out on a virtual<br />
                 corkboard and map.
                 </span>
             </div>
@@ -82,7 +82,7 @@
 		<div id="form-container" class="clearfix">
 		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
 			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-			<%= submit_tag "Create one now, free", :class => "submit" %>
+			<%= submit_tag "Create a duffel now", :class => "submit" %>
 			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
 		<% end %>
 		</div>
@@ -116,7 +116,7 @@
         <div id="explore">
           <h2 class="explore_header">Need some travel ideas?</h2>
           <span class="explore_text">
-          Explore duffels from popular cities!<br />
+          <a class="explore_link" href="/explore">Explore duffel community</a> and cities.<br/>
           
           <ul>
               <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
@@ -129,14 +129,8 @@
               &nbsp;<a href="http://duffelup.com/US/CA/san-francisco">
               San Francisco</a></li>
               <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/JP/tokyo">
-              Tokyo</a></li>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
               &nbsp;<a href="http://duffelup.com/US/NV/las-vegas">
               Las Vegas</a></li>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/GB/london">
-              London</a></li>
           </ul>
           </span>
           

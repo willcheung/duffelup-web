@@ -215,7 +215,7 @@ h4 span {
 p {
 	line-height:17px;
 	margin-top:0;
-	padding:8px 0 7px;
+	padding:4px 0 7px;
 }
 
 a {
@@ -262,7 +262,7 @@ a:hover {
 }
 
 #site p {
-	line-height:120%;
+	line-height:1.5em
 }
 
 #wrapper {
