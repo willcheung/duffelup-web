@@ -232,7 +232,7 @@ class TripsController < ApplicationController
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil? or @trip.active == 0
 
     @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
-    @meta_description = "Personalized guide and itinerary to " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + ".  Planned and organized by " + @admins[0].username.capitalize + " on Duffel Visual Trip Planner."
+    @meta_description = "Personalized guide and itinerary to " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + ".  Planned on Duffel Visual Trip Planner."
     @city = [] # used in trips_helper#trip_destination_in_trip_header
 
     ####################################
