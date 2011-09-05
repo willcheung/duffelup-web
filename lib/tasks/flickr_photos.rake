@@ -1,5 +1,3 @@
-#require 'flickr_fu'
-
 namespace :flickr_photos do
     
   desc "Retrieve Flickr Photos for top 100 cities"

@@ -195,7 +195,6 @@
 	
 	<%= render :partial => 'site/hotels_search_form', :locals => { :form_title => "Find #{@city.city} Hotels", :label => "city_page", :dest_field => @city.city } %>
 	
-	<% cache("city-#{@city.city_country}-duffels") do %>
 	
 	<% unless @trips.empty? %>
 	
@@ -243,7 +242,6 @@
 	<% end %>
 	<% end %>
 	
-	<% end %><!-- end of duffels cache -->
 	
 	<div class="clear"></div>
 	
