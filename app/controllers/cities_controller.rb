@@ -1,6 +1,8 @@
+require 'FlickRaw'
+
 class CitiesController < ApplicationController
   include ApplicationHelper
-    
+  
   layout "simple_without_js", :except => :country
   
   before_filter :find_city_from_params, :find_duffel_count, :except => [:country]
@@ -8,7 +10,7 @@ class CitiesController < ApplicationController
   def index
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @city.nil?
     
-    @title = @city.city_country.gsub(", United States", "") + " Itineraries, Travel Tips, Things To Do, and Information - Duffel Visual Trip Planner"
+    @title = @city.city_country.gsub(", United States", "") + " Itineraries, Travel Tips and Things To Do - Duffel Visual Trip Planner"
     @meta_description = "Check out custom guide and itineraries to " + @city.city_country + ", planned and organized by our members on Duffel Visual Trip Planner.  Start collecting ideas and create your personalized travel guide with Duffel!"
     
     if !fragment_exist?("city-#{@city.city_country}-duffels", :time_to_live => 12.hours)
@@ -30,6 +32,13 @@ class CitiesController < ApplicationController
     if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.month)
       @activities = ViatorEvent.find_viator_events_by_destination("", 6, @city.id)
     end
+    
+    #######################
+    # Find Flickr Photos
+    #######################
+    #FlickRaw.api_key = ENV['FLICKR_KEY']
+    #FlickRaw.shared_secret = ENV['FLICKR_SECRET']
+    #@photos = flickr.photos.search(:text => params[:city], :license => '4,5,6,7', :per_page => 8, :media => 'photo', :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'views,owner_name')
     
     #######################
     # Find IAN hotels
