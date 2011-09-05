@@ -190,7 +190,7 @@
 	        .days td.selected a {
 	            border-color: #0896ff;
 	        }
-
+	
 	</style>
 	
 	<%= render :partial => 'site/hotels_search_form', :locals => { :form_title => "Find #{@city.city} Hotels", :label => "city_page", :dest_field => @city.city } %>
@@ -244,6 +244,7 @@
 	
 	
 	<div class="clear"></div>
+	
 	
 <!--
 	<% cache("city-#{@city.city_country}-activities") do %>
