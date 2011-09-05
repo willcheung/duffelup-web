@@ -117,7 +117,7 @@ class City < ActiveRecord::Base
   # Used by cities_controller to find city by city name and country code
   def self.find_by_city_name_and_country_code(city, country_code, region=nil)
     if region.nil?
-      c = self.find_by_sql(["SELECT cities.id, cities.city_country, cities.city, cities.latatitude, cities.longitude, countries.country_name
+      c = self.find_by_sql(["SELECT cities.id, cities.city_country, cities.city, cities.latitude, cities.longitude, countries.country_name
                               FROM cities 
                               INNER JOIN countries on cities.country_id = countries.id
                               WHERE cities.city=? AND countries.country_code=? limit 1", city, country_code])
