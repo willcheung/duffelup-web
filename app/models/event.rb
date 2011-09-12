@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
     
   has_attached_file :photo,
                     :styles => {
-                      :thumb => "155x150#",
+                      :thumb => "165x160#",
                       :medium => "325x325#",
                       :large  => "600x600#" },
                     :storage => :s3,

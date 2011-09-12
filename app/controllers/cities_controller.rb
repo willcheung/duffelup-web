@@ -1,7 +1,8 @@
-require 'FlickRaw'
+#require 'FlickRaw'
 
 class CitiesController < ApplicationController
   include ApplicationHelper
+  include FlickRaw
   
   layout "simple_without_js", :except => :country
   
@@ -30,15 +31,24 @@ class CitiesController < ApplicationController
     # Find Viator events
     #######################
     if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.month)
-      @activities = ViatorEvent.find_viator_events_by_destination("", 6, @city.id)
+      @activities = ViatorEvent.find_viator_events_by_destination("", 3, @city.id)
     end
     
     #######################
     # Find Flickr Photos
     #######################
-    #FlickRaw.api_key = ENV['FLICKR_KEY']
-    #FlickRaw.shared_secret = ENV['FLICKR_SECRET']
-    #@photos = flickr.photos.search(:text => params[:city], :license => '4,5,6,7', :per_page => 8, :media => 'photo', :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'views,owner_name')
+    # @photos = []
+    # FlickRaw.api_key = ENV['FLICKR_KEY']
+    # FlickRaw.shared_secret = ENV['FLICKR_SECRET']
+    # result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 25, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')
+    # 
+    # tmp = result[0]
+    # result.each do |p|
+    #   if tmp.ownername != p.ownername
+    #     @photos << p
+    #     tmp = p
+    #   end
+    # end
     
     #######################
     # Find IAN hotels
