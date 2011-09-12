@@ -4,7 +4,7 @@
 			<span class="idea-label" id="fooddrink-rec">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 			<div class="detail">
-				<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" height="138" /></a>
+				<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" /></a>
 			</div>
 			<h3><%= display_title_with_link(event, 33) %></h3>
 			<div class="idea-note"><%= display_short_note_on_board(event, @trip) %></div>

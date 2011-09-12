@@ -25,8 +25,8 @@
 				<%= link_to display_thumbnail(current_user), profile_for(current_user), :alt => "This is you!", :title => "This is you!" %>
 			</div>
 			<div class='comment-form'>
-				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '20', :rows => '3' %>
-				  <div class="comment-btn">
+				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '20', :rows => '3', :placeholder => "Write something...", :onfocus => "$('post-btn').show();return false;" %>
+				  <div class="comment-btn" id="post-btn" style="display:none;">
 					<%= submit_tag "POST", :class => 'submit' %>
 				  </div> 
 			</div>

@@ -143,7 +143,13 @@
 							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
 						</li>
 					
-		          		<li class="dashboard"><%= link_to_unless_current "My dashboard", dashboard_path, :title => "Back to my dashboard", :alt => "Back to my dashboard" %></li>
+		          		<li class="dashboard" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"><%= link_to_unless_current "My dashboard", dashboard_path, :title => "Back to my dashboard", :alt => "Back to my dashboard" %></li>
+						<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+							<li onclick="window.location='/user/dashboard?tab=duffels-active'; return false;"><a href="#">Active Duffels</a></li>
+							<li onclick="window.location='/user/dashboard?tab=duffels-previous';return false;"><a href="#">Previous Duffels</a></li>
+							<li style="background: url(../images/icon-favorite.png) no-repeat 2px -121px;" onclick="window.location='/user/dashboard?tab=duffels-faves';return false;"><a href="#">Favorites</a></li>
+						</ul>
+					
 					</ul>
 		          
 		         <% else -%>
