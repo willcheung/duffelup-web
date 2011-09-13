@@ -1,8 +1,8 @@
-<li id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
+<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_0_<%= event.id %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="note">
 		<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 		<h3><%= display_title_with_link(event) %></h3>
 		<div class="idea-note"><p><%= (auto_link(simple_format(h(truncate(event.content, :length => Event::TRUNCATE_NOTE_ON_BOARD_BY))), :all, :target => "_blank")) %></p></div>
-		<%= content_tag "span", "by <a href=\"/#{event.author}\">#{event.author}</a>", :class => "idea-author" unless event.author.nil? %>
+		<%= content_tag "span", "by #{event.author}", :class => "idea-author" unless event.author.nil? %>
 	</div>
 </li>

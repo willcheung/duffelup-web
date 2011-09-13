@@ -1,30 +1,30 @@
 <% if event.photo? %>
-	<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
+	<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="recommendation business">
 			<span class="idea-label" id="fooddrink-rec">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 			<div class="detail">
 				<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" /></a>
 			</div>
-			<h3><%= display_title_with_link(event, 33) %></h3>
+			<h3><%= display_title_without_link(event, 33) %></h3>
 			<div class="idea-note"><%= display_short_note_on_board(event, @trip) %></div>
-			<%= content_tag "span", "by <a href=\"/#{event.author}\">#{event.author}</a>", :class => "idea-author" unless event.author.nil? %>
+			<%= content_tag "span", "by #{event.author}", :class => "idea-author" unless event.author.nil? %>
 		</div>
 	</li>
 <% else %>
 
-	<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+	<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="foodanddrink">
 			<span class="idea-label">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
-			<h3><%= display_title_with_link(event) %></h3>
+			<h3><%= display_title_without_link(event) %></h3>
 			<div class="idea-note">
 				<%= display_short_note_on_board(event, @trip) %>
 				<% unless event.price_range.nil? %>
 					<p style="font-family:Helvetica,Arial,Sans-serif"><span class="price"><small>Price Range: <%= display_price_range(event.price_range.to_i) %></small></span></p>
 				<% end %>
 			</div>
-			<%= content_tag "span", "by <a href=\"/#{event.author}\">#{event.author}</a>", :class => "idea-author" unless event.author.nil? %>
+			<%= content_tag "span", "by #{event.author}", :class => "idea-author" unless event.author.nil? %>
 		</div>
 	</li>
 <% end %>

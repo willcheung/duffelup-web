@@ -126,7 +126,7 @@ a:hover{color: #555;}
 #content{
 	top: 101px; 
 	bottom: 26px; 
-	z-index: 4; 
+	z-index: 1; 
 	overflow: auto;
 	background: #4d4b56 url('../images/bg-corkboard.jpg');
 	right: 0;
@@ -150,7 +150,7 @@ a:hover{color: #555;}
 	color: #ccc;
 	font-size: 16px;
 	height: 41px;
-	z-index: 1;
+	z-index: 4;
 	top: 60px;
 	right: 0;
 	left: 240px;
@@ -362,6 +362,7 @@ a:hover{color: #555;}
 }
 
 #account ul.submenu {
+	z-index: 10;
 	border:none;
 	background:#1c3451;
 	position:relative;
@@ -690,6 +691,7 @@ span.collaborator img {
 	margin: 8px 0 0 8px;
 	position: relative;
 	display: inline;
+	cursor: pointer;
 }
 
 #board_events div.divider {
@@ -897,6 +899,16 @@ span.collaborator img {
 
 #board_events .note .idea-note{
 	height: 116px;
+}
+
+#board_events span.idea-link a{
+ 	position: absolute;
+   	text-indent: -5000px;
+    background: url('../images/icon-link-2.gif') no-repeat !important;
+ 	right: -3px;
+	top: 154px;
+   	width: 20px;
+    height: 20px;
 }
 
 #board_events span.idea-info a{
@@ -1351,9 +1363,9 @@ span.collaborator img {
 }
 
 #event_details {
-	position: absolute;;
+	position: absolute;
 	right: 305px;
-	z-index:4;
+	z-index:1;
 	width: 360px;
 	height: 100%;
 }
@@ -1379,7 +1391,7 @@ span.collaborator img {
 	position: absolute;
 	padding:8px;	
 	top: 115px;
-	z-index:4;
+	z-index:1;
 	width: 356px;
 	height: 72.5%;
 	-moz-border-radius:4px 4px 0 0;

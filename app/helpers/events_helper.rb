@@ -96,11 +96,13 @@ module EventsHelper
   end
 	
 	# This is displayed on the itinerary.
-	def display_title_without_link(title)
-	  if title.empty?
+	def display_title_without_link(event, length=nil)
+	  length = Event::TRUNCATE_TITLE_LENGTH_ON_TILE if length.nil?
+	  
+	  if (event.title.nil? or event.title.empty?)
 			"(No Title)"
 		else
-		  h(truncate(title, :length => Event::TRUNCATE_TITLE_LENGTH_ON_ITINERARY)).gsub(h("&rarr;"), "&rarr;")
+		  h(truncate(event.title, :length => length)).gsub(h("&rarr;"), "&rarr;")
 	  end
   end
   

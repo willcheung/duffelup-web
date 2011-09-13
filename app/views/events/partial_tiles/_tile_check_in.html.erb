@@ -1,4 +1,4 @@
-<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="checkin">
 		<div class="idea-actions">
 			<% if @users.include?(current_user) %>
@@ -9,7 +9,9 @@
 					  :title => "Delete",
 					  :alt => "Delete" %></span>
 			<% end %>
+			<!--
 			<span class="idea-info-inverse"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" alt="More Info" title="More Info">more info</a></span>
+			-->
 		</div>
 		<div class="detail">
 			<img src="<%= get_image_url(event) %>" alt="<%= event.title %>"/>
@@ -17,7 +19,7 @@
 		<div class="caption">
 			<%= simple_format(h(truncate(event.title, :length => 80))) %>
 			<!--<%= simple_format(h(truncate(event.note, :length => 100))) %>-->
-			<%- unless event.author.nil? -%><p style="margin-top:3px;text-align:left;font-size:10px;">by <a href="/<%= event.author %>"><%= event.author %></a></p><%- end -%>
+			<%- unless event.author.nil? -%><p style="margin-top:3px;text-align:left;font-size:10px;">by <%= event.author %></p><%- end -%>
 		</div>
 	</div>
 </li>

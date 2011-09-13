@@ -183,7 +183,7 @@
 			<% end %>
 		<% else %>
 			<ul id="add-ideas">
-			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel journal. Like what you see? 
+			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel journal. Like what you see?
 			<% if current_user %>
 			<%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %>
 			<% else %>
