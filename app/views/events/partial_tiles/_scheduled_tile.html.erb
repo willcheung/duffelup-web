@@ -1,4 +1,4 @@
-<li <% if sortable_tile %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" <% if sortable_tile %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
 
 <%- if event.eventable_type == "Foodanddrink" -%>
 <span class="foodanddrink">
@@ -22,23 +22,23 @@
 	-->
 	<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "CheckIn" %>
 		<% if event.lat and event.lng %>
-		<%= event.index unless event.index.nil? %>. <%= display_title_without_link(event.title) %>
+		<%= event.index unless event.index.nil? %>. <%= display_title_without_link(event) %>
 		<% else %>
-		<%= display_title_without_link(event.title) %>
+		<%= display_title_without_link(event) %>
 		<% end %>
 	<% else %>
-		<%= display_title_without_link(event.title) %>
+		<%= display_title_without_link(event) %>
 	<% end %>
 	
 <% else %> <!-- if not map view -->
 
-	<%= display_title_without_link(event.title) %>
+	<%= display_title_without_link(event) %>
 	
 <% end %>
 
 <em class="list-actions">
 <% if params[:view] != "map" %>
-<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>
+<!--<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>-->
 <% else %>
 <span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
 <span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>

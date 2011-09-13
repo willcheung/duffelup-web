@@ -9,8 +9,12 @@
 				  :alt => "Delete",
 				  :title => "Delete" %></span>
 	<% end %>
+	
 	<% if logged_in? %>
 	<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
 	<% end %>
-	<span class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" alt="More Info" title="More Info">more info</a></span>
+	
+	<% if event.eventable_type != "Notes" and event.eventable_type != "Transportation" and !event.website.empty? %>
+	<span class="idea-link"><a href="#" alt="Go to website" title="Go to website">Go to website</a></span>
+	<% end %>
 </div>
