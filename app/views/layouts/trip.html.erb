@@ -124,7 +124,7 @@
 						<%- if @users.include?(current_user) %>
 							<li class="invite"><%= link_to "Invite collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite collaborators", :alt => "Invite collaborators" %></li>
 						<%- end -%>
-		
+						
 						<% cache("user-#{current_user.id}-trip-#{@trip.id}-favorites") do %>
 						<%- unless @trip.favorite?(current_user) -%>
 							<li class="add-bookmark"><%= link_to 'Save as favorites', trip_create_favorite_path(@trip.permalink), :title => "Favorite this duffel", :alt => "Favorite this duffel"  %></li>
@@ -140,7 +140,11 @@
 						-->
 						
 						<li class="share">
-							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
+							<div id="share" class="addthis_toolbox addthis_default_style">
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+								<a class="addthis_button_email"></a>	
+							</div>
 						</li>
 					
 		          		<li class="dashboard" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"><%= link_to_unless_current "My dashboard", dashboard_path, :title => "Back to my dashboard", :alt => "Back to my dashboard" %></li>
@@ -157,7 +161,11 @@
 					<ul>
 						<li class="add-bookmark"><%= link_to 'Favorite this', trip_create_favorite_path(@trip.permalink), :title => "Bookmark this duffel", :alt => "Bookmark this duffel"  %></li>
 						<li class="share">
-							<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=duffel" class="addthis_button">Share</a>
+							<div id="share" class="addthis_toolbox addthis_default_style">
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+								<a class="addthis_button_email"></a>	
+							</div>
 						</li>						
 						<li id="trip-login"><a class="signup" href="/signup">Sign Up</a></li>
 						<li id="trip-login"><a class="signin" href="/login?redirect=<%= request.request_uri %>">Sign In</a></li>

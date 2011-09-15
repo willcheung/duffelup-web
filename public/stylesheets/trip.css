@@ -344,20 +344,30 @@ a:hover{color: #555;}
 
 #account li {
 	float: left;
+	border-right: 1px dotted #5C6571;
+	padding: 0 10px;
 }
 
 #account li a {
 	color: #C8CCCF;
 	text-decoration: none;
-	border-right: 1px dotted #5C6571;
-	padding: 0 10px;
 	display: block;
 	line-height: 19px;
 }
 
+#account li.dashboard {
+	border:0;
+	padding-right:0;
+}
+
+#account li#trip-login {
+	padding:0;
+	border:0;
+}
+
 #account li.dashboard a {
 	border: 0;
-	background: url(../images/icon-down-arrow.png) no-repeat 90px 0;
+	background: url(../images/icon-down-arrow.png) no-repeat 80px 0;
 	padding-right: 20px;
 }
 
@@ -413,8 +423,10 @@ a:hover{color: #555;}
 }
 
 #account li.share a {
-	background: url(../images/trip/ico-share.png) no-repeat 8px 0px;
-	padding-left: 30px;
+	/*background: url(../images/trip/ico-share.png) no-repeat 8px 0px;
+	padding-left: 30px;*/
+	border: 0;
+	padding: 0 3px;
 }
 
 #account li.add-bookmark a {
