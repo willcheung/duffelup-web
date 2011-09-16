@@ -878,6 +878,7 @@ span.collaborator img {
 }
 #board_events .recommendation .detail { float: right; width: 85px; margin: 30px 8px 0 0; }
 #board_events .business .detail { float: right; width: 138px; height: 138px; margin: 22px 15px 0 0; overflow: hidden;}
+#board_events .business .detail img { height: 138px; width: 140px;}
 #board_events .recommendation .detail input { font-size: 11px; background: #666; color: #fff; border-color: #666; padding: 0; margin: 10px 0 0 0; }
 #board_events .price { font-size: 14px; color: #e91e79; line-height: 10px; margin: 10px 0 0 0; }
 #board_events .price span { font-size: 11px; color: #666; }
@@ -1526,8 +1527,8 @@ span.collaborator img {
 	background-color: #F6F6F6;
     border: 1px solid #CCCCCC !important;
     margin: 0;
-    max-height: 305px;
-    max-width: 305px;
+    max-height: 315px;
+    max-width: 315px;
     padding: 8px;
 	border-radius: 0.5em 0.5em 0.5em 0.5em;
 	-moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
