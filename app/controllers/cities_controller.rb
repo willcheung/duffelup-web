@@ -1,8 +1,7 @@
-#require 'FlickRaw'
+require 'flickraw'
 
 class CitiesController < ApplicationController
   include ApplicationHelper
-  #include FlickRaw
   
   layout "simple_without_js", :except => :country
   
