@@ -1,6 +1,6 @@
 <li><%= link_to_unless_current "Dashboard", dashboard_path %></li>
 <li><%= link_to_unless_current "Bookmarker", :controller => 'site', :action => 'tools' %></li>
-<li><%= link_to_unless_current "Duffel All-Stars", :featured_duffels %></li>
+<li><%= link_to_unless_current "Featured Duffels", :featured_duffels %></li>
 <li><%= link_to_unless_current "Invite Friends", new_beta_invitation_path %></li>
 <% if current_user.facebook_user? && facebook_session %>
 	<li class="last"><a href="#" onclick='FB.Connect.logoutAndRedirect("/logout")'>Logout</a></li>
