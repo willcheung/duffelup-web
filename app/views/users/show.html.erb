@@ -50,7 +50,7 @@
 <%- if @duffel_of_the_month -%>
 	<% cache("dashboard-featured-duffel") do %>
     <div id="featuredUser">
-      <h2>Duffel of the Month</h2>
+      <h2>Featured Duffels</h2>
       <div class="avatar">
        	<% if !@duffel_of_the_month.trip.photo.size.nil? and @duffel_of_the_month.trip.photo.size != "" %>
 		<span><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><img max-width="240" src="<%= @duffel_of_the_month.trip.photo.url(:small) %>" class="duffel-image" /></a></span>
@@ -117,7 +117,7 @@
 	<div id="dashboard-header">
 		<% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) and !@preview_duffel.nil? %>
 		<div id="active-duffel-reminder">
-			<h2>Recently planning: <span class="mute t11"><a href="?tab=duffels-active">(manage your duffels)</a></span></h2>
+			<h2>Most recent duffel: <span class="mute t11"><a href="?tab=duffels-active">(manage active duffels)</a></span></h2>
 			<div id="photo-container"><a href="/trips/<%= @preview_duffel.permalink %>"><img src="<%= duffel_thumbnail_url(@preview_duffel) %>" alt="<%= @preview_duffel.title %>" title="<%= @preview_duffel.title %>"/></a></div>
 			
 			<div id="title">

@@ -12,7 +12,7 @@
 			<% if partner %>
 				<li><a href="#" onclick="window.open('<%= dashboard_path %>');">Dashboard</a> </li>
 				<li><a href="#" onclick="window.open('<%= url_for(:controller => 'site', :action => 'tools') %>');">Bookmarker</a> </li>
-				<li><a href="#" onclick="window.open('<%= featured_duffels_path %>';">Duffel All-Stars</a></li>
+				<li><a href="#" onclick="window.open('<%= featured_duffels_path %>';">Featured Duffels</a></li>
 				<li><a href="#" onclick="window.open('<%= new_beta_invitation_path %>');">Invite Friends</a> </li>
 				<li><a href="#" onclick="window.open('<%= logout_url %>');">Logout</a> </li>
 			<% else %>
