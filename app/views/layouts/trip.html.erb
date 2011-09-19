@@ -237,6 +237,13 @@
 		</script>
 		
 		<script type="text/javascript">
+			function showMap(){
+				var str=$('activity_address').value.replace(' ','+');
+				$('event-map-img').src="http://maps.googleapis.com/maps/api/staticmap?Brooklyn+Bridge&zoom=15&size=115x115&sensor=false&center="+str;
+			}
+		</script>
+		
+		<script type="text/javascript">
                 var isExtended = 0;
         
                 function slidingSideBarinit(){

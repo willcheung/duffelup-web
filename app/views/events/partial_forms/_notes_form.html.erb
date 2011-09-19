@@ -5,8 +5,7 @@
 	<% fields_for :notes do |f| -%>
 		<p>
 		<label for="note">Notes:</label>
-		<%= f.text_area :content, :rows => 20, :cols => 85 %>
-		<em class="helper">example: buy carry-on safe bottles. remember to bring toothbrush.</em>
+		<%= f.text_area :content, :rows => 12, :cols => 40, :placeholder => "example: buy carry-on safe bottles. remember to bring toothbrush." %>
 		</p>
 	<% end -%>
 </div>

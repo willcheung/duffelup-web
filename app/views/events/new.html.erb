@@ -10,10 +10,16 @@
 	<% end %>
 </h2>
 
+<div class="tile-actions">	
+<p>You can add ideas from any website with just one click.</p> 
+<div class="t15"><%= render :partial => "shared/bookmarklet", :locals => {:small => true} %></div>
+
+</div>
+
 <% if params[:idea_type] == "activity" %>
 <div id="results" style="display:none;">
 	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'viator', :view => params[:view])) do |form| %>
-		<div id="viator-list" style="max-height:325px; overflow:auto; margin-top:20px;">
+		<div id="viator-list" style="max-height:200px; overflow:auto; margin-top:20px;">
 		<ul class="partner-list">
 		<% @viators.each do |v| %>
 			<li>
@@ -32,7 +38,7 @@
 <% elsif params[:idea_type] == "hotel" %>
 <div id="results" style="display:none;">
 	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'splendia', :view => params[:view])) do |form| %>
-		<div id="viator-list" style="max-height:325px; overflow:auto; margin-top:20px;">
+		<div id="viator-list" style="max-height:200px; overflow:auto; margin-top:20px;">
 		<ul class="partner-list">
 		<% @splendia_hotels.each do |h| %>
 			<li>
@@ -53,13 +59,6 @@
 <div id="form">
 <% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => params[:idea_type], :view => params[:view]),
 					:html => { :multipart => true }) do |form| %>
-	
-	<div class="tile-actions" style="margin-top: -40px;">
-		<h3>Want to add ideas more quickly?</h3>	
-		<ul>
-			<li><small class="t15"><%= render :partial => "shared/bookmarklet", :locals => {:small => true} %></small></li>
-		</ul>
-	</div>
 	
 	<%= render :partial => "events/partial_forms/new_idea_form", :locals => { :form => form } %>
 	<div id="form-submit" class="clearfix"><%= submit_tag @label, :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>

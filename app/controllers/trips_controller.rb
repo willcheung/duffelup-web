@@ -416,8 +416,7 @@ class TripsController < ApplicationController
                                 0,
                                 0)
       
-      #redirect_to show_new_visitor_trip_url(:id => t.permalink)
-      redirect_to(steptwo_path)
+      redirect_to show_new_visitor_trip_url(:id => t.permalink)
     else
       render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return
     end
