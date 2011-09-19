@@ -1,39 +1,31 @@
-<p><label for="event_title">Title:</label>
-<%= form.text_field :title, :value => @event_title_value %></p>
-
 <div id="form-details">
-	<p><label for="event_note">Notes:</label>
-		<%= form.text_area :note, :rows => 8, :cols => 35 %></p>
+	<p><label for="event_title">Title:</label>
+	<%= form.text_field :title, :value => @event_title_value %></p>
+	
+	<p><label for="event_note">Note:</label>
+	<%= form.text_area :note, :rows => 3, :cols => 35, :placeholder => "Some notes here..." %></p>
 
 	<% fields_for params[:idea_type].to_sym do |f| -%>
 	
-	<p><label for="event_website">Website:</label>
-		<%= f.text_field :website, :size => 30 %>
-		<em class="helper">(ex: http://www.duffelup.com)</em>
+	<div id="form-more-info"><a id="link" href="#" onclick="$('event_photo').show();$('event_website').show();$('form-more-info').hide(); return false;">More details</a></div>
+	
+	<p id="event_website" style="display:none;"><label for="event_website">Website:</label>
+		<%= f.text_field :website, :size => 30, :placeholder => "http://" %>
 	</p>
 </div>
 
 <div id="form-location">
-	<div id="form-more-info"><a id="link" href="#" onclick="$('optional_block').show();$('form-more-info').hide(); return false;">More details</a></div>
-	<div class="optional_block" id="optional_block" style="display:none;">
-	
-	<% unless new_visitor_created_trip? %>
-		<label for="photo">Attach a Photo:</label>
-		<%= form.file_field :photo, :size => 16, :disabled => (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
-		<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (current_user.bandwidth >= User::UPLOAD_LIMIT) %>
-	<% else %>
-		<p style="margin-top:5px;"><i>Sign up and you can upload a photo here.</i></p>
-	<% end %>	
-		
-	<p><label for="event_address">Address (or lat,lng):</label>
-		<%= f.text_area :address, :rows => 2, :cols => 22 %>
-		<em class="helper t11">(ex: 123 2nd St, New York, NY)</em>
-		<em class="helper t11">(ex: 37.81765,-122.478303)</em>
-	</p>
-	<p><label for="event_phone">Phone Number:</label>
-		<%= f.text_field :phone, :size => 20 %>
-	</p>
-	<% end -%>
-	
+	<div class="event-map">
+		<img id="event-map-img" src="/images/transparentPlaceholder.png"/>
 	</div>
+	
+	<p style="float:right"><label for="event_address">Address (or lat,lng):</label>
+	<%= f.text_area :address, :rows => 2, :cols => 18, :placeholder => "ex: 123 2nd St, New York, NY"  %></p>
+	<p style="float: right;margin-right:100px" onclick="showMap();return false;"><button type="button">Map it</button></p>
+	
+	<% end -%>
+	<p id="event_photo" style="display:block;margin-top:145px;display:none;"><label for="photo">Attach a Photo:</label>
+	<%= form.file_field :photo, :size => 16, :disabled => (current_user.nil? or current_user.bandwidth >= User::UPLOAD_LIMIT) %>
+	<%= "<em class='helper t11'>Please sign up to upload photo.</em>" if current_user.nil? %>
+	<%= "<em class='helper t11'>You reached your monthly upload limit!</em>" if (!current_user.nil? and current_user.bandwidth >= User::UPLOAD_LIMIT) %></p>
 </div>

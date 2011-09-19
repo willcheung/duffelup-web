@@ -1,10 +1,8 @@
 <% if defined?(small) %>
 
-<p style="margin-bottom:10px">Drag the button below to your link bar.</p>
-<div id="bookmarklet-button">
-<a id="site" style="color:#fff;background-color:#98BF21;padding:5px;-webkit-border-radius:8px;-moz-border-radius:8px;text-decoration:none;margin-left:70px" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
-Add to Duffel</a>
-</div>
+<p>Drag this button to your browser link bar.
+<a id="site" style="color:#fff;background-color:#98BF21;padding:5px;-webkit-border-radius:8px;-moz-border-radius:8px;text-decoration:none;margin-left:5px" onclick="window.alert('Drag this button to your browser\'s bookmarks toolbar or right-click it and choose Bookmark This Link.');return false;" href="javascript:(function(){EN_CLIP_HOST='http://duffelup.com';var a=document.createElement('SCRIPT');a.type='text/javascript';a.src=EN_CLIP_HOST+'/javascripts/bookmarklet.js?'+(new Date).getTime()/1E5;document.getElementsByTagName('head')[0].appendChild(a)})();">
+Add to Duffel</a></p>
 
 <% else %>
 <% if request.user_agent.nil? %>

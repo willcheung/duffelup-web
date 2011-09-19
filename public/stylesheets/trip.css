@@ -34,7 +34,6 @@ abbr,acronym {
 textarea{
 	-x-system-font:none;
 	font-family:'Lucida Grande',sans-serif;
-	font-size:1.1em;
 	font-size-adjust:none;
 	font-stretch:normal;
 	font-style:normal;
@@ -727,8 +726,8 @@ span.collaborator img {
 }
 
 #board_events li h3, #board_events li strong{
-	font-size: 13px;
-	line-height: 16px;
+	font-size: 12px;
+	line-height: 15px;
 	font-weight: bold;
 	margin: 50px 15px 0;
 }
@@ -774,6 +773,7 @@ span.collaborator img {
 	font-size: 12px;
 	display: none !important;
 	display: inline;
+	z-index: 5;
 }
 
 #board_events li:hover .idea-actions, #board_events li:hover .idea-author, #board_events li:hover .caption {
@@ -880,7 +880,7 @@ span.collaborator img {
 #board_events .business .detail { float: right; width: 138px; height: 138px; margin: 22px 15px 0 0; overflow: hidden;}
 #board_events .business .detail img { height: 138px; width: 140px;}
 #board_events .recommendation .detail input { font-size: 11px; background: #666; color: #fff; border-color: #666; padding: 0; margin: 10px 0 0 0; }
-#board_events .price { font-size: 14px; color: #e91e79; line-height: 10px; margin: 10px 0 0 0; }
+#board_events .price { font: italic 14px georgia,serif; color: #e91e79; line-height: 10px; margin: 10px 0 0 0; }
 #board_events .price span { font-size: 11px; color: #666; }
 
 #board_events .note{
@@ -917,7 +917,7 @@ span.collaborator img {
 #board_events span.idea-link a{
  	position: absolute;
    	text-indent: -5000px;
-    background: url('../images/icon-link-2.gif') no-repeat !important;
+    background: url('../images/icon-link-2.gif') no-repeat;
  	right: -3px;
 	top: 154px;
    	width: 20px;
@@ -927,7 +927,7 @@ span.collaborator img {
 #board_events span.idea-info a{
  	position: absolute;
    	text-indent: -5000px;
-    background: url('../images/icon-info.png') no-repeat !important;
+    background: url('../images/icon-info.png') no-repeat;
  	right: -3px;
 	top: 153px;
    	width: 20px;
@@ -942,7 +942,6 @@ span.collaborator img {
 	position: absolute;
    	text-indent: -5000px;
 	background: url("../images/icon-info-inverse.png") no-repeat;
-	z-index: 5;
 }
 
 #board_events span.idea-edit a{
@@ -969,7 +968,6 @@ span.collaborator img {
  	position: absolute;
    	text-indent: -5000px;
     background: url('../images/icon-trash.gif') no-repeat;
-	z-index: 5;
  	right: 0;
 	top: 0;
    	width: 20px;
@@ -1556,12 +1554,16 @@ span.collaborator img {
 }
 
 #modal input{
-	font-size: 14px;
+	font-size: 13px;
 	vertical-align: baseline;
 }
 
+#modal p {
+	margin: 5px 0;
+}
+
 #modal input#event_title{
-	font-size: 17px;
+	font-size: 13px;
 	vertical-align: baseline;
 }
 
@@ -1569,7 +1571,7 @@ span.collaborator img {
 	display: block;
 	font-size: 12px;
 	color: #000;
-	margin: 20px 0 3px;
+	margin: 3px 0 3px;
 }
 
 #modal em.helper{
@@ -1579,10 +1581,14 @@ span.collaborator img {
 }
 
 #modal .tile-actions{
-	background: #eee;
-	float: right;
-	width: 270px;
-	padding: 1px 0;
+	background: #F2F2F2;
+	margin: 10px 0;
+	width: 100%;
+	padding: 2px 0;
+	border: 1px solid #D7D7D7;
+    font-size: 1.1em;
+    text-align: center;
+	line-height: 1.4em;
 }
 #modal .tile-actions ul{
 	margin: 0 10px 10px;
@@ -1597,8 +1603,8 @@ span.collaborator img {
 #modal .mute { color: #666; }
 #modal .t11 { font-size: 11px; }
 
-#event_title, #event_note, #form-details input, #form-details textarea{width: 380px;}
-#modal #notes_content{width: 670px;}
+#event_title, #event_note, #form-details input, #form-details textarea{width: 310px;}
+#modal #notes_content{width: 640px;}
 
 #modal .partner-list li {
 	margin: 0 20px 20px 0;
@@ -1654,17 +1660,28 @@ span.collaborator img {
 	text-decoration:none;
 }
 
-#modal .event-photo {
+#modal .event-photo, #modal .event-map {
 	padding: 6px 6px 6px 6px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
-	background:none repeat scroll 0 0 #8D8B86;
+	background:none repeat scroll 0 0 #ADABA6;
 	margin-right: 80px;
 	float: right;
 	width: 130px;
 	height: 130px;
 	overflow: hidden;
 	border:1px solid #CCCCCC !important;
+}
+
+#modal .event-map {
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin:0;	
+}
+
+#modal .event-map img {
+	margin: -7px 0 0 -7px;
 }
 
 #modal .event-photo img { 
@@ -1761,6 +1778,8 @@ span.collaborator img {
 #form-details{
 	float: left;
 	display: inline;
+	margin-right: 30px;
+	margin-left: 10px;
 	padding-bottom: 30px;
 }
 
@@ -1772,10 +1791,9 @@ span.collaborator img {
 }
 
 #form-location{
-	float: right;
-	width: 260px;
+	float: left;
 	display: inline;
-	margin: 0 0 20px;
+	width: 280px;
 }
 
 #form-submit{
@@ -1836,7 +1854,7 @@ span.collaborator img {
 -----------------------------------------------------------------------------------*/
 
 input[type="text"], textarea, input[type="password"] {
-	font: 14px arial, helvetica, sans-serif;
+	font: 13px arial, helvetica, sans-serif;
 	padding: 3px; border: 1px solid #999;
 	border-bottom-color: #ccc;
 	border-right-color: #ccc;

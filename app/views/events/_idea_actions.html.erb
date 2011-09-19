@@ -15,6 +15,6 @@
 	<% end %>
 	
 	<% if event.eventable_type != "Notes" and event.eventable_type != "Transportation" and !event.website.empty? %>
-	<span class="idea-link"><a href="#" alt="Go to website" title="Go to website">Go to website</a></span>
+	<span class="idea-link"><%= website_link("Website", event.website, nil, "alt='Go to website' title='Go to website'") %></span>
 	<% end %>
 </div>
