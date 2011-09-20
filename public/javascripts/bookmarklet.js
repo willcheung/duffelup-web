@@ -156,7 +156,7 @@ Clip.prototype.showClipperPanel = function() {
 		view.style.backgroundColor = "white";
 		view.style.zIndex = 2;
 		view.style.width = "500px";
-		view.style.height = "425px";
+		view.style.height = "345px";
 		view.style.border = "1px solid black";
 		view.innerHTML = '<iframe id="e_iframe" '
 				+ 'onLoad="p = document.getElementById(\'e_data\'); c = p.style.zIndex; if (c==7) {;p.parentNode.parentNode.removeChild(p.parentNode);} p.style.zIndex = ++c;" '

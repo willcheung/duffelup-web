@@ -10,7 +10,7 @@
 				  :title => "Delete" %></span>
 	<% end %>
 	
-	<% if logged_in? %>
+	<% if sortable_tile %>
 	<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
 	<% end %>
 	

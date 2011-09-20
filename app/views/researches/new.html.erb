@@ -16,8 +16,6 @@
 
 		<%= render :partial => "events/partial_forms/generic_idea_form", :locals => { :form => form } %>
 
-		<p></p>
-
 		<p id="submit">
 		<% if params[:local] == "true" %>
 		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'copy-idea', '#{@event_id}-#{params[:event_title]}');" %>
@@ -34,7 +32,7 @@
 		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="window.location.href='/close.html'">
 		
 		<% unless params[:local] == "true" or @trips.empty? %>
-			<span class="right" style="margin-top:4px;font-size:0.9em">or <a target="_blank" href="/trips/<%= @trips[0].permalink %>">see my clipped notes &raquo;</a></span>
+			<span class="right" style="margin-top:4px;font-size:0.9em"><a target="_blank" href="/trips/<%= @trips[0].permalink %>">See my clipped notes &raquo;</a></span>
 		<% end %>
 		</p>
 	<% end %>
