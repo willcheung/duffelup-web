@@ -128,23 +128,24 @@ function onDropDownChange() {
 		<div style="float:left;">
 		<label for="event_title">Title:</label>
 		<%= form.text_field :title, :value => (CGI.unescape(params[:event_title]) unless (params[:event_title].nil? or params[:event_title].empty?)) %>
-		</div>
-
+		
+		
 		<label for="note">Notes:</label>
-		<%= form.text_area :note, :rows => 5, :cols => 35, :value => @event_note_value %>
-
+		<%= form.text_area :note, :rows => 4, :cols => 20, :value => @event_note_value %>
+		</div>
+		
 		<% fields_for :idea do |f| -%>
 			<div style="display:none;">
 			<label for="website">Website:</label>
 				<%= f.text_field :website, :size => 25, :value => (CGI.unescape(params[:idea_website]) unless (params[:idea_website].nil? or params[:idea_website].empty?)) %>
 			</div>
 
-			<div style="float:left;">
+			<div style="float:right;margin-top:25px">
 			<label for="address">Address (or lat,lng):</label>
 				<%= f.text_area :address, :rows => 2, :cols => 30, :value => (CGI.unescape(params[:idea_address]) unless (params[:idea_address].nil? or params[:idea_address].empty?)) %>
 			</div>
 			
-			<div style="float:right;">
+			<div style="float:right;display:none;">
 			<label for="phone">Phone Number:</label>
 				<%= f.text_field :phone, :size => 26, :value => params[:idea_phone]  %>
 			</div>
@@ -175,7 +176,7 @@ function onDropDownChange() {
 		<% end -%>
 
 		<label for="note">Notes:</label>
-		<%= form.text_area :trans_note, :rows => 6, :cols => 35, :value => @event_note_value %>
+		<%= form.text_area :trans_note, :rows => 3, :cols => 35, :value => @event_note_value %>
 		
 	</div>
 
@@ -187,7 +188,7 @@ function onDropDownChange() {
 		
 	
 		<label for="note">Notes:</label>
-		<%= f.text_area :content, :rows => 10, :cols => 35, :value => @event_note_value %>
+		<%= f.text_area :content, :rows => 6, :cols => 35, :value => @event_note_value %>
 		<% end %>
 	</div>
 	

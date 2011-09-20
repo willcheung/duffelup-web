@@ -157,17 +157,16 @@ div#form-submit{
 #event_title{font-size: 13px;}
 
 #event_title, #idea_website{width: 270px;}
-#event_note{width: 458px;} 
+#event_note{width: 280px;} 
 #notes_title {font-size: 13px; width:350px;}
 #event_trans_note {width:458px;}
 #notes_content{width:458px;}
 #idea_phone{width: 150px;}
-#idea_address{width: 240px;}
+#idea_address{width: 150px;}
 
 #submit{
 	padding: 10px 0;
 	border-top: 1px solid #ddd;
-	margin: 0;
 }
 
 #submit input{font-size: 13px;}
