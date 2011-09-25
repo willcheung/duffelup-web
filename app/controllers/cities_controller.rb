@@ -109,7 +109,7 @@ class CitiesController < ApplicationController
   end
   
   def duffels
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @city.nil?
+    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 #and return if @city.nil?
     
     @title = "Trips to " + @city.city_country + " - Duffel Visual Trip Planner"
     @meta_description = @city.city_country + " - Duffel is a visual trip planner that changes the way you organize travel research.  Start collecting ideas and create your personalized travel guide with Duffel!"
