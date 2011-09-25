@@ -311,6 +311,17 @@ a:hover{color: #555;}
 }
 
 #header .destination a {
+	/*background-color: #C8CCCF;
+    border: 1px solid #AAA;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+    border-radius: 10px;
+    color: #56636B;
+    font-weight: normal;
+    padding: 2px 6px;
+    text-decoration: none;
+    white-space: nowrap;
+	text-shadow: none;*/
 	color: #bbb;
 	text-decoration: none;
 }

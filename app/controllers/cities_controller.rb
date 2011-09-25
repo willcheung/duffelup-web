@@ -3,7 +3,7 @@ require 'flickraw'
 class CitiesController < ApplicationController
   include ApplicationHelper
   
-  layout "simple_without_js", :except => :country
+  layout "simple"
   
   before_filter :find_city_from_params, :find_duffel_count, :except => [:country]
   
@@ -12,6 +12,7 @@ class CitiesController < ApplicationController
     
     @title = @city.city_country.gsub(", United States", "") + " Itineraries, Travel Tips and Things To Do - Duffel Visual Trip Planner"
     @meta_description = "Check out custom guide and itineraries to " + @city.city_country + ", planned and organized by our members on Duffel Visual Trip Planner.  Start collecting ideas and create your personalized travel guide with Duffel!"
+    @sub_title = "<a href=\"/explore\">Explore</a> &nbsp;&rsaquo;&nbsp; <a href=\"/country/#{params[:country_code]}\">#{@city.country_name}</a> &nbsp;&rsaquo;&nbsp; #{@city.city}"
     
     if !fragment_exist?("city-#{@city.city_country}-duffels", :time_to_live => 12.hours)
       #################################################
@@ -29,25 +30,35 @@ class CitiesController < ApplicationController
     #######################
     # Find Viator events
     #######################
-    if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.month)
-      @activities = ViatorEvent.find_viator_events_by_destination("", 3, @city.id)
+    if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.day)
+      @activities = ViatorEvent.find_viator_events_by_destination("", 2, @city.id)
     end
     
     #######################
     # Find Flickr Photos
-    #######################
-    # @photos = []
-    # FlickRaw.api_key = ENV['FLICKR_KEY']
-    # FlickRaw.shared_secret = ENV['FLICKR_SECRET']
-    # result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 25, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')
-    # 
-    # tmp = result[0]
-    # result.each do |p|
-    #   if tmp.ownername != p.ownername
-    #     @photos << p
-    #     tmp = p
-    #   end
-    # end
+    ######################
+    @photos = []
+    
+    if !fragment_exist?("city-#{@city.city_country}-flickr-photos", :time_to_live => 1.day)
+      FlickRaw.api_key = ENV['FLICKR_KEY']
+      FlickRaw.shared_secret = ENV['FLICKR_SECRET']
+      result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 8, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')
+
+      tmp = result[0]
+      result.each do |p|
+        if tmp.ownername != p.ownername
+          large_size = flickr.photos.getSizes(:photo_id => p.id).find {|s| s.label == 'Large' }
+          if !large_size.nil? and large_size.width.to_i > 960
+            @photos << p
+            tmp = p
+          end
+        end
+      end
+      
+      write_fragment("city-#{@city.city_country}-flickr-photos", @photos)
+    else
+      @photos = read_fragment("city-#{@city.city_country}-flickr-photos")
+    end
     
     #######################
     # Find IAN hotels
@@ -62,6 +73,8 @@ class CitiesController < ApplicationController
     @title = @country.city_country + " - Duffel Visual Trip Planner - Organize Your Travel Itinerary"
     
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @country.nil?
+    
+    @sub_title = "<a href=\"/explore\">Explore</a> &nbsp;&rsaquo;&nbsp; #{@country.city_country}"
     
     #################################################
     # Find duffels (with comment count) in this city
@@ -93,7 +106,6 @@ class CitiesController < ApplicationController
 		
 		@max_trip_count = (@top_cities.collect {|i| i.trip_count.to_i }).max.to_json
 		
-    render :layout => 'simple' 
   end
   
   def duffels
