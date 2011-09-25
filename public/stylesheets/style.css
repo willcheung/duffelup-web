@@ -2144,6 +2144,7 @@ div.stat_bubble_content {
 /*-----------------------------------------------------------------------------------
 	Central
 -----------------------------------------------------------------------------------*/
+
 #central .city_thumbnail {
 	font-size:11px;
 	float:left;
@@ -2172,7 +2173,7 @@ div.stat_bubble_content {
 }
 
 #central #city-image {
-	height: 175px;
+	height: 375px;
 	width: 960px;
 	margin: -20px 0 0 -20px;
 	position: relative;
@@ -2181,6 +2182,11 @@ div.stat_bubble_content {
 	-moz-border-radius-topright: 10px;
 	-webkit-border-top-right-radius: 10px;
 	border-bottom: 1px solid #212E3D;
+}
+
+#central #city-image img {
+	top: -150px;
+	position: absolute;
 }
 
 #central #city-image h1, #central #city-image h6, #central #city-image .go-back {
@@ -2192,20 +2198,27 @@ div.stat_bubble_content {
 }
 
 #central #city-image h1 {
-	float: left;
 	padding: 3px 15px 3px 20px;
 	color: #fff;
 	font-size: 28px;
 	letter-spacing: -2px;
 	margin: 20px 0 0 0;
+	left:0;
+	position: absolute;
+}
+
+#central #city-image h1 a {
+	text-decoration: underline;
+	color: #fff;
 }
 
 #central #city-image h6 {
-	float: left;
+	position: absolute;
 	padding: 3px 15px 3px 20px;
 	color: #ccc;
 	font-size: 12px;
-	margin: 1px 0 0 0;
+	margin: 60px 0 0 0;
+	left:0;
 	clear: both;
 }
 
@@ -2222,22 +2235,23 @@ div.stat_bubble_content {
 
 #central #city-image .create-duffel	{ 
 	background: url('/images/button-plan.png') no-repeat;
-	width: 150px;
-	height: 30px;
+	width: 225px;
+	height: 45px;
 	text-indent: -9999px;
 	display: block;
 	position: absolute;
 	bottom: 0;
-	left: 20px;
+	left: 50px;
 }
 
 #central #city-image .by {
-	position: absolute;
-	right: 10px;
-	bottom: 10px;
+	float: right;
 	color: #fff;
 	text-shadow: 1px 1px 1px #000;
-	font-size: 10px;
+	font-size: 11px;
+	top: 360px;
+	margin-left: 655px;
+	position: absolute;
 }
 
 #central #city-image .by a {
