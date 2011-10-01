@@ -125,13 +125,12 @@ input{
 }
 
 label{
-	clear:left;
 	display:block;
-	float:none;
+	float: none;
 	line-height:1;
-	min-width:130px;
 	padding-bottom:2px;
 	padding-top:8px;
+	margin-right: 8px;
 	text-align:left;
 }
 
@@ -185,6 +184,9 @@ div#form-submit{
 /*-----
   Sign in page
 ------*/
+.form-group {
+	margin-bottom: 6px;
+}
 
 .column {
 	border:0 solid #000000;
