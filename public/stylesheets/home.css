@@ -172,7 +172,7 @@ img#feat1 {
 }
 
 #feature2, #feature2_text {
-	float:left;
+	float:right;
 	width:235px;
 	padding-left:40px;
 	margin-bottom: 10px;
@@ -185,7 +185,7 @@ img#feat2 {
 }
 
 #feature3, #feature3_text {
-	float:right;
+	float:left;
 	width:240px;
 	padding-left:20px;
 	margin-bottom: 10px;
