@@ -38,26 +38,27 @@ class CitiesController < ApplicationController
     # Find Flickr Photos
     ######################
     @photos = []
-    
-    if !fragment_exist?("city-#{@city.city_country}-flickr-photos", :time_to_live => 1.day)
-      FlickRaw.api_key = ENV['FLICKR_KEY']
-      FlickRaw.shared_secret = ENV['FLICKR_SECRET']
-      result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 8, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')
+    unless Utility.robot?(request.user_agent)
+      if !fragment_exist?("city-#{@city.city_country}-flickr-photos", :time_to_live => 1.day)
+        FlickRaw.api_key = ENV['FLICKR_KEY']
+        FlickRaw.shared_secret = ENV['FLICKR_SECRET']
+        result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 8, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')
 
-      tmp = result[0]
-      result.each do |p|
-        if tmp.ownername != p.ownername
-          large_size = flickr.photos.getSizes(:photo_id => p.id).find {|s| s.label == 'Large' }
-          if !large_size.nil? and large_size.width.to_i > 960
-            @photos << p
-            tmp = p
+        tmp = result[0]
+        result.each do |p|
+          if tmp.ownername != p.ownername
+            large_size = flickr.photos.getSizes(:photo_id => p.id).find {|s| s.label == 'Large' }
+            if !large_size.nil? and large_size.width.to_i > 960
+              @photos << p
+              tmp = p
+            end
           end
         end
-      end
       
-      write_fragment("city-#{@city.city_country}-flickr-photos", @photos)
-    else
-      @photos = read_fragment("city-#{@city.city_country}-flickr-photos")
+        write_fragment("city-#{@city.city_country}-flickr-photos", @photos)
+      else
+        @photos = read_fragment("city-#{@city.city_country}-flickr-photos")
+      end
     end
     
     #######################
