@@ -1264,6 +1264,49 @@ form p {
 	background:#c6e842;
 }
 
+#what-is-message {
+	border-bottom: 1px dotted #999;
+	border-top: 1px dotted #999;
+	background: none repeat scroll 0 0 #DBF0F4;
+	margin: 10px;
+	padding: 5px;
+	height: 42px;
+}
+
+#what-is-message p{
+	font-size: 14pt;
+	padding:0;
+	margin:3px 8px;
+	color: #666;
+	float: left;
+	line-height: 19px;
+}
+
+#what-is-message #action {
+	float: right;
+	margin: 10px 10px 0;
+}
+
+#what-is-message #action a{
+	background: url("/images/nav-button-bg.png") repeat-x scroll 0 0 #007AB1;
+    border: 1px solid #007BB3;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 1px 1px 0 #212E3D;
+    color: #FFFFFF;
+    padding: 8px 13px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #006DB5;
+	font-size: 16px;
+}
+
+#what-is-message #action a:hover {
+	background-color:#1289BD;
+	background-position:0 -50px;
+	border-color:#0172A5;
+	text-decoration:none;
+	text-shadow:0 1px 1px #0060AB;
+}
+
 #announcement {
 	background:#ff9;
 	color:#333;
@@ -2543,6 +2586,12 @@ width:96%;
 margin-bottom:5px;
 width:25%;
 float:left;
+}
+.cities_list_20 {
+	margin-bottom:5px;
+	width:14%;
+	float:left;
+	font-size:11px;
 }
 .cities_box a {
 height:1.1em;
