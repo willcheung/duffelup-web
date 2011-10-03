@@ -59,6 +59,20 @@
 			<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
 	    </div> 
      	
+		<% unless logged_in? %>
+			<div id="what-is-message">
+				<p><strong>Duffel is a online corkboard for travelers.</strong>
+				<br/><small>Collect travel ideas with friends.</small></p>
+				
+				<div id="action">
+					<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
+						<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :value => "#{@city.city_country if @city}", :style => "display:none;" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+					<% end %>
+					<a href="#" onclick="$('trip_form').submit();return false;">Create one now</a>
+				</div>
+			</div>
+		<% end %>
+
 		<div id="wrapper-inner">
       <%= render :partial => '/users/search_header' %>		
 			<div id="primary"> 

@@ -33,7 +33,7 @@
 	<div id="intro" class="clearfix">
 		
 	  	<div id="features">
-			<h2 id="tagline">Plan better trips.</h2>
+			<h2 id="tagline">See your travel ideas on a corkboard.</h2>
             <div id="feature1">
                 <img src="/images/homepage/feat1.png" id="feat1" /><br />
             </div>
@@ -55,7 +55,7 @@
 	            </span>
 	            <span class="feat_text">
 	            and notes from any<br/>
-				webpage or email.
+				website or email.
 	            </span>
             </div>
 
@@ -65,7 +65,7 @@
                 </span>
                 <span class="feat_text">
                 with friends and</br>
-				plan the same trip.
+				plan the same trips.
                 </span>          
             </div>
             
@@ -83,7 +83,7 @@
 		<div id="form-container" class="clearfix">
 		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
 			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-			<%= submit_tag "Create a duffel now", :class => "submit" %>
+			<%= submit_tag "Create a corkboard now", :class => "submit" %>
 			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
 		<% end %>
 		</div>

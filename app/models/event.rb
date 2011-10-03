@@ -41,8 +41,8 @@ class Event < ActiveRecord::Base
     
   has_attached_file :photo,
                     :styles => {
-                      :thumb => "165x160#",
-                      :medium => "325x325#",
+                      :thumb => "190x190#",
+                      :medium => "350x350#",
                       :large  => "600x600#" },
                     :storage => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/amazon_s3.yml",

@@ -272,7 +272,7 @@ img.twfb_login {
 #form-container {
 	margin: 16px auto;
 	padding: 18px 0 22px 25px;
-	width: 250px;
+	width: 340px;
 	height: 50px;
 }
 
@@ -299,7 +299,6 @@ img.twfb_login {
 }
 
 #form-container input[type="submit"] {
-	background:#666 url('/images/button-bookmarklet.gif');
 	padding:10px 13px;
 	text-align: center;
 	color:#606060;
