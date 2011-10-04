@@ -1,5 +1,5 @@
 <h1 style="display:inline;">Duffel's Popular Destinations</h1>
-<% unless current_user %><div style="float:right;"><a href="/signup" id="sign-up-button">Sign up now</a></div><% end %>
+
 <h3 style="padding:10px">Zoom in to: 
 	&nbsp;&nbsp;&nbsp;<span id="europe-link"><a href="#" onclick="europe();$('europe-link').hide();$('europe-label').show();$('asia-link').show();$('australia-link').show();$('states-link').show();$('sa-link').show();$('asia-label').hide();$('australia-label').hide();$('states-label').hide();$('sa-label').hide();return false;">Europe</a></span> <span id="europe-label" style="display:none">Europe</span> 
 	&nbsp;&nbsp;&nbsp;<span id="states-link"><a href="#" onclick="states();$('states-link').hide();$('states-label').show();$('asia-link').show();$('australia-link').show();$('sa-link').show();$('europe-link').show();$('asia-label').hide();$('australia-label').hide();$('europe-label').hide();$('sa-label').hide();return false;">North America</a></span> <span id="states-label" style="display:none">North America</span>
