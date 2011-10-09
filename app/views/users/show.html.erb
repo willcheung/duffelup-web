@@ -37,15 +37,15 @@
       </div>
     </div> <!-- #userProfile -->
 
-    <div id="userStats">
-      <dl>
+
+    <div id="userStats" style="padding-bottom:10px">
+<!--      <dl>
         <dt>User Stats</dt>
-        <!--<dd><%= link_to(pluralize(@friends.size, "Friend"), :controller => "users", :action => "search", :q => "friend:#{current_user.username}") %></dd>-->
         <dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>
 		<dd><%= pluralize((@planned_trips.size+@no_date_trips.size), "Active Duffel") %></dd>
         <dd><%= pluralize(@favorite_trips.size, "Favorite Duffel") %></dd>
-      </dl>
-    </div> <!-- #userStats -->
+      </dl> -->
+    </div>
 
 <%- if @duffel_of_the_month -%>
 	<% cache("dashboard-featured-duffel") do %>

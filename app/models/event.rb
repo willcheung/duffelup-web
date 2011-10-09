@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   TRUNCATE_NOTE_ON_BOARD_BY = 230
   TRUNCATE_TITLE_LENGTH_ON_TILE = 45
   TRUNCATE_TITLE_LENGTH_ON_ITINERARY = 30
+  TRUNCATE_NOTE_ON_CITY_PAGE = 400
   
   # For drop-down menu in research/new
   EVENT_TYPE = [
@@ -72,6 +73,33 @@ class Event < ActiveRecord::Base
               ORDER BY events.list, events.position"
     
     ideas = self.find_by_sql(sql)
+  end
+  
+  def self.find_ideas_by_city(city_id, page, per_page=12)
+    paginate  :per_page => per_page, :page => page, 
+                      :select => "ideas.*, events.*, users.username as author, trips.is_public as public_trip, trips.permalink as trip_perma, trips.title as trip_title", 
+                      :conditions => "((ideas.city_id = #{city_id})
+                                          AND ((events.eventable_type = 'Activity') 
+                                          OR (events.eventable_type = 'Hotel') 
+                                          OR (events.eventable_type = 'Foodanddrink')))",
+                      :from => :ideas,
+                      :joins => "INNER JOIN events ON ideas.id = events.eventable_id 
+                                 INNER JOIN trips ON events.trip_id = trips.id
+                                 INNER JOIN users ON events.created_by = users.id",
+                      :order => "events.created_at desc"
+    
+    # sql = "SELECT ideas.*, events.*, users.username as author, trips.is_public as public_trip, trips.permalink as trip_perma, trips.title as trip_title
+    #                       FROM `ideas` 
+    #                   INNER JOIN events ON ideas.id = events.eventable_id 
+    #                   INNER JOIN trips ON events.trip_id = trips.id
+    #                   INNER JOIN users ON events.created_by = users.id
+    #                       WHERE ((ideas.city_id = #{city_id})
+    #                       AND ((events.eventable_type = 'Activity') 
+    #                       OR (events.eventable_type = 'Hotel') 
+    #                       OR (events.eventable_type = 'Foodanddrink')))
+    #                   ORDER BY events.created_at desc limit 12"
+    # 
+    # ideas = self.find_by_sql(sql)
   end
   
   def self.find_transportations(trip_id, event_id=nil)

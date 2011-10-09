@@ -5,7 +5,8 @@ class CitiesController < ApplicationController
   
   layout "simple"
   
-  before_filter :find_city_from_params, :find_duffel_count, :except => [:country]
+  before_filter :find_city_from_params, :except => [:country]
+  before_filter :find_duffel_count, :except => [:country, :more_pins]
   
   def index
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @city.nil?
@@ -14,24 +15,34 @@ class CitiesController < ApplicationController
     @meta_description = "Check out custom guide and itineraries to " + @city.city_country + ", planned and organized by our members on Duffel Visual Trip Planner.  Start collecting ideas and create your personalized travel guide with Duffel!"
     @sub_title = "<a href=\"/explore\">Explore</a> &nbsp;&rsaquo;&nbsp; <a href=\"/country/#{params[:country_code]}\">#{@city.country_name}</a> &nbsp;&rsaquo;&nbsp; #{@city.city}"
     
-    if !fragment_exist?("city-#{@city.city_country}-duffels", :time_to_live => 12.hours)
-      #################################################
-      # Find duffels (with comment count) in this city
-      #################################################
-      @trips = Trip.find_trips_by_city(@city.id, 6)
-      
-      #####################################
-      # Find users invited to each duffel
-      ####################################
-      t = @trips.collect { |x| x.id } # get all the trip ids and store them in an array
-      @users_by_trip_id = User.find_users_by_trip_ids(t)
-    end
+    # if !fragment_exist?("city-#{@city.city_country}-duffels", :time_to_live => 12.hours)
+    #   #################################################
+    #   # Find duffels (with comment count) in this city
+    #   #################################################
+    #   @trips = Trip.find_trips_by_city(@city.id, 6)
+    #   
+    #   #####################################
+    #   # Find users invited to each duffel
+    #   ####################################
+    #   t = @trips.collect { |x| x.id } # get all the trip ids and store them in an array
+    #   @users_by_trip_id = User.find_users_by_trip_ids(t)
+    # end
+    
+    ######################
+    # Featured Duffels
+    ######################
+    @featured = FeaturedDuffel.find_by_city_id(@city.id, :order => "created_at desc")
+    
+    ######################
+    # Find interesting events
+    #####################
+    @pins = Event.find_ideas_by_city(@city.id, params[:page])
     
     #######################
     # Find Viator events
     #######################
     if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.day)
-      @activities = ViatorEvent.find_viator_events_by_destination("", 2, @city.id)
+      @activities = ViatorEvent.find_viator_events_by_destination("", 3, @city.id)
     end
     
     #######################
@@ -60,13 +71,7 @@ class CitiesController < ApplicationController
         @photos = read_fragment("city-#{@city.city_country}-flickr-photos")
       end
     end
-    
-    #######################
-    # Find IAN hotels
-    #######################
-    # if !fragment_exist?("city-#{@city.city_country}-hotels", :time_to_live => 1.month)
-    #       @hotels = Hotels.find_ian_hotels_by_destination("", 6, @city.id)
-    #     end
+
   end
   
   def country
@@ -160,6 +165,13 @@ class CitiesController < ApplicationController
       t = @trips.collect { |x| x.id } # get all the trip ids and store them in an array
       @users_by_trip_id = User.find_users_by_trip_ids(t)
     end
+  end
+  
+  def more_pins
+    ######################
+    # Find interesting events
+    #####################
+    @pins = Event.find_ideas_by_city(@city.id, params[:page])
   end
    
 private

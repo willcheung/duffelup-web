@@ -1,0 +1,5 @@
+page.insert_html :bottom, "main-board", :partial => "pin", :collection => @pins
+page.replace :flow_pagination, will_paginate(@pins, :renderer => FlowPagination::LinkRenderer, :params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]})
+page.delay(1.0) do
+  page << "new Masonry($('main-board'),{itemSelector: '.pin'});"
+end
