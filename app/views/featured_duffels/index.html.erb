@@ -250,7 +250,7 @@
 					
 					<div class="stat members" style="float:left;margin-left:30px">
 						<% cache("featured-all-stars-members") do %>
-						<h1 style="margin-top:0"><small>Recent All-Star Members</small></h1>
+						<h1 style="margin-top:0"><small>Recent Featured Members</small></h1>
 						<ul>
 					  	<% @featured_duffels.each_with_index do |d,i| %>	
 							<% break if i==15 %>
@@ -261,7 +261,7 @@
 
 						<hr/>
 
-						<h1><small>See Featured Duffels for...</small></h1>
+						<h1><small>Featured Cities</small></h1>
 						<ul class="cities">
 						<% @cities[0..11].each_with_index do |c,i| %>
 							<% if c.country_code == "US" or c.country_code == "CA" %>

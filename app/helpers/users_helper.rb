@@ -24,13 +24,13 @@ module UsersHelper
       return s if (i == max and users.size == max)
       return s + "&nbsp;and #{diff} more" if (i == max and users.size > max)
       
-			if user.user_type.to_i == Invitation::USER_TYPE_ADMIN
+			if user.respond_to?(:user_type) and user.user_type.to_i == Invitation::USER_TYPE_ADMIN
 				s = "<a href=\"#{profile_for(user)}\">#{collaborator_thumbnail(user)}</a> "
 			
 				if users.size > 1
 				  s = s + " &nbsp;+&nbsp; "
 				end
-			elsif user.user_type.to_i == Invitation::USER_TYPE_MEMBER
+			else
 				s = s + "<a href=\"#{profile_for(user)}\">#{collaborator_thumbnail(user)}</a> "
 			end
 			

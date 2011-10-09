@@ -4,6 +4,9 @@
 
 	<dt class="title">
 		<%= link_to h(truncate(trip.title, :length => Trip::DASHBOARD_TITLE_TRUNCATE_SIZE)), trip_url(:id => trip) %>
+		<% if trip.is_public == 0 %>
+		<img style="vertical-align:top;" title="Private" src="/images/icon-lock.png"/>
+		<% end %>
 	</dt>
 	
 	<dd class="details">

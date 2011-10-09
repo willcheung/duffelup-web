@@ -94,7 +94,7 @@ ActionController::Routing::Routes.draw do |map|
   # cities / countries controller
   map.country 'country/:country_code', :controller => 'cities', :action => 'country'
   map.city ':country_code/:city', :controller => 'cities', :action => 'index'
-  map.city_duffels ':country_code/:city/duffels', :controller => 'cities', :action => 'duffels'
+  map.city_more_pins ':country_code/:city/more_pins', :controller => 'cities', :action => 'more_pins'
   map.na_city ':country_code/:region/:city', :controller => 'cities', :action => 'index'
-  map.na_city_duffels ':country_code/:region/:city/duffels', :controller => 'cities', :action => 'duffels'
+  map.na_city_more_pins ':country_code/:region/:city/more_pins', :controller => 'cities', :action => 'more_pins'
 end

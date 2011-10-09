@@ -4,7 +4,91 @@
 
 	<%= render :partial => 'cities_header' %>
 	
+	<div id="board">
+		<div style="height:38px">
+			<div class="divider"><h2 style="float:left">Travel ideas for <%= @city.city %></h2></div>
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;margin-right:100px">
+			<a class="addthis_button_facebook"></a>
+			<a class="addthis_button_twitter"></a>
+			<a class="addthis_button_email"></a>
+			<a class="addthis_button_compact"></a>
+			</div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=duffel"></script>
+			<!-- AddThis Button END -->
+		</div>
+		
+		<div id="sidebar" style="float:right">	
+		
+			<div class="sidebar-pin" style="height:160px;">
+				<a title="Map of <%= @city.city %>" href="http://maps.google.com/?q=<%=@city.city_country%>" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%=@city.city_country%>&zoom=10&size=215x150&sensor=false"></a>
+			</div>
+		
+			<% if @featured %>
+			<div class="sidebar-pin" style="padding-bottom:15px">
+				<h3 style="padding-bottom:5px"><strong>Featured duffel</strong> <span><a style="color:#F20063;float:right;font-size:11px" href="/featured">View more &raquo;</a></span></h3>
+				<div class="avatar">
+			       	<% if !@featured.trip.photo.size.nil? and @featured.trip.photo.size != "" %>
+					<span><a class="ImgLink" href="<%=trip_path(@featured.trip)%>"><img style="max-width:215px" src="<%= @featured.trip.photo.url(:small) %>" class="duffel-image" /></a></span>
+					<% elsif !@featured.trip.photo_file_name.nil? %>
+					<span><a class="ImgLink" href="<%=trip_path(@featured.trip)%>"><img style="max-width:215px" src="<%=@featured.trip.photo_file_name.gsub("_s.jpg", "_m.jpg") %>" class="duffel-image" /></a></span>
+					<% end %>
+			      </div>
+			      <div class="profile">
+			        <h4><a href="<%=trip_path(@featured.trip)%>"><%=truncate(@featured.trip.title, :length => 28)%></a></h4>
+					<cite style="margin-top:5px">
+						<small><span class="cf-favorite" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@featured.trip.favorites.size, "Fave")%></span>
+						<span class="cf-comment" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@featured.trip.comments.size, "Comment")%></span> </small>
+					</cite>
+			      </div>
+			      <div class="collaborators">
+						Planned by&nbsp;&nbsp;<%= duffel_collaborators(@featured.trip.users, 5) %>
+			      </div>
+			</div>
+			<% end %>
+		
+			<% if !@activities.empty? %>
+			<div class="sidebar-pin">
+				<h3><strong>Top offers from our partners</strong></h3>
+				<ul class="recommendation-list">
+
+					<% @activities.each do |e| %>
+						<li>
+							<div class="seperate"></div>
+							<a class="ImgLink" href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-image', 'page-city', '<%= @city.city %>');"><img src="<%= e.product_image_thumb %>" alt="<%= e.product_name %>" title="<%= e.product_name %>" width="75" height="75" /></a>
+							<strong><a style="font-size:1.1em" href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-title', 'page-city', '<%= @city.city %>');"><%= e.product_name %></a></strong>
+							<br/><em style="position:absolute;margin-top:4px"><strong><%= number_to_currency(e.price) %></strong> <span class="t11 mute">per person</span></em>
+							<br/><span style="position:absolute;padding-top:8px">Duration: <strong><%= e.duration %></strong></span>
+						</li>
+					<% end %>	
+
+				</ul>
+			</div>
+			<% end %>
+			
+			<div class="sidebar-pin" style="height:230px">
+				<object height="215" width="215" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="http://www.splendia.com/images/aff/SPL-EN-250x250.swf?clickTag=http%3A%2F%2Fwww.splendia.com%2Fen%2F%3Faftrackid%3DA434%26aftrackmedia%3Dbanner%26utm_source%3Dduffelup-com%26utm_medium%3Dpartner-cpa%26utm_campaign%3Dgeneric%26utm_content%3Dt%3Abanner_s%3A250x250%26utm_term%3Dg%3Abrand_p%3A0_t%3A0_f%3A0" name="movie"/><param value="high" name="quality"/><param value="opaque" name="wmode"/><embed height="215" width="215" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" wmode="opaque" quality="high" src="http://www.splendia.com/images/aff/SPL-EN-250x250.swf?clickTag=http%3A%2F%2Fwww.splendia.com%2Fen%2F%3Faftrackid%3DA434%26aftrackmedia%3Dbanner%26utm_source%3Dduffelup-com%26utm_medium%3Dpartner-cpa%26utm_campaign%3Dgeneric%26utm_content%3Dt%3Abanner_s%3A250x250%26utm_term%3Dg%3Abrand_p%3A0_t%3A0_f%3A0"/></object>
+			</div>
+		
+		</div>
+		
+		<div id="main-board" style="width:720px;">
+		
+			<%= render :partial => "pin", :collection => @pins %>
+			
+			<%= will_paginate @pins, 
+							:params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]},
+							:renderer => FlowPagination::LinkRenderer %>
+		</div>
+	</div>
 	
+	<script type="text/javascript"> 
+		document.observe("dom:loaded",function() {
+		new Masonry($('main-board'),{itemSelector: '.pin'});});
+	</script>
+
+	
+	<% unless true #@trips.empty? %>
 	<% unless @trips.empty? %>
 	
 		<h2>Recent duffels to <%= @city.city %></h2>
@@ -40,8 +124,8 @@
 		<% end %>
 		
 	</ul>
-
-	<% unless true #@trips.empty? %>
+	
+	<% #unless true #@trips.empty? %>
 	<% if params[:country_code] == "US" or params[:country_code] == "CA" %>
 		<%= link_to "See more duffels. Filter &amp; sort them &rarr;", na_city_duffels_url(:country_code => params[:country_code], :region => params[:region], :city => params[:city]), :class => 'more-duffels', :style => "margin:30px 5px 20px 20px;" %>
 		<img src="/images/ico-new.png" alt="New" style="margin-top:35px"/>
@@ -142,32 +226,4 @@
 		<li class="cities_list_20"><a title="Washington, DC, United States" href="http://duffelup.com/us/dc/washington">Washington</a></li>
 
 	</ul>
-	
-<!--
-	<% cache("city-#{@city.city_country}-activities") do %>
-	
-	<% if !@activities.empty? %>
-	<h2 style="margin-top: 25px;">Top Activities from Our Partner</h2>
-	<% end %>
-	
-	<ul class="recommendation-list">
-		
-		<% @activities.each do |e| %>
-			<li>
-				<div class="seperate"></div>
-				<div class="more-details">
-					<a href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-text', 'page-city', '<%= @city.city %>');"><%= h(truncate(e.introduction.gsub(/<\/?[^>]*>/, ""), :length => 130)) %></a>
-					<a href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-details', 'page-city', '<%= @city.city %>');" class="more-details-button">more details</a>
-				</div>
-				<img src="<%= e.product_image_thumb %>" alt="<%= e.product_name %>" title="<%= e.product_name %>" width="75" height="75" />
-				<strong><a href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-title', 'page-city', '<%= @city.city %>');"><%= e.product_name %></a></strong>
-				<br/><em><strong><%= number_to_currency(e.price) %></strong> <span class="t11 mute">per person</span></em>
-				<br/><span style="position:absolute;padding-top:5px">Duration: <strong><%= e.duration %></strong></span>
-			</li>
-		<% end %>	
-
-	</ul>
-	
-	<% end %>
--->
 </div>

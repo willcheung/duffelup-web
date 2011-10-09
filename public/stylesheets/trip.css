@@ -300,28 +300,22 @@ a:hover{color: #555;}
 }
 
 #header .destination {
-/*-moz-border-radius: 6px;
+	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
-	background:#444 none repeat scroll 0 0;
-	-	color: #bbb;*/
+	border-radius: 6px;
+	background:#494949 none repeat scroll 0 0;
+	color: #bbb;
 	font-size: 11px;
 	font-weight: normal;
-	padding: 2px;
+	padding: 3px 4px;
 	margin: 2px;
+}
+#header .destination:hover, #header .destination:hover a{
+	background-color: #666;
+	color:#fff;
 }
 
 #header .destination a {
-	/*background-color: #C8CCCF;
-    border: 1px solid #AAA;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-    border-radius: 10px;
-    color: #56636B;
-    font-weight: normal;
-    padding: 2px 6px;
-    text-decoration: none;
-    white-space: nowrap;
-	text-shadow: none;*/
 	color: #bbb;
 	text-decoration: none;
 }
@@ -889,7 +883,7 @@ span.collaborator img {
 }
 #board_events .recommendation .detail { float: right; width: 85px; margin: 30px 8px 0 0; }
 #board_events .business .detail { float: right; width: 138px; height: 138px; margin: 22px 15px 0 0; overflow: hidden;}
-#board_events .business .detail img { height: 138px; width: 140px;}
+#board_events .business .detail img { height: 138px; }
 #board_events .recommendation .detail input { font-size: 11px; background: #666; color: #fff; border-color: #666; padding: 0; margin: 10px 0 0 0; }
 #board_events .price { font: italic 14px georgia,serif; color: #e91e79; line-height: 10px; margin: 10px 0 0 0; }
 #board_events .price span { font-size: 11px; color: #666; }
@@ -916,9 +910,9 @@ span.collaborator img {
 
 #board_events .checkin img {
 	position: absolute;
-	left: 12px;
+	left: 15px;
 	top: 8px;
-	width: 165px;
+	width: 160px;
 }
 
 #board_events .note .idea-note{
