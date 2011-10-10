@@ -50,34 +50,27 @@
 							</div>
 							<div style="margin-bottom:10px" class="pod clearfix">
 								<a href="/<%= @author.username unless @author.nil? %>"><%= display_user_name(@author) %></a>
-								is using Duffel to plan trips and share travel pictures on the go. Turn your trip into a memory to keep forever.
+								is using Duffel to collect and organize travel ideas. Share your ideas and help others plan better trips.
 							</div>
-							<strong>Download Duffel</strong>
-							<a class="" href="http://itunes.apple.com/us/app/foodspotting/id350727118?mt=8">iPhone</a>, <a class="" href="https://market.android.com/details?id=com.foodspotting">Android</a>, <a class="" href="http://social.zune.net/redirect?type=phoneApp&amp;id=55b55f3e-649b-e011-986b-78e7d1fa76f8">Windows Phone</a>, <a class="soon" href="/apps">Blackberry</a>
+							<!--<strong>Download Duffel</strong>
+							<a class="" href="">iPhone</a>-->
 						</div>
 					</div>
 					<% end %>
 					
-					<div class="pod">
+					<div class="details">
 						<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" %>
 						<div class="item vcard">
-								<h2>About <%= truncate(@event.title, :length => 45)%>
+								<h2>About</h2>
 									
-								<%= "<h3>Website</h3>" + (link_to h(@event.website), @event.website, :target => "_blank") unless @event.website.blank? %><br/>
-								<%= "<h3>Address</h3>" + content_tag('p', h(@event.address)) + "(" + map_link("map", @event.address) + ")" unless @event.address.blank? %>
+								<%= "<h3>" + (link_to "Go to website &raquo;", @event.website, :target => "_blank")+"</h3>" unless @event.website.blank? %>
+								<%= "<h3>Address</h3><p>" + map_link(h(@event.address), @event.address) + "</p>" unless @event.address.blank? %>
 								<%= "<h3>Phone</h3>" + content_tag('p', h(@event.phone))  unless @event.phone.blank? %>
 						</div>
 						<% end %>
 						
 						<h2><img height="14" style="float:left;padding:3px 5px 0 0;" src="/images/icon-placemark.png"/>Location</h2>
 						<div id="gmap"></div>
-					</div>
-					
-					<div class="pod">
-						<h2>More from this trip</h2>
-						<div class="more">
-						
-						</div>
 					</div>
 					
 				</div>
@@ -87,7 +80,11 @@
 
 					<% if @event.photo? %>
 					<div class="event-photo-show">
-						<img src="<%= get_image_url(@event, "large") %>" alt="<%= @event.title %>" />
+						<% if @event.website.blank? %>
+							<img src="<%= get_image_url(@event, "large") %>" alt="<%= @event.title %>" />
+						<% else %>
+							<a href="<%= @event.website %>" target="_blank" class="ImgLink"><img src="<%= get_image_url(@event, "large") %>" alt="<%= @event.title %>" /></a>
+						<% end %>
 					</div>
 					<% end %>
 	
@@ -104,11 +101,11 @@
 							</a>
 						</div>
 					    <div class="profile">
-					        <div class="username"><%= display_user_name(@author) %></div>
+					        <div class="username"><a href="/<%= @author.username %>"><%= display_user_name(@author) %></a></div>
 					        <div class="information">
-					            <span class="number-statistic">92</span> photos
+					            <span class="number-statistic"><%= @author.events.count.to_s %></span> ideas
 					    		·
-					    		<span class="number-statistic">138</span> followers
+					    		<span class="number-statistic"><%= @author.trips.count.to_s %></span> duffels
 							</div>
 					    </div>
 					</div>

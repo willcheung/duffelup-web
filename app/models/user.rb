@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :sent_invitations, :class_name => 'BetaInvitation', :foreign_key => 'sender_id'
   belongs_to :beta_invitation
   has_one :featured_duffel
+  has_many :events, :foreign_key => :created_by
   
   has_and_belongs_to_many :cities, :include => :country #subscription (not home cities)
   

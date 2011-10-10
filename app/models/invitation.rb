@@ -5,8 +5,6 @@ class Invitation < ActiveRecord::Base
   validates_presence_of :user, :trip
   
   YES = 1
-  NO = 2            # not used
-  NOT_RESPONDED = 3 # not used
     
   USER_TYPE_ADMIN = 1
   USER_TYPE_MEMBER = 2
@@ -47,18 +45,6 @@ class Invitation < ActiveRecord::Base
     end
     
     return emails
-  end
-  
-  # Respond 'yes' to a trip.
-  # Do not use.
-  def self.yes(user, trip)
-    respond(user, trip, Invitation::YES)
-  end
-  
-  # Respond 'no' to a trip.
-  # Do not use.
-  def self.no(user, trip)
-    respond(user, trip, Invitation::NO)
   end
   
   private

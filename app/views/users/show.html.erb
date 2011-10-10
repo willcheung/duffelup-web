@@ -38,13 +38,12 @@
     </div> <!-- #userProfile -->
 
 
-    <div id="userStats" style="padding-bottom:10px">
-<!--      <dl>
+    <div id="userStats" style="padding-bottom:10px;text-transform: uppercase;font-size:1.1em;">
+     <dl>
         <dt>User Stats</dt>
-        <dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>
-		<dd><%= pluralize((@planned_trips.size+@no_date_trips.size), "Active Duffel") %></dd>
-        <dd><%= pluralize(@favorite_trips.size, "Favorite Duffel") %></dd>
-      </dl> -->
+		<dd><%= current_user.events.count.to_s %> Ideas · <%= current_user.trips.count.to_s %> Duffels</dd>
+		<!--<dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>-->
+      </dl>
     </div>
 
 <%- if @duffel_of_the_month -%>
