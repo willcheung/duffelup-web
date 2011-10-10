@@ -129,7 +129,12 @@
 		
 		<span class="hometown"><%= @user.home_city unless @user.home_city.nil? %></span>
 		<% if founding_member?(@user) %><div style="color:#FFD700;font-weight:bold;">Founding Member</div><% end %>
-	
+		<div class="information" style="margin-top:5px;text-transform: uppercase;font-size:11px">
+            <span class="number-statistic"><%= @user.events.count.to_s %></span> ideas
+    		·
+    		<span class="number-statistic"><%= pluralize(@user.trips.count, "duffel") %></span>
+		</div>
+		
 		<p class="clear">
 			<% unless @user.bio.nil? or @user.bio.empty? %><span class="bio">About:</span> <%= h(@user.bio) %><br/><% end %>
 			<% unless @user.homepage.nil? or @user.homepage.empty? %><span class="bio">Web:</span> <%= website_link(@user.homepage, @user.homepage) %><% end %>

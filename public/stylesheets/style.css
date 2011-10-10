@@ -389,6 +389,17 @@ a:hover {
 	-webkit-border-radius:5px;
 }
 
+#simple #wrapper #wrapper-inner #primary .sidebar h3 {
+	font-size: 13px;
+	font-weight: bold;
+	color: #555;
+	margin-top: 10px;
+}
+
+#simple #wrapper #wrapper-inner #primary .sidebar h3 a{
+	color: #555;
+}
+
 #simple #wrapper #wrapper-inner #primary .sidebar #gmap {
 	width: 275px;
 	height: 180px;
@@ -423,9 +434,9 @@ a:hover {
 	-webkit-border-radius:5px;
 }
 
-#simple #wrapper #wrapper-inner #primary .main .profile .username {
+#simple #wrapper #wrapper-inner #primary .main .profile .username{
     color: #456A81;
-    font-size: 1.6875em;
+    font-size: 22px;
     font-weight: 200;
     text-shadow: 0 1px #FFFFFF;
 }
