@@ -3,7 +3,7 @@
 		<span class="idea-label fooddrink">Food &amp; Drink</span>
 	<% elsif pin.eventable_type == "Activity" %>
 		<span class="idea-label activity">Activity</span>
-	<% else %>
+	<% elsif pin.eventable_type == "Hotel" %>
 		<span class="idea-label lodging">Lodging</span>
 	<% end %>
 	
@@ -11,10 +11,9 @@
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">
 		<img style="width: 180px;" alt="<%= pin.title %>" src="<%= get_image_url(pin) %>">
 		</a>
-		<img class="map" src="<%= build_static_map_url(pin, :size => "180x70") %>" style="display:none;">
 	<% elsif pin.lat and pin.lng %>
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">
-		<img class="map" src="<%= build_static_map_url(pin, :size => "180x70") %>">
+		<img class="map" src="<%= build_static_map_url(pin, :size => "180x130", :zoom => 15) %>">
 		</a>
 	<% end %>
 	<h3><%= pin.title %></h3>

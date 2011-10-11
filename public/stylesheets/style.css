@@ -428,6 +428,21 @@ a:hover {
 	color: #666;
 }
 
+#simple #wrapper #wrapper-inner #primary .sidebar .details .pin {
+	background-color: #F9F8F3;
+    box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+    -moz-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+    -webkit-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+    font-size: 11px;
+    padding: 6px;
+    width: 250px;
+	margin-bottom: 12px;
+	color: #444;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+
 #simple #wrapper #wrapper-inner #primary .main img{
 	border-radius: 5px;
 	-moz-border-radius:5px;
@@ -449,11 +464,19 @@ a:hover {
 	color: #666666;
 }
 
+#simple #wrapper #wrapper-inner #primary .main .profile-right .information {
+	font-size:1.1em;
+	text-align: right;
+	margin-top: 5px;
+	color: #777;
+}
+
 #simple #wrapper #wrapper-inner #primary .main {
     display: inline;
     float: left;
     position: relative;
     max-width: 590px;
+	min-width: 250px;
     background: none repeat scroll 0 0 #F7F6F1;
     border-radius: 5px;
 	-moz-border-radius:5px;
@@ -468,6 +491,8 @@ a:hover {
 #simple #wrapper #wrapper-inner #primary .main .event-photo-show img{
 	max-width: 590px;
 	max-height: 590px;
+	display:block;
+	margin:auto;
 }
 
 #simple #wrapper #wrapper-inner #primary .main .note {
@@ -2665,7 +2690,7 @@ div.stat_bubble_content {
 #central #board .pin p {
 	line-height: 1.35em;
 }
-#central #board span.idea-label {
+#central #board span.idea-label, #primary .main span.idea-label {
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;

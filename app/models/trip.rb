@@ -3,9 +3,17 @@ class Trip < ActiveRecord::Base
   
   has_many :invitations, :dependent => :delete_all
   has_many :comments, :order => "created_at ASC", :include => 'user', :dependent => :delete_all
-  has_many :events, :order => :position, :dependent => :destroy
-  has_one :featured_duffel
+  has_many :events, :dependent => :destroy do
+    def recent_rand(limit=3)
+      find(:all, :limit => limit, :order => "rand()",
+        :conditions => "created_by is not null 
+                        and ((events.eventable_type = 'Activity') 
+                        OR (events.eventable_type = 'Hotel') 
+                        OR (events.eventable_type = 'Foodanddrink'))")
+    end
+  end
   
+  has_one :featured_duffel
   has_and_belongs_to_many :cities
   has_many :favorites, :include => 'user', :dependent => :delete_all
   
