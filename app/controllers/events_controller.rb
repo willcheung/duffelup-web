@@ -251,6 +251,7 @@ class EventsController < ApplicationController
     
     @author = User.find_by_username(@event.author)
     @sub_title = "<a href='/trips'>Trips</a> &nbsp;&rsaquo;&nbsp; <a href='/trips/#{@trip.permalink}'>#{@trip.title}</a> &nbsp;&rsaquo;&nbsp; #{truncate(@event.title, :length => 40)}"
+    @other_ideas = @trip.events.recent_rand(3)
     
     respond_to do |format|
       format.html

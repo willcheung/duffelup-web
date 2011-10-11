@@ -94,6 +94,16 @@ module EventsHelper
       "$$$$"
     end
   end
+  
+  def display_idea_icon(event)
+    if event.eventable_type == "Activity"
+      return "/images/ico-activity.gif"
+    elsif event.eventable_type == "Foodanddrink"
+      return "/images/ico-food.gif"
+    elsif event.eventable_type == "Hotel"
+      return "/images/ico-lodging.gif"
+    end
+  end
 	
 	# This is displayed on the itinerary.
 	def display_title_without_link(event, length=nil)
