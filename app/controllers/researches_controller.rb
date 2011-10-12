@@ -31,11 +31,31 @@ class ResearchesController < ApplicationController
     # If request is originated from Duffel site (which means it's a "copy" request)
     if params[:local] == "true"
       @event_id = Base64.decode64(params[:event_code])
-      @trip_permalink = Base64.decode64(params[:trip_code])
-      event = Event.find_by_id(@event_id)
-      @event_note_value = event.note
+      #@trip_permalink = Base64.decode64(params[:trip_code])
+      e = Event.find_by_id(@event_id)
+      t = e.trip
+      #@trip_permalink = t.permalink
+      
+      case e.eventable_type
+      when "Hotel", "Activity", "Foodanddrink"
+        i = Event.find_ideas(t.id, e.id).first
+      when "Transportation"
+        i = Event.find_transportations(t.id, e.id).first
+      when "Notes"
+        i = Event.find_notes(t.id, e.id).first
+      end
+      
+      params[:permalink] = t.permalink
+      params[:event_title] = e.title
+      params[:idea_website] = i.website if i.respond_to?("website")
+      params[:idea_phone] = i.phone if i.respond_to?("phone")
+      params[:local]="true"
+      params[:type] = e.eventable_type
+      params[:note] = e.note
+      
+      #@event_note_value = event.note
     elsif params[:selection]
-      @event_note_value = params[:selection]
+      params[:note] = params[:selection]
     end
     
     respond_to do |format|

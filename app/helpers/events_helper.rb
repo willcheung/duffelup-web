@@ -160,7 +160,7 @@ module EventsHelper
   end
   
   
-  def build_url_for_copy(display, event, idea, trip_permalink)
+  def build_url_for_copy(display, event, trip_permalink)
 
     if ENV['RAILS_ENV'] == 'production'
       url = "http://duffelup.com/research/new"
@@ -168,43 +168,12 @@ module EventsHelper
       url = "http://localhost:3000/research/new"
     end
     
-    if idea.nil? # meaning ideas are stored in Event object
-      phone = event.attributes["phone"].to_s
-      website = event.attributes["website"].to_s
-      address = event.attributes["address"].to_s
-    else
-      phone = idea.phone.to_s
-      website = idea.website.to_s
-      address = idea.address.to_s
-    end
-      
-    
-    # ibox_url = "/research/new?event_title=" + event.title + 
-    #             "&idea_website=" + idea.website + 
-    #             "&idea_phone=" + idea.phone + 
-    #             "&idea_address=" + idea.address + 
-    #             "&local=true" + 
-    #             "&type=" + event.eventable_type +
-    #             "&event_code=" + Base64.encode64(event.id.to_s).strip! + 
-    #             "&trip_code=" + Base64.encode64(trip_permalink).strip!
-    
-    
-    url = url + "?event_title=" + CGI.escape(event.title.to_s) + 
-                "&idea_website=" + CGI.escape(website) + 
-                "&idea_phone=" + CGI.escape(phone) + 
-                "&idea_address=" + CGI.escape(address) + 
-                "&local=true" + 
-                "&type=" + event.eventable_type +
+    url = url + "?local=true" + 
                 "&event_code=" + Base64.encode64(event.id.to_s) + 
                 "&trip_code=" + Base64.encode64(trip_permalink)
     
     # opens new window
-    return "<a title=\"Copy\" alt=\"Copy\" href=\"" + url + "\" onclick=\"window.open(this.href+'&jump=doclose', 'copy', 'location=yes,links=no,scrollbars=no,toolbar=no,width=500,height=410');return false;\">" + display + "</a>"
-    
-    #return "<a href=\"" + url + "\">" + display + "</a>"
-    
-    # iBox
-    # return "<a href=\"#\" onclick=\"iBox.hide();iBox.showURL(\'#{ibox_url}\', '', '{width:450}')\">" + display + "</a>"
+    return "<a title=\"Add to my duffel\" href=\"" + url + "\" onclick=\"window.open(this.href+'&jump=doclose', 'copy', 'location=yes,links=no,scrollbars=no,toolbar=no,width=500,height=410');return false;\">" + display + "</a>"
   end
   
   def sortable_tile

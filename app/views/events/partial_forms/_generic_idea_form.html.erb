@@ -131,7 +131,7 @@ function onDropDownChange() {
 		
 		
 		<label for="note">Notes:</label>
-		<%= form.text_area :note, :rows => 4, :cols => 20, :value => @event_note_value %>
+		<%= form.text_area :note, :rows => 4, :cols => 20, :value => params[:note] %>
 		</div>
 		
 		<% fields_for :idea do |f| -%>
@@ -176,7 +176,7 @@ function onDropDownChange() {
 		<% end -%>
 
 		<label for="note">Notes:</label>
-		<%= form.text_area :trans_note, :rows => 3, :cols => 35, :value => @event_note_value %>
+		<%= form.text_area :trans_note, :rows => 3, :cols => 35, :value => params[:note] %>
 		
 	</div>
 
@@ -188,7 +188,7 @@ function onDropDownChange() {
 		
 	
 		<label for="note">Notes:</label>
-		<%= f.text_area :content, :rows => 6, :cols => 35, :value => @event_note_value %>
+		<%= f.text_area :content, :rows => 6, :cols => 35, :value => params[:note] %>
 		<% end %>
 	</div>
 	
