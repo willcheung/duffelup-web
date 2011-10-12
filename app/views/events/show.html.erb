@@ -142,10 +142,9 @@
 						
 						<div class="profile-right" style="float:right;width:250px;">
 							<div class="information">Added to <a style="font-weight:bold" href="/trips/<%= @trip.permalink %>"><%= @trip.title %></a></div>
+							<div class="add-to-duffel" style="text-align:right;margin-top:10px"><%= build_url_for_copy("Add to my duffel", @event, @trip.permalink) %></div>
 						</div>
 					</div>
-				
-					<div class="clearfix"></div>
 	
 				<% elsif @event.eventable_type == "Transportation" %>
 
@@ -167,6 +166,8 @@
 				<% end %>
 
 				</div>
+				
+				<div class="clearfix"></div>
 				
 				<%= render :partial => "cities/cities_box" %>
 			</div>

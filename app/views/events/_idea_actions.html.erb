@@ -11,7 +11,7 @@
 	<% end %>
 	
 	<% if sortable_tile %>
-	<span class="idea-copy"><%= build_url_for_copy("copy", event, nil, @trip.permalink) %></span>
+	<span class="idea-copy"><%= build_url_for_copy("copy", event, @trip.permalink) %></span>
 	<% end %>
 	
 	<% if event.eventable_type != "Notes" and event.eventable_type != "Transportation" and !event.website.empty? %>
