@@ -75,10 +75,11 @@ class Event < ActiveRecord::Base
     ideas = self.find_by_sql(sql)
   end
   
-  def self.find_ideas_by_city(city_id, page, per_page=12)
+  def self.find_ideas_by_city(city_id, page, per_page=18)
     paginate  :per_page => per_page, :page => page, 
                       :select => "ideas.*, events.*, users.username as author, trips.is_public as public_trip, trips.permalink as trip_perma, trips.title as trip_title", 
                       :conditions => "((ideas.city_id = #{city_id})
+                                          AND trips.is_public = 1
                                           AND ((events.eventable_type = 'Activity') 
                                           OR (events.eventable_type = 'Hotel') 
                                           OR (events.eventable_type = 'Foodanddrink')))",

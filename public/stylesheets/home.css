@@ -103,7 +103,7 @@ h2#logo{
 	margin-top: 10px; 
 	background-image:url('/images/bg-corkboard.jpg');
 	background-position: center center;
-	height: 500px;
+	height: 430px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) inset;
 	-moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) inset;
 	-webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) inset;
@@ -112,7 +112,7 @@ h2#logo{
 #features {
 	width:819px;
 	background-image:url('/images/homepage/intro_bg.png');
-	height:400px;
+	height:360px;
 	margin: 0 auto;
 	top: 20px;
 	position: relative;
@@ -271,8 +271,8 @@ img.twfb_login {
 -----------------------------------------------------------------------------------*/
 #form-container {
 	margin: 16px auto;
-	padding: 18px 0 22px 25px;
-	width: 340px;
+	padding: 18px 0;
+	width: 610px;
 	height: 50px;
 }
 
@@ -283,7 +283,7 @@ img.twfb_login {
 	color:#777;
 	-moz-border-radius:20px;
 	-webkit-border-radius:20px;
-	border-radius:20px;
+	border-radius:10px;
 	background:#f1f1f1;
 	border: 0 none;
 	font-size: 23px;
@@ -291,7 +291,6 @@ img.twfb_login {
 	box-shadow: 0 1px 1px #555 inset;
 	webkit-box-shadow: 0 1px 1px #555 inset;
 	moz-box-shadow: 0 1px 1px #555 inset;
-	display:none;
 }
 
 #form-container input#trip_destination:focus {
@@ -299,13 +298,14 @@ img.twfb_login {
 }
 
 #form-container input[type="submit"] {
-	padding:10px 13px;
+	background: #d0d0d0;
+	padding:5px 30px;
 	text-align: center;
 	color:#606060;
 	cursor:pointer;
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	border-radius:20px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
 	font-size: 20px;
 	font-weight: bold;
 	text-shadow: 1px 1px 1px white;
@@ -322,13 +322,30 @@ img.twfb_login {
 
 #form-container #indicator {
 	position: relative;
-	right: 235px;
+	left: 460px;
+	bottom: 30px;
 }
 
-#user_home_city_auto_complete {
+div.auto_complete .cities {
+	border: 0;
+}
+
+.auto_complete {
 	text-align: left;
-	font-size: 12px;
-	line-height: 13px;
+	font-size: 20px;
+	line-height: 28px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	color: #333;
+}
+
+.auto_complete .cities li {
+	margin: 0 15px;
+}
+
+.auto_complete li.selected {
+	margin: 0 15px;
 }
 
 .login-buttons ul {
@@ -360,6 +377,35 @@ img.twfb_login {
 	margin-top: 8px;
 }
 
+#explore-destinations li {
+	float: left;
+	margin-right: 42px;
+	list-style: none outside none;
+	text-align: center;
+}
+
+#explore-destinations h2 {
+	text-transform: uppercase;
+	margin-left: 20px;
+	color: #e0e0e0;
+	font-size: 1.3em;
+	letter-spacing: 1px;
+	display:inline;
+	font-weight: normal;
+}
+
+#explore-destinations li a{
+	color: #ddd;
+	margin-top:3px;
+}
+
+#explore-destinations li img{
+	opacity: 0.9;
+}
+
+#explore-destinations li img:hover{ opacity: 1; }
+#explore-destinations li a:hover{ color: #fff; }
+
 /*-----------------------------------------------------------------------------------
 	Divider
 -----------------------------------------------------------------------------------*/
@@ -377,11 +423,12 @@ img.twfb_login {
 -----------------------------------------------------------------------------------*/
 
 #main {
-	height:200px;
+	height:100px;
+	width:930px;
 }
 
 #app {
-	width:325px;
+	width:300px;
 	float:left;
 }
 
@@ -390,11 +437,49 @@ img#app_pic {
 	border:none;
 }
 
-#explore {
-	width:285px;
+#short-intro {
+	background: url('/images/homepage/intro_gradient_bg.jpg') no-repeat scroll 0 0 transparent;
+	width:260px;
+	height: 140px;
 	float:left;
-	padding-left:30px;
-	padding-right:10px;
+	margin-left:40px;
+	margin-right:70px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+a.short-intro-link {
+	width:260px;
+	height: 140px;
+	padding-top: 15px;
+	display: block;
+	text-align: center;
+	font: 24px Rockwell,Helvetica,Arial;
+	color: #eee;
+	line-height: 27px;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.9);
+}
+
+span.faux_link {
+	font: 14px Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	background: #2d394c;
+    border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 7px 0 2px 0;
+    text-align: center;
+    width: 250px;
+	margin-left: -5px;
+}
+
+span.faux_link:hover {
+	background: #444;
 }
 
 .explore_header{
@@ -422,39 +507,34 @@ img#app_pic {
 	clear:both;
 }
 
-#explore ul {
-  float: left;
-  width: 240px;
-  margin: 10px 0px 10px 20px;
-  padding: 0;
-  list-style: none;
-  
-}
- 
-#explore li {
-  float: left;
-  width: 120px;
-  margin: 0;
-  padding: 0;
+#social {
+	width: 270px;
+	float: left;
 }
 
-#social {
-	width:325px;
-	float:right;
-	text-align:left;
+#social li{
+	list-style-type: none;
+	padding: 3px 0;
+	height: 35px;
+}
+
+#social .twitter { background: url('/images/social/twitter-32x32.png') no-repeat 0px 0px; }
+#social .facebook { background: url('/images/social/facebook-32x32.png') no-repeat 0px 0px; }
+#social .blog { background: url('/images/social/blog-32x32.png') no-repeat 0px 0px; }
+#social .apple { background: url('/images/social/apple-32x32.png') no-repeat 0px 0px; }
+
+.social_text {
+	font-family: Helvetica,Arial, sans-serif;
+	font-size:18px;
+	color:#d9d9d9;
+	padding: 0 0 0 40px;
+	line-height:28px;
 }
 
 img.social_pic {
 	margin-left:80px;
 	margin-right:7px;
 	border:none;
-}
-
-.social_text {
-	font-family: Helvetica,Arial, sans-serif;
-	font-size:18px;
-	color:#d9d9d9;
-	letter-spacing:-1px;
 }
 
 #main a:link {
