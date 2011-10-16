@@ -33,69 +33,60 @@
 	<div id="intro" class="clearfix">
 		
 	  	<div id="features">
-			<h2 id="tagline">See your travel ideas on a corkboard.</h2>
-            <div id="feature1">
-                <img src="/images/homepage/feat1.png" id="feat1" /><br />
-            </div>
-
-            <div id="feature3">
-                <img src="/images/homepage/feat3_v2.png" id="feat3" /><br />
-            </div>
-
-            <div id="feature2">
-                <img src="/images/homepage/feat2.png" id="feat2" />
-            </div>
-            
-			<div id="feature_divider"></div>
-            
-
-            <div id="feature1_text">
-	            <span class="feat_header">
-	            Clip travel ideas<br />
-	            </span>
-	            <span class="feat_text">
-	            and notes from any<br/>
-				website or email.
-	            </span>
-            </div>
-
-			<div id="feature3_text">
-            <span class="feat_header">
-                Collaborate<br />
-                </span>
-                <span class="feat_text">
-                with friends and</br>
-				plan the same trips.
-                </span>          
-            </div>
-            
-            <div id="feature2_text">
-                <span class="feat_header">See everything <br />
-                </span>
-                <span class="feat_text">
-                laid out on a virtual<br />
-                corkboard and map.
-                </span>
-            </div>
+			<h2 id="tagline">See the world with Duffel.</h2>
 			
-        </div>
-
-		<div id="form-container" class="clearfix">
-		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
-			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-			<%= submit_tag "Create a corkboard now", :class => "submit" %>
-			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
-		<% end %>
-		</div>
-
+			<div id="form-container" class="clearfix">
+			<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
+				<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+				<%= submit_tag "Go", :class => "submit" %>
+				<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
+			<% end %>
+			</div>
+			
+			<div id="explore-destinations">
+				<small class="right" style="margin-right:45px;"><%= link_to "Explore more &raquo;</strong>", '/explore', :style => "color:#aaa" %></small>
+		      <h2>Popular Destinations</h2>
+		      <ul>
+		        <li>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "/images/cities/85x85/new-york.jpg", :class => "image1" %></a></div>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>">New York</a></div>
+		        </li>
+		        <li>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>"><%= image_tag "/images/cities/85x85/san-francisco.jpg" %></a></div>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "san-francisco")%>">San Francisco</a></div>
+		        </li>
+				<li>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>"><%= image_tag "/images/cities/85x85/las-vegas.jpg" %></a></div>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "NV", :city => "las-vegas")%>">Las Vegas</a></div>
+		        </li>
+		        <li>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>"><img src="/images/cities/85x85/los-angeles.jpg"/></a></div>
+		            <div><a href="<%= na_city_url(:country_code => "US", :region => "CA", :city => "los-angeles")%>">Los Angeles</a></div>
+		        </li>
+		        <li>
+		            <div><a href="<%= city_url(:country_code => "GB", :city => "london")%>"><img src="/images/cities/85x85/london.jpg"/></a></div>
+		            <div><a href="<%= city_url(:country_code => "GB", :city => "london")%>">London</a></div>
+		        </li>
+				<li>
+		            <div><a href="<%= city_url(:country_code => "FR", :city => "paris")%>"><img src="/images/cities/85x85/paris.jpg"/></a></div>
+		            <div><a href="<%= city_url(:country_code => "FR", :city => "paris")%>">Paris</a></div>
+		        </li>
+		      </ul>
+		    </div> <!-- #exploreDestinations -->
+		</div> <!-- #features -->
 	</div>
-	
-	<div id="divider" class="clearfix"></div>	
-
+		
 	<div id="main" class="clearfix">
+<!--
     	<div id="app">
         	<a href="http://itunes.apple.com/us/app/duffel-up-and-go/id371064516?mt=8" target="_blank"><img src="/images/homepage/app.png" id="app_pic" /></a>
         </div>
+
+		<div id="short-intro">
+          <a class="short-intro-link" href="">A quick introduction<br/> to Duffel
+		  <span class="faux_link">Learn more &raquo;</span></a>
+		</div>
+		
         <div id="social">
         
             <a target="_blank" href="http://www.facebook.com/duffelup">
@@ -114,32 +105,33 @@
             <a href="http://blog.duffelup.com">duffel Blog</a></span>
             
 		</div>
-        <div id="explore">
-          <h2 class="explore_header">Need some travel ideas?</h2>
-          <span class="explore_text">
-          <a class="explore_link" href="/explore">Explore duffel community</a> and cities.<br/>
-          
-          <ul>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/US/NY/new-york">
-              New York</a></li>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/GB/london"	>
-              London</a></li>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/US/CA/san-francisco">
-              San Francisco</a></li>
-              <li><img src="/images/homepage/green_arrow.gif" border="0" align="baseline" />
-              &nbsp;<a href="http://duffelup.com/US/NV/las-vegas">
-              Las Vegas</a></li>
-          </ul>
-          </span>
-          
-          <span class="explore_text_sm">
-          <a href="http://duffelup.com/explore">
-          Browse on interactive map
-          </a></span>
-		</div>	
+-->
+
+		<ul id="social">
+			<li class="facebook">
+				<a href="http://www.facebook.com/duffelup" target="_blank"><span class="social_text">duffel on Facebook</span></a> 
+			</li>
+			<li>
+				<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fduffelup&amp;send=false&amp;layout=standard&amp;width=280&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=143055821511" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:280px; height:35px;" allowTransparency="true"></iframe>
+			</li>
+	    
+		</ul>
+		<ul id="social" style="margin-left:20px;width:230px">
+			<li class="twitter">
+		    	<a href="http://twitter.com/duffelup" target="_blank"><span class="social_text">duffel on Twitter</span></a> 
+			</li>
+			<li class="blog">
+				<a href="http://blog.duffelup.com" target="_blank"><span class="social_text">duffel Blog</span></a>
+			</li>
+		</ul>
+		<ul id="social">
+			<li class="apple">
+		    	<a href="http://itunes.apple.com/us/app/duffel-up-and-go/id371064516?mt=8" target="_blank"><span class="social_text">duffel in App Store</span></a> 
+			</li>
+			<li>
+				<a href="/site/about"><span class="faux_link">Learn more about Duffel &raquo;</span></a>
+			</li>
+		</ul>
 	</div>
     
 <!-- #footer --> 	

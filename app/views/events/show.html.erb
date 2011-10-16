@@ -106,7 +106,7 @@
 
 					<% if @event.photo? %>
 					<div class="event-photo-show">
-						<% if @event.website.blank? %>
+						<% if !@event.respond_to?("website") or @event.website.blank? %>
 							<img src="<%= get_image_url(@event, "large") %>" alt="<%= @event.title %>" />
 						<% else %>
 							<a href="<%= @event.website %>" target="_blank" class="ImgLink"><img src="<%= get_image_url(@event, "large") %>" alt="<%= @event.title %>" /></a>
