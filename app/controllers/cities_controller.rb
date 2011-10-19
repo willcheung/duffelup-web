@@ -41,7 +41,7 @@ class CitiesController < ApplicationController
     #######################
     # Find Viator events
     #######################
-    if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.day)
+    if !fragment_exist?("city-#{@city.city_country}-activities", :time_to_live => 1.week)
       @activities = ViatorEvent.find_viator_events_by_destination("", 3, @city.id)
     end
     
@@ -50,7 +50,7 @@ class CitiesController < ApplicationController
     ######################
     @photos = []
     unless Utility.robot?(request.user_agent)
-      if !fragment_exist?("city-#{@city.city_country}-flickr-photos", :time_to_live => 1.day)
+      if !fragment_exist?("city-#{@city.city_country}-flickr-photos", :time_to_live => 1.week)
         FlickRaw.api_key = ENV['FLICKR_KEY']
         FlickRaw.shared_secret = ENV['FLICKR_SECRET']
         result = flickr.photos.search(:tags => params[:city], :license => '1,2,3,4,5,6', :per_page => 8, :media => 'photo', :content_type => 1, :page => 1, :sort => 'interestingness-desc', :lat => @city.latitude, :lon => @city.longitude, :radius => 32, :accuracy => 10, :extras => 'owner_name')

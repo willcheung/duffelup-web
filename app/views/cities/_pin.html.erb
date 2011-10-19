@@ -23,4 +23,8 @@
 	<% else %>
 		<p class="info">By <a href="/<%= pin.author %>"><%= pin.author %></a> to <span title="Private duffel"><strong><%= pin.trip_title %></strong> <img style="vertical-align:middle;height:13px" src="/images/icon-lock.png"/></span></p>
 	<% end %>
+	
+	<div class="actions">
+		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin, pin.trip_perma) %></div>
+	</div>
 </div>

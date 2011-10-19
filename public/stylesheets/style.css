@@ -464,20 +464,27 @@ a:hover {
 	color: #666666;
 }
 
-#simple #wrapper #wrapper-inner #primary .main .profile-right .add-to-duffel a {
+.add-to-duffel a {
 	background: url("../images/button-bg.png") repeat-x scroll center center transparent;
 	border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	color: #555;
+	color: #555 !important;
 	font-size: 14px;
 	padding: 6px 7px;
 	text-shadow: 0 1px rgba(255, 255, 255, 0.9);
-	border: 1px solid rgba(200, 186, 186, 0.5);
+	border: 1px solid rgba(190, 176, 176, 0.5);
 }
-
-#simple #wrapper #wrapper-inner #primary .main .profile-right .add-to-duffel a:active {
+.add-to-duffel a:hover{
+	box-shadow: 1px 1px rgba(24, 24, 24, 0.35);
+	-moz-box-shadow: 1px 1px rgba(24, 24, 24, 0.35);
+	-webkit-box-shadow: 1px 1px rgba(24, 24, 24, 0.35);
+	text-decoration: none !important;
+}
+.add-to-duffel a:active {
 	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.25) inset, 0 0 1px rgba(232, 230, 230, 0.5);
+	-moz-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.25) inset, 0 0 1px rgba(232, 230, 230, 0.5);
+	-webkit-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.25) inset, 0 0 1px rgba(232, 230, 230, 0.5);
 }
 
 #simple #wrapper #wrapper-inner #primary .main .profile-right .information {
@@ -2733,6 +2740,16 @@ div.stat_bubble_content {
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
+#central #board .pin .actions { display:none; z-index: 2;}
+#central #board .pin:hover .actions { display: block; }
+#central #board .pin .actions .add-to-duffel a{
+	position: absolute;
+	top: 10px;
+	right: 7px;
+	font-size:1em;
+	padding: 5px 5px;
+	font-weight:bold;
+}
 /*#central #board .note {
 	background: url("../images/bg-index.png") repeat scroll 0 0 transparent;
 	height: 180px;
@@ -3446,8 +3463,8 @@ input.big-button {
 	text-align: center;
 }
 
-#flow_pagination input {
-	padding: 8px 100px;
+#flow_pagination input[type=button] {
+	padding: 8px 0;
 	margin-bottom: 10px;
 	font-size: 14px;
 	box-shadow: 0 2px 3px #666;
@@ -3456,6 +3473,7 @@ input.big-button {
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
 	border-radius:8px;
+	width:240px;
 }
 
 #updates #activities_container #activities_feed #activity .avatar {
