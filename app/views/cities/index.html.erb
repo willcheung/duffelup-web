@@ -76,7 +76,7 @@
 		
 			<%= render :partial => "pin", :collection => @pins %>
 			
-			<%= will_paginate @pins, 
+			<%= will_paginate @pins,
 							:params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]},
 							:renderer => FlowPagination::LinkRenderer %>
 		</div>
@@ -84,7 +84,14 @@
 	
 	<script type="text/javascript"> 
 		document.observe("dom:loaded",function() {
-		new Masonry($('main-board'),{itemSelector: '.pin'});});
+			new Masonry($('main-board'),{itemSelector: '.pin'});});
+	</script>
+	
+	<script type="text/javascript"> 
+		if ($$('#flow_pagination input[type=button]').first() != null){
+			Event.observe($$('#flow_pagination input[type=button]').first(),'click',function() {
+				$$('#flow_pagination input[type=button]').first().value="loading...";$$('#flow_pagination input[type=button]').first().disabled=true;});
+		};
 	</script>
 
 	
