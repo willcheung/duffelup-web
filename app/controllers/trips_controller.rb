@@ -407,8 +407,8 @@ class TripsController < ApplicationController
       # Create sample foodanddrink
       Idea.create_idea_in_duffel("Foodanddrink", 
                                 t.id, 
-                                "Add restaurants and things to do", 
-                                "Clip delicious images from any website, using our Clip-It bookmarker.",
+                                "Like what you see?", 
+                                "Clip any image from any website, using our \"Add to Duffel\" bookmarker.",
                                 "http://duffelup.com/site/tools", 
                                 "", 
                                 "", 
