@@ -173,7 +173,7 @@ module EventsHelper
                 "&trip_code=" + Base64.encode64(trip_permalink)
     
     # opens new window
-    return "<a title=\"Add to my duffel\" href=\"" + url + "\" onclick=\"window.open(this.href+'&jump=doclose', 'copy', 'location=yes,links=no,scrollbars=no,toolbar=no,width=500,height=410');return false;\">" + display + "</a>"
+    return "<a title=\"Add to my duffel\" href=\"" + url + "\" onclick=\"PopupCenter(this.href+'&jump=doclose', 'copy', 500, 380);return false;\">" + display + "</a>"
   end
   
   def sortable_tile

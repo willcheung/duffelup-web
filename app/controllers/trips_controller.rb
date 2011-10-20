@@ -415,6 +415,26 @@ class TripsController < ApplicationController
                                 {:file_name => "http://duffelup.com/images/trip/sample_fooddrink.jpg", :content_type => "image/jpeg", :file_size => nil}, 
                                 0,
                                 0)
+                                
+      ###################################
+      # create Viator recommendations
+      ###################################
+      ViatorEvent.insert_recommendation(t.destination, t.id, nil, 1)
+
+      #################################################
+      # create Splendia Hotel recommendations
+      #################################################
+      if !t.cities[0].nil?
+        if !fragment_exist?("#{t.cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+          splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(t.cities[0].latitude, t.cities[0].longitude)
+          write_fragment("#{t.cities[0].id}-splendia-hotels", splendia_hotels)
+        else
+          splendia_hotels = SplendiaHotel.new
+          splendia_hotels = read_fragment("#{t.cities[0].id}-splendia-hotels")
+        end
+
+        SplendiaHotel.insert_recommendation(splendia_hotels, t.id, t.start_date, t.end_date, 1)
+      end
       
       redirect_to show_new_visitor_trip_url(:id => t.permalink)
     else
