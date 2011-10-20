@@ -38,9 +38,11 @@
 			<div id="form-container" class="clearfix">
 			<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
 				<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-				<%= submit_tag "Go", :class => "submit" %>
-				<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
+				<%= submit_tag "Go", :class => "submit", :onclick => "this.disabled=true;$('packing').show();" %>
+				<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif"/></span>
 			<% end %>
+			
+			<span id="packing" style="font-size:16px;color:#888;font-style:italic;margin-left:170px;position:relative;top:5px;display:none;">Hold on, we're packing your duffel...</span>
 			</div>
 			
 			<div id="explore-destinations">

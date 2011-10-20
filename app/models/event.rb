@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
   
   attr_accessible :title, :note, :photo, :trip_id, :eventable_type
   
-  before_save :add_photo_size_to_user_bandwidth
+  #before_save :add_photo_size_to_user_bandwidth
   
   def self.find_ideas(trip_id, event_id=nil)
     sql = "SELECT ideas.*, events.*, users.username as author

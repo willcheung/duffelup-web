@@ -3,7 +3,7 @@ class ViatorEvent < ActiveRecord::Base
   
   ORIGINAL_URL = "http://www.partner.viator.com/en/7101"
   
-  def self.insert_recommendation(destination, trip_id, viator_idea_ids=nil)
+  def self.insert_recommendation(destination, trip_id, viator_idea_ids=nil, max=2)
     # Parse locations
     split_dest = destination.split(";")
     
@@ -15,7 +15,7 @@ class ViatorEvent < ActiveRecord::Base
       
       # Find viator event by city, country or ids
       if viator_idea_ids.nil?
-        viator_ideas = self.find_viator_events_by_destination(d, 2)
+        viator_ideas = self.find_viator_events_by_destination(d, max)
       else
         viator_ideas = self.find(viator_idea_ids)
       end
