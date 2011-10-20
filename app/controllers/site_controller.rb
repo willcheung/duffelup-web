@@ -42,8 +42,8 @@ class SiteController < ApplicationController
   end
 
   def tools
-    @title = "Duffel - Clip-It Bookmarklet and Widgets"
-    @sub_title = "Clip-It Bookmarker and Tools"
+    @title = "Duffel - Add to Duffel Bookmarklet"
+    @sub_title = "\"Add to Duffel\" Bookmarker"
     
     if logged_in?
       @key = ApiKey.check_api_key(current_user, "widget")
