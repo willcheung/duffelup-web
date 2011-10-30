@@ -85,13 +85,13 @@ class CitiesController < ApplicationController
     #################################################
     # Find duffels (with comment count) in this city
     #################################################
-    @trips = Trip.find_trips_by_city(@country.id, 6)
+    #@trips = Trip.find_trips_by_city(@country.id, 6)
     
     #####################################
     # Find users invited to each duffel
     ####################################
-    t = @trips.collect { |x| x.id } # get all the trip ids and store them in an array
-    @users_by_trip_id = User.find_users_by_trip_ids(t)
+    #t = @trips.collect { |x| x.id } # get all the trip ids and store them in an array
+    #@users_by_trip_id = User.find_users_by_trip_ids(t)
     
     #####################################
     # Find cities for this country and map them
