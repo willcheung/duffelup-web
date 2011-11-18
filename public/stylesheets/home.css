@@ -337,6 +337,7 @@ div.auto_complete .cities {
 }
 
 #explore-destinations li img{
+	border:0;
 	opacity: 0.9;
 }
 

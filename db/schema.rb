@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000037) do
+ActiveRecord::Schema.define(:version => 30000000000038) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -247,6 +247,17 @@ ActiveRecord::Schema.define(:version => 30000000000037) do
     t.string   "address"
     t.integer  "city_id"
   end
+
+  create_table "likes", :force => true do |t|
+    t.datetime "acted_on"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["event_id"], :name => "index_likes_on_event_id"
+  add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
 
   create_table "notes", :force => true do |t|
     t.text     "content"
