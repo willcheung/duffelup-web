@@ -46,6 +46,13 @@ class CitiesController < ApplicationController
     end
     
     #######################
+    # Find what current_user liked
+    #######################
+    if logged_in?
+      @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
+    end
+    
+    #######################
     # Find Flickr Photos
     ######################
     @photos = []
@@ -172,6 +179,13 @@ class CitiesController < ApplicationController
     # Find interesting events
     #####################
     @pins = Event.find_ideas_by_city(@city.id, params[:page])
+    
+    #######################
+    # Find what current_user liked
+    #######################
+    if logged_in?
+      @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
+    end
   end
    
 private

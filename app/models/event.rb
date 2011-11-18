@@ -12,6 +12,8 @@ class Event < ActiveRecord::Base
   belongs_to :transportation, :class_name => "Transportation", :foreign_key => "eventable_id"
   belongs_to :notes, :class_name => "Notes", :foreign_key => "eventable_id"
   
+  has_many :likes
+  
   acts_as_list :scope => :trip_id, :order => :position
   
   validates_presence_of :trip_id

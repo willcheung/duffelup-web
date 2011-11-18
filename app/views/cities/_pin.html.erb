@@ -26,5 +26,16 @@
 	
 	<div class="actions">
 		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin, pin.trip_perma) %></div>
+		<div class="like <% if liked?(pin) %>disabled<% end %>" id="like_<%= pin.id %>">
+			<% if logged_in? %>
+				<% if liked?(pin) %>
+					<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{pin.id}", :method => :delete } -%>
+				<% else %>
+					<%= link_to_remote "Like this", { :url => "/like/?event=#{pin.id}", :method => :post } -%>
+				<% end %>
+			<% else %>
+				<a href="/like/new?redirect=<%= request.request_uri %>">Like this</a>
+			<% end %>
+		</div>
 	</div>
 </div>

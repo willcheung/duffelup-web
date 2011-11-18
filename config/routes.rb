@@ -20,6 +20,9 @@ ActionController::Routing::Routes.draw do |map|
   # bookmarklet
   map.resource :research
   
+  # like
+  map.resources :like
+  
   # featured
   map.resources :featured_duffels, :as => 'featured'
   
