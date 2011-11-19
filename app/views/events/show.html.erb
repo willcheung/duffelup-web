@@ -142,7 +142,7 @@
 						
 						<div class="profile-right" style="float:right;width:250px;">
 							<div class="information">Added to <a style="font-weight:bold" href="/trips/<%= @trip.permalink %>"><%= @trip.title %></a></div>
-							<div class="add-to-duffel" style="text-align:right;margin-top:10px;margin-left:10px;float:right;"><%= build_url_for_copy("Add to my duffel", @event, @trip.permalink) %></div>
+							<div class="add-to-duffel" style="text-align:right;margin-top:10px;margin-left:6px;float:right;"><%= build_url_for_copy("Add to my duffel", @event, @trip.permalink) %></div>
 							<div class="like <% if liked?(@event, true) %>disabled<% end %>" id="like_<%= @event.id %>" style="text-align:right;margin-top:10px">
 								<% if logged_in? %>
 									<% if liked?(@event, true) %>
@@ -173,6 +173,29 @@
 				<% elsif @event.eventable_type == "Notes" %>
 					<div id="form-details">
 					<%= simple_format_without_p(h(@event.content)) %>
+					</div>
+				<% end %>
+				
+				<% if @event.likes.size > 0 %>
+				<div class="clearfix"></div>
+					<div id="likes">
+						<h4>Likes</h4>
+						
+						<div id="likes-wrapper">
+							<% @event.likes.each_with_index do |like,i| %>
+								<% break if i== 9 %>
+								<div class="left" style="margin-right: 10px">
+									<a href="/<%= like.user.username unless like.user.nil? %>">
+										<%= collaborator_thumbnail(like.user, 45) %>
+									</a>
+								</div>
+							<% end %>
+							
+							<% if @event.likes.size > 9 %>
+								<p style="color:#444;font-weight:bold;font-size:12px;clear:both">and <%= @event.likes.size.to_i - 9 %> more likes</p>
+							<% end %>
+						</div>
+						<div class="clearfix"></div>
 					</div>
 				<% end %>
 

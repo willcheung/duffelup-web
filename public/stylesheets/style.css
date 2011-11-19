@@ -537,6 +537,30 @@ a:hover {
     margin-top: 15px;
 }
 
+#simple #wrapper #wrapper-inner #primary .main #likes {
+	background-color: #F0EEE4;
+    border-top: 1px solid #E1DCC8;
+    margin: 15px -15px 0 -15px;
+    padding: 10px;
+}
+
+#simple #wrapper #wrapper-inner #primary .main h4 {
+	font-size: 13px;
+	margin-left: 15px;
+	display: inline;
+	color: #454545;
+	text-transform: uppercase;
+	position: relative;
+	letter-spacing: 1px;
+	top: 15px;
+}
+
+#simple #wrapper #wrapper-inner #primary .main #likes-wrapper {
+	float: right;
+	width: 500px;
+	padding-right: 20px;
+}
+
 	
 /*-----------------------------------------------------------------------------------
 	Header

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :cities, :include => :country #subscription (not home cities)
   
   has_many :comments, :order => "created_at DESC", :include => 'trip', :dependent => :delete_all
-  has_many :likes
+  has_many :likes, :include => :event
   has_many :api_keys
   
   # friendship rich association
