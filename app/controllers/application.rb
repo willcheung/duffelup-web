@@ -84,14 +84,7 @@ class ApplicationController < ActionController::Base
   # Protect a page from unauthorized access.
   def protect
     unless logged_in?
-      # If request comes from Events Controller, that means it is an iBox request
-      # and shouldn't redirect user back to iBox page that is not in an iBox.
-      unless request.request_uri.match(/\/ideas\//)
-        session[:return_to] = request.request_uri
-      else
-        render :text => "There is an error processing your request.  Check that you are signed in or try again later."
-        return
-      end
+      session[:return_to] = request.request_uri
       
       respond_to do |format|
         flash[:notice] = "Please log in first"

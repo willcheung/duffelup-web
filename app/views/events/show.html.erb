@@ -142,7 +142,18 @@
 						
 						<div class="profile-right" style="float:right;width:250px;">
 							<div class="information">Added to <a style="font-weight:bold" href="/trips/<%= @trip.permalink %>"><%= @trip.title %></a></div>
-							<div class="add-to-duffel" style="text-align:right;margin-top:10px"><%= build_url_for_copy("Add to my duffel", @event, @trip.permalink) %></div>
+							<div class="add-to-duffel" style="text-align:right;margin-top:10px;margin-left:10px;float:right;"><%= build_url_for_copy("Add to my duffel", @event, @trip.permalink) %></div>
+							<div class="like <% if liked?(@event, true) %>disabled<% end %>" id="like_<%= @event.id %>" style="text-align:right;margin-top:10px">
+								<% if logged_in? %>
+									<% if liked?(@event, true) %>
+										<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{@event.id}", :method => :delete } -%>
+									<% else %>
+										<%= link_to_remote "Like this", { :url => "/like/?event=#{@event.id}", :method => :post } -%>
+									<% end %>
+								<% else %>
+									<a href="/like/new?redirect=<%= request.request_uri %>">Like this</a>
+								<% end %>
+							</div>
 						</div>
 					</div>
 	
