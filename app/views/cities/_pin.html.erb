@@ -16,8 +16,14 @@
 		<img class="map" src="<%= build_static_map_url(pin, :size => "180x130", :zoom => 15) %>">
 		</a>
 	<% end %>
+	
 	<h3><%= pin.title %></h3>
 	<p class="description"><%= truncate(h(pin.note), :length => Event::TRUNCATE_NOTE_ON_CITY_PAGE) %></p>
+	
+	<% if @pin_like_count[pin.id] != nil and @pin_like_count[pin.id].to_i > 0 %>
+	<p class="likes"><%= pluralize(@pin_like_count[pin.id].to_s, "like") %></p>
+	<% end %>
+	
 	<% if pin.public_trip == "1" %>
 		<p class="info">By <a href="/<%= pin.author %>"><%= pin.author %></a> to <a href="/trips/<%= pin.trip_perma %>"><%= pin.trip_title %></a></p>
 	<% else %>

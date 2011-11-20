@@ -34,9 +34,10 @@ class CitiesController < ApplicationController
     @featured = FeaturedDuffel.find_by_city_id(@city.id, :order => "created_at desc")
     
     ######################
-    # Find interesting events
+    # Find interesting events and their like counts
     #####################
     @pins = Event.find_ideas_by_city(@city.id, params[:page])
+    @pin_like_count = Like.count_likes(@pins)
     
     #######################
     # Find Viator events
@@ -179,6 +180,7 @@ class CitiesController < ApplicationController
     # Find interesting events
     #####################
     @pins = Event.find_ideas_by_city(@city.id, params[:page])
+    @pin_like_count = Like.count_likes(@pins)
     
     #######################
     # Find what current_user liked

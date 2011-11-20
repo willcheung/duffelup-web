@@ -70,6 +70,20 @@
 						<h2><img height="14" style="float:left;padding:3px 5px 0 0;" src="/images/icon-placemark.png"/>Location</h2>
 						<div id="gmap"></div>
 						
+						<h2 style="margin-top:30px">Share</h2>
+						<!-- AddThis Button BEGIN -->
+						<div class="addthis_toolbox addthis_default_style clearfix">
+						<a class="addthis_button_facebook"></a>
+						<a class="addthis_button_twitter"></a>
+						<a class="addthis_button_gmail"></a>
+						<a class="addthis_button_email"></a>
+						<a class="addthis_button_compact"></a>
+						<a class="addthis_counter addthis_bubble_style"></a>
+						</div>
+						<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+						<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=duffel"></script>
+						<!-- AddThis Button END -->
+						
 						<% if @other_ideas %>
 						<h2 style="margin-top:30px">Other ideas in this duffel</h2>
 							<% @other_ideas.each do |p| %>
