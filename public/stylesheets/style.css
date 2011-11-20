@@ -2769,6 +2769,7 @@ div.stat_bubble_content {
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
+#central #board .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
 #central #board .pin .actions { display:none; z-index: 2;}
 #central #board .pin:hover .actions { display: block; }
 #central #board .pin .actions .add-to-duffel a{
