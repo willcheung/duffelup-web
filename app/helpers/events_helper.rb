@@ -159,6 +159,16 @@ module EventsHelper
     end
   end
   
+  # Hacked so pin can display image using Idea model (instead of Event model)
+    # Pin uses Idea model because it has acts_as_mappable 
+  def get_image_url_pin(event)
+    if event.photo_file_size.nil?
+      return event.photo_file_name
+    else
+      return "http://s3.amazonaws.com/duffelup_event_production/photos/#{event.id}/thumb/#{event.photo_file_name}"
+    end
+  end
+  
   
   def build_url_for_copy(display, event, trip_permalink)
 
@@ -196,6 +206,11 @@ module EventsHelper
               last_highlighted_element = $('list_#{event_list}_#{event_id}').down(0);
             }
             return false;"
+  end
+  
+  # Hacked so Idea model can check whether it has a photo (instead of using Event model)
+  def photo_exists?(event)
+    event.photo_file_name && event.photo_content_type && event.photo_file_size
   end
     
 end

@@ -1,4 +1,4 @@
-<div class="pin <% if !pin.photo? %>note<% end %>">
+<div class="pin <% if !photo_exists?(pin) %>note<% end %>">
 	<% if pin.eventable_type == "Foodanddrink"%>
 		<span class="idea-label fooddrink">Food &amp; Drink</span>
 	<% elsif pin.eventable_type == "Activity" %>
@@ -7,9 +7,9 @@
 		<span class="idea-label lodging">Lodging</span>
 	<% end %>
 	
-	<% if pin.photo? %>
+	<% if photo_exists?(pin) %>
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">
-		<img style="width: 180px;" alt="<%= pin.title %>" src="<%= get_image_url(pin) %>">
+		<img style="width: 180px;" alt="<%= pin.title %>" src="<%= get_image_url_pin(pin) %>">
 		</a>
 	<% elsif pin.lat and pin.lng %>
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">

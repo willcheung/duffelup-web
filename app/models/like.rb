@@ -9,6 +9,8 @@ class Like < ActiveRecord::Base
    def self.count_likes(events)
      likes = Hash.new
      
+     return likes if events.nil? or events.empty?
+     
      tmp = Like.find_by_sql("SELECT event_id, count(`likes`.id) AS count_all 
                         FROM `likes` 
                         WHERE (`likes`.event_id in 
