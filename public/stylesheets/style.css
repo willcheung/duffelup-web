@@ -1421,9 +1421,13 @@ form p {
 	border-bottom: 1px dotted #999;
 	border-top: 1px dotted #999;
 	background: none repeat scroll 0 0 #DBF0F4;
-	margin: 10px;
+	margin: 10px 175px;
 	padding: 5px;
-	height: 42px;
+	height: 48px;
+	width: 650px;
+	border-radius: 6px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
 }
 
 #what-is-message p{
@@ -1437,13 +1441,15 @@ form p {
 
 #what-is-message #action {
 	float: right;
-	margin: 10px 10px 0;
+	margin: 15px 10px 0;
 }
 
 #what-is-message #action a{
 	background: url("/images/nav-button-bg.png") repeat-x scroll 0 0 #007AB1;
     border: 1px solid #007BB3;
     border-radius: 4px 4px 4px 4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
     box-shadow: 1px 1px 0 #212E3D;
     color: #FFFFFF;
     padding: 8px 13px;
@@ -2369,14 +2375,11 @@ div.stat_bubble_content {
 }
 
 #central #city-image {
-	height: 280px;
+	background: url('/images/bg-blue-pattern.png');
+	height: 90px;
 	width: 960px;
 	margin: -20px 0 0 -20px;
 	position: relative;
-	-moz-border-radius-topleft: 10px;
-	-webkit-border-top-left-radius: 10px;
-	-moz-border-radius-topright: 10px;
-	-webkit-border-top-right-radius: 10px;
 	border-bottom: 1px solid #555;
 }
 
@@ -2398,8 +2401,9 @@ div.stat_bubble_content {
 	color: #fff;
 	font-size: 32px;
 	letter-spacing: -2px;
-	margin: 20px 0 0 0;
+	margin: 0;
 	left:0;
+	margin-top: 10px;
 	position: absolute;
 }
 
@@ -2413,7 +2417,7 @@ div.stat_bubble_content {
 	padding: 3px 15px 3px 20px;
 	color: #ccc;
 	font-size: 14px;
-	margin: 65px 0 0 0;
+	margin: 55px 0 0 0;
 	left:0;
 	clear: both;
 }
@@ -2437,7 +2441,7 @@ div.stat_bubble_content {
 	display: block;
 	position: absolute;
 	bottom: 0;
-	left: 50px;
+	right: 50px;
 }
 
 #central #city-image .by {
