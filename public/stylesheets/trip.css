@@ -131,6 +131,7 @@ a:hover{color: #555;}
 	right: 0;
 	left: 240px;
 	border-left: 1px solid #999;
+	
 }
 
 #sidebar{
@@ -156,6 +157,9 @@ a:hover{color: #555;}
 	border-left: 1px solid #999;
 	text-shadow: 0 1px 0 #e1e1e1;
 	text-align: center;
+	box-shadow: 0 3px 6px rgba(45, 45, 45, 0.4);
+	-moz-box-shadow: 0 3px 6px rgba(45, 45, 45, 0.4);
+	-webkit-box-shadow: 0 3px 6px rgba(45, 45, 45, 0.4);
 }
 
 #footer {
