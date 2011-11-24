@@ -50,7 +50,7 @@ class CitiesController < ApplicationController
     # Find what current_user liked
     #######################
     if logged_in?
-      if @pins.nil? or @pin.empty?
+      if @pins.nil? or @pins.empty?
         @likes = []
       else
         @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
