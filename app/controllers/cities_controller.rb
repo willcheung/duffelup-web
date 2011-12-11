@@ -46,6 +46,8 @@ class CitiesController < ApplicationController
       @activities = ViatorEvent.find_viator_events_by_destination("", 3, @city.id)
     end
     
+    @activities_dest = ViatorDestination.find_by_iata_code(@city.airport_code)
+    
     #######################
     # Find what current_user liked
     #######################
