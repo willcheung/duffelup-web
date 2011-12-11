@@ -9,7 +9,7 @@
 	
 	<% if photo_exists?(pin) %>
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">
-		<img style="width: 180px;" alt="<%= pin.title %>" src="<%= get_image_url_pin(pin) %>">
+		<img style="width: 180px;" alt="<%= pin.title %>" src="<%= get_image_url(pin) %>">
 		</a>
 	<% elsif pin.lat and pin.lng %>
 		<a class="ImgLink" href="<%= trip_idea_url(:permalink => pin.trip_perma, :id => pin.id) %>">

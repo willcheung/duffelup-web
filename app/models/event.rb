@@ -18,10 +18,10 @@ class Event < ActiveRecord::Base
   
   validates_presence_of :trip_id
   
-  TRUNCATE_SHORT_NOTE_ON_BOARD_BY = 145
-  TRUNCATE_VIATOR_SHORT_NOTE_ON_BOARD_BY = 165
-  TRUNCATE_HOTELS_SHORT_NOTE_ON_BOARD_BY = 180
-  TRUNCATE_NOTE_ON_BOARD_BY = 230
+  TRUNCATE_SHORT_NOTE_ON_BOARD_BY = 265
+  TRUNCATE_VIATOR_SHORT_NOTE_ON_BOARD_BY = 240
+  TRUNCATE_HOTELS_SHORT_NOTE_ON_BOARD_BY = 210
+  TRUNCATE_NOTE_ON_BOARD_BY = 320
   TRUNCATE_TITLE_LENGTH_ON_TILE = 45
   TRUNCATE_TITLE_LENGTH_ON_ITINERARY = 30
   TRUNCATE_NOTE_ON_CITY_PAGE = 400
@@ -77,9 +77,11 @@ class Event < ActiveRecord::Base
     ideas = self.find_by_sql(sql)
   end
   
-  def self.find_ideas_by_city(city_id, page, per_page=18)
-    city = City.find_by_id(city_id)
-    result = Idea.find(:all, :origin => [city.latitude, city.longitude], :within => 30, 
+  def self.find_ideas_by_lat_lng(lat, lng, options = {})
+
+    radius = options[:radius] || 30
+
+    result = Idea.find(:all, :origin => [lat, lng], :within => radius, 
                 :select => "ideas.*, events.*, users.username as author, trips.is_public as public_trip, trips.permalink as trip_perma, trips.title as trip_title", 
                 :from => :ideas,
                 :conditions => "( trips.is_public = 1
@@ -89,10 +91,15 @@ class Event < ActiveRecord::Base
                 :joins => "INNER JOIN events ON ideas.id = events.eventable_id 
                             INNER JOIN trips ON events.trip_id = trips.id
                             INNER JOIN users ON events.created_by = users.id",
-                :order => "events.created_at desc")
-    
-    result.paginate(:per_page => per_page, :page => page)
-
+                :order => "events.created_at desc",
+                :limit => options[:limit])
+                
+    if options[:no_paginate]
+      return result
+    else
+      per_page = options[:per_page] || 18
+      return result.paginate(:per_page => per_page, :page => options[:page])
+    end
   end
   
   def self.find_transportations(trip_id, event_id=nil)

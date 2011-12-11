@@ -1,5 +1,5 @@
 <div id="content" style="width:100%;left:0">
-        <div id="board_events" style="width:50%;">
+        <div id="board_events" style="width:75%;">
                 <div class="divider clearfix"><h2 style="float:left">My Ideas & Notes</h2></div>
                 <%= render :partial => 'events/board_events' %>
                 
@@ -13,26 +13,29 @@
                 <% end %>
                 
         </div>
-</div>
 
-<div id="event_details" style="right: 305px">
-        <% unless @itinerary.flatten.first.nil? %>
-		<script type="text/javascript"> 
-			// highlight first element
-		  	var last_highlighted_element = $('list_<%= @itinerary.flatten.first.list %>_<%= @itinerary.flatten.first.id %>').down(0);
-		  	last_highlighted_element.className += ' highlighted';
-		</script>
-		
-        <%= render :partial => "events/trip_event_details", :locals => { :event => @itinerary.flatten.first } %>
-        <% end %>
-</div>
+		<div id="map_wrapper">
+		        <div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
+		                <a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger map &raquo;</a></div>
+		        <div id="board_gmap" class="corkboard"></div>
+		</div>
 
-<div id="map_wrapper">
-        <div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
-                <a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger map &raquo;</a></div>
-        <div id="board_gmap" class="corkboard" style="display:block;width:95%;height:89.5%;"></div>
-</div>
+		<div id="related_ideas_wrapper">
+			<h2>Related Duffels</h2>
+			<ul class="related-list">
+				<% @related.each do |r| %>
+				<li>
+					<div id="image_wrapper"><a href="<%=r.permalink%>"><img src="<%= duffel_thumbnail_url(r) %>"/></a></div>
+					<h3><a href="<%=r.permalink%>"><%= r.title %></a></h3>
+					<p><%= display_trip_dates(r.start_date,r.end_date) %></p>
+				</li>
+				<% end %>
+				<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="<%= ((@city[0].country_code == "US" or @city[0].country_code == "CA") ? "/#{@city[0].country_code}/#{@city[0].region}/#{city_name_to_url(@city[0].city)}" : "/#{@city[0].country_code}/#{city_name_to_url(@city[0].city)}") %>">See more ideas to <%= @city[0].city %> &raquo;</a></p>
+			</ul>
+		</div>
 
-<div id="comments_wrapper">
-        <%= render :partial => "comments/trip_comments" %>
+		<div id="comments_wrapper">
+		        <%= render :partial => "comments/trip_comments" %>
+		</div>
+
 </div>

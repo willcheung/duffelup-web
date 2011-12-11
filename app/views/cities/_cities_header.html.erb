@@ -1,7 +1,7 @@
 
 <div id="city-image">
 
-	<h1><%= @city.city %> <%= ", #{params[:region]}" if params[:region] %>, <%= link_to @city.country_name, "/country/#{params[:country_code]}" %></h1>
+	<h1><%= @city.city %> <%= ", #{params[:region].upcase}" if params[:region] %>, <%= link_to @city.country_name, "/country/#{params[:country_code]}" %></h1>
 	<h6>Total <%= pluralize(@duffel_count["0"]+@duffel_count["1"], "duffel") %> to <%= @city.city %>, including <%= pluralize(@duffel_count["1"], "public duffel") %></h6>
 	<!--<a href="#" onclick="$('trip_form').submit();return false;" class="create-duffel" title="Create a duffel to <%= @city.city %>" alt="Create a duffel to <%= @city.city %>">Create a duffel to <%= @city.city %></a>-->
 	

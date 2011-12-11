@@ -200,7 +200,7 @@ a:hover{color: #555;}
 #footer-promotions {
 	position: absolute;
 	bottom: 28px;
-	right: 420px;
+	width: 45%;
 	left:245px;
 	z-index: 10;
 	background: #363743;
@@ -655,7 +655,7 @@ span.collaborator img {
 -----------------------------------------------------------------------------------*/
 
 #board_events {
-	width: 65%;
+	width: 99%;
 	height: 100%;
 	position: absolute;
 }
@@ -705,13 +705,12 @@ span.collaborator img {
 }
 
 #board_events li{
-	width: 190px;
-	height: 190px;
+	width: 220px;
+	height: 220px;
 	float: left;
 	margin: 8px 0 0 8px;
 	position: relative;
 	display: inline;
-	cursor: pointer;
 }
 
 #board_events div.divider {
@@ -738,7 +737,7 @@ span.collaborator img {
 	font-size: 12px;
 	line-height: 15px;
 	font-weight: bold;
-	margin: 50px 15px 0;
+	margin: 43px 15px 0;
 }
 
 #board_events li .note h3{
@@ -764,7 +763,7 @@ span.collaborator img {
 	font-size: 10px;
 	color: #444;
 	line-height: 12px;
-	height: 83px;
+	height: 130px;
 	overflow: hidden;
 }
 
@@ -802,7 +801,7 @@ span.collaborator img {
 
 #board_events span.idea-author{
 	position: absolute;
-	top: 161px;
+	top: 195px;
 	left: 15px;
 	font-size: 11px;
 	color: #555;
@@ -832,11 +831,11 @@ span.collaborator img {
 #board_events .checkin .caption {
 	text-align: center;
 	font-size: 11px;
-	width: 168px;
+	width: 196px;
 	background:url("/images/bg-caption.png") repeat scroll 0 0 transparent;
-	bottom:13px;
+	bottom:15px;
 	color:#FFFFFF;
-	left: 7px;
+	left: 8px;
 	padding:4px;
 	position:absolute;
 	display: none;
@@ -867,8 +866,8 @@ span.collaborator img {
 
 #board_events .foodanddrink, #board_events .lodging, #board_events .activity, #board_events .transport{
 	text-align: center;
-	height: 190px; 
-	width: 190px;
+	height: 220px; 
+	width: 220px;
 	background: url('../images/tile-index.png') no-repeat top !important;
 	position: relative;
 	padding: 1px 0;
@@ -877,17 +876,17 @@ span.collaborator img {
 
 #board_events .recommendation {
 	text-align: left;
-	height: 190px; 
-	width: 286px;
+	height: 220px; 
+	width: 331px;
 	background: url('../images/tile-index-big.png') no-repeat top left !important;
 	position: relative;
 	padding: 1px 0;
 	display: block;
 	overflow:hidden;
 }
-#board_events .recommendation .detail { float: right; width: 85px; margin: 30px 8px 0 0; }
-#board_events .business .detail { float: right; width: 138px; height: 138px; margin: 22px 15px 0 0; overflow: hidden;}
-#board_events .business .detail img { height: 138px; }
+#board_events .recommendation .detail { float: right; width: 140px; margin: 30px 8px 0 0; }
+#board_events .business .detail { float: right; width: 160px; height: 160px; margin: 24px 15px 0 0; overflow: hidden;}
+#board_events .business .detail img { height: 160px; }
 #board_events .recommendation .detail input { font-size: 11px; background: #666; color: #fff; border-color: #666; padding: 0; margin: 10px 0 0 0; }
 #board_events .price { font: italic 14px georgia,serif; color: #e91e79; line-height: 10px; margin: 10px 0 0 0; }
 #board_events .price span { font-size: 11px; color: #666; }
@@ -895,8 +894,8 @@ span.collaborator img {
 #board_events .note{
 	text-align: left; 
 	padding: 1px 0; 
-	height: 190px; 
-	width: 190px;
+	height: 220px; 
+	width: 220px;
 	display: block;
 	position: relative;
 	background: url('../images/tile-note.png') no-repeat top !important;
@@ -907,20 +906,16 @@ span.collaborator img {
 	position: relative;
 	padding: 1px 0;
 	display: block;
-	height: 190px; 
-	width: 190px;
+	height: 220px; 
+	width: 220px;
 	background: url('../images/tile-polaroid.png') no-repeat top !important;
 }
 
 #board_events .checkin img {
 	position: absolute;
-	left: 15px;
-	top: 8px;
-	width: 160px;
-}
-
-#board_events .note .idea-note{
-	height: 116px;
+	left: 20px;
+	top: 13px;
+	width: 180px;
 }
 
 #board_events span.idea-link a{
@@ -928,7 +923,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-link-2.gif') no-repeat;
  	right: -3px;
-	top: 154px;
+	top: 183px;
    	width: 20px;
     height: 20px;
 }
@@ -938,14 +933,14 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-info.png') no-repeat;
  	right: -3px;
-	top: 153px;
+	top: 183px;
    	width: 20px;
     height: 20px;
 }
 
 #board_events .idea-info-inverse a{
 	right: -3px;
-	top: 150px;
+	top: 178px;
    	width: 20px;
     height: 22px;
 	position: absolute;
@@ -958,7 +953,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-edit.png') no-repeat;
  	right: 29px;
-	top: 153px;
+	top: 182px;
    	width: 20px;
     height: 20px;
 }
@@ -968,7 +963,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-copy.png') no-repeat; 
  	right: 14px;
-	top: 153px;
+	top: 182px;
    	width: 20px;
     height: 20px;
 }
@@ -1120,7 +1115,7 @@ span.collaborator img {
 #itinerary li em.list-actions span.idea-expand a {
    	text-indent: -5000px;
     background: #fff url('../images/trip/ico-list-actions.png') no-repeat 8px 7px;
-   	width: 25px;
+   	width: 20px;
     height: 25px;
     float: right;
 	margin-right: 5px;
@@ -1129,7 +1124,7 @@ span.collaborator img {
 #itinerary li em.list-actions span.idea-collapse a {
    	text-indent: -5000px;
     background: #fff url('../images/trip/ico-list-actions.png') no-repeat 8px -24px;
-   	width: 25px;
+   	width: 20px;
     height: 25px;
     float: right;
 	margin-right: 5px;
@@ -1273,9 +1268,9 @@ span.collaborator img {
 #map_wrapper {
 	padding: 3px 8px 8px 8px;
 	/*bottom: 75px;*/
-	top: 120px;
+	top: 20px;
 	position: absolute;
-	right: 20px;
+	right: 30px;
 	/*width: 380px;
 	height: 300px;*/
 	width: 240px;
@@ -1293,8 +1288,9 @@ span.collaborator img {
 #map_wrapper div.corkboard#board_gmap {
 	background: #ECEFF3;
 	border-top:1px solid #ccc !important;
-	width: 380px;
-	height: 280px;
+	display:block;
+	width:95%;
+	height:88%;
 	overflow: none;
 	bottom: 8px;
 	border: 0;
@@ -1309,8 +1305,8 @@ span.collaborator img {
 	width: 240px;
 	min-height: 10%;
 	max-height: 40%;
-	right: 20px;
-	bottom: 35px;
+	right: 30px;
+	top: 690px;
 	background: #fcfcfc;
 	z-index:4;
 	overflow: auto;
@@ -1322,12 +1318,74 @@ span.collaborator img {
 	behavior: url('/PIE.htc');
 }
 
+#related_ideas_wrapper {
+	position: absolute;
+	padding:8px;
+	width: 240px;
+	right: 30px;
+	top: 270px;
+	height: auto;
+	background: #fcfcfc;
+	z-index:4;
+	overflow: auto;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	-webkit-box-shadow: #333 0 0 8px;
+	-moz-box-shadow: #333 0 0 8px;
+	box-shadow: #333 0 0 8px;
+	behavior: url('/PIE.htc');
+}
+
+#related_ideas_wrapper .related-list li {
+	height: 90px;
+	width: 230px;
+	padding: 10px 0;
+	border-bottom: 1px solid #D3D5D8;
+	background: url(/images/city-bg.png) repeat-x left bottom;
+}
+
+#related_ideas_wrapper .related-list li .seperate {
+	position: absolute;
+	margin: 0 0 0 299px;
+	*margin: 0 0 0 214px;
+	background: #d3d5d8 url("/images/city-right.png") no-repeat left top;
+	width: 1px;
+	height: 85px;
+}
+
+#related_ideas_wrapper .related-list li #image_wrapper {
+	display: block;
+    float: left;
+    height: 90px;
+	width: 90px;
+    margin-right: 10px;
+    overflow: hidden;
+	text-align: center;
+}
+
+#related_ideas_wrapper .related-list li #image_wrapper img {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#related_ideas_wrapper .related-list li h3 {
+	font-weight: bold;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+#related_ideas_wrapper .related-list li p {
+	font-size: 11px;
+	color: #666;
+	margin-top: 6px;
+}
+
 #comments_wrapper p {
 	font-size: 12px;
 	margin-left: 20px;
 }
 
-#comments_wrapper h2 {
+#comments_wrapper h2, #related_ideas_wrapper h2 {
 	text-decoration: none;
 	margin: 1px 0 4px 10px;
 	font-size: 11px;
@@ -1968,7 +2026,7 @@ input.trip_destination_submit {
 	background:#b22;
 }
 
-#sorting-indicator {
+#sorting-indicator, #deleting-indicator {
 	background:#FFF8C6;
 	padding:3px;
 	font-weight:normal;

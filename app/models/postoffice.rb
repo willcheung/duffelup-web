@@ -121,6 +121,19 @@ class Postoffice < ActionMailer::Base
     content_type "text/html"
   end
   
+  def like_notification(mail)
+    return if mail[:trip_creator].email.nil? or mail[:trip_creator].email.empty?
+    
+    from "postoffice@duffelup.com (Duffel)"
+    headers "Reply-to" => "postoffice@duffelup.com"
+    recipients mail[:trip_creator].email
+    name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
+    subject name + " liked #{mail[:event].title}"
+    body mail
+    sent_on Time.now
+    content_type "text/html"
+  end
+  
   def share_itinerary_after_trip(mail)
     return if mail[:email].nil? or mail[:email].empty?
     
