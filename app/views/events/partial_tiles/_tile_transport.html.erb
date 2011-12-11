@@ -1,4 +1,4 @@
-<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="transport">
 		<span class="idea-label">Transportation</span>
 		<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>

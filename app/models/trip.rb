@@ -86,6 +86,11 @@ class Trip < ActiveRecord::Base
     return itinerary
   end
   
+  def self.find_related(c)
+    Trip.find(:all, :conditions => ["destination = ? and is_public = 1", c.city_country], :order => "rand()", :limit => 3)
+  end
+  
+  
   # Find airport code for Kayak
   def self.find_airport_codes_by_permalink(perma)
     tmp = Trip.find_by_sql(["SELECT t.*, c.airport_code 

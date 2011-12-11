@@ -1,4 +1,4 @@
-<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" <% if sortable_tile %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
+<li <% if sortable_tile %>class="sortable"<% end %> id="list_<%= day+1 %>_<%= event.id %>" style="position:relative;">
 
 <%- if event.eventable_type == "Foodanddrink" -%>
 <span class="foodanddrink">
@@ -37,11 +37,11 @@
 <% end %>
 
 <em class="list-actions">
-<% if params[:view] != "map" %>
-<!--<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>">More Info</a></span>-->
-<% else %>
+<% if params[:view] == "map" or params[:view] != "itinerary" %>
 <span title="Expand" id="<%= event.id %>_expand" class="idea-expand"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_collapse'); Element.toggle('<%= event.id %>_expand'); return false;">+</a></span>
 <span title="Collapse" style="display:none;" id="<%= event.id %>_collapse" class="idea-collapse"><a href="#" onclick="Element.toggle('<%= event.id %>_details'); Element.toggle('<%= event.id %>_expand'); Element.toggle('<%= event.id %>_collapse'); return false;">+</a></span>
+<% else %>
+<!--<span title="More info" id="list_<%=event.list.to_s%>_<%=event.id.to_s%>" class="idea-info"><a href="#" <%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>>More Info</a></span>-->
 <% end %>
 
 <%- unless event.eventable_type == "CheckIn" -%>

@@ -4,7 +4,9 @@
 		<span class="delete"><%= link_to_remote "[x]", 
 				{ :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
 				  :confirm => "Are you sure you want to delete #{event.title}?", 
-				  :method => :delete },
+				  :method => :delete,
+				  :loading => "$('deleting-indicator').show();",
+				  :complete => "$('deleting-indicator').hide();" },
 				  :title => "Delete",
 				  :alt => "Delete",
 				  :title => "Delete" %></span>
@@ -14,7 +16,5 @@
 	<span class="idea-copy"><%= build_url_for_copy("copy", event, @trip.permalink) %></span>
 	<% end %>
 	
-	<% if event.eventable_type != "Notes" and event.eventable_type != "Transportation" and !event.website.empty? %>
-	<span class="idea-link"><%= website_link("Website", event.website, nil, "alt='Go to website' title='Go to website'") %></span>
-	<% end %>
+	<span class="idea-info"><a title="More Info" href="<%=@trip.permalink%>/ideas/<%=event.id%>">more info</a></span>
 </div>

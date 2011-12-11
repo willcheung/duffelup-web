@@ -277,6 +277,13 @@ class TripsController < ApplicationController
     end
     
     ###################################
+    # Get events in these cities
+    ###################################
+    if params[:view] == "itinerary" and @city
+      @related = Trip.find_related(@city[0])
+    end
+    
+    ###################################
     # Load duffel comments count
     ###################################
     if !fragment_exist?("#{@trip.id}-comments-size", :time_to_live => 12.hours)

@@ -151,21 +151,13 @@ module EventsHelper
     return text
   end
   
+  # Hacked so event can display image using Idea model (instead of Event model)
+  # Pin uses Idea model because it has acts_as_mappable
   def get_image_url(event, size="thumb")
     if event.photo_file_size.nil?
-      return event.photo_file_name
+      return event.photo_file_name || "/images/icon-duffel.png"
     else
-      return event.photo.url(size)
-    end
-  end
-  
-  # Hacked so pin can display image using Idea model (instead of Event model)
-    # Pin uses Idea model because it has acts_as_mappable 
-  def get_image_url_pin(event)
-    if event.photo_file_size.nil?
-      return event.photo_file_name
-    else
-      return "http://s3.amazonaws.com/duffelup_event_production/photos/#{event.id}/thumb/#{event.photo_file_name}"
+      return "http://s3.amazonaws.com/duffelup_event_production/photos/#{event.id}/#{size}/#{event.photo_file_name}"
     end
   end
   
@@ -197,16 +189,6 @@ module EventsHelper
   def display_transportation_datetime(t)
     Time.parse(t).strftime("%m/%d/%y at %I:%M%p") unless t.nil?
   end 
-  
-  def display_onclick_event_details(permalink, event_id, event_list)
-    return "new Ajax.Request('/trips/#{permalink}/ideas/#{event_id}', {asynchronous:true, evalScripts:true, method:'get'}); 
-            $('list_#{event_list}_#{event_id}').down(0).addClassName('highlighted');
-            if (last_highlighted_element != $('list_#{event_list}_#{event_id}').down(0)) {
-              last_highlighted_element.removeClassName('highlighted');
-              last_highlighted_element = $('list_#{event_list}_#{event_id}').down(0);
-            }
-            return false;"
-  end
   
   # Hacked so Idea model can check whether it has a photo (instead of using Event model)
   def photo_exists?(event)

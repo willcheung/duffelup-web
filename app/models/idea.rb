@@ -1,6 +1,6 @@
 class Idea < ActiveRecord::Base
   has_one :event, :as => :eventable
-  has_many :trips, :through => :events
+  has_one :trip, :through => :event
   belongs_to :city
   
   attr_accessible :phone, :address, :website, :price_range

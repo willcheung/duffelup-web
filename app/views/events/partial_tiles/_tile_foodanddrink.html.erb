@@ -1,10 +1,10 @@
 <% if event.photo? %>
-	<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" style="width: 286px" <% if sortable_tile %> class="sortable" <% end %>>
+	<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" style="width:331px" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="recommendation business">
 			<span class="idea-label" id="fooddrink-rec">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 			<div class="detail">
-				<a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" /></a>
+				<a href="/trips/<%= @trip.permalink %>/ideas/<%= event.id %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" /></a>
 			</div>
 			<h3><%= display_title_without_link(event, 33) %></h3>
 			<div class="idea-note"><%= display_short_note_on_board(event, @trip) %></div>
@@ -13,7 +13,7 @@
 	</li>
 <% else %>
 
-	<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+	<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="foodanddrink">
 			<span class="idea-label">Food &amp; Drink</span>
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>

@@ -1,4 +1,4 @@
-<li onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 	<div class="checkin">
 		<div class="idea-actions">
 			<% if @users.include?(current_user) %>
@@ -9,9 +9,9 @@
 					  :title => "Delete",
 					  :alt => "Delete" %></span>
 			<% end %>
-			<!--
-			<span class="idea-info-inverse"><a href="#" onclick="<%= display_onclick_event_details(@trip.permalink, event.id, event.list) %>" alt="More Info" title="More Info">more info</a></span>
-			-->
+
+			<span class="idea-info-inverse"><a href="<%=@trip.permalink%>/ideas/<%=event.id%>" title="More Info">more info</a></span>
+
 		</div>
 		<div class="detail">
 			<img src="<%= get_image_url(event) %>" alt="<%= event.title %>"/>

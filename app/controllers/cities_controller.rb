@@ -36,7 +36,7 @@ class CitiesController < ApplicationController
     ######################
     # Find interesting events and their like counts
     #####################
-    @pins = Event.find_ideas_by_city(@city.id, params[:page])
+    @pins = Event.find_ideas_by_lat_lng(@city.latitude, @city.longitude, { :page => params[:page] })
     @pin_like_count = Like.count_likes(@pins)
     
     #######################
@@ -183,14 +183,18 @@ class CitiesController < ApplicationController
     ######################
     # Find interesting events
     #####################
-    @pins = Event.find_ideas_by_city(@city.id, params[:page])
+    @pins = Event.find_ideas_by_lat_lng(@city.latitude, @city.longitude, { :page => params[:page] })
     @pin_like_count = Like.count_likes(@pins)
     
     #######################
     # Find what current_user liked
     #######################
     if logged_in?
-      @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
+      if @pins.nil? or @pins.empty?
+        @likes = []
+      else
+        @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
+      end
     end
   end
    
