@@ -87,6 +87,8 @@ class Trip < ActiveRecord::Base
   end
   
   def self.find_related(c)
+    return [FeaturedDuffel.find(:first, :order => "created_at DESC").trip] if c.nil?
+    
     Trip.find(:all, :conditions => ["destination = ? and is_public = 1", c.city_country], :order => "rand()", :limit => 3)
   end
   

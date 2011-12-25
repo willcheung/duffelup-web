@@ -30,7 +30,12 @@
 					<p><%= display_trip_dates(r.start_date,r.end_date) %></p>
 				</li>
 				<% end %>
+				
+				<% unless @city[0].nil? %>
 				<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="<%= ((@city[0].country_code == "US" or @city[0].country_code == "CA") ? "/#{@city[0].country_code}/#{@city[0].region}/#{city_name_to_url(@city[0].city)}" : "/#{@city[0].country_code}/#{city_name_to_url(@city[0].city)}") %>">See more ideas to <%= @city[0].city %> &raquo;</a></p>
+				<% else %>
+				<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="/featured">See more interesting duffels &raquo;</a></p>
+				<% end %>
 			</ul>
 		</div>
 
