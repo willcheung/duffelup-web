@@ -37,10 +37,10 @@
 				<% if liked?(pin) %>
 					<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{pin.id}", :method => :delete } -%>
 				<% else %>
-					<%= link_to_remote "Like this", { :url => "/like/?event=#{pin.id}", :method => :post } -%>
+					<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{pin.id}", :method => :post }, :style => "padding-left:0;" -%>
 				<% end %>
 			<% else %>
-				<a href="/like/new?redirect=<%= request.request_uri %>">Like this</a>
+				<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
 			<% end %>
 		</div>
 	</div>

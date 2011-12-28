@@ -29,7 +29,7 @@ class LikeController < ApplicationController
       format.js do
         render :update do |page|
           page << "$('like_#{e.id}').className = 'like'"
-          page.replace_html "like_#{e.id}", link_to_remote("Like this", { :url => "/like/?event=#{e.id}", :method => :post })
+          page.replace_html "like_#{e.id}", link_to_remote("<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3\">Like this</span", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0")
         end
       end
     end
