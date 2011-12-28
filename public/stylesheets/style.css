@@ -2779,7 +2779,7 @@ div.stat_bubble_content {
 #central #board .pin .actions .add-to-duffel a{
 	position: absolute;
 	top: 6px;
-	right: 6px;
+	left: 6px;
 	font-size:1em;
 	padding: 5px 5px;
 	font-weight:bold;
@@ -2787,7 +2787,7 @@ div.stat_bubble_content {
 #central #board .pin .actions .like a{
 	position: absolute;
 	top: 6px;
-	left: 6px;
+	right: 6px;
 	font-size:1em;
 	padding: 5px 5px;
 	font-weight:bold;

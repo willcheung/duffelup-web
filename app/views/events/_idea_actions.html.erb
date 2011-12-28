@@ -11,10 +11,7 @@
 				  :alt => "Delete",
 				  :title => "Delete" %></span>
 	<% end %>
-	
-	<% if sortable_tile %>
+
 	<span class="idea-copy"><%= build_url_for_copy("copy", event, @trip.permalink) %></span>
-	<% end %>
-	
 	<span class="idea-info"><a title="More Info" href="<%=@trip.permalink%>/ideas/<%=event.id%>">more info</a></span>
 </div>
