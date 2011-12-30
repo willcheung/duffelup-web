@@ -579,7 +579,7 @@ a:hover {
 
 #account {
 	float:right;
-	margin:5px 25px 5px 5px;
+	margin:-8px 25px 0px 5px;
 	display:inline;
 }
 
@@ -604,25 +604,98 @@ a:hover {
 	vertical-align:middle;
 }
 
-#account .nav-button a, .nav-button a:visited {
--moz-border-radius:4px 4px 4px 4px;
--moz-box-shadow:1px 1px 0 #212E3D;
-background:url("/images/nav-button-bg.png") repeat-x scroll 0 0 #007AB1;
-border:1px solid #007BB3;
-color:#FFFFFF;
-padding:6px 13px;
-text-shadow:0 1px 0 #006DB5;
-text-decoration: none;
+#account li.nav-button:hover, #account li.nav-avatar:hover {
+	background: repeat-x scroll 0 0 #36567D;
 }
 
-#account .nav-button a:hover, .nav-button a:focus {
-background-color:#1289BD;
-background-position:0 -50px;
-border-color:#0172A5;
-text-decoration:none;
-text-shadow:0 1px 1px #0060AB;
+#account li.nav-button, #account li.nav-avatar {
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px 4px 4px 4px;
+	border-radius: 4px;
+	padding:10px 8px;
+	text-shadow: 0 1px 0 #222;
+	text-decoration: none;
 }
-	
+
+#account li.nav-button a:hover, .nav-button a:focus {
+	background-position:0 -50px;
+	border-color:#0172A5;
+	text-decoration:none;
+	text-shadow:0 1px 1px #0060AB;
+}
+
+#account li.nav-avatar {
+	position: relative;
+}
+
+#account li.nav-avatar a, #account li.nav-button a{
+    font-weight: bold;
+    text-decoration: none;
+	text-shadow: 0 1px 0 #222;
+}
+
+#account li.nav-avatar img.image {
+	-moz-border-radius:4px 4px 4px 4px;
+	border-radius: 4px;
+	webkit-border-radius: 4px;
+	top: 8px;
+	position: relative;
+	width: 25px;
+	height: 25px;
+}
+
+#account li.nav-avatar img.arrow {
+	position: relative;
+	right:1px;
+}
+
+#account li.nav-avatar ul.submenu {
+	background:#333;
+	position:absolute;
+	width:160px;
+	height: 190px;
+	padding:0;
+	clear:both;
+	z-index:5;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:0 2px 3px #818181;
+	-webkit-box-shadow: 0 2px 3px #818181;
+	box-shadow: 0 2px 3px #818181;
+	right: 4px;
+	top: 30px;
+}
+#account li.nav-avatar ul.submenu li{
+	background: #333;
+	display:block;
+	float:none;
+	margin:1px 2px;
+	border: none;
+	height: auto;
+	line-height:normal;
+	color:#eee;
+	padding-left: 5px;
+}
+#account li.nav-avatar .submenu li a{
+	display:block;
+	float:none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left: 15px;
+	margin:0;
+	border:0;
+	height:auto;
+	color:#eee;
+	line-height:normal;
+	text-decoration: none;
+}
+
+#account li.nav-avatar .submenu li:hover a {
+	color: #fff;
+	text-shadow:none;
+	background-color:#000 !important;
+}	
 /*-----------------------------------------------------------------------------------
 	Profile
 -----------------------------------------------------------------------------------*/
@@ -3377,51 +3450,6 @@ input.big-button {
 	position:relative;
 }
 
-#mainContent #dashboard_tabs ul .submenu {
-	border:solid 1px #bbb;
-	border-top:none;
-	background:#26466D;
-	position:relative;
-	width:144px;
-	height: 90px;
-	top: 0;
-	padding:0;
-	clear:both;
-	z-index:5;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	-moz-box-shadow:0 2px 3px #818181;
-	-webkit-box-shadow: 0 2px 3px #818181;
-	box-shadow: 0 2px 3px #818181;
-	margin-left: 180px;
-}
-#mainContent #dashboard_tabs ul .submenu li{
-	background: #26466D;
-	display:block;
-	float:none;
-	margin:0 2px;
-	border: none;
-	height: auto;
-	line-height:normal;
-}
-#mainContent #dashboard_tabs .submenu li a{
-	display:block;
-	float:none;
-	padding:6px 0px 6px 5px;
-	margin:0;
-	border:0;
-	height:auto;
-	color:#eee;
-	line-height:normal;
-}
-#mainContent #dashboard_tabs .submenu li:hover {
-	background-color:#e3edef !important;
-} 
-#mainContent #dashboard_tabs .submenu li:hover a {
-	color: #000;
-}
-
 #simple #newsfeed,
 #simple #travelDeals,
 #simple #updates,
@@ -3454,42 +3482,45 @@ input.big-button {
   margin-bottom: 20px;
 }
 
-#mainContent .updateTabs {
+#mainContent .tabs {
 	float: left;
 	padding: 0;
 	border: none;
 	margin: 0 0 12px 0;
-	width: 255px;
 }
 
-#mainContent ul.updateTabs {
+#mainContent ul.tabs {
 	list-style: none outside none;
+	margin-top:12px;
 }
 
-#mainContent .updateTabs li {
+#mainContent ul.tabs li {
 	float: left;
-	margin: 0 8px;
+	margin: 0 8px 4px 8px;
 }
 
-#mainContent .updateTabs a {
+#mainContent ul.tabs a {
 	font-weight: bold;
-	padding:3px 6px;
+	font-size:14px;
+	padding:9px 12px;
 }
 
-#mainContent .updateTabs a:hover {
+#mainContent ul.tabs a:hover {
 	background: #e3e3e3;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	padding:3px 6px;
+	border-radius: 8px;
+	padding:9px 12px;
 	text-decoration:none;
 }
 
-#mainContent .updateTabs a.selected {
-	background: #777;
+#mainContent ul.tabs a.selected {
+	background: #555;
 	color: #FFF;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	padding:3px 6px;
+	border-radius: 8px;
+	padding:9px 12px;
 	text-decoration:none;
 }
 #main-board #flow_pagination {
@@ -3525,7 +3556,7 @@ input.big-button {
 }
 
 #updates #activities_container #activities_feed #activity .content {
-	width: 430px;
+	width: 460px;
 	float: left;
 }
 
@@ -3656,15 +3687,16 @@ input.big-button {
 }
 
 #simple #userStats dl dd {
-	color: #555;
+	color: #6d6d6d;
 }
 
 #simple #friends h2,
 #simple #featuredUser h2,
 #simple #userProfile h2 {
-	font: 800 16px/20px Trebuchet MS, arial, helvetica, sans-serif;
-  font-family: arial, helvetica, sans-serif;
+	font: 800 14px/18px Trebuchet MS, arial, helvetica, sans-serif;
+  	font-family: arial, helvetica, sans-serif;
 	letter-spacing: 0;
+	color: #4d4d4d;
 }
 
 #primary h2.profile,
@@ -3772,7 +3804,7 @@ input.big-button {
 
 #simple #sidebar-profile {
 	position: relative;
-	width: 250px;
+	width: 235px;
 	float: left;
 }
 
@@ -3781,7 +3813,7 @@ input.big-button {
 }
 
 #simple #mainContent {
-  width: 590px;
+  width: 620px;
   float: right;
   overflow: hidden;
 }
@@ -3808,8 +3840,8 @@ input.big-button {
 }
 
 #simple #primary-inner {
-	background: transparent url("/images/dottedLine.png") 267px 0 repeat-y;
-  overflow: hidden;
+	background: transparent url("/images/dottedLine.png") 247px 0 repeat-y;
+	overflow: hidden;
 }
 
 #simple #updates .display p {

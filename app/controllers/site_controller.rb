@@ -26,7 +26,7 @@ class SiteController < ApplicationController
   end
   
   def search
-    @title = "Search Cities and Trips on Duffel - Visual Bookmarker and Trip Planner"
+    @title = "Search Cities and Trips on Duffel - Visual Trip Planner"
     @sub_title = "Search"
     return if params[:q].nil?
     
@@ -43,7 +43,7 @@ class SiteController < ApplicationController
 
   def tools
     @title = "Duffel - Add to Duffel Bookmarklet"
-    @sub_title = "\"Add to Duffel\" Bookmarker"
+    @sub_title = "\"Add to Duffel\" Bookmarklet"
     
     if logged_in?
       @key = ApiKey.check_api_key(current_user, "widget")

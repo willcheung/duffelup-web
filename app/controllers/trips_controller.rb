@@ -415,7 +415,7 @@ class TripsController < ApplicationController
       Idea.create_idea_in_duffel("Foodanddrink", 
                                 t.id, 
                                 "Like what you see?", 
-                                "Clip any image from any website, using our \"Add to Duffel\" bookmarker.",
+                                "Clip ideas and images from any website with \"Add to Duffel\" bookmarklet.",
                                 "http://duffelup.com/site/tools", 
                                 "", 
                                 "", 

@@ -204,7 +204,7 @@ class Trip < ActiveRecord::Base
       Idea.create_idea_in_duffel("Foodanddrink", 
                                 t.id, 
                                 "Add restaurants and things to do", 
-                                "Clip delicious images from any website, using our Clip-It bookmarker.",
+                                "Clip ideas and images from any website with \"Add to Duffel\" bookmarklet.",
                                 "http://duffelup.com/site/tools", 
                                 "", 
                                 "", 

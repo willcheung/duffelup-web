@@ -41,10 +41,10 @@
 
 <div class="clearfix"></div>
 
-<div id="travel-deals" style="border: 1px solid #eee; padding: 5px">
+<div id="travel-deals">
 	
 	<% current_user.cities.each_with_index do |c,i| %>
-		<h3 <% unless i==0 %> style="margin-top:15px;" <% end %>><%= c.city %>
+		<h3 style="margin-top:12px;"><%= c.city %>
 		 <small>- <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard"), :method => :delete %></small>
 		</h3>
 		
