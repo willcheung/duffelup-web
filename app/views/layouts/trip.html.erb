@@ -40,7 +40,7 @@
 	<div id="tour2" class="tour" style="top: 140px; left: 22%; margin: 0 0 0 0; width: 300px; height: 130px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -45px; left: 280px" />
 		<h1>1. Add anything to your duffel</h1>
-		<p>Click here to add notes, lodging options or any research to your corkboard.</p>
+		<p>Click here to add notes, images or lodging options to your corkboard.</p>
 		<p><a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour1', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink2" href="#tour1">Previous</a> 
 		   <a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour3">Next</a></p>
 	</div>
@@ -147,13 +147,22 @@
 								<a class="addthis_button_email"></a>	
 							</div>
 						</li>
-					
-		          		<li class="dashboard" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"><%= link_to_unless_current "My dashboard", dashboard_path, :title => "Back to my dashboard", :alt => "Back to my dashboard" %></li>
-						<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-							<li onclick="window.location='/user/dashboard?tab=duffels-active'; return false;"><a href="#">Active Duffels</a></li>
-							<li onclick="window.location='/user/dashboard?tab=duffels-previous';return false;"><a href="#">Previous Duffels</a></li>
-							<li style="background: url(../images/icon-favorite.png) no-repeat 2px -121px;" onclick="window.location='/user/dashboard?tab=duffels-faves';return false;"><a href="#">Favorites</a></li>
-						</ul>
+						<li class="nav-avatar"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+							<a class="dashboard" href="/user/dashboard"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;You <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
+							<ul class="submenu" id="duffels-submenu"  style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
+								<li style="margin-top:5px" onclick="location.href='/user/dashboard?tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">My Duffels</a></li>
+								<li onclick="location.href='/user/dashboard?tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorite Duffels</a></li>
+								<!-- <li><a href="">Likes</a></li> -->
+								<li style="margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/featured">Featured</a></li>
+								<li><a href="/site/tools">Bookmarklet</a></li>
+								<li><a href="/user/edit">Account</a></li>
+								<% if current_user.facebook_user? && facebook_session %>
+									<li class="parent hover"><a href="#" onclick='FB.Connect.logoutAndRedirect("/logout")'>Logout</a></li>
+								<% else %>
+									<li class="parent hover"><%= link_to "Logout", logout_url %></li>
+								<% end %>
+							</ul>
+						</li>
 					
 					</ul>
 		          

@@ -113,41 +113,7 @@
 
   <div id="mainContent">
 	
-	<div id="dashboard-header">
-		<% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) and !@preview_duffel.nil? %>
-		<div id="active-duffel-reminder">
-			<h2>Most recent duffel: <span class="mute t11"><a href="?tab=duffels-active">(manage active duffels)</a></span></h2>
-			<div id="photo-container"><a href="/trips/<%= @preview_duffel.permalink %>"><img src="<%= duffel_thumbnail_url(@preview_duffel) %>" alt="<%= @preview_duffel.title %>" title="<%= @preview_duffel.title %>"/></a></div>
-			
-			<div id="title">
-				<%= link_to h(truncate(@preview_duffel.title, :length => Trip::DASHBOARD_TITLE_TRUNCATE_SIZE)), trip_url(:id => @preview_duffel) %>
-			</div>
-			
-			<div id="details">
-				<span>
-				<strong><%= @all_trips_favorite_count[@preview_duffel.id.to_s].nil? ? 0 : @all_trips_favorite_count[@preview_duffel.id.to_s] %></strong> Faves,
-				<strong><%= @preview_duffel.comment_count %></strong> Comments
-				</span>
-			</div>
-			
-			<div id="destination"><%= h(truncate(shorten_trip_destination(@preview_duffel.destination), :length => Trip::DASHBOARD_DESTINATION_TRUNCATE_SIZE)) %></div>
-		    <div id="date" class="mute" style="padding-bottom:6px"><em><%= display_trip_dates(@preview_duffel.start_date,@preview_duffel.end_date) %></em></div>
-
-		</div>
-		<div class="clearfix"></div>
-		<% end %>
-		
-		<div id="new-duffel-form" <% if (!params[:tab] or params[:tab] == "updates") and (@planned_trips.size > 0 or @no_date_trips.size > 0) and !@preview_duffel.nil? %>style="display:none;"<% end %>>
-			<h2>I'm planning to visit:</h2>
-			<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
-				<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".2", :min_chars => "3" } %>
-				<%= submit_tag "Create Duffel", :class => "submit big-button" %>
-				<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
-			<% end %>
-		</div>
-	</div>
-	
-	<div id="dashboard_tabs">
+<!--	<div id="dashboard_tabs">
 		<ul class="tabnav">
 			<li id="tb-updates" <% if params[:tab] == "updates" or params[:tab].nil? %>class="selected"<% end %> onclick="location.search='tab=updates';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;">
 				<a href="#">Recent Updates</a>
@@ -155,17 +121,17 @@
 			<li id="tb-duffels" <% if params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
 			</li>
-			<!--<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
+			<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
 				<a href="#">My Travel Deals</a>
-			</li>-->
+			</li>
 			<span id="loading-spinner" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
 			<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 				<li onclick="location.search='tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
 				<li onclick="location.search='tab=duffels-previous';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Previous (<%= @past_trips.size %>)</a></li>
 				<li style="background: url(../images/icon-favorite.png) no-repeat 2px -121px;" onclick="location.search='tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
 			</ul>
-		</ul>
-	</div>
+		</ul> 
+	</div> -->
 	
 	<% if params[:tab] == "updates" %>	
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
@@ -228,12 +194,6 @@
       </ul>
     </div><!-- #newsfeed -->
 	<% end %>
-    
-<!--    <div class="ad banner">
-      	<table style="border: medium none ; margin: auto; height: 60px; text-align: center; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; font-family: arial; font-style: normal; font-variant: normal; font-weight: 800; font-size: 11px; line-height: 12px; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: rgb(238, 238, 238);" width="468"><tbody><tr><td valign="middle">
-
-		</td></tr></tbody></table>
-    </div>--> <!-- .ad .banner -->
 
   </div> <!-- #mainContent -->
 

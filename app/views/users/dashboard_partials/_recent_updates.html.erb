@@ -1,5 +1,5 @@
 <% unless defined?(profile) %>
-<ul class="updateTabs">
+<ul class="tabs">
 	<li class="friends"><a id="my-friends-link" <% if (params[:tab]=="updates" and params[:subtab].nil?) or params[:tab].nil? %> class="selected" <% end %> onclick="location.search='tab=updates';$('duffel-network-link').removeClassName('selected');this.addClassName('selected');return false;" href="#">My Friends</a></li>
 	<li class="all"><a id="duffel-network-link" <% if params[:tab]=="updates" and params[:subtab]=="all" %> class="selected" <% end %> onclick="location.search='tab=updates&subtab=all';$('my-friends-link').removeClassName('selected');this.addClassName('selected');return false;" href="#">Duffel Network</a></li>
 </ul>

@@ -1,19 +1,30 @@
-<div id="myDuffels">
-	<!--<span class="createDuffel"><a href="/trips/new"><img src="/images/transparentPlaceholder.png" alt="Create Duffel" />Create Duffel</a></span>-->
-	<h2>
-		<% if params[:tab] == "duffels-previous" %>
-		Previous Duffels
-		<% elsif params[:tab] == "duffels-faves" %>
-		Favorite Duffels
-		<% else %>
-		Active Duffels
+<% if @no_date_trips.empty? and @planned_trips.empty? %>
+<div id="dashboard-header">
+	<div id="new-duffel-form">
+		<h2>Where do you want to travel?</h2>
+		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
+			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".2", :min_chars => "3" } %>
+			<%= submit_tag "Create Duffel", :class => "submit big-button" %>
+			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
 		<% end %>
-	</h2>
-  
+	</div>
+</div>
+<% end %>
+
+<ul class="tabs">
+	<li onclick="location.search='tab=duffels-active';return false;"><a <% if params[:tab] == "duffels-active" %> class="selected" <% end %> href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
+	<li onclick="location.search='tab=duffels-previous';return false;"><a <% if params[:tab] == "duffels-previous" %> class="selected" <% end %> href="#">Previous (<%= @past_trips.size %>)</a></li>
+	<li onclick="location.search='tab=duffels-faves';return false;"><a <% if params[:tab] == "duffels-faves" %> class="selected" <% end %> href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
+</ul>
+
+<div class="clearfix" style="border-bottom: 1px solid #ddd;"></div>
+
+<div id="myDuffels">
+
 	<% if params[:tab] != "duffels-previous" and params[:tab] != "duffels-faves"%>
   		<div id="duffels-active">
 			<%- if @no_date_trips.empty? and @planned_trips.empty? -%>
-		    <em class="systemComment">You're not planning any trips right now.</em>
+		    <em class="systemComment">You're not planning any trips right now. Where do you want to travel?</em>
 		    <% else %>
 				<%= render :partial => "trips/duffels", :locals => { :trips => @planned_trips, :favorite => false } %>
 				<%= render :partial => "trips/duffels", :locals => { :trips => @no_date_trips, :favorite => false } %>
