@@ -32,9 +32,9 @@
 			</div>
 		<% end %>
 	<% else %>
-		<div class="fb-button" style="text-align:center"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access' %></div>
+		<div class="fb-button" style="margin-top:10px;text-align:center"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=#{request.request_uri}#comments';", :perms => 'publish_stream,offline_access' %></div>
 		<div class="clearfix"></div>
-		<p style="padding:3px 5px 0 0;margin:0 0 0 10px;color:#555;font-size:12px;">or <a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to comment.</p>
+		<p style="padding:3px 5px 0 0;margin:0 0 0 10px;color:#555;font-size:12px;text-align:center">or <a href="/login?redirect=<%= request.request_uri %>">Sign In</a> to comment.</p>
 
 	<% end %>
 </div>
