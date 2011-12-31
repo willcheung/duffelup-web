@@ -3515,7 +3515,8 @@ input.big-button {
 }
 
 #mainContent ul.tabs a.selected {
-	background: #555;
+	background: url("/images/bg-tabnav-selected.png") repeat-x scroll center top #6E6E6E;
+	border: 1px solid #444444;
 	color: #FFF;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
