@@ -428,7 +428,7 @@ class ActivitiesFeed < ActiveRecord::Base
       elsif event["photo_file_size"].nil? and event["photo_file_name"]
         content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"#{event["photo_file_name"]}\"/></div>"
       elsif event["photo_file_size"] and event["photo_file_name"]
-        content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"http://s3.amazonaws.com/duffelup_event_development/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/></div>"
+        content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"http://s3.amazonaws.com/duffelup_event_#{RAILS_ENV}/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/></div>"
       end
       content += "<h3>" + truncate(event["title"], 40) + "</h3>" if event["title"]
       content += "<p>" + event["note"] + "</p>"
