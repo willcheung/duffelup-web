@@ -157,7 +157,7 @@ module EventsHelper
     if event.photo_file_size.nil?
       return event.photo_file_name || "/images/icon-duffel.png"
     else
-      return "http://s3.amazonaws.com/duffelup_event_production/photos/#{event.id}/#{size}/#{event.photo_file_name}"
+      return "http://s3.amazonaws.com/duffelup_event_#{RAILS_ENV}/photos/#{event.id}/#{size}/#{event.photo_file_name}"
     end
   end
   
