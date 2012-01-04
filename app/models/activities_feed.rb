@@ -102,6 +102,7 @@ class ActivitiesFeed < ActiveRecord::Base
   
   def self.group_activities(activities)
     grouped_activities = []
+    bunch_of_json_events = [] # bunch of events in JSON format
     bunch_of_photos = [] # bunch of photo urls for photo spots (check_ins)
     names = "" # used for travelers going on the same trip
     counter = 1 # used to keep track of # of activities added
@@ -123,26 +124,41 @@ class ActivitiesFeed < ActiveRecord::Base
         a.content = a.actor + " started planning " + a.trip + ". Any recommendations?"
         grouped_activities << a
       when ADD_ACTIVITY
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added an activity into " + a.trip + "." : a.actor + " added " + counter.to_s + " activities into " + a.trip + "."
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Activity")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end
       when ADD_LODGING
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a lodging into " + a.trip + "." : a.actor + " added " + counter.to_s + " lodgings into " + a.trip + "." 
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Lodging")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end   
       when ADD_FOODANDDRINK
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a food & drink into " + a.trip + "." : a.actor + " added " + counter.to_s + " food & drinks into " + a.trip + "." 
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Foodanddrink")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end
@@ -163,26 +179,41 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a   
         end
       when ADD_ACTIVITY_CLIPIT
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added an activity into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " activities into " + a.trip + CLIP_IT_TEXT 
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Activity")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a
         end
       when ADD_LODGING_CLIPIT
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a lodging into " + a.trip + CLIP_IT_TEXT : a.content = a.actor + " added " + counter.to_s + " lodgings into " + a.trip + CLIP_IT_TEXT 
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Lodging")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a
         end
       when ADD_FOODANDDRINK_CLIPIT
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " added a food & drink into " + a.trip + CLIP_IT_TEXT : a.actor + " added " + counter.to_s + " food & drinks into " + a.trip + CLIP_IT_TEXT 
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Foodanddrink")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a
         end
@@ -216,7 +247,7 @@ class ActivitiesFeed < ActiveRecord::Base
           # Display photos
           a.content +=  "<div id=\"photo_spot\"><ul>"
           bunch_of_photos.each do |p_url|
-            a.content += "<li><img src=\"#{p_url}\"/></li>"
+            a.content += "<li><div style=\"overflow:hidden\"><img src=\"#{p_url}\"/></div></li>"
           end
           a.content += "</ul></div>"
           
@@ -320,8 +351,7 @@ class ActivitiesFeed < ActiveRecord::Base
       return false
     elsif (previous_activity.user.id == this_activity.user.id and 
           previous_activity.action == this_activity.action and
-          previous_activity.trip_id == this_activity.trip_id and 
-          previous_activity.predicate == this_activity.predicate)
+          previous_activity.trip_id == this_activity.trip_id)
 
       return true
     end
@@ -354,8 +384,7 @@ class ActivitiesFeed < ActiveRecord::Base
     if (next_activity.nil? or 
         next_activity.user.id != this_activity.user.id or 
         next_activity.action != this_activity.action or 
-        next_activity.trip_id != this_activity.trip_id or
-        next_activity.predicate != this_activity.predicate)
+        next_activity.trip_id != this_activity.trip_id)
         
       return true
     else
@@ -382,5 +411,32 @@ class ActivitiesFeed < ActiveRecord::Base
     end
   end
   
+  def self.create_events_html(bunch_of_json_events, event_type)
+    content = ""
+    content +=  "<div id=\"events\"><ul>"
+    bunch_of_json_events.each do |e|
+      parsed_event = ActiveSupport::JSON.decode(e)
+      break unless parsed_event
+      
+      idea = parsed_event[event_type]
+      event = parsed_event["Event"]
+                
+      content += "<li>"
+      
+      if event["photo_file_size"].nil? and event["photo_file_name"].nil? and !idea["lat"].nil? and !idea["lng"].nil?
+        content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"http://maps.google.com/maps/api/staticmap?center=#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&markers=size:small|#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&zoom=15&size=144x144&maptype=road&sensor=false\"/></div>"
+      elsif event["photo_file_size"].nil? and event["photo_file_name"]
+        content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"#{event["photo_file_name"]}\"/></div>"
+      elsif event["photo_file_size"] and event["photo_file_name"]
+        content += "<div style=\"overflow:hidden;text-align:center;\"><img src=\"http://s3.amazonaws.com/duffelup_event_development/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/></div>"
+      end
+      content += "<h3>" + truncate(event["title"], 40) + "</h3>" if event["title"]
+      content += "<p>" + event["note"] + "</p>"
+      content +="</li>"
+    end
+    content += "</ul></div>"
+    
+    return content
+  end
   
 end

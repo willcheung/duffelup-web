@@ -3588,26 +3588,56 @@ input.big-button {
 	position:relative;
 }
 
-#updates #activities_feed #activity #photo_spot img {
-	height: 120px;
+#updates #activities_feed #activity #photo_spot li, #updates #activities_feed #activity #events li {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	background-color: #F6F6F6;
+	background-color: #F7F6F1;
 	border: 1px solid #DEDEDE !important;
-	padding: 6px;
-	margin: 4px;
-}
-
-#updates #activities_container #activities_feed #activity .content #photo_spot {
-	width: 500px;
-}
-
-#recent-updates #updates #activities_container #activities_feed #activity .content #photo_spot {
-	width: 590px;
-}
-
-#updates #activities_feed #activity #photo_spot li {
+	margin: 5px;
 	float: left;
+	overflow: hidden;
+	padding: 5px;
+	max-width: 150px;
+}
+
+#updates #activities_feed #activity #events li {
+	width: 150px;
+	height: 200px;
+}
+
+#updates #activities_feed #activity #photo_spot li img, #updates #activities_feed #activity #events li img {
+	height: 150px;
+	display:inline;
+}
+
+#updates #activities_feed #activity #events li img {
+	margin-bottom: -5px;
+}
+
+#updates #activities_feed #activity li h3 {
+	font-weight: bold;
+	text-align: left;
+	font-size: 12px;
+	display: inline;
+	position: relative;
+	top: 5px;
+	line-height: 15px;
+}
+
+#updates #activities_feed #activity li p {
+	text-align: left;
+	position: relative;
+	font-size: 11px;
+}
+
+#updates #activities_container #activities_feed #activity .content #photo_spot, 
+#updates #activities_container #activities_feed #activity .content #events {
+	width: 520px;
+}
+
+#recent-updates #updates #activities_container #activities_feed #activity .content #photo_spot,
+#recent-updates #updates #activities_container #activities_feed #activity .content #events {
+	width: 600px;
 }
 
 #simple #featuredUser .avatar,

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000038) do
+ActiveRecord::Schema.define(:version => 30000000000039) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 30000000000038) do
     t.integer  "trip_id"
     t.integer  "action",     :limit => 2
     t.integer  "is_public",  :limit => 1
-    t.string   "predicate"
+    t.text     "predicate"
     t.string   "photo_url",               :default => "", :null => false
     t.string   "title",                   :default => "", :null => false
   end

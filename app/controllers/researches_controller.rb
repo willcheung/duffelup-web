@@ -98,27 +98,27 @@ class ResearchesController < ApplicationController
         # publish news to activities feed
         ###################################
         if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_ACTIVITY, @trip, "<a href=\"http://duffelup.com/trips/#{source_trip.permalink}\">#{source_trip.title}</a>")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_ACTIVITY, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY_CLIPIT, @trip)
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY_CLIPIT, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         end
       elsif eventable_type == "Hotel"
         ###################################
         # publish news to activities feed
         ###################################
         if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_LODGING, @trip, "<a href=\"http://duffelup.com/trips/#{source_trip.permalink}\">#{source_trip.title}</a>")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_LODGING, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING_CLIPIT, @trip)
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING_CLIPIT, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         end
       elsif eventable_type == "Foodanddrink"
         ###################################
         # publish news to activities feed
         ###################################
         if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_FOODANDDRINK, @trip, "<a href=\"http://duffelup.com/trips/#{source_trip.permalink}\">#{source_trip.title}</a>")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_FOODANDDRINK, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK_CLIPIT, @trip)
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK_CLIPIT, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         end
       end
     elsif eventable_type == "Transportation"
@@ -136,9 +136,9 @@ class ResearchesController < ApplicationController
       # publish news to activities feed
       ###################################
       if params[:local] == "true"
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_TRANSPORTATION, @trip, "<a href=\"http://duffelup.com/trips/#{source_trip.permalink}\">#{source_trip.title}</a>")
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_TRANSPORTATION, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
       else
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION_CLIPIT, @trip)
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION_CLIPIT, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
       end
     elsif eventable_type == "Notes"
       @idea = Notes.new(params[:notes])
@@ -154,9 +154,9 @@ class ResearchesController < ApplicationController
       # publish news to activities feed
       ###################################
       if params[:local] == "true"
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_NOTES, @trip, "<a href=\"http://duffelup.com/trips/#{source_trip.permalink}\">#{source_trip.title}</a>")
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_NOTES, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
       else
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES_CLIPIT, @trip)
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES_CLIPIT, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
       end
     end
 

@@ -48,7 +48,12 @@
 							</div>
 							<div class="pod clearfix">
 								<a href="/<%= @author.username unless @author.nil? %>"><%= display_user_name(@author) %></a>
-								is using Duffel to collect and organize travel ideas. Share your ideas and help others plan better trips.
+								<% if @author.nil? %>
+								I'm
+								<% else %>
+								is
+								<% end %>
+								using Duffel to collect and organize travel ideas. Share your ideas and help others plan better trips.
 							</div>
 							<!--<strong>Download Duffel</strong>
 							<a class="" href="">iPhone</a>-->

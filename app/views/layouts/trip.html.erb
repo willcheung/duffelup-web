@@ -118,14 +118,15 @@
 			<div id="account">
 		          <% if logged_in? -%>
 		          	<ul>
+						<%- if @users.include?(current_user) %>
+							<li class="invite"><%= link_to "Invite collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite collaborators", :alt => "Invite collaborators" %></li>
+						<%- end -%>
+			
 			          	<%- if @admins.include?(current_user) %>
 			          		<li class="edit"><%= link_to "Edit", edit_trip_path(:id => @trip.permalink), :title => "Edit duffel details", :alt => "Edit duffel details" %></li>
 						<%- end -%>
 						
-						<%- if @users.include?(current_user) %>
-							<li class="invite"><%= link_to "Invite collaborators", trip_invitation_path(:permalink => @trip), :title => "Invite collaborators", :alt => "Invite collaborators" %></li>
-						<%- end -%>
-						
+						<%- if !@users.include?(current_user) %>
 						<% cache("user-#{current_user.id}-trip-#{@trip.id}-favorites") do %>
 						<%- unless @trip.favorite?(current_user) -%>
 							<li class="add-bookmark"><%= link_to 'Save as favorites', trip_create_favorite_path(@trip.permalink), :title => "Favorite this duffel", :alt => "Favorite this duffel"  %></li>
@@ -133,6 +134,7 @@
 							<li class="bookmarked"><%= link_to 'Favorited (remove)', trip_delete_favorite_path(@trip.permalink), :method => :post, :title => "Remove from favorites", :alt => "Remove from favorites"  %></li>
 						<%- end -%>
 						<% end %><!-- end of favorites cache -->
+						<% end %>
 					
 						<!--
 						<%- if @users.include?(current_user) -%> 
@@ -229,8 +231,8 @@
 			<span class="left">Copyright &copy; 2011 Duffel, Inc.</span>
 			<% end %>
 			<span class="right">
-			<a href="/featured">Featured Duffels</a>
-			<a href="/site/tools">Tools</a>
+			<a href="/featured">Featured</a>
+			<a href="/site/tools">Bookmarklet</a>
 			<a href="/site/about">About</a>  
 			<a href="http://blog.duffelup.com">Blog</a>
 			<a href="/site/help">Help</a>
