@@ -58,7 +58,7 @@ class CheckInsController < ApplicationController
     respond_to do |format|
       if @check_in.save
         flash[:notice] = 'CheckIn was successfully created.'
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_CHECK_IN, @check_in.event.trip, "", @check_in.event, @check_in.is_public)
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_CHECK_IN, @check_in.event.trip, "{ \"CheckIn\": #{@check_in.to_json}, \"Event\": #{@check_in.event.to_json} }", @check_in.event, @check_in.is_public)
         
         #######################
         # publish stream on fb 

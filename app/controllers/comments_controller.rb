@@ -71,7 +71,7 @@ class CommentsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_COMMENT, @trip)
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_COMMENT, @trip, @comment.to_json)
         
         format.html { redirect_to trip_comments_url(:permalink => @trip) }
         format.js do 

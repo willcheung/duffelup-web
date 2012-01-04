@@ -413,7 +413,7 @@ a:hover{color: #555;}
 	height: 160px;
 	padding:0;
 	clear:both;
-	z-index:5;
+	z-index:999;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
@@ -421,7 +421,7 @@ a:hover{color: #555;}
 	-webkit-box-shadow: 0 2px 3px #818181;
 	box-shadow: 0 2px 3px #818181;
 	right: 4px;
-	top: 30px;
+	top: 35px;
 }
 #account li.nav-avatar ul.submenu li{
 	background: #333;

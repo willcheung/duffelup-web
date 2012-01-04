@@ -67,7 +67,7 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip) unless new_visitor_created_trip?
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY, @trip, "{ \"Activity\": #{@activity.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
       
     when 'viator'
@@ -104,7 +104,7 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING, @trip) unless new_visitor_created_trip?
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING, @trip, "{ \"Lodging\": #{@hotel.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
     
     when 'foodanddrink'
@@ -118,7 +118,7 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK, @trip) unless new_visitor_created_trip?
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK, @trip, "{ \"Foodanddrink\": #{@foodanddrink.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
       
     when 'transportation'
@@ -132,7 +132,7 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION, @trip) unless new_visitor_created_trip?
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION, @trip, "{ \"Transportation\": #{@transportation.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
       
     when 'notes'
@@ -146,7 +146,7 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES, @trip) unless new_visitor_created_trip?
+        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES, @trip, "{ \"Notes\": #{@notes.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
     end
     
