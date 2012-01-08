@@ -256,26 +256,41 @@ class ActivitiesFeed < ActiveRecord::Base
           grouped_activities << a
         end
       when COPY_ACTIVITY
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied an activity from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " activities from " + a.predicate + " into " + a.trip + "."  
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Activity")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end
       when COPY_LODGING
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a lodging from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " lodgings from " + a.predicate + " into " + a.trip + "."  
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Lodging")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end   
       when COPY_FOODANDDRINK
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
           a.content = (counter == 1) ? a.actor + " copied a food & drink from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " food & drinks from " + a.predicate + " into " + a.trip + "."  
+          
+          a.content += self.create_events_html(bunch_of_json_events, "Activity")
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end

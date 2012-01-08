@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000039) do
+ActiveRecord::Schema.define(:version => 30000000000040) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 30000000000039) do
 
   create_table "activities_feeds", :force => true do |t|
     t.integer  "user_id",                                 :null => false
-    t.string   "trip"
+    t.text     "trip"
     t.datetime "created_at"
-    t.string   "actor"
+    t.text     "actor"
     t.integer  "trip_id"
     t.integer  "action",     :limit => 2
     t.integer  "is_public",  :limit => 1
