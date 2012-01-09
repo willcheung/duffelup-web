@@ -260,7 +260,7 @@ class ActivitiesFeed < ActiveRecord::Base
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied an activity from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " activities from " + a.predicate + " into " + a.trip + "."  
+          a.content = (counter == 1) ? a.actor + " copied an activity into " + a.trip + "." : a.actor + " copied " + counter.to_s + " activities into " + a.trip + "."  
           
           a.content += self.create_events_html(bunch_of_json_events, "Activity")
           
@@ -273,7 +273,7 @@ class ActivitiesFeed < ActiveRecord::Base
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a lodging from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " lodgings from " + a.predicate + " into " + a.trip + "."  
+          a.content = (counter == 1) ? a.actor + " copied a lodging into " + a.trip + "." : a.actor + " copied " + counter.to_s + " lodgings into " + a.trip + "."  
           
           a.content += self.create_events_html(bunch_of_json_events, "Lodging")
           
@@ -286,9 +286,9 @@ class ActivitiesFeed < ActiveRecord::Base
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a food & drink from " + a.predicate + " into " + a.trip + "." : a.actor + " copied " + counter.to_s + " food & drinks from " + a.predicate + " into " + a.trip + "."  
+          a.content = (counter == 1) ? a.actor + " copied a food & drink into " + a.trip + "." : a.actor + " copied " + counter.to_s + " food & drinks into " + a.trip + "."  
           
-          a.content += self.create_events_html(bunch_of_json_events, "Activity")
+          a.content += self.create_events_html(bunch_of_json_events, "Foodanddrink")
           
           bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
@@ -429,12 +429,14 @@ class ActivitiesFeed < ActiveRecord::Base
   def self.create_events_html(bunch_of_json_events, event_type)
     content = ""
     content +=  "<div id=\"events\"><ul>"
+    
     bunch_of_json_events.each do |e|
       parsed_event = ActiveSupport::JSON.decode(e)
-      break unless parsed_event
+      return "" unless parsed_event
       
       idea = parsed_event[event_type]
       event = parsed_event["Event"]
+      return "" if idea.nil? or event.nil?
                 
       content += "<li>"
       
