@@ -1,4 +1,4 @@
-page.insert_html :bottom, :activities_feed, :partial => @activities
+page.insert_html :bottom, :activities_feed, :partial => group_activities(@news_feed_with_total_pages)
 
 if params[:profile]
   page.replace :flow_pagination, will_paginate(@news_feed_with_total_pages, :renderer => FlowPagination::LinkRenderer, :params => {:controller => 'users', :action => 'more_news_feed', :profile => params[:profile]})
