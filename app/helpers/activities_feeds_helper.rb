@@ -360,6 +360,8 @@ module ActivitiesFeedsHelper
   end
   
   def create_url_from_trip_json(trip_string)
+    return if trip_string.nil?
+    
     if trip_string.include?("href")
       return trip_string
     else
