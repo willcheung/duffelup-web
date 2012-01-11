@@ -7,10 +7,10 @@
 
 <div id="updates" <% unless defined?(profile) %>style="border-top: 1px solid #CCCCCC;"<% end %>>
 	
-	<% if (!@activities.nil? and !@activities.empty?) and (!@news_feed_with_total_pages.nil? and !@news_feed_with_total_pages.empty?) %>
+	<% if (!@news_feed_with_total_pages.nil? and !@news_feed_with_total_pages.empty?) %>
 	<div id="activities_container" class="display">
     	<div id="activities_feed">
-			<%= render :partial => "activities_feeds/activities_feed", :collection => @activities %>
+			<%= render :partial => "activities_feeds/activities_feed", :collection => group_activities(@news_feed_with_total_pages) %>
 	    </div>
 
 		<div class="clearfix"></div>

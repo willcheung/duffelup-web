@@ -126,10 +126,8 @@ class UsersController < ApplicationController
     #######################################
     if (params[:tab]=="updates" and params[:subtab].nil?) or params[:tab].nil?
       @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 40)
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     elsif (params[:tab]=="updates" and params[:subtab]=="all")
       @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page])
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
   end
   
@@ -184,14 +182,12 @@ class UsersController < ApplicationController
       # Load Single User News Feed
       ####################
       @news_feed_with_total_pages = ActivitiesFeed.get_activities([u], params[:page], 30)
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
     elsif params[:subtab]=="all"
       ####################
       # Load All News Feed
       ####################
       @news_feed_with_total_pages = ActivitiesFeed.get_all_activities(params[:page])
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
       
     else # params[:updates]
       ####################################
@@ -208,7 +204,6 @@ class UsersController < ApplicationController
       # Load Friends News Feed
       #####################
       @news_feed_with_total_pages = ActivitiesFeed.get_activities(@friends, params[:page], 30)
-      @activities = ActivitiesFeed.group_activities(@news_feed_with_total_pages)
     end
   end
 
