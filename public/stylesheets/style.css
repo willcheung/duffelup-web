@@ -3621,7 +3621,10 @@ input.big-button {
 	display: inline;
 	position: relative;
 	top: 5px;
-	line-height: 15px;
+}
+
+#updates #activities_feed #activity li a, #updates #activities_feed #activity li a:link {
+	color: #555;
 }
 
 #updates #activities_feed #activity li p {
