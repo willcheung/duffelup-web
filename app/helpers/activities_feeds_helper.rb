@@ -31,7 +31,7 @@ module ActivitiesFeedsHelper
       
       case a.action.to_i
       when ActivitiesFeed::ADD_COMMENT
-        a.content = a.actor + " commented on " + a.trip + "." 
+        a.content = a.actor + " commented on " + trip_url + "." 
         grouped_activities << a
       when ActivitiesFeed::ADD_FAVORITE
         a.content = a.actor + " saved " + trip_url + " as Favorites."
