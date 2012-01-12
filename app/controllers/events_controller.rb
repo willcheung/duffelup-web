@@ -105,7 +105,6 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        @event.id
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING, @trip, "{ \"Lodging\": #{@hotel.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
     
@@ -120,7 +119,6 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        @event.id
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK, @trip, "{ \"Foodanddrink\": #{@foodanddrink.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
       
@@ -135,7 +133,6 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        @event.id
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION, @trip, "{ \"Transportation\": #{@transportation.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
       
@@ -150,7 +147,6 @@ class EventsController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        @event.id
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES, @trip, "{ \"Notes\": #{@notes.to_json}, \"Event\": #{@event.to_json} }") unless new_visitor_created_trip?
       end
     end

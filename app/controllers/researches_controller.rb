@@ -92,93 +92,89 @@ class ResearchesController < ApplicationController
       @event.trip_id = trip_id
       @event.bookmarklet = 1
       @idea.type = eventable_type
+      if @idea.save 
       
-      if eventable_type == "Activity"
+        if eventable_type == "Activity"
+          ###################################
+          # publish news to activities feed
+          ###################################
+          if params[:local] == "true"
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_ACTIVITY, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          else
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY_CLIPIT, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          end
+        elsif eventable_type == "Hotel"
+          ###################################
+          # publish news to activities feed
+          ###################################
+          if params[:local] == "true"
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_LODGING, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          else
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING_CLIPIT, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          end
+        elsif eventable_type == "Foodanddrink"
+          ###################################
+          # publish news to activities feed
+          ###################################
+          if params[:local] == "true"
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_FOODANDDRINK, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          else
+            ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK_CLIPIT, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          end
+        end
+      elsif eventable_type == "Transportation"
+        @idea = Transportation.new(params[:transportation])
+        @event = @idea.create_event(params[:event])
+        @event.note = params[:event][:trans_note] # replaces the original note
+        @event.created_by = current_user.id
+        @event.title = @idea.from + " &rarr; " + @idea.to
+      
+        # set attributes and protected attributes
+        @event.trip_id = trip_id
+        @event.bookmarklet = 1
+      
         ###################################
         # publish news to activities feed
         ###################################
         if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_ACTIVITY, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_TRANSPORTATION, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_ACTIVITY_CLIPIT, @trip, "{ \"Activity\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION_CLIPIT, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         end
-      elsif eventable_type == "Hotel"
+      elsif eventable_type == "Notes"
+        @idea = Notes.new(params[:notes])
+        @event = @idea.create_event(params[:event])
+        @event.title = params[:notes][:title]
+        @event.created_by = current_user.id
+      
+        # set attributes and protected attributes
+        @event.trip_id = trip_id
+        @event.bookmarklet = 1
+      
         ###################################
         # publish news to activities feed
         ###################################
         if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_LODGING, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_NOTES, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_LODGING_CLIPIT, @trip, "{ \"Lodging\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
+          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES_CLIPIT, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
         end
-      elsif eventable_type == "Foodanddrink"
-        ###################################
-        # publish news to activities feed
-        ###################################
-        if params[:local] == "true"
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_FOODANDDRINK, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
-        else
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FOODANDDRINK_CLIPIT, @trip, "{ \"Foodanddrink\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
-        end
-      end
-    elsif eventable_type == "Transportation"
-      @idea = Transportation.new(params[:transportation])
-      @event = @idea.create_event(params[:event])
-      @event.note = params[:event][:trans_note] # replaces the original note
-      @event.created_by = current_user.id
-      @event.title = @idea.from + " &rarr; " + @idea.to
-      
-      # set attributes and protected attributes
-      @event.trip_id = trip_id
-      @event.bookmarklet = 1
-      
-      ###################################
-      # publish news to activities feed
-      ###################################
-      if params[:local] == "true"
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_TRANSPORTATION, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
-      else
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_TRANSPORTATION_CLIPIT, @trip, "{ \"Transportation\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
-      end
-    elsif eventable_type == "Notes"
-      @idea = Notes.new(params[:notes])
-      @event = @idea.create_event(params[:event])
-      @event.title = params[:notes][:title]
-      @event.created_by = current_user.id
-      
-      # set attributes and protected attributes
-      @event.trip_id = trip_id
-      @event.bookmarklet = 1
-      
-      ###################################
-      # publish news to activities feed
-      ###################################
-      if params[:local] == "true"
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::COPY_NOTES, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
-      else
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_NOTES_CLIPIT, @trip, "{ \"Notes\": #{@idea.to_json}, \"Event\": #{@event.to_json} }")
       end
     end
 
-    respond_to do |format|
-      if @idea.save 
-        # When jump=yes or undefined, it redirects back to duffeled website.
-        if params[:jump] == "doclose"
-          format.html { render :inline => "<p style=\"text-align:center;padding-top:20px;font-size:20px\">Saved!</p><script type=\"text/javascript\">setTimeout(\'window.location.href=\"/close.html\"\',600);</script>", :layout => true }
-        elsif params[:jump] == "doclosepopup"
-          format.html { render :inline => "<p style=\"text-align:center;padding-top:20px;font-size:20px\">Saved!</p><script type=\"text/javascript\">setTimeout(\'window.close();\',600);</script>", :layout => true }
+    respond_to do |format|      
+      # When jump=yes or undefined, it redirects back to duffeled website.
+      if params[:jump] == "doclose"
+        format.html { render :inline => "<p style=\"text-align:center;padding-top:20px;font-size:20px\">Saved!</p><script type=\"text/javascript\">setTimeout(\'window.location.href=\"/close.html\"\',600);</script>", :layout => true }
+      elsif params[:jump] == "doclosepopup"
+        format.html { render :inline => "<p style=\"text-align:center;padding-top:20px;font-size:20px\">Saved!</p><script type=\"text/javascript\">setTimeout(\'window.close();\',600);</script>", :layout => true }
+      else
+        unless params[:trip_permalink].nil?
+          format.html { redirect_to trip_url(:id => params[:trip_permalink]) }
         else
-          unless params[:trip_permalink].nil?
-            format.html { redirect_to trip_url(:id => params[:trip_permalink]) }
-          else
-            format.html { redirect_to params[:idea][:website] }  
-          end
+          format.html { redirect_to params[:idea][:website] }  
         end
-        
-      else 
-        @trips = get_trips
-        format.html { render :action => 'new' }  
-      end  
+      end
     end
   end
   
