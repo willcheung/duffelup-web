@@ -172,26 +172,41 @@ module ActivitiesFeedsHelper
           grouped_activities << a
         end
       when ActivitiesFeed::COPY_ACTIVITY
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied an activity into " + trip_url + "." : a.actor + " copied " + counter.to_s + " activities from " + a.predicate + " into " + trip_url + "."  
+          a.content = (counter == 1) ? a.actor + " copied an activity into " + trip_url + "." : a.actor + " copied " + counter.to_s + " activities into " + trip_url + "."  
+          
+          a.content += create_events_html(bunch_of_json_events, "Activity", a.trip)
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
-          grouped_activities << a   
+          grouped_activities << a
         end
       when ActivitiesFeed::COPY_LODGING
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a lodging into " + trip_url + "." : a.actor + " copied " + counter.to_s + " lodgings from " + a.predicate + " into " + trip_url + "."  
+          a.content = (counter == 1) ? a.actor + " copied a lodging into " + trip_url + "." : a.actor + " copied " + counter.to_s + " lodgings into " + trip_url + "."  
+          
+          a.content += create_events_html(bunch_of_json_events, "Lodging", a.trip)
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end   
       when ActivitiesFeed::COPY_FOODANDDRINK
+        bunch_of_json_events << a.predicate
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a food & drink into " + trip_url + "." : a.actor + " copied " + counter.to_s + " food & drinks from " + a.predicate + " into " + trip_url + "."  
+          a.content = (counter == 1) ? a.actor + " copied a food & drink into " + trip_url + "." : a.actor + " copied " + counter.to_s + " food & drinks into " + trip_url + "."  
+          
+          a.content += create_events_html(bunch_of_json_events, "Foodanddrink", a.trip)
+          
+          bunch_of_json_events = [] #reset array
           counter = 1 #reset counter
           grouped_activities << a   
         end
@@ -199,7 +214,7 @@ module ActivitiesFeedsHelper
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a transportation into " + trip_url + "." : a.actor + " copied " + counter.to_s + " transportations from " + a.predicate + " into " + trip_url + "."  
+          a.content = (counter == 1) ? a.actor + " copied a transportation into " + trip_url + "." : a.actor + " copied " + counter.to_s + " transportations into " + trip_url + "."  
           counter = 1 #reset counter
           grouped_activities << a   
         end
@@ -207,7 +222,7 @@ module ActivitiesFeedsHelper
         counter += 1 if same_as_previous_activity(previous_activity, a)
         
         if different_from_next_actvity(next_activity, a)
-          a.content = (counter == 1) ? a.actor + " copied a note from into " + trip_url + "." : a.actor + " copied " + counter.to_s + " notes from " + a.predicate + " into " + trip_url + "."  
+          a.content = (counter == 1) ? a.actor + " copied a note from into " + trip_url + "." : a.actor + " copied " + counter.to_s + " notes into " + trip_url + "."  
           counter = 1 #reset counter
           grouped_activities << a   
         end
