@@ -363,10 +363,10 @@ module ActivitiesFeedsHelper
       end
       
       content += idea_url if parsed_trip
-      content += "<h3>" + truncate(event["title"], 40) + "</h3>"
+      content += "<h3>" + truncate(unicode_to_utf8(event["title"]), 40) + "</h3>"
       content += "</a>" if parsed_trip
       
-      content += "<p>" + event["note"] + "</p>"
+      content += "<p>" + unicode_to_utf8(event["note"]) + "</p>"
       content +="</li>"
     end
     content += "</ul></div>"
