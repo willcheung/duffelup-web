@@ -175,7 +175,7 @@ module EventsHelper
                 "&trip_code=" + Base64.encode64(trip_permalink)
     
     # opens new window
-    return "<a title=\"Add to my duffel\" href=\"" + url + "\" onclick=\"PopupCenter(this.href+'&jump=doclose', 'copy', 500, 380);return false;\">" + display + "</a>"
+    return "<a title=\"Add to my duffel\" href=\"" + url + "\" onclick=\"PopupCenter(this.href+'&jump=doclosepopup', 'copy', 500, 380);return false;\">" + display + "</a>"
   end
   
   def sortable_tile
