@@ -52,6 +52,7 @@ class ResearchesController < ApplicationController
       params[:local]="true"
       params[:type] = e.eventable_type
       params[:note] = e.note
+      params[:img] = e.photo_file_name if !e.photo_file_name.nil? and e.photo_file_name.include?('http')
       
       #@event_note_value = event.note
     elsif params[:selection]

@@ -16,7 +16,9 @@
 <body> 
 	<div id="wrapper">
 		
+		<% unless params[:local] == "true" %>
 		<div id="close" class="rightHeader"><a href="/close.html"><img src="/images/icon-close.png"/></a></div>
+		<% end %>
 		
 		<%= yield %>
 	</div>

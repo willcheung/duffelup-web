@@ -25,7 +25,9 @@
 			<% end %>
 		<% end %>
 		
+		<% unless params[:local] == "true" %>
 		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="window.location.href='/close.html'">
+		<% end %>
 		
 		<% unless params[:local] == "true" or @trips.empty? %>
 			<span class="right" style="margin-top:4px;font-size:0.9em"><a target="_blank" href="/trips/<%= @trips[0].permalink %>">See my clipped notes &raquo;</a></span>
