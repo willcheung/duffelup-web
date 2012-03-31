@@ -2,7 +2,7 @@ class Postoffice < ActionMailer::Base
   helper :application
 
   def welcome(user)
-     from "postoffice@duffelup.com (Duffel)"
+     from "postoffice@duffelup.com (DuffelUp.com)"
      headers "Reply-to" => "postoffice@duffelup.com"
      recipients user.email
      subject "Welcome to Duffel"
@@ -22,7 +22,7 @@ class Postoffice < ActionMailer::Base
   end
   
   def new_user_invitation(inviter, invitation, personal_message, token)
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients invitation.recipient_email
     name = (inviter.full_name.nil? or inviter.full_name.empty?) ? inviter.username : inviter.full_name
@@ -34,7 +34,7 @@ class Postoffice < ActionMailer::Base
   end
   
   def reset_password(user, password)
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients user.email
     subject "Duffel - Reset Password"
@@ -46,7 +46,7 @@ class Postoffice < ActionMailer::Base
   def friend_request(mail)
     return if mail[:friend].email.nil? or mail[:friend].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
@@ -59,7 +59,7 @@ class Postoffice < ActionMailer::Base
   def friendship_approval(mail)
     return if mail[:friend].email.nil? or mail[:friend].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
@@ -72,7 +72,7 @@ class Postoffice < ActionMailer::Base
   def trip_invitation(mail)
     return if mail[:friend].email.nil? or mail[:friend].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend].email
     name = (mail[:inviter].full_name.nil? or mail[:inviter].full_name.empty?) ? mail[:inviter].username : mail[:inviter].full_name
@@ -85,7 +85,7 @@ class Postoffice < ActionMailer::Base
   def new_user_and_trip_invitation(mail)
     return if mail[:friend_email].nil? or mail[:friend_email].empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend_email]
     name = (mail[:inviter].full_name.nil? or mail[:inviter].full_name.empty?) ? mail[:inviter].username : mail[:inviter].full_name
@@ -98,7 +98,7 @@ class Postoffice < ActionMailer::Base
   def comment_notification(mail)
     return if mail[:trip_creator].email.nil? or mail[:trip_creator].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:trip_creator].email
     name = (mail[:commenter].full_name.nil? or mail[:commenter].full_name.empty?) ? mail[:commenter].username : mail[:commenter].full_name
@@ -111,7 +111,7 @@ class Postoffice < ActionMailer::Base
   def add_to_favorite_notification(mail)
     return if mail[:trip_creator].email.nil? or mail[:trip_creator].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:trip_creator].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
@@ -124,7 +124,7 @@ class Postoffice < ActionMailer::Base
   def like_notification(mail)
     return if mail[:trip_creator].email.nil? or mail[:trip_creator].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:trip_creator].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
@@ -142,7 +142,7 @@ class Postoffice < ActionMailer::Base
     short_url = WebApp.shorten_url(url)
     name = (mail[:full_name].nil? or mail[:full_name].empty?) ? mail[:username] : mail[:full_name]
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:email] 
     subject "Tell us about your trip to #{d}"
@@ -207,7 +207,7 @@ class Postoffice < ActionMailer::Base
             :viator_idea_rating2 => @viator_ideas[2].avg_rating
     end
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:email]
     subject "Reminder on your upcoming #{mail[:trip_title]} trip"
@@ -218,7 +218,7 @@ class Postoffice < ActionMailer::Base
   def featured_on_all_stars(mail)
     return if mail[:user].email.nil? or mail[:user].email.empty?
     
-    from "postoffice@duffelup.com (Duffel)"
+    from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:user].email
     subject "Your trip is being featured on Duffel"
