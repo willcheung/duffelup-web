@@ -1,5 +1,54 @@
 <div class="notice-inline"><%= error_messages_for :trip, :header_message => "Please correct the errors below:", :message => nil %></div>
 
+<script>
+$(function() {
+	function split( val ) {
+				return val.split( /;\s*/ );
+			}
+			function extractLast( term ) {
+				return split( term ).pop();
+			}
+	$('#trip_destination').autocomplete({
+			source: function( request, response ) {
+								$.getJSON( "/city/auto_complete", {
+									term: extractLast( request.term )
+								}, response );
+							},
+			minLength: 3,
+			search: function(event,ui) {$('#indicator').show();},
+			open: function(event,ui) {$('#indicator').hide();},
+			focus: function() {
+								// prevent value inserted on focus
+								return false;
+							},
+			select: function( event, ui ) {
+				var terms = split( this.value );
+				// remove the current input
+				terms.pop();
+				// add the selected item
+				terms.push( ui.item.value );
+				// add placeholder to get the comma-and-space at the end
+				terms.push( "" );
+				this.value = terms.join( "; " );
+				return false;
+			}
+		});
+	});
+</script>
+
+<script>
+$(function() {
+	$( "#trip_start_date" ).datepicker(
+		  { showOtherMonths: true,
+		 	selectOtherMonths: true });
+});
+$(function() {
+	$( "#trip_end_date" ).datepicker(
+		  { showOtherMonths: true,
+		 	selectOtherMonths: true });
+});
+</script>
+
 <% if @new_page != true and !@trip.nil? %>
   <div id="trip-image-block" style="float: right; max-width: 300px; max-height: 400px; margin-bottom:10px">
 	
@@ -18,7 +67,7 @@
 
 	<div id="new_image">
 		<label for="photo">Attach a Picture:</label>
-		<%= form.file_field :photo, :size => 24 %>
+		<%= form.file_field :photo, :size => 18 %>
 	</div>
   </div>
 <% end %>
@@ -30,18 +79,18 @@
 </div>
 
 <div class="form-group">
-	<label for="destination">Destination:<span id="indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span><br/><span class="hint" style="padding:0">Use semi-colon (;) to separate multiple cities.</span></label>
-	<%= text_field_with_auto_complete :trip, :destination, { :size => 36, :value => params[:city] }, { :indicator => "indicator", :tokens => ";", :frequency => ".1", :min_chars => "3" } %>
+	<label for="destination">Destination:<span id="indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span></label>
+	<%= form.text_field :destination, :value => params[:city] %>
+	<span class="help-block" style="padding:0">Use semi-colon (;) to separate multiple cities.</span>
 </div>
 
 <div class="form-group">
-	<label for="start_date">Dates:<br /><span class="hint" style="padding:0">Optional</span></label>
+	<label for="start_date">Dates: <span class="hint" style="padding:0">(optional)</span></label>
 
-<%= form.calendar_date_select :start_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});",
- 			:onchange => "if($('trip_end_date').value.length==0){var endDate=new Date($F(this));endDate.setDate(endDate.getDate()+3);if (endDate!='Invalid Date'){$('trip_end_date').value=(endDate.getMonth()+1+'/'+endDate.getDate()+'/'+endDate.getFullYear())};};" %>
+<%= form.text_field :start_date, :class => "span2", :placeholder => "Start date" %> <i onclick="$('#trip_start_date').datepicker('show');" class="icon-calendar" style="cursor:pointer">&nbsp;</i>
 
+<%= form.text_field :end_date, :class => "span2", :placeholder => "End date" %> <i onclick="$('#trip_end_date').datepicker('show');" class="icon-calendar" style="cursor:pointer">&nbsp;</i>
 
-<%= form.calendar_date_select :end_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});" %>
 </div>
 
 

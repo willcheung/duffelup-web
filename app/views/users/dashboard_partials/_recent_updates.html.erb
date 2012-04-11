@@ -28,9 +28,9 @@
 	</div>
 	
 	<script type="text/javascript"> 
-		if ($$('#activities_container input[type=button]').first() != null){
-			Event.observe($$('#activities_container input[type=button]').first(),'click',function() {
-				$$('#activities_container input[type=button]').first().value="loading...";$$('#activities_container input[type=button]').first().disabled=true;});
+		if ($('#activities_container input[type=button]').first() != null){
+			$('#activities_container input[type=button]').first().bind('click',function() {
+				$('#activities_container input[type=button]').first().value="loading...";$('#activities_container input[type=button]').first().disabled=true;});
 		};
 	</script>
 	

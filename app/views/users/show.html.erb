@@ -21,30 +21,30 @@
 </div>
 <% end %>
 
-<div id="primary-inner">
+<div id="primary-inner" class="dashboard">
 
   <div id="sidebar-profile">
 
-    <div id="userProfile">
+    <div id="userProfile" style="padding-bottom:1px">
       <div class="avatar">
         <a href="/<%= current_user.username %>"> <%= display_thumbnail(current_user) %></a>
       </div>
       <div class="profile">
-        <em><%= link_to display_user_name(current_user), profile_url(current_user.username) %></em>
+        <h4><%= link_to display_user_name(current_user), profile_url(current_user.username) %></h4>
         <cite style="color:#999;"><%= current_user.home_city.gsub(", United States", "") unless current_user.home_city.nil? %></cite>
         <% if founding_member?(current_user) %><cite style="color:#FFD700;">Founding Member</cite><% end %>
 		<span class="edit-link" style="float:left;margin-top:5px;"><%= link_to "Edit", edit_user_url %></span>
       </div>
+
+		<div id="userStats" style="padding-top:0px;text-transform: uppercase;font-size:1.1em;clear:both">
+	     <dl>
+	        <dt>User Stats</dt>
+			<dd><%= current_user.events.count.to_s %> Ideas · <%= current_user.trips.count.to_s %> Duffels</dd>
+			<!--<dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>-->
+	      </dl>
+	    </div>
     </div> <!-- #userProfile -->
 
-
-    <div id="userStats" style="padding-bottom:10px;text-transform: uppercase;font-size:1.1em;">
-     <dl>
-        <dt>User Stats</dt>
-		<dd><%= current_user.events.count.to_s %> Ideas · <%= current_user.trips.count.to_s %> Duffels</dd>
-		<!--<dd><%= pluralize(@total_favorite_count, "Person")%> Faved Your Duffels</dd>-->
-      </dl>
-    </div>
 
 <%- if @duffel_of_the_month -%>
 	<% cache("dashboard-featured-duffel") do %>
@@ -61,8 +61,8 @@
         <em><a href="<%=trip_path(@duffel_of_the_month.trip)%>"><%=truncate(@duffel_of_the_month.trip.title, :length => 28)%></a></em>
         <cite style="font-size:12px;color:#888"><%= @duffel_of_the_month.trip.destination.split(";")[0] %></cite>
 		<cite style="margin-top:5px">
-			<small><span class="cf-favorite" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.favorites.size, "Fave")%></span>
-			<span class="cf-comment" style="display:inline;padding:5px 5px 0 25px"><%=pluralize(@duffel_of_the_month.trip.comments.size, "Comment")%></span> </small>
+			<small><span style="display:inline;padding:5px 5px 0 5px"><i class="icon-heart"></i> <%=pluralize(@duffel_of_the_month.trip.favorites.size, "Fave")%></span>
+			<span style="display:inline;padding:5px 5px 0 0"><i class="icon-comment"></i> <%=pluralize(@duffel_of_the_month.trip.comments.size, "Comment")%></span> </small>
 		</cite>
       </div>
       <div class="description">
@@ -92,7 +92,7 @@
       <ul>
 		<% @friends.each_with_index do |f,i| %>
 			<% break if i== 16 %>
-			<dl><dd><li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li></dl></dd>
+			<li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li>
 		<% end %>
 		<% if @friends.size >= 16 %>
 			<div class="clearfix"></div>
@@ -101,9 +101,9 @@
       </ul>
     </div> <!-- #friends -->
 
-	<h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
+	<!-- <h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
 	<div id="travelDeals">
-	</div>
+	</div> -->
 
 	<div style="margin: 20px 0">
 		<a href="http://itunes.apple.com/app/id371064516" target="_blank" alt="Duffel Up and Go iPhone App" title="Duffel Up and Go iPhone App"><img src="/images/iphone_banner.jpg" style="width:210px"></a>
@@ -112,26 +112,6 @@
   </div> <!-- #sidebar-profile -->
 
   <div id="mainContent">
-	
-<!--	<div id="dashboard_tabs">
-		<ul class="tabnav">
-			<li id="tb-updates" <% if params[:tab] == "updates" or params[:tab].nil? %>class="selected"<% end %> onclick="location.search='tab=updates';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;">
-				<a href="#">Recent Updates</a>
-			</li>
-			<li id="tb-duffels" <% if params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>class="selected"<% end %> onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-				<a href="#">My Duffels <img style="vertical-align:middle;" src="/images/icon-down-arrow.png"/></a>
-			</li>
-			<li id="tb-deals" <% if params[:tab] == "deals" %>class="selected"<% end %> onclick="location.search='tab=deals';$(this).addClassName('selected');$('tb-duffels').removeClassName('selected');$('tb-updates').removeClassName('selected'); $('loading-spinner').show(); return false;">
-				<a href="#">My Travel Deals</a>
-			</li>
-			<span id="loading-spinner" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
-			<ul class="submenu" id="duffels-submenu" style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-				<li onclick="location.search='tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
-				<li onclick="location.search='tab=duffels-previous';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Previous (<%= @past_trips.size %>)</a></li>
-				<li style="background: url(../images/icon-favorite.png) no-repeat 2px -121px;" onclick="location.search='tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
-			</ul>
-		</ul> 
-	</div> -->
 	
 	<% if params[:tab] == "updates" %>	
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
@@ -146,7 +126,7 @@
 
     <div id="exploreDestinations">
       <h2>Popular Destinations <span class="right t15"><%= link_to "Browse More &raquo;</strong>", '/explore' %></span></h2>
-      <ul>
+      <ul class="unstyled">
         <li>
           <dl>
             <dd><a href="<%= na_city_url(:country_code => "US", :region => "NY", :city => "new-york")%>"><%= image_tag "cities/85x85/new-york.jpg", :class => "image1" %></a></dd>
@@ -198,16 +178,4 @@
   </div> <!-- #mainContent -->
 
 </div> <!-- #primary-inner -->
-
-<script type="text/javascript"> 
-  Event.observe(window, 'load', function() {
-    <%= remote_function(:update => "travelDeals", :url => "/users/get_deals") %>
-  });
-</script>
-
-<% if false #if params[:new] == "1" %>
-<script type="text/javascript">
-iBox.addEvent(window, 'load', function(){iBox.showURL('/site/tutorial_overview','',{width: '635', height: '440'})});
-</script>
-<% end %>
 

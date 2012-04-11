@@ -1,9 +1,13 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-// Disappearing Flash message
-document.observe("dom:loaded", function() {
-  setTimeout(hideFlashMessages, 4000);
+// // Disappearing Flash message
+// document.observe("dom:loaded", function() {
+//   setTimeout(hideFlashMessages, 4000);
+// });
+
+$(document).bind("dom:loaded", function() {
+	setTimeout(hideFlashMessages, 4000);
 });
 
 function hideFlashMessages() {
@@ -19,11 +23,11 @@ function PopupCenter(pageURL, title,w,h) {
 	var targetWin = window.open (pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 }
 
-// Ajax pagination used in Search
-Event.addBehavior.reassignAfterAjax = true;
-Event.addBehavior({
-    'div.pagination a' : Remote.Link
-})
+// // Ajax pagination used in Search
+// Event.addBehavior.reassignAfterAjax = true;
+// Event.addBehavior({
+//     'div.pagination a' : Remote.Link
+// })
 
 // Show Div via javascript
 function showLayer(layerName, shadowLayerName)

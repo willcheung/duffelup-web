@@ -1,81 +1,83 @@
-<%= render :partial => 'right_menu'%>
+<div id="primary-inner">
+	<%= render :partial => 'right_menu'%>
 
-<div id="site">
-<h1>About Duffel</h1>
+	<div id="site">
+	<div class="page-header"><h1>About Duffel</h1></div>
 
-<h2><big>What is duffel?</big></h2>
-<p>Duffel is a virtual corkboard that helps collect and share your travel notes with friends.</p>
-<br/>
+	<h2>What is duffel?</h2>
+	<p>Duffel is a virtual corkboard that helps collect and share your travel notes with friends.</p>
+	<br/>
 
-<h2><big>Why is it called duffel?</big></h2>
-<p>When you are going places, a duffel bag is used to carry your clothes and travel accessories. Your "duffel" is place for you to collect your ideas on where to go and what to do while you're traveling.</p>
-<br/>
+	<h2>Why is it called duffel?</h2>
+	<p>When you are going places, a duffel bag is used to carry your clothes and travel accessories. Your "duffel" is place for you to collect your ideas on where to go and what to do while you're traveling.</p>
+	<br/>
 
-<h2 style="margin-bottom:0;padding-bottom:0"><big>How does it work?</big></h2>
+	<h2 style="margin-bottom:0;padding-bottom:0">How does it work?</h2>
 
-<div id="feature1">
-    <img src="/images/homepage/feat1.png" id="feat1" /><br />
-</div>
+	<div id="feature1">
+	    <img src="/images/homepage/feat1.png" id="feat1" /><br />
+	</div>
 
-<div id="feature3">
-    <img src="/images/homepage/feat3_v2.png" id="feat3" /><br />
-</div>
+	<div id="feature3">
+	    <img src="/images/homepage/feat3_v2.png" id="feat3" /><br />
+	</div>
 
-<div id="feature2">
-    <img src="/images/homepage/feat2.png" id="feat2" />
-</div>
+	<div id="feature2">
+	    <img src="/images/homepage/feat2.png" id="feat2" />
+	</div>
 
-<div id="feature_divider"></div>
+	<div id="feature_divider"></div>
 
 
-<div id="feature1_text">
-        <span class="feat_header">
-        Clip travel ideas<br />
-        </span>
-        <span class="feat_text">
-        and notes from any<br/>
-        website or email.
-        </span>
-</div>
+	<div id="feature1_text">
+	        <span class="feat_header">
+	        Clip travel ideas<br />
+	        </span>
+	        <span class="feat_text">
+	        and notes from any<br/>
+	        website or email.
+	        </span>
+	</div>
 
-<div id="feature3_text" style="margin-left:20px">
-<span class="feat_header">
-    Collaborate<br />
-    </span>
-    <span class="feat_text">
-    with friends and</br>
-                    plan the same trips.
-    </span>          
-</div>
+	<div id="feature3_text" style="margin-left:20px">
+	<span class="feat_header">
+	    Collaborate<br />
+	    </span>
+	    <span class="feat_text">
+	    with friends and</br>
+	     plan the same trips.
+	    </span>          
+	</div>
 
-<div id="feature2_text">
-    <span class="feat_header">See everything <br />
-    </span>
-    <span class="feat_text">
-    laid out on a virtual<br />
-    corkboard and map.
-    </span>
-</div>
+	<div id="feature2_text">
+	    <span class="feat_header">See everything <br />
+	    </span>
+	    <span class="feat_text">
+	    laid out on a virtual<br />
+	    corkboard and map.
+	    </span>
+	</div>
 
-<div class="clearfix"></div>
-<br/>
+	<div class="clearfix"></div>
+	<br/>
 
-<h2><big>What else is it useful for?</big></h2>
-<p>Collect your favorite local restaurants and share with your friends visiting town.</p>
-<p>Show off your travel inspirations; after you're done, you've already planned your dream trip without knowing it.</p>
-<p>Plan a trip, of course! Plan with friends or plan by yourself.</p>
-<br/>
+	<h2>What else is it useful for?</h2>
+	<p>Collect your favorite local restaurants and share with your friends visiting town.</p>
+	<p>Show off your travel inspirations; after you're done, you've already planned your dream trip without knowing it.</p>
+	<p>Plan a trip, of course! Plan with friends or plan by yourself.</p>
+	<br/>
 
-<%= link_to 'Sign up now', signup_url, :style => 'background: url(/images/tour/sign-up.png); width: 231px; height: 51px; text-indent: -9595px; display: block; margin: 13px 0 0 15px; float: left;' %>
+	<%= link_to 'Sign up now', signup_url, :style => 'background: url(/images/tour/sign-up.png); width: 231px; height: 51px; text-indent: -9595px; display: block; margin: 13px 0 0 15px; float: left;' %>
 
-<div class="clear"></div>
+	<div class="clearfix"></div>
 
-<br/>
-<h2><big>Also Check Out...</big></h2>
-<p>Our <a href="http://blog.duffelup.com">blog</a>, <a href="http://twitter.com/duffelup">Twitter</a>, and <a href="http://www.facebook.com/pages/Duffel/143192490080">Facebook</a> for updates about what's new on 
-	our site and how to plan smarter travel.
-</p>
+	<br/>
+	<h2>Also Check Out...</h2>
+	<p>Our <a href="http://blog.duffelup.com">blog</a>, <a href="http://twitter.com/duffelup">Twitter</a>, and <a href="http://www.facebook.com/pages/Duffel/143192490080">Facebook</a> for updates about what's new on 
+		our site and how to plan smarter travel.
+	</p>
 
-<br>
-<p>Have questions?  Please <%= link_to "contact us", { :controller => 'site', :action => 'contact' }, :id => 'site' %>.</p>
+	<br>
+	<p>Have questions?  Please <%= link_to "contact us", { :controller => 'site', :action => 'contact' }, :id => 'site' %>.</p>
+	</div>
 </div>

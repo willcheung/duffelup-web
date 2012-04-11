@@ -82,8 +82,6 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
   
-  # calendar_date_select gem
-  config.gem "calendar_date_select"
   # Amazon RightScale AWS
   config.gem 'right_aws'
   # Google's GData (gem contacts' dependent)

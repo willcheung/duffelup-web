@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-
+  
   map.resources :cities do |city|
     city.resources :landmarks
   end
@@ -9,6 +9,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :check_ins, :collection => { :near_by => :get }
   map.resources :stamps
   map.resource :subscription
+  
+  map.auto_complete_city 'city/auto_complete', :controller => 'cities', :action => 'auto_complete_city'
   
   # The priority is based upon order of creation: first created -> highest priority.
   

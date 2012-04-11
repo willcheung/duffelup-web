@@ -1,4 +1,6 @@
-<div id="central">
+<div id="primary-inner" style="margin:0">
+
+	<div id="central">
 
 	<%= render :partial => 'cities_header' %>
 	
@@ -35,14 +37,14 @@
 		
 			<% if !@activities.empty? %>
 			<div class="sidebar-pin">
-				<h3><strong>Top offers from our partners</strong></h3>
-				<ul class="recommendation-list">
+				<h3><strong>Book a tour</strong></h3>
+				<ul class="recommendation-list unstyled">
 
 					<% @activities.each do |e| %>
 						<li>
 							<div class="seperate"></div>
 							<a class="ImgLink" href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-image', 'page-city', '<%= @city.city %>');"><img src="<%= e.product_image_thumb %>" alt="<%= e.product_name %>" title="<%= e.product_name %>" width="75" height="75" /></a>
-							<strong><a style="font-size:1.1em" href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-title', 'page-city', '<%= @city.city %>');"><%= e.product_name %></a></strong>
+							<strong><a style="font-size:1.1em" href="<%= e.product_url %>" target="_blank" onClick="pageTracker._trackEvent('Viator', 'click-on-title', 'page-city', '<%= @city.city %>');"><%= truncate(e.product_name, :length => 40) %></a></strong>
 							<br/><em style="position:absolute;margin-top:4px"><strong><%= number_to_currency(e.price) %></strong> <span class="t11 mute">per person</span></em>
 							<br/><span style="position:absolute;padding-top:8px">Duration: <strong><%= e.duration %></strong></span>
 						</li>
@@ -65,24 +67,12 @@
 		
 			<%= render :partial => "pin", :collection => @pins %>
 			
-			<%= will_paginate @pins,
-							:params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]},
-							:renderer => FlowPagination::LinkRenderer %>
 		</div>
+		
+		<%= will_paginate @pins,
+						:params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]},
+						:renderer => FlowPagination::LinkRenderer %>
 	</div>
-	
-	<script type="text/javascript"> 
-		document.observe("dom:loaded",function() {
-			new Masonry($('main-board'),{itemSelector: '.pin'});});
-	</script>
-	
-	<script type="text/javascript"> 
-		if ($$('#flow_pagination input[type=button]').first() != null){
-			Event.observe($$('#flow_pagination input[type=button]').first(),'click',function() {
-				$$('#flow_pagination input[type=button]').first().value="loading...";$$('#flow_pagination input[type=button]').first().disabled=true;});
-		};
-	</script>
-
 	
 	<% unless true #@trips.empty? %>
 	<% unless @trips.empty? %>
@@ -132,7 +122,20 @@
 	<% end %>
 	
 	
-	<div class="clear"></div>
-	
 	<%= render :partial => "cities_box" %>
+	</div>
+
+	<script>
+	var $container = $('#main-board');
+	$container.imagesLoaded(function(){
+	  $container.masonry({
+	    itemSelector : '.pin'
+	  });
+	});
+	
+	var $button=$('#flow_pagination > input[type=button]');
+	$('#flow_pagination :input').click(function(){
+		$button.val('Loading...');$button.prop('disabled',true);
+	});
+	</script>
 </div>

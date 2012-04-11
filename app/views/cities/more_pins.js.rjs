@@ -1,6 +1,6 @@
 page.insert_html :bottom, "main-board", :partial => "pin", :collection => @pins
 page.replace :flow_pagination, will_paginate(@pins, :renderer => FlowPagination::LinkRenderer, :params => {:controller => 'cities', :action => 'more_pins', :city => params[:city], :region => params[:region], :country_code => params[:country_code]})
 page.delay(0.75) do
-  page << "new Masonry($('main-board'),{itemSelector: '.pin'});"
+  page << "var $pins = $('.pin:not(.masonry-brick)');$container.append( $pins ).masonry( 'appended', $pins );"
 end
-page << "if ($$('#flow_pagination input[type=button]').first()!=null){Event.observe($$('#flow_pagination input[type=button]').first(),'click',function() {$$('#flow_pagination input[type=button]').first().value='loading...';$$('#flow_pagination input[type=button]').first().disabled=true;});}"
+page << "$button.val('More Stories');$button.prop('disabled',false);"

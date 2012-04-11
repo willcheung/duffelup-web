@@ -5,40 +5,42 @@
 	<div class="clear"></div>
 </ul>
 
-<h1>Invite Your Friend to Duffel via Facebook</h1>
+<div id="primary-inner">
+	<div class="page-header"><h1>Invite Your Friend to Duffel via Facebook</h1></div>
 
 
-<!-- facebook --> 
-<div class="fb-friends-checkbox" id="invitations_left-fb" style="float:left">
-<% if current_user.facebook_user? && facebook_session %>
-	<% fb_serverfbml do %>
-	<script type="text/fbml">
-	<fb:fbml>
+	<!-- facebook --> 
+	<div class="fb-friends-checkbox" id="invitations_left-fb" style="float:left">
+	<% if current_user.facebook_user? && facebook_session %>
+		<% fb_serverfbml do %>
+		<script type="text/fbml">
+		<fb:fbml>
 	
-	<% content_for("invite_user") do %>
-	<%= display_user_name(current_user) + @fb_string + " #{fb_req_choice('Create My Travel Guide', @fb_url)}" %>
-	<% end %>
+		<% content_for("invite_user") do %>
+		<%= display_user_name(current_user) + @fb_string + " #{fb_req_choice('Create My Travel Guide', @fb_url)}" %>
+		<% end %>
 	
-	<% fb_request_form("Duffel","invite_user", "#{dashboard_url}", :method => "GET") do %>
-		<%= fb_multi_friend_selector("Invite your friends to Duffel!", :showborder => false,
-			:exclude_ids => facebook_session.user.friends_with_this_app.map(&:id).join(","), :condensed => false, 
-			:cols => 3, :rows => 4, :email_invite => false, :bypass => "cancel") %>
-	<% end %>
+		<% fb_request_form("Duffel","invite_user", "#{dashboard_url}", :method => "GET") do %>
+			<%= fb_multi_friend_selector("Invite your friends to Duffel!", :showborder => false,
+				:exclude_ids => facebook_session.user.friends_with_this_app.map(&:id).join(","), :condensed => false, 
+				:cols => 3, :rows => 4, :email_invite => false, :bypass => "cancel") %>
+		<% end %>
 	
-	</fb:fbml>
-	</script>
+		</fb:fbml>
+		</script>
+		<% end %>
+	<% else %>
+		<div id="invitation"><div class="fb-button"><%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access' %></div></div>
 	<% end %>
-<% else %>
-	<div id="invitation"><div class="fb-button"><%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access' %></div></div>
-<% end %>
-</div>
+	</div>
 
-<div id="invitation_right-import">
-	<p>Not finding who you're looking for? Invite friends to Duffel via email.</p>
-	<% form_for @beta_invitation do |f| %>
-	<strong><label for="recipient_email">Friend's Email:</label></strong>
-	<%= f.text_field :recipient_email, :size => 30 %>
+	<div id="invitation_right-import">
+		<p>Not finding who you're looking for? Invite friends to Duffel via email.</p>
+		<% form_for @beta_invitation do |f| %>
+		<strong><label for="recipient_email">Friend's Email:</label></strong>
+		<%= f.text_field :recipient_email, :size => 30 %>
 	
-	<%= f.submit "Invite!", :class => "submit", :onclick => "pageTracker._trackEvent('Email Invite', 'submit', '#{current_user.username}');" %>
-	<% end %>
+		<%= f.submit "Invite!", :class => "btn", :style => "margin-top:-5px;", :onclick => "pageTracker._trackEvent('Email Invite', 'submit', '#{current_user.username}');" %>
+		<% end %>
+	</div>
 </div>

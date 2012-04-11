@@ -2,14 +2,14 @@
 <dl>
     <dd class="photo-container"><a href="/trips/<%= trip.permalink %>"><img src="<%= duffel_thumbnail_url(trip) %>" alt="<%= trip.title %>" /></a></dd>
 
-	<dt class="title">
+	<dt class="title span3">
 		<%= link_to h(truncate(trip.title, :length => Trip::DASHBOARD_TITLE_TRUNCATE_SIZE)), trip_url(:id => trip) %>
 		<% if trip.is_public == 0 %>
 		<img style="vertical-align:top;" title="Private" src="/images/icon-lock.png"/>
 		<% end %>
 	</dt>
 	
-	<dd class="details">
+	<dd class="details span2">
 		<span>
 		<% if favorite %>
 			<strong><%= @favorites_count[trip.id.to_s].nil? ? 0 : @favorites_count[trip.id.to_s] %></strong> Faves,
@@ -20,23 +20,26 @@
 		</span>
 	</dd>
 	
-	<dd class="action admin">
-		<% if @users_by_trip_id[trip.id.to_s][0] == current_user %>
-			<span class="edit"><a href="/trips/<%= trip.permalink %>/edit">Edit trip settings</a></span>
-		<% end %>
+	<div class="span3">
+		<dd class="destination"><em><%= h(truncate(shorten_trip_destination(trip.destination), :length => Trip::DASHBOARD_DESTINATION_TRUNCATE_SIZE)) %></em></dd>
+	    <dd class="date mute" style="padding-bottom:6px"><em><%= display_trip_dates(trip.start_date,trip.end_date) %></em></dd>
+	</div>
+	
+	<div class="span3">
+		<dd class="collaborators">
+			<%= duffel_collaborators(@users_by_trip_id[trip.id.to_s], 8) %>
+		</dd>
+	</div>
+	
+	<dd class="action admin span2">
 		<% if @users_by_trip_id[trip.id.to_s].include?(current_user)%>
-			<span class="invite"><a href="/trips/<%= trip.permalink %>/invite">Invite collaborators</a></span>
+			<span style="display:block;margin-bottom:4px"><a class="btn btn-success btn-mini" href="/trips/<%= trip.permalink %>/invite">Invite collaborators</a></span>
+		<% end %>
+		<% if @users_by_trip_id[trip.id.to_s][0] == current_user %>
+			<span><a class="btn btn-mini" href="/trips/<%= trip.permalink %>/edit">&nbsp;&nbsp;Edit trip settings&nbsp;&nbsp;</a></span>
 		<% end %>
 	</dd>
 	
-	
-	<dd class="destination"><em><%= h(truncate(shorten_trip_destination(trip.destination), :length => Trip::DASHBOARD_DESTINATION_TRUNCATE_SIZE)) %></em></dd>
-    <dd class="date mute" style="padding-bottom:6px"><em><%= display_trip_dates(trip.start_date,trip.end_date) %></em></dd>
-	
-
-	<dd class="collaborators">
-		<%= duffel_collaborators(@users_by_trip_id[trip.id.to_s], 8) %>
-	</dd>
 	
 </dl>
 <% end %>

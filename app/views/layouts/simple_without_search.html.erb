@@ -4,8 +4,12 @@
 <head> 
 	<title><%= @title %></title> 
 	<%= stylesheet_link_tag "style", :media => :all %>
-	<%= javascript_include_tag 'all' %>
-	<%= javascript_include_tag 'application' %> 
+	<%= stylesheet_link_tag "bootstrap", :media => :all %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	<script src="/javascripts/jrails.js" type="text/javascript"></script>
+	<%= javascript_include_tag 'bootstrap.min' %>
+	<%= javascript_include_tag 'application' %>
 	
 <!--[if IE 7]>
 <link href="/stylesheets/ie7.css" media="screen" rel="stylesheet" type="text/css" />
@@ -54,21 +58,20 @@
 	  <%= content_tag :p, msg, :id => key -%>
 	<% end -%>
 
-    <div id="wrapper">
-		<div id="header" class="clearfix">
-			<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
-	    </div> 
-     	
-		<div id="wrapper-inner">		
-			<div id="primary"> 
+    <%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
+
+	<div class="container" style="margin-top:55px">
+		<div class="row row-border"> 
+			<%= yield %>
 			
-				<%= yield %>
-			</div>
+			<div class="clearfix"></div>
+			
+			<%= render :partial => 'shared/footer' %>
 		</div>
-		<%= render :partial => 'shared/footer' %>
+		
+		<div class="clearfix" style="padding:5px">&nbsp;</div>
 	</div>
 	
-	<%= calendar_date_select_includes %>
 	<%= render :partial => 'shared/external_javascripts' %>
 </body>
 </html>

@@ -113,30 +113,6 @@ class ApplicationController < ActionController::Base
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return
   end
   
-  def auto_complete_for_trip_destination
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if params[:trip].nil?
-    
-    @cities = City.find_by_sql(["SELECT id, city_country FROM cities WHERE (LOWER(city_country) LIKE ?) ORDER BY rank LIMIT 5", params[:trip][:destination].downcase+"%"])
-  
-    render :partial => 'trips/cities'
-  end
-  
-  def auto_complete_for_user_home_city
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if params[:user].nil?
-    
-    @cities = City.find_by_sql(["SELECT id, city_country FROM cities WHERE (LOWER(city_country) LIKE ?) ORDER BY rank LIMIT 5", params[:user][:home_city].downcase+"%"])
-  
-    render :partial => 'trips/cities'
-  end
-  
-  def auto_complete_for_subscription_city
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if params[:subscription].nil?
-    
-    @cities = City.find_by_sql(["SELECT id, city_country FROM cities WHERE (LOWER(city_country) LIKE ?) ORDER BY rank LIMIT 5", params[:subscription][:city].downcase+"%"])
-  
-    render :partial => 'trips/cities'
-  end
-  
   private
   
   def clear_facebook_session(redirect=false)

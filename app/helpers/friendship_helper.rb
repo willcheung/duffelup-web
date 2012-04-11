@@ -4,17 +4,17 @@ module FriendshipHelper
   def profile_friendship_status(user, friend)
     friendship = Friendship.find_by_user_id_and_friend_id(user, friend)
     
-    return "<li><a class='button' href=\"" + url_for(:controller => 'friendship', :action => 'create', :id => friend.username, :return_to => request.request_uri) + "\">Add as contact</a></li>" if friendship.nil?
+    return "<a class='btn btn-success btn-large' href=\"" + url_for(:controller => 'friendship', :action => 'create', :id => friend.username, :return_to => request.request_uri) + "\">Add as friend</a>" if friendship.nil?
     
     case friendship.status
     when Friendship::REQUESTED
-      "<li>#{friend.username} added you as a contact.<p style='margin-top:10px;'><a class='button' href=\"" + url_for(:controller => 'friendship', :action => 'accept', :id => friend.username, :return_to => request.request_uri) + "\">Accept</a> " +
-             " <a href=\"" + url_for(:controller => 'friendship', :action => 'ignore', :id => friend.username, :return_to => request.request_uri) + "\"><small>&nbsp; or Decline</small></a></li>"
+      "#{friend.username} added you as a friend.<p style='margin-top:10px;'><a class='btn btn-success' href=\"" + url_for(:controller => 'friendship', :action => 'accept', :id => friend.username, :return_to => request.request_uri) + "\">Accept</a> " +
+             " <a href=\"" + url_for(:controller => 'friendship', :action => 'ignore', :id => friend.username, :return_to => request.request_uri) + "\"><small>&nbsp; or Decline</small></a>"
     when Friendship::PENDING
-      "<li>Connection pending with #{friend.username}.<p style='margin-top:10px;'><a class='button' href=\"" + url_for(:controller => 'friendship', :action => 'cancel', :id => friend.username, :return_to => request.request_uri) + "\">Cancel?</a></p></li>"
+      "<p>Friendship pending.</p><a class='btn btn-small btn-danger' href=\"" + url_for(:controller => 'friendship', :action => 'cancel', :id => friend.username, :return_to => request.request_uri) + "\">Cancel?</a>"
     when Friendship::ACCEPTED
-      "<li><a onclick=\"Effect.toggle('removeFriend', 'blind', { duration: 0.3 });\" href=\"#\">#{friend.username} is a friend</a><div id=\"removeFriend\" style=\"display:none;\">" + 
-              "<a class=\"button\" href=\"" + url_for(:controller => 'friendship', :action => 'delete', :id => friend.username, :return_to => request.request_uri) + "\">Remove contact?</a></div></li>"
+      "<h6><a onclick=\"$('#removeFriend').slideToggle();\" href=\"#\">#{friend.username} is a friend</a></h6><div id=\"removeFriend\" style=\"display:none;\">" + 
+              "<a class=\"btn btn-small btn-danger\" href=\"" + url_for(:controller => 'friendship', :action => 'delete', :id => friend.username, :return_to => request.request_uri) + "\">Remove contact?</a></div>"
     end
   end
   

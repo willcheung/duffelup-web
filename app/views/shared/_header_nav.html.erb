@@ -1,35 +1,39 @@
-<div id="logo">
-	<%- if partner -%>
-		<a href="#" onclick="window.open('http://duffelup.com');"> 
-	<%- else -%>
-		<%= link_to "", root_path -%>
-	<%- end -%>
-</div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+		<div id="logo" class="brand">
+			<%- if partner -%>
+				<a href="#" onclick="window.open('http://duffelup.com');"> 
+			<%- else -%>
+				<%= link_to "", root_path -%>
+			<%- end -%>
+		</div>
 
-<div id="account">
-	<ul>
-	    <% if logged_in? -%>
-			<% if partner %>
-				<li><a href="#" onclick="window.open('<%= dashboard_path %>');">Dashboard</a> </li>
-				<li><a href="#" onclick="window.open('<%= url_for(:controller => 'site', :action => 'tools') %>');">Bookmarklet</a> </li>
-				<li><a href="#" onclick="window.open('<%= featured_duffels_path %>';">Featured Duffels</a></li>
-				<li><a href="#" onclick="window.open('<%= new_beta_invitation_path %>');">Invite Friends</a> </li>
-				<li><a href="#" onclick="window.open('<%= logout_url %>');">Logout</a> </li>
-			<% else %>
-				<%= render :partial => 'shared/header_nav_links' %>
-			<% end %>
+		<div id="account">
+			<ul class="nav">
+			    <% if logged_in? -%>
+					<% if partner %>
+						<li><a href="#" onclick="window.open('<%= dashboard_path %>');">Dashboard</a> </li>
+						<li><a href="#" onclick="window.open('<%= url_for(:controller => 'site', :action => 'tools') %>');">Bookmarklet</a> </li>
+						<li><a href="#" onclick="window.open('<%= featured_duffels_path %>';">Featured Duffels</a></li>
+						<li><a href="#" onclick="window.open('<%= new_beta_invitation_path %>');">Invite Friends</a> </li>
+						<li><a href="#" onclick="window.open('<%= logout_url %>');">Logout</a> </li>
+					<% else %>
+						<%= render :partial => 'shared/header_nav_links' %>
+					<% end %>
 		
-		<% else %>
-			<% if partner %>
-				<li><a href="#" onclick="window.open('<%= login_url %>');">Sign In</a>
-					<span> / </span>
-					<a href="#" onclick="window.open('<%= signup_url %>');">Sign Up</a></li>
-			<% else %>
-				<li><%= link_to_unless_current "Sign In", login_url(:redirect => request.request_uri) %>
-					<span> / </span>
-					<%= link_to_unless_current "Sign Up", signup_url %></li>
-			<% end %>
+				<% else %>
+					<% if partner %>
+						<li><a href="#" onclick="window.open('<%= login_url %>');">Sign In</a></li>
+						<li><a href="#" onclick="window.open('<%= signup_url %>');">Sign Up</a></li>
+					<% else %>
+						<li><%= link_to "Sign In", login_url(:redirect => request.request_uri) %></li>
+						<li><%= link_to "Sign Up", signup_url %></li>
+					<% end %>
 			
-		<% end -%>
-	</ul>
+				<% end -%>
+			</ul>
+		</div>
+    </div>
+  </div>
 </div>
