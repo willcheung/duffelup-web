@@ -219,7 +219,7 @@ class TripsController < ApplicationController
         else
           @redirect_url = dashboard_url
           @new_page = true
-          render :action => 'new'
+          render :action => 'new', :layout => 'simple'
         end
       end # if @trip.save
     end # if reqeust.post?
@@ -370,7 +370,7 @@ class TripsController < ApplicationController
         flash[:notice] = "Thanks, we updated your duffel #{@trip.title}."
         redirect_to trip_path(:id => @trip)
       else
-        render :action => 'edit'
+        render :action => 'edit', :layout => 'simple'
       end
     end
   end
@@ -426,22 +426,22 @@ class TripsController < ApplicationController
       ###################################
       # create Viator recommendations
       ###################################
-      ViatorEvent.insert_recommendation(t.destination, t.id, nil, 1)
+      # ViatorEvent.insert_recommendation(t.destination, t.id, nil, 1)
 
       #################################################
       # create Splendia Hotel recommendations
       #################################################
-      if !t.cities[0].nil?
-        if !fragment_exist?("#{t.cities[0].id}-splendia-hotels", :time_to_live => 1.week)
-          splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(t.cities[0].latitude, t.cities[0].longitude)
-          write_fragment("#{t.cities[0].id}-splendia-hotels", splendia_hotels)
-        else
-          splendia_hotels = SplendiaHotel.new
-          splendia_hotels = read_fragment("#{t.cities[0].id}-splendia-hotels")
-        end
-
-        SplendiaHotel.insert_recommendation(splendia_hotels, t.id, t.start_date, t.end_date, 1)
-      end
+      # if !t.cities[0].nil?
+      #   if !fragment_exist?("#{t.cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+      #     splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(t.cities[0].latitude, t.cities[0].longitude)
+      #     write_fragment("#{t.cities[0].id}-splendia-hotels", splendia_hotels)
+      #   else
+      #     splendia_hotels = SplendiaHotel.new
+      #     splendia_hotels = read_fragment("#{t.cities[0].id}-splendia-hotels")
+      #   end
+      # 
+      #   SplendiaHotel.insert_recommendation(splendia_hotels, t.id, t.start_date, t.end_date, 1)
+      # end
       
       redirect_to show_new_visitor_trip_url(:id => t.permalink)
     else
@@ -604,8 +604,8 @@ class TripsController < ApplicationController
                                     
      # Setup for Twitter stream
      url = trip_url(:id => @trip)
-     short_url = WebApp.shorten_url(url)
-     @tweet = "I am planning a trip to #{shorten_trip_destination(@trip.destination)} using Duffel visual planner. " + short_url + " %40duffelup"
+     # short_url = WebApp.shorten_url(url)
+     # @tweet = "I am planning a trip to #{shorten_trip_destination(@trip.destination)} using Duffel visual planner. " + short_url + " %40duffelup"
     end
     
     render :layout => 'ibox_ideas'
@@ -646,25 +646,6 @@ class TripsController < ApplicationController
     logger.error("ERROR: RuntimeError in Trip Controller - Trying to access invalid trip with id = "+trip_perma.to_s)
   end
 
-  # This method is a monkey patch for calendar_date_select's funky behaviors
-  def parse_date(date)
-    a_date = date.split('/')
-    
-    if a_date[2].length == 2 # if year only has two digits
-      if a_date[2].to_i >= 90 # if year is between 99 and 90 (1990 or later)
-        a_date[2] = (a_date[2].to_i + 1900).to_s
-      else # if year is less than 90 (b/t 2089 and 2000)
-        a_date[2] = (a_date[2].to_i + 2000).to_s
-      end
-    end
-    
-    new_date = a_date.join('/') 
-    return Date.parse(new_date)
-    
-  rescue
-    logger.error(date)
-  end
-  
   def clear_trip_and_events_cache
     expire_fragment "#{@trip.id}-events-details"
     expire_fragment "#{@trip.id}-mappable-ideas"

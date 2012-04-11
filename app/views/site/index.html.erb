@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<script src="//cdn.optimizely.com/js/23004842.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title><%= @title %></title> 
 	<%= stylesheet_link_tag "home" %>
-	<%= javascript_include_tag 'all' %>
+	<%= stylesheet_link_tag "jquery-ui-1.8.18.theme" %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 	<meta name="description" content="<%= @meta_description %>" />
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="icon" type="image/png" href="/favicon.png">
@@ -29,7 +30,18 @@
     
 	<div class="clear"></div>     
 
-<!-- #body-intro and signup --> 		
+<!-- #body-intro and signup --> 	
+
+	<script>
+	$(function() {
+		$('#trip_destination').autocomplete({
+				source: "city/auto_complete",
+				minLength: 3,
+				search: function(event,ui) {$('#indicator').show();},
+				open: function(event,ui) {$('#indicator').hide();}
+			});
+		});
+	</script>
 
 	<div id="intro" class="clearfix">
 		
@@ -38,8 +50,8 @@
 			
 			<div id="form-container" class="clearfix">
 			<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
-				<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-				<%= submit_tag "Go", :class => "submit", :onclick => "$('trip_form').submit();this.disabled=true;$('packing').show();return false;" %>
+				<%= text_field :trip, :destination, { :class => "trip_destination big", :placeholder => "Enter a city e.g. Rome, Italy" } %>
+				<%= submit_tag "Go", :class => "submit", :onclick => "$('#trip_form').submit();$('.submit').prop('disabled',true);$('#trip_destination').prop('disabled',true);$('#packing').show();return false;" %>
 				<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif"/></span>
 			<% end %>
 			

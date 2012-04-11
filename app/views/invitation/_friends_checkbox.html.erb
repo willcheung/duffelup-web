@@ -2,7 +2,7 @@
 <% @friends.each do |user| %>
 
 	<% unless @users.include?(user) %>
-		<label class="avatar" onmouseup="$(this).toggleClassName('avatarSelected');">
+		<label class="avatar" onmouseup="$(this).toggleClass('avatarSelected');">
 			<%= display_thumbnail(user) %>
 			<%= display_user_name(user) %>
 			<% if user.id == 44 %>

@@ -13,7 +13,7 @@ class LikeController < ApplicationController
     respond_to do |format|
       format.js do
         render :update do |page|
-          page << "$('like_#{e.id}').className = 'like disabled'"
+          page << "$('#like_#{e.id}').attr('class','like disabled')"
           page.replace_html "like_#{e.id}", link_to_remote("Unlike", { :url => "/like/111/?event=#{e.id}", :method => :delete })
         end
       end
@@ -28,7 +28,7 @@ class LikeController < ApplicationController
     respond_to do |format|
       format.js do
         render :update do |page|
-          page << "$('like_#{e.id}').className = 'like'"
+          page << "$('#like_#{e.id}').attr('class','like')"
           page.replace_html "like_#{e.id}", link_to_remote("<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3\">Like this</span", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0")
         end
       end

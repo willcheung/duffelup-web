@@ -27,9 +27,10 @@ class WebApp < ActiveResource::Base
   end
   
   def self.shorten_url(url)
-    request = "http://api.bit.ly/shorten?version=2.0.1&longUrl="+url+"&login=duffel&apiKey=R_9a51ef0e67348addd7800532097a4a3e"
+    request = "http://api.bitly.com/v3/shorten?format=json&longUrl="+url+"&login=duffel&apiKey=R_9a51ef0e67348addd7800532097a4a3e"
+    # request = "http://api.bit.ly/shorten?version=2.0.1&longUrl="+url+"&login=duffel&apiKey=R_9a51ef0e67348addd7800532097a4a3e"
     r = ActiveSupport::JSON.decode(open(request).read)
-    short_url = r["results"][url]["shortUrl"]
+    short_url = r["data"]["url"]
     
     if short_url
       return short_url

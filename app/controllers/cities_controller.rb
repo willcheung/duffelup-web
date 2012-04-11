@@ -5,8 +5,8 @@ class CitiesController < ApplicationController
   
   layout "simple"
   
-  before_filter :find_city_from_params, :except => [:country]
-  before_filter :find_duffel_count, :except => [:country, :more_pins]
+  before_filter :find_city_from_params, :except => [:country, :auto_complete_city]
+  before_filter :find_duffel_count, :except => [:country, :more_pins, :auto_complete_city]
   
   def index
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @city.nil?
@@ -197,6 +197,15 @@ class CitiesController < ApplicationController
       else
         @likes = current_user.likes.all(:conditions => "event_id in (#{@pins.map(&:id).join(',')})")
       end
+    end
+  end
+  
+  def auto_complete_city
+    c = City.find_by_sql(["SELECT city_country FROM cities WHERE (LOWER(city_country) LIKE ?) ORDER BY rank LIMIT 5", params[:term].downcase+"%"])
+    @cities = c.map(&:city_country).compact.reject(&:blank?)
+    
+    respond_to do |format|
+      format.json { render :json => @cities }
     end
   end
    

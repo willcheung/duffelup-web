@@ -27,7 +27,8 @@
 				<li>
 					<div id="image_wrapper"><a href="<%=r.permalink%>"><img src="<%= duffel_thumbnail_url(r) %>"/></a></div>
 					<h3><a href="<%=r.permalink%>"><%= r.title %></a></h3>
-					<p><%= display_trip_dates(r.start_date,r.end_date) %></p>
+					<p><%= truncate(r.destination.gsub(", United States",""), 100) %></p>
+					<p><%= r.events.count %> ideas</p>
 				</li>
 				<% end %>
 				

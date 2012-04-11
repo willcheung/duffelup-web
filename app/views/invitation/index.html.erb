@@ -9,8 +9,11 @@
 	<div class="clear"></div>
 </ul>
 
-<div id="invitation"> <img src="/images/icon-duffel.gif" alt="cityname" class="img_city_top" />
-	<h1>Invite local experts or friends to collaborate on <%= link_to @trip.title, trip_path(@trip) %>!<span><%= link_to display_user_name(@admins[0]), profile_for(@admins[0]) -%> is going to <%= shorten_trip_destination(@trip.destination.strip) -%></span></h1>
+<div id="primary-inner">
+
+<div id="invitation">
+	<div class="page-header"><h1>Invite friends and local experts to <%= link_to @trip.title, trip_path(@trip) %>!</h1>
+		<h5><%= link_to display_user_name(@admins[0]), profile_for(@admins[0]) -%> is going to <%= shorten_trip_destination(@trip.destination.strip) -%></h5></div>
 	
 	<div class="clearfix"></div>
 	
@@ -51,14 +54,14 @@
 			
 			<div id="emails">
 		
-	  		<h2 class="home">Invite via Email <span class="mute"><small>- Please separate multiple emails with semi-colon ( ; )</small></span></h2>
+	  		<h3 class="home">Invite via Email <span class="mute"><small>- Please separate multiple emails with semi-colon ( ; )</small></span></h3>
 			<p><%= text_field_tag :emails, nil, :size => 55, :style => "margin: 0;" %></p>
 					
 			</div>
 		
-			<h2 class="home" style="margin-left:200px">- or - </h2>
+			<h4 class="home" style="margin-left:200px">- or - </h4>
 		
-     		<h2 class="home">Invite Duffel Friends</h2>
+     		<h3 class="home">Invite Duffel Friends</h3>
 
 			<div id="friends-checkbox">
 			<%= render :partial => "friends_checkbox" %>
@@ -73,7 +76,7 @@
 
 			<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
 	
-			<div id="form-submit" class="clearfix"><%= submit_tag "Invite", :class => "submit" %> or 
+			<div id="form-submit" class="clearfix"><%= submit_tag "Invite", :class => "btn btn-primary" %> or 
 				<% if params[:new_duffel] == "true" %>
 					<%= link_to "Skip this step &#187", trip_path(@trip) %>
 				<% else %>
@@ -112,7 +115,7 @@
 	</div>
 	
 	<div id="invitations_right">
-      <h2 class="home">Collaborators (<%= @users.size %>)</h2>
+      <h4 class="home">Collaborators (<%= @users.size %>)</h4>
 		<%=  render :partial => "invitation_list" %>
 	</div>
 	
@@ -132,6 +135,7 @@ if(where=="#invitations_left-fb"){
 
 </script>
 	
+</div>
 </div>
 
 <% else %>

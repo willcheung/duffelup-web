@@ -1,3 +1,4 @@
+
 <%= render :partial => "settings" %>
 
 <script type="text/javascript">
@@ -9,29 +10,40 @@
 <script type="text/javascript">
 function displayUsername(x)
 {var y=document.getElementById(x).value;
-document.getElementById("username").innerHTML="duffelup.com/<b>" + y + "</b>"}
+document.getElementById("username").innerHTML="http://duffelup.com/<b>" + y + "</b>"};
 </script>
 
-<br/>
+<script>
+$(function() {
+	$('#user_home_city').autocomplete({
+			source: "/city/auto_complete",
+			minLength: 3,
+			search: function(event,ui) {$('#indicator').show();},
+			open: function(event,ui) {$('#indicator').hide();}
+		});
+	});
+</script>
+
+<div id="primary-inner">
 
 <fieldset>
 	
 <div class="notice-inline-user"><%= error_messages_for :user, :header_message => "Please correct the errors below:", :message => nil %></div>
 	
 <div style="float:right; padding:0">
-<% if @user.avatar.exists? then %>
-<p><%= image_tag @user.avatar.url(:medium) %></p>
-<% elsif !@user.avatar_file_name.nil? %>
-<p><%= image_tag(@user.avatar_file_name, :class => "image") %>
-<% else %>
-<p><%= image_tag("../images/icon-user.png", :class => "image") %></p>
-<% end %>
-<br/>
-<div class="form-group">
-Upload new profile photo:<br/>
-<%= f.file_field :avatar %>
-<br/><span class="hint">Max size of 1 Mb. JPG, GIF, or PNG.</span>
-</div>
+	<% if @user.avatar.exists? then %>
+	<p><%= image_tag @user.avatar.url(:medium) %></p>
+	<% elsif !@user.avatar_file_name.nil? %>
+	<p><%= image_tag(@user.avatar_file_name, :class => "image") %>
+	<% else %>
+	<p><%= image_tag("../images/icon-user.png", :class => "image") %></p>
+	<% end %>
+	<br/>
+	<div class="form-group">
+	Upload new profile photo:<br/>
+	<%= f.file_field :avatar %>
+	<br/><span class="hint">Max size of 1 Mb. JPG, GIF, or PNG.</span>
+	</div>
 </div>
 	
 <div class="form-group">
@@ -47,14 +59,15 @@ Upload new profile photo:<br/>
 </div>
 
 <div class="form-group">
-<label for="user_username">Username: <br/><br/><span class="hint" style="padding:0" id="username">http://duffelup.com/<b><%= current_user.username %></b></span></label>
+<label for="user_username">Username: </label>
 <%= f.text_field :username, :size => User::USERNAME_SIZE,
                          :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %>
+<span class="hint" style="margin-left: 10px" id="username">http://duffelup.com/<b><%= current_user.username %></b></span>
 </div>
 
 <div class="form-group">
 	<label for="user_home_city">Home City:<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span></label>
-	<%= text_field_with_auto_complete :user, :home_city, { :size => User::EMAIL_SIZE }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+	<%= f.text_field :home_city, :size => User::EMAIL_SIZE %>
 </div>
 
 <div class="form-group"><label for="user_homepage">Homepage or Blog:</label>
@@ -64,17 +77,21 @@ Upload new profile photo:<br/>
 <div class="form-group"><label for="user_bio">Short Bio:</label>
 <%= f.text_field :bio, :size => User::EMAIL_SIZE %></div>
 
-<div class="form-group"><label for="user_email_updates">Email me:</label>
-<%= check_box_tag :email_newsletter, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_NEWSLETTER) %> Infrequent updates about new features and our community</div>
+<div class="form-group" style="line-height:25px"><label>Email Me:</label>
+<%= check_box_tag :email_newsletter, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_NEWSLETTER) %> Infrequent updates about new features and our community
+</div>
 
 <div class="form-group"><label></label>
-<%= check_box_tag :email_favorite, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_FAVORITE) %> When someone adds my duffel as favorites</div>
+<%= check_box_tag :email_favorite, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_FAVORITE) %> When someone adds my duffel as favorites
+</div>
 
 <div class="form-group" style="display:none;"><label></label>
-<%= check_box_tag :email_comment, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_COMMENT) %> When someone comments on my duffel</div>
+<%= check_box_tag :email_comment, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_COMMENT) %> When someone comments on my duffel
+</div>
 
 <div class="form-group"><label></label>
-<%= check_box_tag :email_trip_reminder, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_TRIP_REMINDER) %> Trip reminders a few days before my trip</div>
+<%= check_box_tag :email_trip_reminder, 'checked', user_is_subscribed(@user.email_updates, User::EMAIL_TRIP_REMINDER) %> Trip reminders a few days before my trip
+</div>
 
 <!--
 <div class="form-group">
@@ -104,7 +121,8 @@ Upload new profile photo:<br/>
 <div id="form-submit" class="clearfix">
 <div class="right" style="margin-top: 7px;"><p class="t11 delete-trip"><%= link_to "Delete my account", user_path, 
 				:confirm => ':( Are you sure you want delete yourself? All the data will be lost!', :method => :delete %></p></div>
-<%= submit_tag "Update Profile", :class => "submit" %></div>
+<%= submit_tag "Update Profile", :class => "btn" %></div>
 
 </fieldset>
 <% end -%>
+</div>

@@ -4,7 +4,13 @@
 <head> 
 	<title><%= @title %></title> 
 	<%= stylesheet_link_tag "style", :media => :all %>
-	<%= javascript_include_tag 'all' %>
+	<%= stylesheet_link_tag "bootstrap", :media => :all %>
+	<%= stylesheet_link_tag "jquery-ui-1.8.18.theme" %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	<script src="/javascripts/jrails.js" type="text/javascript"></script>
+	<script src="/javascripts/jquery.masonry.min.js"></script>
+	<%= javascript_include_tag 'bootstrap.min' %>
 	<%= javascript_include_tag 'application' %> 
 	
 <!--[if IE 7]>
@@ -12,34 +18,34 @@
 <![endif]-->
 	
 	<% if @cities_to_map %>
-	<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.1/src/mapiconmaker.js" type="text/javascript"></script>
-	<script type="text/javascript"> 
-	  var cities_to_map = <%= @cities_to_map %>;
-	  var max_trip_count = <%= @max_trip_count %>;
-	  var map;
-	</script>
-	<script type="text/javascript" 
-			src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
-	</script>
-	<script type="text/javascript"> 
-	function europe() {    
-	    map.setCenter(new GLatLng(46.818188,8.227512), 4);
-		//map.panTo(new GLatLng(37.4569, -122.1569));
-		//map.setZoom(10);
-	 };
-	function states() {
-		map.setCenter(new GLatLng(37.09024,-95.712891), 4);
-	};
-	function asia() {
-		map.setCenter(new GLatLng(28.228528,112.938827), 3);
-	};
-	function australia() {
-		map.setCenter(new GLatLng(-28.93021,144.645996), 4);
-	};
-	function sa() {
-		map.setCenter(new GLatLng(-22.221816,-54.806415), 3);
-	};
-	</script>
+		<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/mapiconmaker/1.1/src/mapiconmaker.js" type="text/javascript"></script>
+		<script type="text/javascript"> 
+		  var cities_to_map = <%= @cities_to_map %>;
+		  var max_trip_count = <%= @max_trip_count %>;
+		  var map;
+		</script>
+		<script type="text/javascript" 
+				src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
+		</script>
+		<script type="text/javascript"> 
+		function europe() {    
+		    map.setCenter(new GLatLng(46.818188,8.227512), 4);
+			//map.panTo(new GLatLng(37.4569, -122.1569));
+			//map.setZoom(10);
+		 };
+		function states() {
+			map.setCenter(new GLatLng(37.09024,-95.712891), 4);
+		};
+		function asia() {
+			map.setCenter(new GLatLng(28.228528,112.938827), 3);
+		};
+		function australia() {
+			map.setCenter(new GLatLng(-28.93021,144.645996), 4);
+		};
+		function sa() {
+			map.setCenter(new GLatLng(-22.221816,-54.806415), 3);
+		};
+		</script>
 	<% end %>
 	
 	<meta name="description" content="<%= @meta_description %>" />
@@ -53,37 +59,39 @@
 	<% flash.each do |key, msg| -%>
 	  <%= content_tag :p, msg, :id => key -%>
 	<% end -%>
-
-    <div id="wrapper">
-		<div id="header" class="clearfix">
-			<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
-	    </div> 
-     	
-		<% unless logged_in? %>
-			<div id="what-is-message">
-				<p><strong>Duffel is an online corkboard for travelers.</strong>
-				<br/><small>Organize and share your travel inspirations.</small></p>
-				
-				<div id="action">
-					<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
-						<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :value => "#{@city.city_country if @city}", :style => "display:none;" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-					<% end %>
-					<a href="#" onclick="$('trip_form').submit();return false;">Create one now</a>
-				</div>
-			</div>
-		<% end %>
-
-		<div id="wrapper-inner">
-      <%= render :partial => '/users/search_header' %>		
-			<div id="primary"> 
+	
+	<% unless logged_in? %>
+		<div id="what-is-message">
+			<p><strong>Duffel is an online corkboard for travelers.</strong>
+			<br/><small>Organize and share your travel inspirations.</small></p>
 			
-				<%= yield %>
+			<div id="action">
+				<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
+					<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :value => "#{@city.city_country if @city}", :style => "display:none;" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+				<% end %>
+				<a href="#" onclick="$('trip_form').submit();return false;">Create one now</a>
 			</div>
 		</div>
-		<%= render :partial => 'shared/footer' %>
+	<% end %>
+
+	<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>
+
+	<div class="container" <% if logged_in? %> style="margin-top:55px"<% end %>>
+		<div class="row row-border"> 
+			<%= yield %>
+			
+			<div class="clearfix"></div>
+			
+			<%= render :partial => 'shared/footer' %>
+		</div>
+		
+		<div class="clearfix" style="padding:5px">&nbsp;</div>
 	</div>
 	
-	<%= calendar_date_select_includes %>
+	<script>
+		$('a[rel=tooltip]').tooltip({'placement': 'top'});
+	</script>
+	
 	<%= render :partial => 'shared/external_javascripts' %>
 </body>
 </html>

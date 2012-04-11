@@ -36,32 +36,7 @@
 	
 	<div id="signup_bubble" class="tour" style="top: 40%; left: 50%; margin: -100px 0 0 -190px; width: 390px; height: 278px;display:none;">
 		<h1 id="bubble_title">Sign up and save this duffel</h1>
-		<% form_for(@user, :url => user_path(:new_visitor_trip => "#{@trip.permalink}")) do |f| -%>
-
-			<div class="form-group">
-			<label for="user_email">Email<br /><%= error_message_for :user, :email, { :tag => :span, :hint => 'Emails will be sent here', :success => 'Emails will be sent here' } %></label>
-			<%= f.text_field :email, :size => User::EMAIL_SIZE,
-			                         :maxlength => User::EMAIL_MAX_LENGTH %>
-			</div>
-
-			<div class="form-group">
-			<label for="user_username">Username<br/><span class="hint" id="username_display">duffelup.com/<b>[username]</b></span><br/><%= error_message_for :user, :username, { :tag => :span, :hint => '', :success => 'Username available!' } %>	</label>
-			<%= f.text_field :username, :size => User::USERNAME_SIZE,
-			                         :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %><br/>
-
-			</div>
-
-			<div class="form-group">
-			<label for="user_password">Password<br/><%= error_message_for :user, :password, { :tag => :span, :hint => 'At least 6 characters long', :success => 'Looks good!' } %></label>
-			<%= f.password_field :password, :size => User::PASSWORD_SIZE,
-			  								:maxlength => User::PASSWORD_MAX_LENGTH %>
-			</div>
-			<br/>
-			<div><%= submit_tag "I accept.  Sign me up!", :class => "submit", :onclick => "$('indicator-submit').show();", :style => "font-size:14px;font-weight:bold;" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>
-			<a class="tourSmallLink" onclick="$('signup_bubble').hide();return false;" href="#">cancel</a>
-			<br/><br/>&nbsp;&nbsp;<span class="hint">By signing up, you agree to <%= link_to "Duffel Terms", :controller => 'site', :action => 'terms_of_use' %>.</span></div>
-
-			<% end -%>
+		<a class="tourSmallLink" onclick="$('signup_bubble').hide();return false;" href="#">cancel</a>
 	</div>
 
 	

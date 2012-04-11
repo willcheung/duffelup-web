@@ -1,7 +1,7 @@
 <div id="contact_list_error">
 </div>
 
-<% form_remote_tag :loading => "Element.show('indicator');", :complete => "Element.hide('indicator');", :url => url_for(:controller => 'webapps', :action => 'import') do %>
+<% form_remote_tag :loading => "$('#indicator').show();", :complete => "$('#indicator').hide();", :url => url_for(:controller => 'webapps', :action => 'import') do %>
 
 
 <div style="position:absolute; margin-left: 330px;" >
@@ -18,7 +18,7 @@
 	<%= password_field_tag 'password' %>
 </p>
 
-<p><%= submit_tag "Find My Friends", :onclick => "pageTracker._trackEvent('Email Import', 'find', '#{current_user.username}');"%>
+<p style="margin-top:10px;"><%= submit_tag "Find My Friends", :class => "btn", :onclick => "pageTracker._trackEvent('Email Import', 'find', '#{current_user.username}');"%>
 
 <span id="announcement">Don't worry, we don't store your password.</span></p>
 

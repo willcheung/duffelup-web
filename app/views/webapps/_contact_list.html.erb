@@ -1,6 +1,7 @@
-<h2>Already on Duffel - Add as Friend:</h2>
+<h3>Already on Duffel - Add as Friend:</h3>
 
-<ul class="user-list">
+<% if !@users.empty? %>
+<ul class="user-list unstyled">
 <% for u in @users %>
 	<li class="user">
 	<div class="avatar"><%= display_thumbnail(u) %></div>
@@ -9,16 +10,21 @@
 	</li>
 <% end %>
 </ul>
+<% end %>
 
-<div class="clear"><p>&nbsp;</p></div>
+<div class="clearfix"><p>&nbsp;</p></div>
 
-<h2 style="padding-top: 25px;">Invite others:</h2>
-<ul>
+<h3 style="padding-top: 25px;">Invite others:</h3>
+<ul class="unstyled">
 <% for u in @not_users %>
-	<li>
+	<li class="not-member">
 		<p style="line-height:13px"><input style="margin: 0;" type="checkbox" name="beta_invitation[recipient_email][]" id="email_<%= u %>" value="<%= u[:email] %>" />
 		<%= u[:name] %></p>
 		<p style="line-height:13px">&nbsp;&nbsp;&nbsp;&nbsp;<strong class="t11 mute"><%= u[:email]%></strong></p>
 	</li>
+<% end %>
+
+<% if @not_users.empty? %>
+	<p>Didn't find anyone. Did you enter the correct email / password?</p>
 <% end %>
 </ul>

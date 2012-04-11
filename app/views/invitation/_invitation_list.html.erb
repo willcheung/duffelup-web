@@ -1,5 +1,5 @@
 <% unless @users.empty? %>
-	<ul id="collaborators">
+	<ul id="collaborators" class="unstyled">
   <% @users.each do |user| %>
 	  <% if user.user_type == Invitation::USER_TYPE_ADMIN.to_s %>
   		<li class="creator" title="Organizer" alt="Organizer">

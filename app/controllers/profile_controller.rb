@@ -1,10 +1,9 @@
 class ProfileController < ApplicationController
   include FriendshipHelper
-  layout "main"
   
   before_filter :protect, :except => [:trip_is_public, :auto_complete_for_trip_destination, :show]
 
-  def show 
+  def show # uses 'profile' layout
     @user = (logged_in? and current_user.username == params[:username]) ? current_user : User.find_by_username(params[:username])
     @planned_trips = []
     @past_trips = []

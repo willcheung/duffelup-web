@@ -2,43 +2,7 @@
 module ApplicationHelper
   # JS form focus
   def set_focus(id)
-    javascript_tag("Form.focusFirstElement(\"#{id}\");")
-  end
-  
-  # Ajax validation
-  def error_message_for(model, field, options = {})
-    options[:success_css_class] ||= 'success'
-    options[:error_css_class] ||= 'error'
-    options[:hint_css_class] ||= 'hint'
-    tag_id = "#{model}_#{field}_validator"
-        
-    js = "<script type='text/javascript'>
-    //<![CDATA[
-    document.observe('dom:loaded', function() {
-    	new Form.Element.EventObserver('#{model}_#{field}', function(element, value)
-      	{new Ajax.Request(
-    		'/users/validate?field=#{field}&value=' + value,
-    		{ method: 'get', 
-    			onSuccess: function(transport)
-    			{ 
-    				element = document.getElementById('#{tag_id}'); 
-    				var output = transport.responseText;
-    				var css_class = '#{options[:error_css_class]}';
-    				if (output.length == 0) {
-    					output = '#{options[:success]}'; 
-    					css_class = '#{options[:success_css_class]}'
-    				}
-                element.innerHTML = output; 
-                element.setAttribute('class', css_class);
-    			}
-    		}
-    		);}
-    		);});
-    //]]>
-    </script>"
-         
-    tag = content_tag :span, options[:hint], :id => tag_id, :class => options[:hint_css_class]
-    return tag + js
+    javascript_tag("$('input##{id}').focus();")
   end
   
   def fast_link(text, link, html_options='')

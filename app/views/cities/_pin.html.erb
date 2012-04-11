@@ -1,4 +1,19 @@
 <div class="pin <% if !photo_exists?(pin) %>note<% end %>">
+	<div class="actions">
+		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin, pin.trip_perma) %></div>
+		<div class="like <% if liked?(pin) %>disabled<% end %>" id="like_<%= pin.id %>">
+			<% if logged_in? %>
+				<% if liked?(pin) %>
+					<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{pin.id}", :method => :delete } -%>
+				<% else %>
+					<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{pin.id}", :method => :post }, :style => "padding-left:0;" -%>
+				<% end %>
+			<% else %>
+				<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
+			<% end %>
+		</div>
+	</div>
+	
 	<% if pin.eventable_type == "Foodanddrink"%>
 		<span class="idea-label fooddrink">Food &amp; Drink</span>
 	<% elsif pin.eventable_type == "Activity" %>
@@ -30,18 +45,4 @@
 		<p class="info">By <a href="/<%= pin.author %>"><%= pin.author %></a> to <span title="Private duffel"><strong><%= pin.trip_title %></strong> <img style="vertical-align:middle;height:13px" src="/images/icon-lock.png"/></span></p>
 	<% end %>
 	
-	<div class="actions">
-		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin, pin.trip_perma) %></div>
-		<div class="like <% if liked?(pin) %>disabled<% end %>" id="like_<%= pin.id %>">
-			<% if logged_in? %>
-				<% if liked?(pin) %>
-					<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{pin.id}", :method => :delete } -%>
-				<% else %>
-					<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{pin.id}", :method => :post }, :style => "padding-left:0;" -%>
-				<% end %>
-			<% else %>
-				<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
-			<% end %>
-		</div>
-	</div>
 </div>

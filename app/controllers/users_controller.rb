@@ -468,6 +468,7 @@ class UsersController < ApplicationController
       end
       
     end
+    render :layout => 'simple_without_search'
   end
   
   def destroy
