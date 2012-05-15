@@ -363,7 +363,7 @@ module ActivitiesFeedsHelper
       end
       
       content += idea_url if parsed_trip
-      content += "<h3>" + truncate(unicode_to_utf8(event["title"]), 40) + "</h3>"
+      content += "<h3>" + truncate(unicode_to_utf8(event["title"]), :length => 40) + "</h3>"
       content += "</a>" if parsed_trip
       
       content += "<p>" + unicode_to_utf8(event["note"]) + "</p>"

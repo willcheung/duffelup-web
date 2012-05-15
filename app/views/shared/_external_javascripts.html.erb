@@ -32,21 +32,55 @@ pageTracker._trackPageview();
 
 <div id="fb-root"></div>
 <script language="javascript">
+	var uid;
+	var access_token;
+	// Load the SDK Asynchronously
+     (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+      }(document));
+	// Init
 	window.fbAsyncInit = function() {
-	    FB.init({ appId: '<%= FB_CONFIG['api_key'] %>', status: true, cookie: true, xfbml: true });
+	    FB.init({ appId: '<%= Facebook::APP_ID %>', status: true, cookie: true, xfbml: true, oauth: true });
+		FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+		    // the user is logged in and has authenticated your
+		    // app, and response.authResponse supplies
+		    // the user's ID, a valid access token, a signed
+		    // request, and the time the access token 
+		    // and signed request each expire
+		    uid = response.authResponse.userID;
+		    access_token = response.authResponse.accessToken;
+		  } else if (response.status === 'not_authorized') {
+		    // the user is logged in to Facebook, 
+		    // but has not authenticated your app
+		  } else {
+		    // the user isn't logged in to Facebook.
+		  }
+		 });
 	  };
-	(function() {
-	    var e = document.createElement('script'); e.async = true;
-	    e.src = document.location.protocol +
-	      '//connect.facebook.net/en_US/all.js';
-	    document.getElementById('fb-root').appendChild(e);
-	  }());
-
-	function facebookLogin() {
-	    FB.login(function(response) {
-	      if (response.session && response.perms) {
-	        window.location = "/users/link_user_accounts"
-	      } 
-	    }, {perms: 'publish_stream,offline_access'});
-	  }  
+	document.getElementById('fb-loginlink').addEventListener('click', function(){
+	          FB.login(function(response) {
+		      if (response.authResponse) {
+		        window.location = "<%= facebook_callback_session_url %>";
+		      } 
+		    }, {scope: 'user_hometown,publish_stream,email'});
+	  });
+	function sendFBMessage(fb_uid) {
+		FB.ui(
+		  	{	method: 'send',
+				display: 'popup',
+			    link: '<%= @fb_url %>',
+				description: '<%= @fb_string %>',
+				name: 'Invitation to DuffelUp.com',
+			    to: fb_uid
+			  },
+		  function(response) {
+		    // do nothing
+		  }
+		);
+	}
 </script>

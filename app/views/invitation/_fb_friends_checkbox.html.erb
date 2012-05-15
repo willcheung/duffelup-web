@@ -1,0 +1,35 @@
+
+<% @all_fb_friends.each do |user| %>
+	
+	<% if @fb_friends.include?(user["id"].to_i) %>
+		<% u = User.find_by_fb_user_id(user["id"]) %>
+		
+		<% if Friendship.exists?(current_user, u) %>
+			<!-- Nothing to do here -->
+			<label class="avatar avatarSelected">
+				<img class="image" src="https://graph.facebook.com/<%= user["id"] %>/picture"/>
+				<%= user["name"] %><br/>
+				<p><i class="icon-ok"></i> Friend</p>
+				<%= check_box_tag "invitation[user][]", user["id"] %>
+			</label>
+		<% else %>
+			<label class="avatar avatarSelected" onmouseup="$('#invitation_not_friend_<%=user["id"]%>').prop('checked',!$('#invitation_not_friend_<%=user["id"]%>')[0].checked);$(this).toggleClass('avatarSelected');$(this).children('#add-friend').toggle();$(this).children('#marked').toggle();">
+				<img class="image" src="https://graph.facebook.com/<%= user["id"] %>/picture"/>
+				<%= user["name"] %><br/>
+				<a href="#" class="btn btn-mini btn-success" style="display:none;" id="add-friend">Add friend</a>
+				<a href="#" class="btn btn-mini" id="marked"><i class="icon-ok"></i> Add friend</a>
+				<input checked="checked" id="invitation_not_friend_<%=user['id']%>" name="invitation[not_friend][]" type="checkbox" value="<%=user['id']%>"/>
+			</label>
+		<% end %>
+	<% else %>
+		<label class="avatar" onmouseup="if (!$('#invitation_not_user_<%=user["id"]%>').is(':checked')){sendFBMessage('<%=user["id"]%>');};$('#invitation_not_user_<%=user["id"]%>').prop('checked',!$('#invitation_not_user_<%=user["id"]%>')[0].checked);$(this).toggleClass('avatarSelected');$(this).children('#invite').toggle();$(this).children('#marked').toggle();">
+			<img class="image" src="https://graph.facebook.com/<%= user["id"] %>/picture"/>
+			<%= user["name"] %><br/>
+			<a href="#" class="btn btn-mini btn-primary" id="invite">Invite</a>
+			 <a href="#" class="btn btn-mini" id="marked" style="display:none;"><i class="icon-ok"></i> Invite</a>
+			<input id="invitation_not_user_<%=user["id"]%>" name="invitation[not_user][]" type="checkbox" value="<%=user["id"]%>"/>
+		</label>
+	<% end %>
+	
+<% end %>
+

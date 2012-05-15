@@ -139,14 +139,13 @@ class Postoffice < ActionMailer::Base
     
     d = mail[:trip_dest].gsub(", United States", "").gsub(";", " & ").squeeze(" ")
     url = "http://duffelup.com/trips/"+mail[:trip_perma]
-    short_url = WebApp.shorten_url(url)
     name = (mail[:full_name].nil? or mail[:full_name].empty?) ? mail[:username] : mail[:full_name]
     
     from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:email] 
     subject "Tell us about your trip to #{d}"
-    body :name => name, :trip_is_public => mail[:trip_is_public], :destination => d, :trip_url => url, :trip_edit_url => url+"/edit", :short_trip_url => short_url, :trip_title => mail[:trip_title]
+    body :name => name, :trip_is_public => mail[:trip_is_public], :destination => d, :trip_url => url, :trip_edit_url => url+"/edit", :trip_title => mail[:trip_title]
     sent_on Time.now
     content_type "text/html"
   end

@@ -65,12 +65,71 @@ class SessionsController < ApplicationController
     self.current_user.forget_me if @current_user.is_a? User
     cookies.delete :auth_token
     session[:user] = nil
-    session[:atoken] = session[:asecret] = nil
-    session[:rtoken] = session[:rsecret] = nil
+    session[:atoken] = nil
+    session[:asecret] = nil
+    session[:rtoken] = nil
+    session[:rsecret] = nil
     @current_user = false
     reset_session
-    clear_facebook_session(true)
     flash[:notice] = "You've logged out. Catch you later."
+    redirect_to root_url
+  end
+  
+  # Fb Connect
+  def facebook_callback
+    unless logged_in? # if not logged in
+      # Check first whether user exist in system
+      u = User.find_by_fb_user_id(fb_session.uid)
+      
+      # If not, create one
+      if u.nil?
+        if params[:from]
+          fb_user = User.create_from_fb_connect(fb_session, params[:from])
+        else
+          fb_user = User.create_from_fb_connect(fb_session)
+        end
+        
+        self.current_user = fb_user
+      
+        Friendship.add_duffel_professor(fb_user)
+      
+        # Create a new duffel as "research duffel"
+        Trip.create_duffel_for_new_user({ :title => "#{fb_user.username}'s first duffel", :start_date => nil,
+                                          :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, fb_user)
+      
+        # Add a city to follow its travel deals
+        fb_user.cities << City.find_by_id(609)
+      
+        # WebApp.post_stream_on_fb(fb_user.fb_user_id, 
+        #                         "http://duffelup.com",
+        #                         "Checking out Duffel's Visual Trip Planner. http://duffelup.com",
+        #                         "Go to Duffel")
+
+      else # If in the system, set it as current_user
+        self.current_user = u
+      end
+                              
+      # if request coming from bookmarklet
+      if params[:src] == "bookmarklet"
+        redirect_back_or_default(new_research_path) and return
+        flash[:notice] = "Welcome #{fb_user.full_name} and enjoy planning your trip!"
+      elsif u.nil? # new user
+        redirect_to(steptwo_path) and return
+        flash[:notice] = "Hi #{fb_user.full_name}. Thanks for signing up and hope you enjoy Duffel!"
+      else # existing user who is just logging back in
+        redirect_back_or_default(dashboard_path, params[:redirect]) and return
+      end 
+    else
+      # connect accounts
+      current_user.link_fb_connect(fb_session.uid) unless current_user.fb_user_id == fb_session.uid
+      
+      # if request coming from bookmarklet
+      if params[:src] == "bookmarklet"
+        redirect_back_or_default(new_research_path) and return
+      else
+        redirect_back_or_default(dashboard_path, params[:redirect]) and return
+      end
+    end
   end
   
   # Called when Twitterer logins in
@@ -90,7 +149,7 @@ class SessionsController < ApplicationController
       current_user.twitter_token = access_token.token
       current_user.save(false)
       
-      twitter_client.update("I'm using @duffelup's Visual Trip Planner. http://duffelup.com", {})
+      #twitter_client.update("I'm using @duffelup's Visual Trip Planner. http://duffelup.com", {})
       flash[:notice] = "You linked your Twitter account!"
       redirect_to(dashboard_path) and return
     end

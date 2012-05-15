@@ -1,4 +1,5 @@
 module AuthenticatedSystem
+  
   protected
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.
@@ -9,7 +10,7 @@ module AuthenticatedSystem
     
     # Accesses the current user from the session.
     def current_user
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || login_from_fb) unless @current_user == false
+      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_user == false
     end
     
     # Store the given user in the session.
@@ -21,15 +22,6 @@ module AuthenticatedSystem
       if @current_user and (@current_user.last_login_at.nil? or (Time.now - @current_user.last_login_at) > 15.days)
         @current_user.last_login_at = Time.now
         @current_user.save(false)
-      end
-      #session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
-      #@current_user = new_user
-    end
-    
-    # Fb Connect
-    def login_from_fb
-      if facebook_session
-        current_user = User.find_by_fb_user(facebook_session.user)
       end
     end
     

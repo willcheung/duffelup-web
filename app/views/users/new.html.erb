@@ -8,6 +8,18 @@ var RecaptchaOptions = {
    theme : 'clean'
 };
 </script>
+
+<script>
+$(function() {
+	$('#user_home_city').autocomplete({
+			source: "/city/auto_complete",
+			minLength: 3,
+			search: function(event,ui) {$('#indicator').show();},
+			open: function(event,ui) {$('#indicator').hide();}
+		});
+	});
+</script>
+
 <style type="text/css">
 .recaptchatable .recaptcha_image_cell, #recaptcha_table {
   background-color:#dfdfdf !important; //reCaptcha widget background color
@@ -34,9 +46,7 @@ var RecaptchaOptions = {
 
 <div id="column" style="width:410px;">
 	<div id="bookmarklet">
-		<div class="header" style="border:0"><h3>Finally, a trip planner for people who don't plan trips</h3></div>
-
-		<p style="width:350px;">Trip planning begins when you discover a story featuring hip Paris cafés, or when a friend recommends the best restaurant in New York. Save those random ideas to Duffel, and before you know it, half your trip has already been planned.</p>
+		
 		<p>With Duffel, you can:</p>
 		<ul>
 			<li>Save notes, clip articles and pictures from the web.</li>
@@ -55,62 +65,65 @@ var RecaptchaOptions = {
 		<div class="notice-inline"><%= error_messages_for :user, :header_message => "Please correct the errors below:", :message => nil %></div>
 		
 		<div class="header"><h3>Sign up for a free account</h3></div>
+		
+		<div class="login-buttons clearfix">
+			<ul>
+				<!-- <li class="twitter">
+				<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
+					<%= submit_tag 'twitter' %>
+				<%- end -%>
+				</li> -->
+				<li>
+					<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
+				</li>
+			</ul>
+		</div>
 
 <% form_for(@user, :url => user_path) do |f| -%>
+	<h4 style="margin-top:15px"><a href="#" onclick="$('#form').slideDown();">Sign up via email</a></h4>
+	<div id="form" style="display:none;">
+		<div class="form-group">
+		
+		<div class="form-group">
+		<label for="user_username">Username	</label>
+		<%= f.text_field :username, :size => User::USERNAME_SIZE,
+		                         :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %>
+		<label></label><span class="hint" id="username_display">duffelup.com/<strong>[username]</strong></span>
+		</div>
 
+		<div class="form-group">
+		<label for="user_password">Password</label>
+		<%= f.password_field :password, :size => User::PASSWORD_SIZE,
+		  								:maxlength => User::PASSWORD_MAX_LENGTH %><br/>
+		<label></label><span class="hint">At least 6 characters long</span>
+		</div>
+			
+		<label for="user_email">Email</label>
+		<%= f.text_field :email, :size => User::EMAIL_SIZE,
+		                         :maxlength => User::EMAIL_MAX_LENGTH %><br/>
+		<label></label><span class="hint">Emails will be sent here</span>
+		</div>
+	
+		<div class="form-group">
+			<label for="user_home_city">Home City<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span></label>
+			<%= f.text_field :home_city, :size => User::EMAIL_SIZE %><br/>
+			<label></label><span class="hint">(Optional)</span>
+		</div>
+	
+		<div id="recaptcha">
+		<%= recaptcha_tags %>
+		</div>
+	
+		<%= f.hidden_field :invitation_token %>
+	
+		<br>
+		<div><%= submit_tag "I accept.  Sign me up!", :class => "btn", :onclick => "$('indicator-submit').show();" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp; <span class="hint">By signing up, you agree to <%= link_to "Duffel Terms", :controller => 'site', :action => 'terms_of_use' %>.</span></div>
 
-	<div class="form-group">
-	<label for="user_email">Email</label>
-	<%= f.text_field :email, :size => User::EMAIL_SIZE,
-	                         :maxlength => User::EMAIL_MAX_LENGTH %><br/>
-	<label></label><span class="hint">Emails will be sent here</span>
-	</div>
-	
-	<div class="form-group">
-		<label for="user_home_city">Home City<span id="indicator" style="display:none;margin-left:7px"><img src="/images/ajax-loader.gif" style="vertical-align:middle"></span></label>
-		<%= text_field_with_auto_complete :user, :home_city, { :size => User::EMAIL_SIZE }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
-		<label></label><span class="hint">So we can recommend cheap flights</span>
-	</div>
-	
-	<div class="form-group">
-	<label for="user_username">Username	</label>
-	<%= f.text_field :username, :size => User::USERNAME_SIZE,
-	                         :maxlength => User::USERNAME_MAX_LENGTH, :onkeyup => "displayUsername(this.id)" %>
-	<label></label><span class="hint" id="username_display">duffelup.com/<strong>[username]</strong></span>
-	</div>
-	
-	<div class="form-group">
-	<label for="user_password">Password</label>
-	<%= f.password_field :password, :size => User::PASSWORD_SIZE,
-	  								:maxlength => User::PASSWORD_MAX_LENGTH %><br/>
-	<label></label><span class="hint">At least 6 characters long</span>
-	</div>
-	
-	<div id="recaptcha">
-	<%= recaptcha_tags %>
-	</div>
-	
-	<%= f.hidden_field :invitation_token %>
-	
-	<br>
-	<div><%= submit_tag "I accept.  Sign me up!", :class => "btn", :onclick => "$('indicator-submit').show();" %> <span id="indicator-submit" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp; <span class="hint">By signing up, you agree to <%= link_to "Duffel Terms", :controller => 'site', :action => 'terms_of_use' %>.</span></div>
+		<% end -%>
 
-	<% end -%>
-	<div class="login-buttons">
-		<ul>
-			<li> Or, sign up with accounts from: &nbsp;&nbsp; </li>
-			<li class="twitter">
-			<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
-				<%= submit_tag 'twitter' %>
-			<%- end -%>
-			</li>
-			<li class="facebook">
-				<%= fb_login_button "window.location='/users/link_user_accounts';", :perms => 'publish_stream,offline_access' %>
-			</li>
-		</ul>
+		</div>
 	</div>
-	</div>
-	</div>
+
 </div>
 
 <%= set_focus("user_email") %>

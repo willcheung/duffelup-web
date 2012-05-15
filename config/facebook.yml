@@ -9,7 +9,7 @@
 # This should only be necessary until the final version of the new profile is released.
 
 development:
-  api_key: a89a6693d1ea31d2aa5653552b875de8
+  app_id: 143055821511
   secret_key: b448a936070083794361310a0dabe1e5
   canvas_page_name: duffel
   callback_url: http://localhost:3000/
@@ -23,7 +23,7 @@ development:
     server_alive_interval: 0
 
 test:
-  api_key: a89a6693d1ea31d2aa5653552b875de8
+  app_id: 143055821511
   secret_key: b448a936070083794361310a0dabe1e5
   canvas_page_name: duffel
   callback_url: http://localhost:3000/
@@ -37,7 +37,7 @@ test:
     server_alive_interval: 0
 
 production:
-  api_key: 4a85a984c89e67e721fa49aaa7354076
+  app_id: 127358438707
   secret_key: f0af9b7b977125d22e3fb4fdf4e267f2
   canvas_page_name: duffelup
   callback_url: http://duffelup.com

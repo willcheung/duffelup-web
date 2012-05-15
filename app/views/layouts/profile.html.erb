@@ -20,6 +20,9 @@
 	<!-- Flash accepts id="notice", id="warning", and id="error" -->
 	<% flash.each do |key, msg| -%>
 	  <%= content_tag :p, msg, :id => key -%>
+		<script type="text/javascript">
+		    setTimeout("$('p#<%=key%>').fadeOut('slow')", 3000);
+		  </script>
 	<% end -%>
 
 	<%= render :partial => 'shared/header_nav', :locals => { :partner => false } %>

@@ -16,4 +16,4 @@
 #ActionView::Helpers::AssetTagHelper.register_javascript_expansion :jquery => ['jquery.min', 'jquery-ui.min']
 #ActionView::Helpers::AssetTagHelper.register_javascript_expansion :jrails => ['jrails']
 require 'jrails'
-require 'jquery_selector_assertions' if RAILS_ENV == 'test'
+#require 'jquery_selector_assertions' if RAILS_ENV == 'test'

@@ -105,17 +105,17 @@ $(function() {
 
 <div class="form-group">
 <label>Link accounts:</label> 
-<% if current_user.facebook_user? && facebook_session %>
+<% if current_user.facebook_user? %>
 <span><img src="/images/social/facebook-32x32.png" alt="Facebook" width="32" height="32" style="vertical-align: middle" /> Facebook Linked.</span>
 <% else %>
-<%= fb_login_button "window.location='/users/link_user_accounts?redirect=/user/edit';", :perms => 'publish_stream,offline_access', :v => 2 %>
+<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
 <% end %>
 
-<% if current_user.twitter_user? %>
+<!-- <% if current_user.twitter_user? %>
 <span><img src="/images/social/twitter-32x32.png" alt="Facebook" width="32" height="32" style="vertical-align: middle" /> Twitter Linked.</span>
 <% else %>
 	<%= link_to(image_tag('/images/social/twitter-login.png', :style => 'margin:0;vertical-align:middle;'), session_path(:twitter => 'true'), :method => :post) %>
-<% end %>
+<% end %> -->
 </div>
 
 <div id="form-submit" class="clearfix">

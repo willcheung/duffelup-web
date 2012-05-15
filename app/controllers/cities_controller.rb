@@ -1,5 +1,3 @@
-# require 'flickraw'
-
 class CitiesController < ApplicationController
   include ApplicationHelper
   

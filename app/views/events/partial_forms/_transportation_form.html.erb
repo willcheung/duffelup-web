@@ -4,21 +4,12 @@
 		<%= f.text_field :from, :size => 20 %>
 		&nbsp;on&nbsp;
 		<% if @trip.start_date.nil? %>
-			<%= f.calendar_date_select :departure_time, :time => true, :month_year => "label", :size => 20,
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-					:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			<%= f.text_field :departure_time, :time => true, :month_year => "label", :size => 20 %>
 		<% else %>
 			<% if @transportation.nil? %>
-			<%= f.calendar_date_select :departure_time, :time => true, :month_year => "label", :size => 20,
-					:value => "#{@trip.start_date.strftime('%m/%d/%Y')} 8:00 AM",
-			 		:valid_date_check => "date.stripTime() > new Date('#{@trip.start_date.yesterday.strftime('%B %d, %Y')}').stripTime()",
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-					:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			<%= f.text_field :departure_time, :time => true, :month_year => "label", :size => 20 %>
 			<% else %>
-			<%= f.calendar_date_select :departure_time, :time => true, :month_year => "label", :size => 20,
-			 		:valid_date_check => "date.stripTime() > new Date('#{@trip.start_date.yesterday.strftime('%B %d, %Y')}').stripTime()",
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-					:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			<%= f.text_field :departure_time, :time => true, :month_year => "label", :size => 20 %>
 			<% end %>
 		<% end %>
 	</p>
@@ -28,19 +19,12 @@
 		<%= f.text_field :to, :size => 20 %>
 		&nbsp;on&nbsp;
 		<% if @trip.start_date.nil? %>
-			<%= f.calendar_date_select :arrival_time, :time => true, :month_year => "label", :size => 20,
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-					:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+			<%= f.text_field :arrival_time, :time => true, :month_year => "label", :size => 20 %>
 		<% else %>
 		<% if @transportation.nil? %>
-			<%= f.calendar_date_select :arrival_time, :time => true, :month_year => "label", :size => 20,
-					:value => "#{@trip.start_date.strftime('%m/%d/%Y')} 9:00 AM", 
-					:valid_date_check => "date.stripTime() > new Date('#{@trip.start_date.yesterday.strftime('%B %d, %Y')}').stripTime()",
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});" %>
+			<%= f.text_field :arrival_time, :time => true, :month_year => "label", :size => 20 %>
 			<% else %>
-			<%= f.calendar_date_select :arrival_time, :time => true, :month_year => "label", :size => 20, 
-					:valid_date_check => "date.stripTime() > new Date('#{@trip.start_date.yesterday.strftime('%B %d, %Y')}').stripTime()",
-					:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});" %>
+			<%= f.text_field :arrival_time, :time => true, :month_year => "label", :size => 20 %>
 			<% end %>
 		<% end %>
 	</p>

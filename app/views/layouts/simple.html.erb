@@ -58,19 +58,21 @@
 	<!-- Flash accepts id="notice", id="warning", and id="error" -->
 	<% flash.each do |key, msg| -%>
 	  <%= content_tag :p, msg, :id => key -%>
+	  <script type="text/javascript">
+	    setTimeout("$('p#<%=key%>').fadeOut('slow')", 3000);
+	  </script>
 	<% end -%>
 	
 	<% unless logged_in? %>
 		<div id="what-is-message">
-			<p><strong>Duffel is an online corkboard for travelers.</strong>
-			<br/><small>Organize and share your travel inspirations.</small></p>
-			
 			<div id="action">
-				<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
-					<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :value => "#{@city.city_country if @city}", :style => "display:none;" }, { :indicator => "indicator", :frequency => ".1", :min_chars => "3" } %>
+				<% form_for(:trip, :html => {:id => "trip_form"}, :url => create_new_visitor_trip_url) do |f| %>
+					<%= f.text_field :destination, :class => "trip_destination big", :value => "#{@city.city_country if @city}", :style => "display:none;" %>
 				<% end %>
-				<a href="#" onclick="$('trip_form').submit();return false;">Create one now</a>
+				<a href="#" onclick="$('#trip_form').submit();return false;">Create one now</a>
 			</div>
+			<h3 style="float:left">Duffel is an online corkboard for travelers.</h3>
+			<p>Organize and share your travel inspirations.</p>
 		</div>
 	<% end %>
 

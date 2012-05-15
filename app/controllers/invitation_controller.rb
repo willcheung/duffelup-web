@@ -6,6 +6,7 @@ class InvitationController < ApplicationController
   after_filter :clear_trip_users_cache, :only => [:create]
   
   def index # Everyone invited to the trip can invite other people 
+    @beta_invitation = BetaInvitation.new
     @title = "Duffel - Invite Friends"
     load_trip_and_users(params[:permalink])
     @fb_login_button_url = "/users/link_user_accounts?redirect=#{trip_invitation_path(:permalink => @trip)}#invitations_left-fb"
@@ -14,7 +15,7 @@ class InvitationController < ApplicationController
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil? or @trip.active == 0
     
     ########## Handle facebook sign up URLs ##############
-    if current_user.facebook_user? && facebook_session
+    if current_user.facebook_user?
       # find existing invitation
       b = BetaInvitation.find_by_sender_id_and_trip_id_and_recipient_email(current_user.id, @trip.id, "facebook_user")
       
@@ -31,9 +32,8 @@ class InvitationController < ApplicationController
         @fb_url = "http://duffelup.com/signup?invitation_token="+b.token
       end
     
-      @fb_string = "I'm planning my trip to " + 
-                    @trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" ") + 
-                    " and am sharing <b>#{@trip.title}</b> with you on <a href=\"http://duffelup.com\">Duffel</a>, the most fun and visual trip planner. Would love if you can recommend me some ideas!"
+      @fb_string = "I shared a travel corkboard " + 
+                    " <b>#{@trip.title}</b> with you on DuffelUp.com, a fun an easy way to collect travel ideas and photos."
     end
     
     if !fragment_exist?("#{current_user.username}-invitation-friends-checkbox", :time_to_live => 2.days)
@@ -73,7 +73,7 @@ class InvitationController < ApplicationController
         ###################################
         # publish news to activities feed
         ###################################
-        ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::INVITE_TO_TRIP, @trip, username_list_helper(friends_array))
+        # ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::INVITE_TO_TRIP, @trip, username_list_helper(friends_array))
       end
       
       # Handle emails either from import or manually entered
@@ -102,7 +102,7 @@ class InvitationController < ApplicationController
           ###################################
           # publish news to activities feed
           ###################################
-          ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::INVITE_TO_TRIP, @trip, username_list_helper(friends_array))
+          # ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::INVITE_TO_TRIP, @trip, username_list_helper(friends_array))
         end
         
         #### invite friends from email field ####

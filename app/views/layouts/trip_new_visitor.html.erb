@@ -43,6 +43,9 @@
 		<!-- Flash accepts id="notice", id="warning", and id="error" -->
 		<% flash.each do |key, msg| -%>
 		  <%= content_tag :p, msg, :id => key -%>
+			<script type="text/javascript">
+			    setTimeout("$('p#<%=key%>').fadeOut('slow')", 3000);
+			  </script>
 		<% end -%>
 		
 		<div id="sorting-indicator" style="display:none;"><p>Saving... <img style="vertical-align:bottom;" src="/images/ajax-loader-sorting.gif"></p></div>

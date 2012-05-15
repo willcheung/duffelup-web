@@ -1,21 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-// // Disappearing Flash message
-// document.observe("dom:loaded", function() {
-//   setTimeout(hideFlashMessages, 4000);
-// });
-
-$(document).bind("dom:loaded", function() {
-	setTimeout(hideFlashMessages, 4000);
-});
-
-function hideFlashMessages() {
-  $$('p#notice, p#warning, p#error').each(function(e) { 
-    if (e) Effect.Fade(e, { duration: 3.0 });
-  });
-}
-
 // Centering pop-up windows (for Add to Duffel button)
 function PopupCenter(pageURL, title,w,h) {
 	var left = (screen.width/2)-(w/2);

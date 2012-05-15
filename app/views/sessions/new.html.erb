@@ -29,7 +29,7 @@
 		
 		<div class="header"><h3>Sign in to Duffel</h3></div>
 	
-		<% form_tag session_path(:redirect => params[:redirect]), :id => "login_form" do -%>
+		<% form_tag session_path(:redirect => params[:redirect]), :id => "login_form", :style => "border-top:0;border-bottom: 1px solid #ccc;" do -%>
 		<div class="form-group"><label for="login">Email or Username</label>
 		<%= text_field_tag 'login' %></div>
 
@@ -48,13 +48,13 @@
 		<div class="login-buttons">
 			<ul>
 				<li> Or, log in with: &nbsp;&nbsp; </li>
-				<li class="twitter">
+				<!-- <li class="twitter">
 				<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
 					<%= submit_tag 'twitter' %>
 				<%- end -%>
-				</li>
-				<li class="facebook">
-					<%= fb_login_button "window.location='/users/link_user_accounts';", :perms => 'publish_stream,offline_access' %>
+				</li> -->
+				<li>
+					<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
 				</li>
 			</ul>
 		</div>

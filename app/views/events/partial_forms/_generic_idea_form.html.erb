@@ -160,18 +160,14 @@ function onDropDownChange() {
 				<label for="from">Departing from: </label>
 				<%= f.text_field :from, :size => 20 %>
 				&nbsp;on&nbsp;
-					<%= f.calendar_date_select :departure_time, :time => true, :month_year => "label", :size => 20,
-							:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-							:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+					<%= f.text_field :departure_time, :time => true, :month_year => "label", :size => 20 %>
 			
 
 			
 				<label for="to">Arriving at:</label>
 				<%= f.text_field :to, :size => 20 %>
 				&nbsp;on&nbsp;
-					<%= f.calendar_date_select :arrival_time, :time => true, :month_year => "label", :size => 20,
-							:onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10, time:true});",
-							:onchange => "$('transportation_arrival_time').value=$F(this);" %>
+					<%= f.text_field :arrival_time, :time => true, :month_year => "label", :size => 20 %>
 			
 		<% end -%>
 

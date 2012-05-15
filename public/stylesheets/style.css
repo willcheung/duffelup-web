@@ -464,7 +464,7 @@
 	background:#333;
 	position:absolute;
 	width:160px;
-	height: 210px;
+	height: 240px;
 	padding:0;
 	clear:both;
 	z-index:5;
@@ -1025,12 +1025,12 @@ p.innernav {
 	padding-left:130px;
 }
 
-#primary #clip-it {
+#primary-inner #clip-it {
 	font-size: 15px;
 	color: #333;
 }
 
-#primary #clip-it .next-step {
+#primary-inner #clip-it .next-step {
 	margin-left: 35px;
 	width:350px;
 	height:330px;
@@ -1038,18 +1038,18 @@ p.innernav {
 	border-left: 1px dotted #aaa;
 }
 
-#primary #clip-it h3 {
+#primary-inner #clip-it h3 {
 	margin-left: 30px;
 	font-size: 18px;
 	color: #555;
 }
 
-#primary #clip-it .next-step ul {
+#primary-inner #clip-it .next-step ul {
 	margin-top: 10px;
 	margin-left: 50px;
 }
 
-#primary #clip-it ul {
+#primary-inner #clip-it ul {
 	margin-left: 15px;
 	line-height: 150%;
 }
@@ -1148,7 +1148,7 @@ form p {
 #column #sign-in-form form {
 	margin-top: 25px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
 }
 
 #column #bookmarklet {
@@ -1228,7 +1228,7 @@ form p {
 	line-height: 22px;
 }
 
-.login-buttons ul .twitter input, .login-buttons ul .facebook a {
+.login-buttons ul .twitter input {
 	background:url("/images/social/twitter-login.png") no-repeat scroll left center transparent;
 	border:0 none;
 	display:block;
@@ -1238,10 +1238,6 @@ form p {
 	padding:0;
 	text-indent:-5000px;
 	width:83px;
-}
-
-.login-buttons ul .facebook a, .login-buttons ul .fbconnect_login_button {
-	background-image:url("/images/social/fb-login.png");
 }
 	
 /*-----------------------------------------------------------------------------------
@@ -1284,7 +1280,7 @@ form p {
 }
 
 #notice, #error, #errorExplanation {
-	padding:5px;
+	padding:5px 20px;
 	font-weight:bold;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -1294,10 +1290,9 @@ form p {
 	-webkit-border-top-right-radius:0;
 	position:absolute;
 	top:0;
-	width:600px;
-	left:50%;
-	margin:0 0 0 -300px;
+	left:40%;
 	text-align: center;
+	z-index:1031;
 }
 
 #notice {
@@ -1317,7 +1312,7 @@ form p {
 }
 
 #what-is-message p{
-	font-size: 14pt;
+	font-size: 14px;
 	padding:0;
 	margin:3px 8px;
 	color: #666;
@@ -1508,7 +1503,7 @@ div.progress-container > div {
 	width:508px;
 }
 
-#invitation div.fb-button a {
+div.fb-button a {
 	background:url("/images/button-facebook-big.png") no-repeat scroll left top transparent;
 	float: left;
 	border:0 none;
@@ -1516,20 +1511,19 @@ div.progress-container > div {
 	height:40px;
 	line-height:0;
 	padding:0;
-	text-indent:-5000px;
 	width:210px;
 }
 
-#invitation div.fb-button a:hover {
+div.fb-button a:hover {
 	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
 }
 
-#invitation div.fb-button {
+div.fb-button {
 	margin:0;
 	padding:0;
 }
 
-#invitation div.fb-button a span.fb_button_text {
+div.fb-button a span.fb_button_text {
 	display: none;
 }
 
@@ -1541,7 +1535,7 @@ div.progress-container > div {
 	padding:5px;
 }
 
-#invitation .avatar,#invitation .avatar a,#collaborators a {
+#invitation .avatar,#collaborators a {
 	font-size:11px;
 	color:#222;
 }
@@ -1550,21 +1544,24 @@ div.progress-container > div {
 	font-size:11px;
 }
 
-#invitation #invitations_left .avatar {
+#invitation #invitations_left .avatar, #invitation #invitations_left-fb .avatar {
 	width: 150px;
 	height: 50px;
 	margin: 0 10px 10px 0;
 	padding: 5px;
 	cursor: pointer;
-}
-
-#invitation #invitations_left .avatarSelected {
-	background: #f1f1f1;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #fff;
 }
 
-#invitation #invitations_left .avatar .image {
+#invitation #invitations_left .avatarSelected, #invitation #invitations_left-fb .avatarSelected {
+	border-color: #dfdfdf;;
+	background: #e9e9e9;
+}
+
+#invitation #invitations_left .avatar .image, #invitation #invitations_left-fb .avatar .image {
 	width:50px;
 	height:50px;
 	background:#fff;
@@ -1573,16 +1570,16 @@ div.progress-container > div {
 	float: left;
 }
 
-#invitation #invitations_left #friends-checkbox {
-	max-height: 205px;
+#invitation #invitations_left #friends-checkbox,#invitation #invitations_left-fb #fb-friends-checkbox {
+	max-height: 350px;
 	overflow:auto;
 }
 
-#invitation #invitations_left #friends-checkbox input {
+#invitation #invitations_left #friends-checkbox input, #invitation #invitations_left-fb #fb-friends-checkbox input {
 	display: none;
 }
 
-#invitation #invitations_left label {
+#invitation #invitations_left label, #invitation #invitations_left-fb label {
 	padding: 0;
 }
 
@@ -4106,27 +4103,27 @@ input.big-button {
 	Invitation
 -----------------------------------------------------------------------------------*/
 
-#invitations_left-import, #invitations_left-fb {
+.invitations_left-import, .fb-friends-checkbox {
 	float: left;
 	width: 550px;
 }
 
-#invitations_left-import li.not-member, #invitations_left-new li {
+.invitations_left-import li.not-member, #invitations_left-new li {
 	width: 48%; 
 	float: left; 
 	height: 40px;
 	margin: 3px;
 }
 
-#invitation_right-import {
-	float: left;
+.invitation_right-import {
+	float: right;
 	width: 310px;
     background: none repeat scroll 0 0 #E5E5E5;
 	border-radius: 5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
     color: #413E3D;
-    margin: 0 0 20px 0;
+    margin: 0 15px 20px 0;
     padding: 10px;
     text-shadow: 0 1px 0 #FFFFFF;
 	font-size: 13.2px;

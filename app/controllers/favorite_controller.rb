@@ -23,14 +23,6 @@ class FavoriteController < ApplicationController
       # end
       
       ###################################
-      # Twitter status update - suspended for now
-      ###################################
-      # if current_user.twitter_user? and @trip.is_public
-      #   s_url = WebApp.shorten_url(trip_url(:id => @trip))
-      #   twitter_client.update("Added trip #{@trip.title} #{s_url} as my favorite on @duffelup", {})
-      # end
-      
-      ###################################
       # publish news to activities feed
       ###################################
       ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_FAVORITE, @trip)

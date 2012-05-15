@@ -137,29 +137,25 @@ class User < ActiveRecord::Base
   #               Facebook Connect              #
   ###############################################
   
-  # Find the user in the database, first by the facebook user id and if that fails through the email hash
-  def self.find_by_fb_user(fb_user)
-    User.find_by_fb_user_id(fb_user.uid) || User.find_by_email_hash(fb_user.email_hashes)
-  end
-  
   # Take the data returned from facebook and create a new user from it.
   # We don't get the email from Facebook and because a facebooker can only login through Connect we just generate a unique login name for them.
   # If you were using username to display to people you might want to get them to select one after registering through Facebook Connect
-  def self.create_from_fb_connect(fb_user, source="facebook") 
-    new_facebooker = User.new(:full_name => fb_user.name.to_s, 
-                              :username => "#{fb_user.first_name.to_s}#{fb_user.last_name.to_s}"+rand(9).to_s, 
+  def self.create_from_fb_connect(fb_session, source="facebook") 
+    graph = Koala::Facebook::API.new(fb_session.access_token)
+    fb_user = graph.get_object(fb_session.uid)
+    
+    new_facebooker = User.new(:full_name => fb_user["name"], 
+                              :username => "#{fb_user["first_name"]}#{fb_user["last_name"]}"+rand(9).to_s, 
                               :password => "", 
-                              :email => "",
+                              :email => fb_user["email"],
                               :source => source,
                               :email_updates => 29,
-                              :home_city => !fb_user.hometown_location.nil? ? (fb_user.hometown_location.city.to_s + " " + fb_user.hometown_location.state.to_s + ", " + fb_user.hometown_location.country.to_s) : "",
-                              :avatar_file_name => fb_user.pic_square,
+                              :home_city => !fb_user["hometown_location"].nil? ? (fb_user["hometown_location"].city.to_s + " " + fb_user.hometown_location.state.to_s + ", " + fb_user.hometown_location.country.to_s) : "",
+                              :avatar_file_name => graph.get_picture(fb_session.uid),
                               :avatar_content_type => "image/jpeg")
-    new_facebooker.fb_user_id = fb_user.uid.to_i
+    new_facebooker.fb_user_id = fb_session.uid.to_i
     new_facebooker.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{rand}--")
     new_facebooker.save(false)
-    # taking register to fb for now b/c of Unknown StandardError.
-    # new_facebooker.register_user_to_fb 
     
     return new_facebooker
   end
@@ -167,27 +163,10 @@ class User < ActiveRecord::Base
   #We are going to connect this user object with a facebook id. But only ever one account.
   def link_fb_connect(fb_user_id)
     unless fb_user_id.nil?
-      #check for existing account
-      existing_fb_user = User.find_by_fb_user_id(fb_user_id)
-      #unlink the existing account
-      unless existing_fb_user.nil?
-        existing_fb_user.fb_user_id = nil
-        existing_fb_user.save(false)
-      end
-      #link the new one
+      # link fb user id
       self.fb_user_id = fb_user_id
       save(false)
     end
-  end
-
-  # The Facebook registers user method is going to send the users email hash and our account id to Facebook
-  # We need this so Facebook can find friends on our local application even if they have not connect through connect
-  # We then use the email hash in the database to later identify a user from Facebook with a local user
-  def register_user_to_fb
-    users = {:email => email, :account_id => id}
-    Facebooker::User.register([users])
-    self.email_hash = Facebooker::User.hash_email(email)
-    save(false)
   end
   
   def facebook_user?
@@ -196,6 +175,10 @@ class User < ActiveRecord::Base
   
   def twitter_user?
     return !twitter_token.nil? && !twitter_secret.nil?
+  end
+  
+  def self.find_fb_users(uids)
+    self.find_by_sql("SELECT fb_user_id from users where fb_user_id in (#{uids})")
   end
   
   ################################################

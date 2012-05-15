@@ -2,9 +2,6 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base 
-  before_filter :set_facebook_session
-  helper_method :facebook_session
-  
   include AuthenticatedSystem
   include ExceptionNotifiable
   include ApplicationHelper
@@ -20,8 +17,7 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
   
-  rescue_from Facebooker::Session::SessionExpired, :with => :clear_facebook_session
-  rescue_from Twitter::Unauthorized, :with => :force_sign_in
+  # rescue_from Twitter::Unauthorized, :with => :force_sign_in
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -32,6 +28,12 @@ class ApplicationController < ActionController::Base
   #prepend_before_filter do |controller|
   #  controller.class.allow_forgery_protection = false #controller.session_enabled?
   #end
+  
+  FBSession = Struct.new(:uid, :access_token)
+  
+  def to_json(*options)
+    ActiveSupport::JSON.encode(self, options)
+  end
   
   def param_posted?(sym)
     request.post? and params[sym]
@@ -115,17 +117,19 @@ class ApplicationController < ActionController::Base
   
   private
   
-  def clear_facebook_session(redirect=false)
-    clear_fb_cookies!
-    clear_facebook_session_information
+  ###### Facebook OAuth ########
+  def fb_session
+    fb_uid = Koala::Facebook::OAuth.new.get_user_from_cookie(cookies)
+    info = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
+    fb_access_token = info["access_token"] if !info.nil?
     
-    if redirect
-      redirect_back_or_default('/')
+    if !fb_uid.nil? and !fb_access_token.nil?
+      @fb_session = FBSession.new(fb_uid, fb_access_token)
     else
-      flash[:error] = "Your Facebook session has expired. Please sign in again."
-      redirect_to new_session_path
+      @fb_session = nil
     end
   end
+  helper_method :fb_session
   
   ######## Twitter OAuth ###########
   def oauth_consumer
