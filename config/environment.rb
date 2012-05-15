@@ -89,9 +89,9 @@ Rails::Initializer.run do |config|
   # Contacts for importing email address from GMail, etc.
   config.gem 'contacts'
   # Twitter gem
-  config.gem 'twitter'
+  # config.gem 'twitter'
   # OAuth gem
   config.gem 'oauth'
-  # Facebooker gem
-  config.gem 'facebooker'
+  # Koala (Facebook) gem
+  config.gem 'koala'
 end

@@ -33,11 +33,10 @@
 	<p>
 		<label for="start_date">Dates: <span class="hint" style="padding:0; font-weight: normal; font-size: 11px;">(optional)</span></label>
 
-	<%= form.calendar_date_select :start_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});",
-	 			:onchange => "if($('trip_end_date').value.length==0){var endDate=new Date($F(this));endDate.setDate(endDate.getDate()+3);if (endDate!='Invalid Date'){$('trip_end_date').value=(endDate.getMonth()+1+'/'+endDate.getDate()+'/'+endDate.getFullYear())};};" %>
+	<%= form.text_field :start_date, :month_year => "label", :size => 13 %>
 
 	
-	<%= form.calendar_date_select :end_date, :month_year => "label", :size => 13, :onclick => "new CalendarDateSelect($(this),{month_year:'label', year_range:10});" %>
+	<%= form.text_field :end_date, :month_year => "label", :size => 13 %>
 	</p>
 	
 

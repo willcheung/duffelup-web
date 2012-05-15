@@ -3,7 +3,6 @@ class WidgetController < ApplicationController
   layout nil
   session :off
  
-  skip_before_filter :set_facebook_session
   skip_before_filter :detect_user_agent
   skip_before_filter :login_from_cookie
   skip_before_filter :meta_defaults

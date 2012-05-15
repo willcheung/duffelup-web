@@ -31,7 +31,7 @@
 	
 	<%= hidden_field_tag :invite %>
 	
-	<div id="form-submit"><%= submit_tag "Plan with friends!", :class => "btn-primary", :style => "font-weight:bold", :onclick => "$('spinner').show();$('invite').value='true'" %>&nbsp;&nbsp;&nbsp;<%= submit_tag "Plan alone", :class => "btn", :onclick => "$('spinner').show();" %> <span id="spinner" style="display:none">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+	<div id="form-submit"><%= submit_tag "Plan with friends!", :class => "btn-primary", :style => "font-weight:bold", :onclick => "$('#spinner').show();$('#invite').value='true'" %>&nbsp;&nbsp;&nbsp;<%= submit_tag "Plan alone", :class => "btn", :onclick => "$('#spinner').show();" %> <span id="spinner" style="display:none">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
 	<div class="clear"></div>
 <% end %>
 

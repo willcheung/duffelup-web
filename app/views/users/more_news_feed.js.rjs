@@ -5,3 +5,5 @@ if params[:profile]
 else
   page.replace :flow_pagination, will_paginate(@news_feed_with_total_pages, :renderer => FlowPagination::LinkRenderer, :params => {:controller => 'users', :action => 'more_news_feed', :subtab => params[:subtab]})
 end
+
+page << "	if ($('#flow_pagination input[type=button]') != null){$('#flow_pagination input[type=button]').bind('click',function() {$('#flow_pagination input[type=button]').val('loading...');});};"

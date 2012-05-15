@@ -5,6 +5,8 @@
 		<title><%= @title %></title> 
 	    <%= stylesheet_link_tag "trip" %>
 		<%= javascript_include_tag 'all' %>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="/javascripts/jrails.js" type="text/javascript"></script>
 		<%= javascript_include_tag 'application' %>
 		
 		<script type="text/javascript" 
@@ -45,7 +47,7 @@
 		   <a onclick="Effect.Fade('tour2', { duration: '0.3' }); Effect.BlindDown('tour3', { scaleContent: true, duration: '0.3', queue: 'end' });return false;" class="tourLink tourLinkNext" href="#tour3">Next</a></p>
 	</div>
 	
-	<div id="tour3" class="tour" style="top: 70px; right: 275px; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
+	<div id="tour3" class="tour" style="top: 70px; right: 215px; margin: 0 0 0 0; width: 280px; height: 122px; display: none;">
 		<img src="/images/tour/tour-arrow1.png" alt="Here it is" style="position: absolute; top: -35px; right: 20px" />
 		<h1>2. Invite friends and family</h1>
 		<p>Invite fellow tripgoers to your corkboard. They can contribute ideas and comment.</p>
@@ -76,6 +78,9 @@
 		<!-- Flash accepts id="notice", id="warning", and id="error" -->
 		<% flash.each do |key, msg| -%>
 		  <%= content_tag :p, msg, :id => key -%>
+			<script type="text/javascript">
+			    setTimeout("$('p#<%=key%>').fadeOut('slow')", 3000);
+			  </script>
 		<% end -%>
 		
 		<div id="sorting-indicator" style="display:none;"><p>Saving... <img style="vertical-align:bottom;" src="/images/ajax-loader-sorting.gif"></p></div>
@@ -150,7 +155,7 @@
 							</div>
 						</li>
 						<li class="nav-avatar"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-							<a class="dashboard" href="/user/dashboard"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;You <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
+							<a class="dashboard" style="height:40px" href="/user/dashboard"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;You <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
 							<ul class="submenu" id="duffels-submenu"  style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 								<li style="margin-top:5px;margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/user/dashboard">Dashboard</a></li>
 								<li style="margin-top:5px" onclick="location.href='/user/dashboard?tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">My Duffels</a></li>
@@ -159,11 +164,7 @@
 								<li style="margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/featured">Featured</a></li>
 								<li><a href="/site/tools">Bookmarklet</a></li>
 								<li><a href="/user/edit">Account</a></li>
-								<% if current_user.facebook_user? && facebook_session %>
-									<li class="parent hover"><a href="#" onclick='FB.Connect.logoutAndRedirect("/logout")'>Logout</a></li>
-								<% else %>
-									<li class="parent hover"><%= link_to "Logout", logout_url %></li>
-								<% end %>
+								<li class="parent hover"><%= link_to "Logout", logout_url %></li>
 							</ul>
 						</li>
 					
@@ -204,7 +205,7 @@
 			<% end %>
 		<% else %>
 			<ul id="add-ideas">
-			<li class="guest">You're currently viewing <%= @users[0].username %>'s travel journal. Like what you see?
+			<li class="guest">You're currently viewing <%= @users[0].username %>'s journal. Like what you see?
 			<% if current_user %>
 			<%= link_to 'Get your own &rarr;', new_trip_path, :style => "font-size:14px;" %>
 			<% else %>
@@ -247,6 +248,10 @@
 		var addthis_config = {
 		    services_exclude: "print,favorites,friendster,live,technorati,myspace,yahoomail,google,blogger,digg,stumbleupon,delicious,reddit,email"
 		}
+		</script>
+		
+		<script>
+			jQuery.noConflict();
 		</script>
 		
 		<script type="text/javascript">

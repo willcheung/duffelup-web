@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   
   layout "simple"
   
-  before_filter :protect, :except => [:validate, :new, :create, :forgot_password, :link_user_accounts, :auto_complete_for_user_home_city, :more_news_feed]
-  skip_before_filter :set_facebook_session, :only => [:validate, :create]
+  before_filter :protect, :except => [:validate, :new, :create, :forgot_password, :auto_complete_for_user_home_city, :more_news_feed]
   
   def validate
     field = params[:field]
@@ -481,7 +480,6 @@ class UsersController < ApplicationController
       session[:user] = nil
       @current_user = false
       reset_session
-      clear_facebook_session(true)
     
       # destroy user
       @user.destroy 
@@ -496,58 +494,4 @@ class UsersController < ApplicationController
     current_user.save(false)
   end
 
-  # Fb Connect
-  def link_user_accounts
-    unless logged_in? # if not logged in
-      # register new user with fb
-      if params[:from]
-        fb_user = User.create_from_fb_connect(facebook_session.user, params[:from])
-      else
-        fb_user = User.create_from_fb_connect(facebook_session.user)
-      end
-      
-      Friendship.add_duffel_professor(fb_user)
-      
-      # Create a new duffel as "research duffel"
-      Trip.create_duffel_for_new_user({ :title => "#{fb_user.username}'s first duffel", :start_date => nil,
-                                        :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, fb_user)
-      
-      # Add a city to follow its travel deals
-      fb_user.cities << City.find_by_id(609)
-      
-      # WebApp.post_stream_on_fb(fb_user.fb_user_id, 
-      #                         "http://duffelup.com",
-      #                         "Checking out Duffel's Visual Trip Planner. http://duffelup.com",
-      #                         "Go to Duffel")
-                              
-      # if request coming from bookmarklet
-      if params[:src] == "bookmarklet"
-        redirect_back_or_default(new_research_path) and return
-        flash[:notice] = "Welcome #{fb_user.full_name} and enjoy planning your trip!"
-      else
-        redirect_to(steptwo_path) and return
-        flash[:notice] = "Hi #{fb_user.full_name}. Thanks for signing up and hope you enjoy Duffel!"
-      end 
-    else
-      # connect accounts
-      current_user.link_fb_connect(facebook_session.user.id) unless current_user.fb_user_id == facebook_session.user.id
-      
-      # if request coming from bookmarklet
-      if params[:src] == "bookmarklet"
-        redirect_back_or_default(new_research_path) and return
-      else
-        redirect_back_or_default(dashboard_path, params[:redirect]) and return
-      end
-    end
-    
-  rescue NoMethodError
-    if params[:src] == "bookmarklet"
-      redirect_back_or_default(bookmarklet_login_url)
-    else
-      redirect_to(login_url)
-    end
-    
-    flash[:error] = "Doh. Facebook is acting up. Please try again."
-  end
-  
 end

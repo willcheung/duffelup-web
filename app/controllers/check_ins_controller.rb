@@ -72,14 +72,6 @@ class CheckInsController < ApplicationController
                                   attachment)
         end
         
-        ########################
-        # Twitter status update
-        ########################
-        # if current_user.twitter_user? and @check_in.is_public
-        #   s_url = WebApp.shorten_url(trip_idea_url(:permalink => @check_in.event.trip.permalink, :id => @check_in.event.id))
-        #   twitter_client.update("#{@check_in.event.title} at #{truncate(@check_in.event.trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
-        # end
-        
         format.html { redirect_to(new_check_in_path) }
         format.xml  { render :xml => @check_in, :status => :created, :location => @check_in }
       else

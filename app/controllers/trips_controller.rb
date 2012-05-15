@@ -74,8 +74,8 @@ class TripsController < ApplicationController
     
     if request.post?
       # Monkey patch date format
-      params[:trip][:start_date] = parse_date(params[:trip][:start_date]) if not params[:trip][:start_date].nil?
-      params[:trip][:end_date] = parse_date(params[:trip][:end_date]) if not params[:trip][:end_date].nil?
+      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y') if not params[:trip][:start_date].nil?
+      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y') if not params[:trip][:end_date].nil?
       
       @trip = Trip.new(params[:trip])
       if @trip.end_date.nil? or @trip.start_date.nil?
@@ -150,21 +150,13 @@ class TripsController < ApplicationController
         ################################################################################
         # publish stream on fb (only works if fb user has approved extended permission)
         ################################################################################
-        if current_user.facebook_user? and @trip.is_public == 1
-          WebApp.post_stream_on_fb(current_user.fb_user_id, 
-                                  trip_url(:id => @trip),
-                                  news_fb,
-                                  "Give me ideas") 
-        end
-        
-        ###################################
-        # Twitter status update
-        ###################################
-        if current_user.twitter_user? and @trip.is_public == 1
-          s_url = WebApp.shorten_url(trip_url(:id => @trip))
-          twitter_client.update("I started planning a trip to #{truncate(@trip.destination.gsub(", United States", "").gsub(";", " & ").squeeze(" "),50)} on @duffelup #{s_url}", {})
-        end
-        
+        # if current_user.facebook_user? and @trip.is_public == 1
+        #   WebApp.post_stream_on_fb(current_user.fb_user_id, 
+        #                           trip_url(:id => @trip),
+        #                           news_fb,
+        #                           "Give me ideas") 
+        # end
+
         ###################################
         # publish news to activities feed
         ###################################
@@ -356,8 +348,8 @@ class TripsController < ApplicationController
     if params[:trip][:start_date].nil? or params[:trip][:start_date].empty? or params[:trip][:end_date].nil? or params[:trip][:end_date].empty?
       @trip.duration = Trip::DURATION_FOR_NO_ITINERARY
     else
-      params[:trip][:start_date] = parse_date(params[:trip][:start_date].strip)
-      params[:trip][:end_date] = parse_date(params[:trip][:end_date].strip)
+      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y')
+      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y')
       
       @trip.duration = (params[:trip][:end_date] - params[:trip][:start_date]) # Duration + 1 = Number of days
     end
@@ -604,8 +596,6 @@ class TripsController < ApplicationController
                                     
      # Setup for Twitter stream
      url = trip_url(:id => @trip)
-     # short_url = WebApp.shorten_url(url)
-     # @tweet = "I am planning a trip to #{shorten_trip_destination(@trip.destination)} using Duffel visual planner. " + short_url + " %40duffelup"
     end
     
     render :layout => 'ibox_ideas'

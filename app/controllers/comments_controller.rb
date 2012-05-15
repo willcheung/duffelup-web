@@ -61,14 +61,6 @@ class CommentsController < ApplicationController
         # end
         
         ###################################
-        # Twitter status update - suspended for now
-        ###################################
-        # if current_user.twitter_user? and @trip.is_public
-        #   s_url = WebApp.shorten_url(trip_url(:id => @trip))
-        #   twitter_client.update("I commented on a trip on @duffelup: #{truncate(@comment.body,55)} #{s_url}", {})
-        # end
-        
-        ###################################
         # publish news to activities feed
         ###################################
         ActivitiesFeed.insert_activity(current_user, ActivitiesFeed::ADD_COMMENT, @trip, @comment.to_json)

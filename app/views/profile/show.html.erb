@@ -130,7 +130,7 @@
 					<li>
 						<div id="image_wrapper"><a href="<%=t.permalink%>"><img src="<%= duffel_thumbnail_url(t) %>"/></a></div>
 						<h3><a href="/trips/<%=t.permalink%>"><%= t.title %></a></h3>
-						<p><%= truncate(t.destination.gsub(", United States",""), 45) %></p>
+						<p><%= truncate(t.destination.gsub(", United States",""), :length => 45) %></p>
 						<p><%= t.events.count %> ideas</p>
 					</li>
 				<% end %>

@@ -3,9 +3,9 @@
 <% if @users.include?(current_user) %>
 
 <ul class="tabnav" style="margin-bottom: 20px;">
-	<li id="tb1" class="selected"><a href="#invitations_left" onclick="window.location.hash = '#invitations_left'; $('tb1').addClassName('selected'); $('tb2').removeClassName('selected');$('tb4').removeClassName('selected');$('invitations_left').show();$('message').show();$('invitations_left-fb').hide();$('invitations_left-new').hide();$('invitations_right').show();return false;">Duffel<span>Invite Duffel friends</span></a></li>
-	<li id="tb2" style="background: url(/images/social/facebook-32x32.png) no-repeat 20px center; padding-left: 62px"><a href="#invitations_left-fb" onclick="window.location.hash = '#invitations_left-fb'; $('tb2').addClassName('selected'); $('tb1').removeClassName('selected');$('tb4').removeClassName('selected');;$('invitations_left').hide();$('message').hide();$('invitations_left-fb').show();$('invitations_left-new').hide();$('invitations_left-email').hide();$('invitations_right').show();return false;">Facebook<span>Invite Facebook friends</span></a></li>
-	<li id="tb4"><a href="#invitations_left-new" onclick="window.location.hash = '#invitations_left-new'; $('tb4').addClassName('selected'); $('tb2').removeClassName('selected');$('tb1').removeClassName('selected');$('invitations_left').hide();$('message').show();$('invitations_left-fb').hide();$('invitations_left-new').show();$('invitations_right').show();return false;">Gmail, Hotmail, Yahoo! Mail<span>Invite friends via email import</span></a></li>
+	<li id="tb1" class="selected"><a href="#" onclick="window.location.hash = '#invitations_left-duffel'; $(this).parent().addClass('selected');$(this).parent().siblings().removeClass('selected');$('#invitations_left').show();$('#message').show();$('#invitations_left-fb').hide();$('#invitations_left-new').hide();$('#invitations_right').show();return false;">Duffel<span>Invite Duffel friends</span></a></li>
+	<li id="tb2" style="background: url(/images/social/facebook-32x32.png) no-repeat 20px center; padding-left: 62px"><a href="#" onclick="window.location.hash = '#invitations_left-fb'; $(this).parent().addClass('selected');$(this).parent().siblings().removeClass('selected');$('#invitations_left').hide();$('#message').hide();$('#invitations_left-fb').show();$('#invitations_left-new').hide();$('#invitations_left-email').hide();$('#invitations_right').show();$('#fb-friends-checkbox').load('/beta_invitations/get_fb_friends?trip=true',function(){$('#loading').remove();});return false;">Facebook<span>Invite Facebook friends</span></a></li>
+	<li id="tb4"><a href="#" onclick="window.location.hash = '#invitations_left-new'; $(this).parent().addClass('selected');$(this).parent().siblings().removeClass('selected');$('#invitations_left').hide();$('#message').show();$('#invitations_left-fb').hide();$('#invitations_left-new').show();$('#invitations_right').show();return false;">Gmail, Hotmail, Yahoo! Mail<span>Invite friends via email import</span></a></li>
 	<div class="clear"></div>
 </ul>
 
@@ -19,47 +19,23 @@
 	
 	<div class="inv-left">
 	
-	<div class="fb-friends-checkbox " id="invitations_left-fb" style="display: none; width: 625px;">
+	<div id="invitations_left-fb" style="display: none; width: 710px;">
 		<h2 class="home">Invite Facebook friends</h2>
-	<% if current_user.facebook_user? && facebook_session %>
+		<% if current_user.facebook_user? && fb_session %>
+			<div id="fb-friends-checkbox">
+				<div id="loading"><h4>Loading Facebook friends... <img src="/images/ajax-loader.gif"></h4></div>
+			</div>
 		
-		<% fb_serverfbml do %>
-		<script type="text/fbml">
-		<fb:fbml>
-		
-		<% content_for("invite_user") do %>
-		<%= @fb_string + " #{fb_req_choice('Recommend Ideas', @fb_url)}" %>
+			<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
+		<% else %>
+			<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
 		<% end %>
-		
-		<% fb_request_form("Duffel","invite_user", "#{trip_url(@trip)}", :method => "GET") do %>
-			<%= fb_multi_friend_selector("Invite your friends to #{@trip.title}!", :showborder => false,
-				:exclude_ids => facebook_session.user.friends_with_this_app.map(&:id).join(","), :condensed => false, 
-				:cols => 4, :rows => 3, :email_invite => false, :bypass => "cancel") %>
-		<% end %>
-		
-		</fb:fbml>
-		</script>
-		<% end %>
-		
-		<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
-	<% else %>
-		<div class="fb-button"><%= fb_login_button "window.location='#{@fb_login_button_url}';", :perms => 'publish_stream,offline_access' %></div>
-	<% end %>
 	</div>
 	
 	
 	<div id="invitations_left">
 		
 		<% form_for(:invitation, :url => trip_create_invitation_path) do |f| %>
-			
-			<div id="emails">
-		
-	  		<h3 class="home">Invite via Email <span class="mute"><small>- Please separate multiple emails with semi-colon ( ; )</small></span></h3>
-			<p><%= text_field_tag :emails, nil, :size => 55, :style => "margin: 0;" %></p>
-					
-			</div>
-		
-			<h4 class="home" style="margin-left:200px">- or - </h4>
 		
      		<h3 class="home">Invite Duffel Friends</h3>
 
@@ -70,7 +46,7 @@
 			<div class="clearfix"></div>
 		
 			<div id="message">
-				<h2 class="home">Optional Message</h2>
+				<h3 class="home">Optional Message</h3>
 				<p><%= text_area_tag :message, nil, :rows => 6, :cols => 35, :style => "margin: 0;" %></p>
 			</div>
 
@@ -103,7 +79,7 @@
 
 		<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
 
-		<div id="form-submit" class="clearfix"><%= submit_tag "Invite", :class => "submit", :onclick => "pageTracker._trackEvent('Email Import', 'submit', '#{current_user.username}');" %> or 
+		<div id="form-submit" class="clearfix"><%= submit_tag "Invite", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Email Import', 'submit', '#{current_user.username}');" %> or 
 		<% if params[:new_duffel] == "true" %>
 			<%= link_to "Skip this step &#187", trip_path(@trip) %>
 		<% else %>
@@ -115,29 +91,23 @@
 	</div>
 	
 	<div id="invitations_right">
+		<div class="invitation_right-import" style="width:180px;padding-bottom:0;margin-right:-10px">
+		<h4 class="home">Invite via Email <br/><span class="mute"><small>Use &nbsp;&nbsp;;&nbsp;&nbsp; to separate emails.</small></span></h4>
+		<% form_for(:invitation, :url => trip_create_invitation_path, :html => {:style => "width:190px"}) do |f| %>
+		<%= text_field_tag :emails, nil, :class => "span2" %>
+		<%= text_area_tag :message, nil, :rows => 6, :cols => 35, :style => "display:none;" %>
+		<%= submit_tag "Invite", :class => "btn btn-mini" %>
+		<% end %>
+		</div>
+		
       <h4 class="home">Collaborators (<%= @users.size %>)</h4>
 		<%=  render :partial => "invitation_list" %>
 	</div>
 	
 	<div class="clear"></div>
-
-	
-<script type="text/javascript">
-where = window.location.hash;
-
-if(where=="#invitations_left-fb"){
-	$('invitations_left').hide();
-	$('message').hide();
-	$('invitations_left-fb').show();
-	$('invitations_left-new').hide();
-	$('tb2').addClassName('selected'); $('tb1').removeClassName('selected');
-}
-
-</script>
 	
 </div>
 </div>
-
 <% else %>
 	<h3>Sorry!  You are not invited or do not have permission to invite others to this duffel.</h3>
 <% end %>

@@ -15,8 +15,9 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   
   # restful_authentication stuff
-  map.resource :user, :collection => {:link_user_accounts => :get}
+  map.resource :user
   map.resource :session
+  map.facebook_callback_session 'session/facebook_callback', :controller => 'sessions', :action => 'facebook_callback'
   map.twitter_callback_session 'session/twitter_callback', :controller => 'sessions', :action => 'twitter_callback'
   
   # bookmarklet
