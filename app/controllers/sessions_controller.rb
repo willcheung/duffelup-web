@@ -14,6 +14,10 @@ class SessionsController < ApplicationController
   def new_session_bookmarklet
     @title = "Add to Duffel"
     @user = User.new
+    
+    if logged_in?
+      redirect_back_or_default('research/new')
+    end
   end
 
   def create

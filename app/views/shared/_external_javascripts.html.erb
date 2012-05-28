@@ -45,29 +45,31 @@ pageTracker._trackPageview();
 	// Init
 	window.fbAsyncInit = function() {
 	    FB.init({ appId: '<%= Facebook::APP_ID %>', status: true, cookie: true, xfbml: true, oauth: true });
-		FB.getLoginStatus(function(response) {
-		  if (response.status === 'connected') {
-		    // the user is logged in and has authenticated your
-		    // app, and response.authResponse supplies
-		    // the user's ID, a valid access token, a signed
-		    // request, and the time the access token 
-		    // and signed request each expire
-		    uid = response.authResponse.userID;
-		    access_token = response.authResponse.accessToken;
-		  } else if (response.status === 'not_authorized') {
-		    // the user is logged in to Facebook, 
-		    // but has not authenticated your app
-		  } else {
-		    // the user isn't logged in to Facebook.
-		  }
-		 });
+		// FB.getLoginStatus(function(response) {
+		//   if (response.status === 'connected') {
+		//     // the user is logged in and has authenticated your
+		//     // app, and response.authResponse supplies
+		//     // the user's ID, a valid access token, a signed
+		//     // request, and the time the access token 
+		//     // and signed request each expire
+		//     uid = response.authResponse.userID;
+		//     access_token = response.authResponse.accessToken;
+		//   } else if (response.status === 'not_authorized') {
+		//     // the user is logged in to Facebook, 
+		//     // but has not authenticated your app
+		//   } else {
+		//     // the user isn't logged in to Facebook.
+		//   }
+		//  });
 	  };
 	document.getElementById('fb-loginlink').addEventListener('click', function(){
 	          FB.login(function(response) {
-		      if (response.authResponse) {
-		        window.location = "<%= facebook_callback_session_url %>";
-		      } 
-		    }, {scope: 'user_hometown,publish_stream,email'});
+		      	if (response.authResponse) {
+			        window.location = "<%= facebook_callback_session_url %>?redirect="+window.location.pathname+window.location.hash;
+			      } else {
+					// do nothing
+				  }
+		      }, {scope: 'user_hometown,publish_stream,email'});
 	  });
 	function sendFBMessage(fb_uid) {
 		FB.ui(

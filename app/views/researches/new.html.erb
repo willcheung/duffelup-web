@@ -19,14 +19,14 @@
 		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'add-idea', 'google-map');" %>
 		<% else %>
 			<% unless @trips.empty? %>
-				<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>
+				<%= form.submit "Add to Duffel", :name => "_submit_button", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>
 			<% else %>
-				<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');", :disabled => true %>
+				<%= form.submit "Add to Duffel", :name => "_submit_button", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');", :disabled => true %>
 			<% end %>
 		<% end %>
 		
 		<% unless params[:local] == "true" %>
-		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" onclick="window.location.href='/close.html'">
+		&nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" class="btn" onclick="window.location.href='/close.html'">
 		<% end %>
 		
 		<% unless params[:local] == "true" or @trips.empty? %>

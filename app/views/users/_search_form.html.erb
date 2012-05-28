@@ -2,6 +2,6 @@
 <% form_tag user_search_path, :method => 'get', :id => 'search_form' do %>
   <p>
     <%= text_field_tag :q, params[:q], :class => 'big' %>
-    <%= submit_tag "Search", :name => nil, :class => 'big-button' %>
+    <%= submit_tag "Search", :name => nil, :class => 'big-button btn' %>
   </p>
 <% end %>

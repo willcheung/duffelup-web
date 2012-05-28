@@ -25,9 +25,7 @@
 			</div>
 		<% end %>
 	<% else %>
-		<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> or log into 
-			<%= fb_login_button "window.location='/users/link_user_accounts/?redirect=/featured';", :perms => 'publish_stream,offline_access', :v => 2 %>
-			to comment.</p>
+		<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> to comment.</p>
 	<% end %>
 	
 </div>

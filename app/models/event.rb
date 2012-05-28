@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
     ["Activity", "Activity"],
     ["Food & Drink", "Foodanddrink"],
     ["Lodging", "Hotel"],
-    ["Transportation", "Transportation"],
+    #["Transportation", "Transportation"],
     ["Note", "Notes"]
     ]
     

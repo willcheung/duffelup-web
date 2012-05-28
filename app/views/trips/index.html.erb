@@ -69,21 +69,10 @@
 				<% if logged_in? %>
 				<p>You are signed in as <strong><%= current_user.username %></strong>.<br/><br/> <a href="/<%= current_user.username %>">Go to my dashboard &#187</a>
 				<% else %>
-				<p>Or sign up using your Twitter or Facebook account:</p>
-				<div class='login-buttons'>
-					<ul>
-						<li class="twitter">
-						<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
-							<%= submit_tag 'twitter' %>
-						<%- end -%>
-						</li>
-						<li class='facebook'>
-							<%= fb_login_button "window.location='/users/link_user_accounts';", :perms => 'publish_stream,offline_access' %>
-						</li>
-					</ul>
-				</div>
-				<div class="clear"></div>
-				<p>Already a member? <a href="/login">Log in</a></p>
+				<p>Sign up using via Facebook:</p>
+				<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
+				<div class="clear"><br/></div>
+				<p style="margin-top:40px;">Already a member? <a href="/login">Log in</a></p>
 				<% end %>
 				
 			</div>
