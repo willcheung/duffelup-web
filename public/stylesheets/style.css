@@ -3690,6 +3690,9 @@ input.big-button {
 #profile-duffels .collaborators img,
 #simple #myDuffels .collaborators img {
 	vertical-align: middle;
+	overflow:hidden;
+	height: 27px;
+	width: 27px;
 }
 
 #profile-duffels .collaborators a,
