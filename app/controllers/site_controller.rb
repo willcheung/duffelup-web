@@ -33,7 +33,14 @@ class SiteController < ApplicationController
     unless params[:q].empty?
       @cities_search_result = City.search(params[:q], 8)
       @duffels_search_result = Trip.search(params[:q], 5)
-      @duffelers = User.search(params[:q], params[:page], 12)
+      
+      if @cities_search_result[0].rank == 1
+        if @cities_search_result[0].country_code == "US" or @cities_search_result[0].country_code == "CA"
+					redirect_to na_city_url(:country_code => @cities_search_result[0].country_code, :region => @cities_search_result[0].region, :city => city_name_to_url(@cities_search_result[0].city)) and return
+				else
+					redirect_to city_url(:country_code => @cities_search_result[0].country_code, :city => city_name_to_url(@cities_search_result[0].city)) and return
+				end
+			end
       
       respond_to do |format|
         format.html { render :layout => 'simple' }

@@ -107,7 +107,7 @@ class City < ActiveRecord::Base
   
   # Simple City Search
   def self.search(query, limit=6)
-    self.find_by_sql(["SELECT cities.id, cities.city_country, cities.city, cities.region, countries.country_code
+    self.find_by_sql(["SELECT cities.id, cities.city_country, cities.city, cities.region, cities.rank, countries.country_code
                         FROM cities 
                         INNER JOIN countries on cities.country_id = countries.id 
                         WHERE (LOWER(city_country) LIKE ?) 
