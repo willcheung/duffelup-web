@@ -5,16 +5,16 @@
 			<% if @cities_search_result.empty? %>
 				<p>Doh, can't find that place you're looking for.</p>
 			<% else %>
-				<ul class="cities">
+				<ul class="cities unstyled">
 				<% @cities_search_result.each do |c| %>
 					<% unless c.city.empty? %>
 						<% if c.country_code == "US" or c.country_code == "CA" %>
-							<li><%= link_to c.city_country, na_city_url(:country_code => c.country_code, :region => c.region, :city => city_name_to_url(c.city)) %></li>
+							<li style="line-height:28px"><%= link_to c.city_country, na_city_url(:country_code => c.country_code, :region => c.region, :city => city_name_to_url(c.city)) %></li>
 						<% else %>
-							<li><%= link_to c.city_country, city_url(:country_code => c.country_code, :city => city_name_to_url(c.city)) %></li>
+							<li style="line-height:28px"><%= link_to c.city_country, city_url(:country_code => c.country_code, :city => city_name_to_url(c.city)) %></li>
 						<% end %>
 					<% else %>
-						<li><%= link_to c.city_country, country_url(:country_code => c.country_code) %>
+						<li style="line-height:28px"><%= link_to c.city_country, country_url(:country_code => c.country_code) %>
 					<% end %>
 				<% end %>
 				</ul>
@@ -29,7 +29,7 @@
 	<% if @duffels_search_result.empty? %>
 		<p>Doh, can't find any trips.</p>
 	<% else %>
-		<ul class="duffel-list">
+		<ul class="duffel-list unstyled">
 		<% @duffels_search_result.each do |d| %>
 			<div class="separate"></div>
 		    <li class="duffel">
@@ -44,30 +44,3 @@
 	<% end %>
 <% end %>
 </div>
-
-<div class="clearfix"></div>
-
-<div style="background: url('/images/dottedLine.png') repeat-x scroll 0 top transparent;">
-<% unless @duffelers.nil? %>
-	<h2 style="padding-top:10px">Duffel Members</h2>
-	<ul class="user-list">
-	<% if @duffelers.empty? %>
-		<p>Can't find any users that match '<%= params[:q] %>'</p>
-	<% else %>
-		<%- @duffelers.each do |user| -%>
-			<li class="user">
-				<div class="avatar"><%= link_to display_thumbnail(user), profile_for(user) %></div>
-				<h3><%= link_to user.username, profile_for(user) %> <span><%= user.full_name unless (user.full_name.nil? or user.full_name.empty?) %></span></h3>
-				<p class="hometown mute"><%= user.home_city unless (user.home_city.nil? or user.home_city.empty?) %></p>
-
-			</li>
-		<%- end -%>
-	<% end %>
-	</ul>
-	</div>
-	<br/>
-	<div class="clearfix"></div>
-	<% if @duffelers.total_entries > 12 %>
-	<div style="float:right;margin:10px 70px 20px 0"><a href="/user/search?q=<%= params[:q] %>">See more members that match '<%= params[:q] %>'</a> <span style="color:#888;font-size:0.8em">(<%= pluralize(@duffelers.total_entries, 'user') %> found)<span></div>
-	<% end %>
-<% end %>
