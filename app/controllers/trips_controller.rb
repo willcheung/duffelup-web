@@ -74,8 +74,8 @@ class TripsController < ApplicationController
     
     if request.post?
       # Monkey patch date format
-      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y') if not params[:trip][:start_date].nil?
-      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y') if not params[:trip][:end_date].nil?
+      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y') if not params[:trip][:start_date].empty?
+      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y') if not params[:trip][:end_date].empty?
       
       @trip = Trip.new(params[:trip])
       if @trip.end_date.nil? or @trip.start_date.nil?
