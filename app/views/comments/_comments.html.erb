@@ -10,5 +10,5 @@
   </div> 
 <% else %>
 	<p>Please <%= link_to "sign in", login_url(:redirect => request.request_uri) %> or</p>
-	<div class="fb-button"><%= fb_login_button "window.location='/users/link_user_accounts/?redirect=/trips/#{@trip.permalink}/comments';", :perms => 'publish_stream,offline_access' %></div>
+	<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
 <% end %>

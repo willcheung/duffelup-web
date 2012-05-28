@@ -6,11 +6,11 @@
 
 <%= will_paginate @duffelers, :inner_window => 2, :outer_window => 0 -%>
 
-<ul class="user-list">
+<ul class="user-list unstyled">
 <%- @duffelers.each do |user| -%>
 	<li class="user">
 		<div class="avatar"><%= link_to display_thumbnail(user), profile_for(user) %></div>
-		<h3><%= link_to user.username, profile_for(user) %> <span><%= user.full_name unless (user.full_name.nil? or user.full_name.empty?) %></span></h3>
+		<p><%= link_to display_user_name(user), profile_for(user) %> </p>
 		<p class="hometown mute"><%= user.home_city unless (user.home_city.nil? or user.home_city.empty?) %></p>
 
 	</li>
@@ -20,3 +20,10 @@
 <div class="clear"></div>
 
 <%= will_paginate @duffelers, :inner_window => 2, :outer_window => 0 -%>
+
+<style type="text/css">
+.pagination a {
+	line-height: 12px;
+	padding: 4px 6px;
+}
+</style>

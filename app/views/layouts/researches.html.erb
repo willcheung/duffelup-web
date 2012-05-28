@@ -3,17 +3,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
 <head> 
 	<title><%= @title %></title> 
-	<%= stylesheet_link_tag "bookmarklet" %>
 	<%= stylesheet_link_tag "bootstrap", :media => :all %>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-	<script src="/javascripts/jrails.js" type="text/javascript"></script>
+	<%= stylesheet_link_tag "bookmarklet" %>
+	<%= javascript_include_tag 'all' %>
 	<%= javascript_include_tag 'application' %> 
 
 	<meta name="description" content="<%= @meta_description %>" />
 	<link rel="image_src" href="<%= @link %>" />
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="icon" type="image/png" href="/favicon.png">
+	
+	<style type="text/css">
+		img {height: inherit;}
+	</style>
 </head> 
 <body> 
 	<div id="wrapper">
@@ -39,23 +41,43 @@
 	
 	<div id="fb-root"></div>
 	<script language="javascript">
+		var uid;
+		var access_token;
+		// Load the SDK Asynchronously
+	     (function(d){
+	        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+	        if (d.getElementById(id)) {return;}
+	        js = d.createElement('script'); js.id = id; js.async = true;
+	        js.src = "//connect.facebook.net/en_US/all.js";
+	        ref.parentNode.insertBefore(js, ref);
+	      }(document));
+		// Init
 		window.fbAsyncInit = function() {
-		    FB.init({ appId: '<%= FB_CONFIG['api_key'] %>', status: true, cookie: true, xfbml: true });
+		    FB.init({ appId: '<%= Facebook::APP_ID %>', status: true, cookie: true, xfbml: true, oauth: true });
+			// FB.getLoginStatus(function(response) {
+			//   if (response.status === 'connected') {
+			//     // the user is logged in and has authenticated your
+			//     // app, and response.authResponse supplies
+			//     // the user's ID, a valid access token, a signed
+			//     // request, and the time the access token 
+			//     // and signed request each expire
+			//     uid = response.authResponse.userID;
+			//     access_token = response.authResponse.accessToken;
+			//   } else if (response.status === 'not_authorized') {
+			//     // the user is logged in to Facebook, 
+			//     // but has not authenticated your app
+			//   } else {
+			//     // the user isn't logged in to Facebook.
+			//   }
+			//  });
 		  };
-		(function() {
-		    var e = document.createElement('script'); e.async = true;
-		    e.src = document.location.protocol +
-		      '//connect.facebook.net/en_US/all.js';
-		    document.getElementById('fb-root').appendChild(e);
-		  }());
-
-		function facebookLogin() {
-		    FB.login(function(response) {
-		      if (response.session && response.perms) {
-		        window.location = "/users/link_user_accounts"
-		      } 
-		    }, {perms: 'publish_stream,offline_access'});
-		  }  
+		document.getElementById('fb-loginlink').addEventListener('click', function(){
+		          FB.login(function(response) {
+			      if (response.authResponse) {
+			        window.location = "<%= facebook_callback_session_url %>?redirect="+window.location.pathname+window.location.hash;
+			      } 
+			    }, {scope: 'user_hometown,publish_stream,email'});
+		  });
 	</script>
 </body>
 </html>

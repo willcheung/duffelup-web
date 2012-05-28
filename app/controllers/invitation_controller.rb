@@ -32,7 +32,7 @@ class InvitationController < ApplicationController
         @fb_url = "http://duffelup.com/signup?invitation_token="+b.token
       end
     
-      @fb_string = "I shared a travel corkboard " + 
+      @fb_string = "I am sharing my travel corkboard " + 
                     " <b>#{@trip.title}</b> with you on DuffelUp.com, a fun an easy way to collect travel ideas and photos."
     end
     

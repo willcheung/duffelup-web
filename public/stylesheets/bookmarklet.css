@@ -70,6 +70,7 @@ body{background: #fff}
 h1{
 	text-align: left;
 	font-size: 14px;
+	line-height: 18px;
 	font-weight: bold;
 	margin: 5px 15px 10px 60px;
 }
@@ -224,7 +225,7 @@ hr {
 	text-decoration: underline;
 }
 
-p.fb-button a {
+div.fb-button a {
 	background:url("/images/button-facebook-big.png") no-repeat scroll left top transparent;
 	float: left;
 	border:0 none;
@@ -232,20 +233,19 @@ p.fb-button a {
 	height:40px;
 	line-height:0;
 	padding:0;
-	text-indent:-5000px;
 	width:210px;
 }
 
-p.fb-button a:hover {
+div.fb-button a:hover {
 	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
 }
 
-p.fb-button {
+div.fb-button {
 	margin:0;
 	padding:0;
 }
 
-p.fb-button a span.fb_button_text {
+div.fb-button a span.fb_button_text {
 	display: none;
 }
 

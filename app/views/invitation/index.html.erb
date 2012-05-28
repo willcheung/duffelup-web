@@ -12,7 +12,7 @@
 <div id="primary-inner">
 
 <div id="invitation">
-	<div class="page-header"><h1>Invite friends and local experts to <%= link_to @trip.title, trip_path(@trip) %>!</h1>
+	<div class="page-header"><h1>Invite friends and locals to <%= link_to @trip.title, trip_path(@trip) %>!</h1>
 		<h5><%= link_to display_user_name(@admins[0]), profile_for(@admins[0]) -%> is going to <%= shorten_trip_destination(@trip.destination.strip) -%></h5></div>
 	
 	<div class="clearfix"></div>
@@ -28,7 +28,7 @@
 		
 			<p id="announcement">Collaborators can add and modify travel ideas in this duffel. They won't have access to edit duffel settings.</p>
 		<% else %>
-			<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
+			<div class="fb-button"><a href="#invitations_left-fb" id="fb-loginlink">&nbsp;</a></div>
 		<% end %>
 	</div>
 	
@@ -111,3 +111,17 @@
 <% else %>
 	<h3>Sorry!  You are not invited or do not have permission to invite others to this duffel.</h3>
 <% end %>
+
+<script>
+if(window.location.hash == '#invitations_left-fb') {
+	$('#tb2').addClass('selected');
+	$('#tb2').siblings().removeClass('selected');
+	$('#invitations_left').hide();
+	$('#message').hide();
+	$('#invitations_left-fb').show();
+	$('#invitations_left-new').hide();
+	$('#invitations_left-email').hide();
+	$('#invitations_right').show();
+	$('#fb-friends-checkbox').load('/beta_invitations/get_fb_friends?trip=true',function(){$('#loading').remove();});
+}
+</script>

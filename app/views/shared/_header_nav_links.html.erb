@@ -4,7 +4,7 @@
 	<a class="dashboard" href="/user/dashboard"  onmouseover="$('#duffels-submenu').show();" onmouseout="$('#duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;You <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
 	<ul class="submenu" id="duffels-submenu"  style="display:none;" onmouseover="$('#duffels-submenu').show();" onmouseout="$('#duffels-submenu').hide();">
 		<li style="margin-top:5px;margin-bottom:3px;"><a href="/user/dashboard">Dashboard</a></li>
-		<li style="margin-top:5px;margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/user/dashboard">Find Friends</a></li>
+		<li style="margin-top:5px;margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/beta_invitations/facebook">Find Friends</a></li>
 		<li onclick="location.href='/user/dashboard?tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">My Duffels</a></li>
 		<li onclick="location.href='/user/dashboard?tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorite Duffels</a></li>
 		<!-- <li><a href="">Likes</a></li> -->

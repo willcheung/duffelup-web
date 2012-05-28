@@ -456,7 +456,7 @@ a:hover{color: #555;}
 #account li.nav-avatar .submenu li:hover a {
 	color: #fff;
 	text-shadow:none;
-	background-color:#000 !important;
+	background-color:#000;
 }
 
 #account li.comments a {
@@ -491,6 +491,29 @@ a:hover{color: #555;}
 	padding-left: 31px;
 }*/
 
+div.fb-button a {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left top transparent;
+	float: left;
+	border:0 none;
+	display:block;
+	height:40px;
+	line-height:0;
+	padding:0;
+	width:210px;
+}
+
+div.fb-button a:hover {
+	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
+}
+
+div.fb-button {
+	margin:0;
+	padding:0;
+}
+
+div.fb-button a span.fb_button_text {
+	display: none;
+}
 
 #trip-login label {
 	width: 125px;
@@ -540,7 +563,6 @@ a:hover{color: #555;}
 }
 
 #account #trip-login a:hover {
-	background: #fff;
 	color: #000;
 	text-shadow: 0 0 0 #fff;
 }
