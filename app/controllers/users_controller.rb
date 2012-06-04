@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @title = "Duffel Dashboard - Visual Bookmarking Tool and Trip Planner"
+    @title = "Duffel Dashboard"
     @planned_trips = []
     @past_trips = []
     @no_date_trips = []
@@ -88,6 +88,11 @@ class UsersController < ApplicationController
       @past_trips_by_year = @past_trips.group_by {|e| e.start_date.year}
     end
     
+    @likes_count = current_user.likes.count
+    if params[:tab] == "likes"
+      @likes = current_user.likes
+    end
+    
     
     ####################################
     # Load Friends & Requested Friends
@@ -103,12 +108,12 @@ class UsersController < ApplicationController
     ####################################
     # Load Duffel of the Month
     ####################################
-    if !fragment_exist?("dashboard-featured-duffel", :time_to_live => 1.day)
-      @duffel_of_the_month = FeaturedDuffel.find(:first, :order => "created_at DESC")
-    else
-      @duffel_of_the_month = FeaturedDuffel.new
-      @duffel_of_the_month = read_fragment("dashboard-featured-duffel")
-    end
+    # if !fragment_exist?("dashboard-featured-duffel", :time_to_live => 1.day)
+    #   @duffel_of_the_month = FeaturedDuffel.find(:first, :order => "created_at DESC")
+    # else
+    #   @duffel_of_the_month = FeaturedDuffel.new
+    #   @duffel_of_the_month = read_fragment("dashboard-featured-duffel")
+    # end
     
     ####################################
     # Load Duffel Blog RSS

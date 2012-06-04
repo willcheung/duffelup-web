@@ -1,55 +1,35 @@
-<% if @no_date_trips.empty? and @planned_trips.empty? %>
-<div id="dashboard-header">
-	<div id="new-duffel-form">
-		<h2>Where do you want to travel?</h2>
-		<% form_for(:trip_city, :html => {:id => "trip_form"}, :url => new_trip_url) do |f| %>
-			<%= text_field_with_auto_complete :trip, :destination, { :class => "trip_destination big", :onblur => "if(this.value=='')this.value='e.g. Rome, Italy';", :onfocus => "if(this.value=='e.g. Rome, Italy')this.value=''", :value => "e.g. Rome, Italy" }, { :indicator => "indicator", :frequency => ".2", :min_chars => "3" } %>
-			<%= submit_tag "Create Duffel", :class => "submit big-button" %>
-			<span id="indicator" style="display:none"><img class="indicator" src="/images/ajax-loader.gif" alt="loading" /></span>
-		<% end %>
-	</div>
-</div>
-<% end %>
-
 <ul class="tabs">
-	<li onclick="location.search='tab=duffels-active';return false;"><a <% if params[:tab] == "duffels-active" %> class="selected" <% end %> href="#">Active (<%= (@planned_trips.size+@no_date_trips.size) %>)</a></li>
-	<li onclick="location.search='tab=duffels-previous';return false;"><a <% if params[:tab] == "duffels-previous" %> class="selected" <% end %> href="#">Previous (<%= @past_trips.size %>)</a></li>
+	<li onclick="location.search='tab=duffels-active';return false;"><a <% if params[:tab] == "duffels-active" %> class="selected" <% end %> href="#">My Duffels (<%= (@planned_trips.size+@no_date_trips.size+@past_trips.size) %>)</a></li>
 	<li onclick="location.search='tab=duffels-faves';return false;"><a <% if params[:tab] == "duffels-faves" %> class="selected" <% end %> href="#">Favorites (<%= @favorite_trips.size %>)</a></li>
+	<li onclick="location.search='tab=likes';return false;"><a <% if params[:tab] == "likes" %> class="selected" <% end %> href="#">Likes (<%= @likes_count %>)</a></li>
 </ul>
 
 <div class="clearfix" style="border-bottom: 1px solid #ddd;"></div>
 
-<div id="myDuffels">
+<div id="myDuffels" style="overflow:visible;width:670px">
 
-	<% if params[:tab] != "duffels-previous" and params[:tab] != "duffels-faves"%>
+	<% if params[:tab] != "likes" and params[:tab] != "duffels-faves"%>
   		<div id="duffels-active">
-			<%- if @no_date_trips.empty? and @planned_trips.empty? -%>
+			<%- if @no_date_trips.empty? and @planned_trips.empty? and @past_trips.empty? -%>
 		    <em class="systemComment">You're not planning any trips right now. Where do you want to travel?</em>
 		    <% else %>
 				<%= render :partial => "trips/duffels", :locals => { :trips => @planned_trips, :favorite => false } %>
 				<%= render :partial => "trips/duffels", :locals => { :trips => @no_date_trips, :favorite => false } %>
-		    <%- end -%>
-		 </div> <!-- #duffels-active -->
-  
-  	<% elsif params[:tab] == "duffels-previous" %>
-		<div id="duffels-previous">
-	    <%- if !@past_trips_by_year.empty? -%>
-	    	<% @past_trips_by_year.each do |year, trips| %>
+		    	
+				<% @past_trips_by_year.each do |year, trips| %>
 
-				<div class="clearfix"></div>
-				<h3><strong><%= year %></strong> <small>(<%= pluralize(trips.size, "duffel") %>)</small></h3>
+					<div class="clearfix"></div>
+					<h3><strong><%= year %></strong> <small>(<%= pluralize(trips.size, "duffel") %>)</small></h3>
 
-				<div id="year_<%= year %>_container">
+					<div id="year_<%= year %>_container">
 
-				  	<div id="year_<%= year %>_block" class="year">
-						<%= render :partial => "trips/duffels", :locals => { :trips => trips, :favorite => false } %>
+					  	<div id="year_<%= year %>_block" class="year">
+							<%= render :partial => "trips/duffels", :locals => { :trips => trips, :favorite => false } %>
+						</div>
 					</div>
-				</div>
-			<% end %>
-	    <%- else -%>
-	      <em class="systemComment">No public duffels here.</em>
-	    <%- end -%>
-	  </div> <!-- #duffels-previous -->
+				<% end %>
+			<%- end -%>
+		 </div> <!-- #duffels-active -->
 	<% elsif params[:tab] == "duffels-faves" %>
   
   		<div id="duffels-favorite">
@@ -59,6 +39,57 @@
 		      <em class="systemComment">Save any duffel to your favorites.<br/><br/> You can sync favorites directly to your iPhone for offline access. <a target="_blank" href="http://itunes.apple.com/app/id371064516">Check it out.</a></em>
 		    <%- end -%>
 		</div> <!-- #duffels-favorite -->
+		
+	<% elsif params[:tab] == "likes" %>
+		<div id="likes" style="margin-left:-23px">
+		<% @likes.each do |a| %>
+			<% e = a.event %>
+			<div class="pin <% if !photo_exists?(e) %>note<% end %>" style="height:290px">
+				<div class="actions">
+					<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", e, e.trip.permalink) %></div>
+					<div class="like <% if liked?(e) %>disabled<% end %>" id="like_<%= e.id %>">
+						<% if logged_in? %>
+							<% if liked?(e) %>
+								<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{e.id}", :method => :delete } -%>
+							<% else %>
+								<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0;" -%>
+							<% end %>
+						<% else %>
+							<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
+						<% end %>
+					</div>
+				</div>
+
+				<% if e.eventable_type == "Foodanddrink"%>
+					<span class="idea-label fooddrink">Food &amp; Drink</span>
+				<% elsif e.eventable_type == "Activity" %>
+					<span class="idea-label activity">Activity</span>
+				<% elsif e.eventable_type == "Hotel" %>
+					<span class="idea-label lodging">Lodging</span>
+				<% end %>
+
+				<% if photo_exists?(e) %>
+					<div style="overflow:hidden;text-align:center;">
+					<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
+						<img style="height:180px;" alt="<%= e.title %>" src="<%= get_image_url(e) %>">
+					</a>
+					</div>
+				<% elsif e.eventable.lat and e.eventable.lng %>
+					<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
+						<img class="map" src="<%= build_static_map_url_my_duffels(e.eventable, :size => "180x180", :zoom => 15) %>">
+					</a>
+				<% else %>
+					<div style="padding: 1px 0">&nbsp;</div>
+				<% end %>
+
+				<h5 style="margin-top:5px"><%= truncate(h(e.title), :length => 30) %></h5>
+				<p class="description"><%= truncate(h(e.note), :length => 60) %></p>
+
+				<p class="info">By <a href="/<%= e.user.username %>"><%= e.user.username %></a> to <a href="/trips/<%= e.trip.permalink %>"><%= e.trip.title %></a></p>
+
+			</div>
+		<% end %>
+		</div>
 	<% end %>
 
 </div> <!-- #myDuffels -->

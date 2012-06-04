@@ -134,4 +134,15 @@ module TripsHelper
     return s
   end
   
+  
+  def build_static_map_url_my_duffels(event, options = {})
+    size = options[:size] || "330x120"
+    zoom = options[:zoom].to_s || "15"
+    
+    s = "http://maps.google.com/maps/api/staticmap?center=#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}&markers=size:small|color:gray"
+    
+    s = s + "|#{event.lat.to_s[0..7]},#{event.lng.to_s[0..7]}&zoom="+zoom+"&size="+size+"&maptype=road&sensor=false&style=feature:landscape%7Celement:geometry%7Chue:0xf0eade%7csaturation:8&style=feature:road|element:geometry|hue:0xf0d59f|saturation:34|lightness:30"
+    
+    return s
+  end
 end
