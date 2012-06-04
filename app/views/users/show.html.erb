@@ -117,7 +117,7 @@
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
 	<% elsif params[:tab] == "deals" %>
 		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
-	<% elsif params[:tab] == "duffels-previous" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>
+	<% elsif params[:tab] == "likes" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>
 		<%= render :partial => 'users/dashboard_partials/my_duffels' %>
 	<% else %> <!-- by default goes to updates tab -->
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>

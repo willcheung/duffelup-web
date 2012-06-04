@@ -1266,7 +1266,7 @@ form p {
 	position: absolute;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
-	margin: 64px 0 0 0;	
+	margin: 64px 0 0 50px;	
 	width: 200px;
 }
 
@@ -2633,7 +2633,24 @@ div.stat_bubble_content {
 	text-shadow: 0px 1px 2px #DDD;
 	margin: 10px 20px 10px 20px;
 }
-#central #board .pin {
+#myDuffels #likes .pin .idea-label{
+	position: absolute;
+	margin-left:-15px;
+	padding: 0 3px;
+	color: #fff;
+}
+#myDuffels #likes .pin .description {
+	font-size:11px;
+}
+#myDuffels #likes .pin .info {
+	font-size:11px;
+	color: #888;
+}
+#myDuffels #likes .pin .info a {
+	color: #888;
+	font-weight: bold;
+}
+#central #board .pin, #myDuffels #likes .pin {
 	background-color: #F9F8F3;
   box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
   -moz-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
@@ -2648,10 +2665,10 @@ div.stat_bubble_content {
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
-#central #board .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
-#central #board .pin .actions { display:none;position:relative; z-index: 3;}
-#central #board .pin:hover .actions { display: block; }
-#central #board .pin .actions .add-to-duffel a{
+#central #board .pin .likes, #myDuffels #likes .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
+#central #board .pin .actions, #myDuffels #likes .pin .actions { display:none;position:relative; z-index: 3;}
+#central #board .pin:hover .actions, #myDuffels #likes .pin:hover .actions { display: block; }
+#central #board .pin .actions .add-to-duffel a, #myDuffels #likes .pin .actions .add-to-duffel a{
 	position: absolute;
 	top: -7px;
 	left: -7px;
@@ -2659,7 +2676,7 @@ div.stat_bubble_content {
 	padding: 5px 5px;
 	font-weight:bold;
 }
-#central #board .pin .actions .like a{
+#central #board .pin .actions .like a, #myDuffels #likes .pin .like a{
 	position: absolute;
 	top: -7px;
 	right: -7px;
@@ -2705,7 +2722,8 @@ div.stat_bubble_content {
 #central #board .pin p {
 	line-height: 1.35em;
 }
-#central #board span.idea-label, #simple #event .main span.idea-label {
+#central #board span.idea-label, 
+#simple #event .main span.idea-label {
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -3608,9 +3626,8 @@ input.big-button {
 }
 
 #simple #mainContent {
-  width: 620px;
+  width: 640px;
   float: right;
-  overflow: hidden;
 }
 
 #simple #newsfeed .display {
@@ -3635,7 +3652,7 @@ input.big-button {
 }
 
 #simple #primary-inner.dashboard {
-	background: transparent url("/images/dottedLine.png") 247px 0 repeat-y;
+	background: transparent url("/images/dottedLine.png") 237px 0 repeat-y;
 	overflow: hidden;
 }
 
