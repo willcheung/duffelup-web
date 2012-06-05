@@ -5,7 +5,7 @@ class Postoffice < ActionMailer::Base
      from "postoffice@duffelup.com (DuffelUp.com)"
      headers "Reply-to" => "postoffice@duffelup.com"
      recipients user.email
-     subject "Welcome to Duffel"
+     subject "Welcome to DuffelUp.com"
      body :username => user.username
      sent_on Time.now
      content_type "text/html"
@@ -50,7 +50,7 @@ class Postoffice < ActionMailer::Base
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
-    subject "You have a friend request from " + name + " on Duffel"
+    subject "You have a friend request from " + name + " on DuffelUp.com"
     body mail
     sent_on Time.now
     content_type "text/html"
@@ -63,7 +63,7 @@ class Postoffice < ActionMailer::Base
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend].email
     name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
-    subject "You are now friends with " + name + " on Duffel"
+    subject "You are now friends with " + name + " on DuffelUp.com"
     body mail
     sent_on Time.now
     content_type "text/html"
@@ -89,7 +89,7 @@ class Postoffice < ActionMailer::Base
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients mail[:friend_email]
     name = (mail[:inviter].full_name.nil? or mail[:inviter].full_name.empty?) ? mail[:inviter].username : mail[:inviter].full_name
-    subject name + " shared a trip with you on Duffel"
+    subject name + " shared a trip with you on DuffelUp.com"
     body mail
     sent_on Time.now
     content_type "text/html"
@@ -122,13 +122,13 @@ class Postoffice < ActionMailer::Base
   end
   
   def like_notification(mail)
-    return if mail[:trip_creator].email.nil? or mail[:trip_creator].email.empty?
+    return if mail[:event_creator].email.nil? or mail[:event_creator].email.empty?
     
     from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
-    recipients mail[:trip_creator].email
-    name = (mail[:user].full_name.nil? or mail[:user].full_name.empty?) ? mail[:user].username : mail[:user].full_name
-    subject name + " liked #{mail[:event].title}"
+    recipients mail[:event_creator].email
+    name = (mail[:liker].full_name.nil? or mail[:liker].full_name.empty?) ? mail[:liker].username : mail[:liker].full_name
+    subject name + " liked your post on DuffelUp.com"
     body mail
     sent_on Time.now
     content_type "text/html"
