@@ -69,7 +69,6 @@ class CommentsController < ApplicationController
         format.js do 
           render :update do |page|
             page.replace_html "comments_for_trip_#{@trip.id}", :partial => "comments/comment", :collection => @trip.comments
-            page.visual_effect(:highlight, "comment_#{@comment.id}")
           end
         end 
       else 
