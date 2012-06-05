@@ -10,6 +10,12 @@ class LikeController < ApplicationController
     like = Like.new(:user => current_user, :event => e, :acted_on => Time.now)
     like.save!
     
+    Postoffice.deliver_like_notification(:event_creator => e.user,
+                                            :liker => current_user,
+                                            :event_title => e.title,
+                                            :liker_url => "http://duffelup.com/#{current_user.username}",
+                                            :event_url => trip_idea_url(:permalink => e.trip.permalink, :id => e.id))
+    
     respond_to do |format|
       format.js do
         render :update do |page|
