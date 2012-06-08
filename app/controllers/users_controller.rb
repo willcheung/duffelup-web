@@ -387,7 +387,6 @@ class UsersController < ApplicationController
   def steptwo
     @title = "Install Duffel \"Add to Duffel\" Bookmarker"
     @user = current_user
-    render :layout => 'simple_without_search'
   end
   
   def search
