@@ -326,50 +326,47 @@ module ActivitiesFeedsHelper
   def create_events_html(bunch_of_json_events, event_type, trip_href)
     idea_url = ""
     content = ""
-    content +=  "<div id=\"events\"><ul>"
+    content +=  "<div id=\"events\" style=\"margin-left:-35px\">"
     
     bunch_of_json_events.each do |e|
       parsed_event = ActiveSupport::JSON.decode(e)
       parsed_trip = ActiveSupport::JSON.decode(trip_href) if !trip_href.nil? and !trip_href.include?("<a href=") # hack since some entries are in HTML
-      return "" unless parsed_event
+      next unless parsed_event
       
       idea = parsed_event[event_type]
       event = parsed_event["Event"]
-      return "" if idea.nil? or event.nil?
+      next if idea.nil? or event.nil?
+      next if event["photo_file_size"].nil? and event["photo_file_name"].nil? and idea["lat"].nil? and idea["lng"].nil?
       
       # hack since some entries are in HTML
-      idea_url = "<a href=\"http://duffelup.com/trips/#{parsed_trip['permalink']}/ideas/#{event['id']}\">" if parsed_trip        
+      idea_url = "<a class=\"ImgLink\" href=\"http://duffelup.com/trips/#{parsed_trip['permalink']}/ideas/#{event['id']}\">" if parsed_trip        
       
-      content += "<li class=\"#{event_type}\">"
+      #content += "<li class=\"#{event_type}\">"
+      content += "<div class=\"pin note\" style=\"height:265px;overflow:hidden;\">"
       
       if event["photo_file_size"].nil? and event["photo_file_name"].nil? and !idea["lat"].nil? and !idea["lng"].nil?
-        content += "<div style=\"overflow:hidden;text-align:center;\">"
         content += idea_url if parsed_trip #hack
-        content += "<img src=\"http://maps.google.com/maps/api/staticmap?center=#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&markers=size:small|#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&zoom=15&size=144x144&maptype=road&sensor=false\"/>"
+        content += "<img class=\"map\" src=\"http://maps.google.com/maps/api/staticmap?center=#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&markers=size:small|#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&zoom=15&size=180x180&maptype=road&sensor=false\"/>"
         content += "</a>" if parsed_trip #hack
-        content += "</div>"
       elsif event["photo_file_size"].nil? and event["photo_file_name"]
         content += "<div style=\"overflow:hidden;text-align:center;\">"
         content += idea_url if parsed_trip #hack
-        content += "<img src=\"#{event["photo_file_name"]}\"/>"
+        content += "<img style=\"height:180px\" src=\"#{event["photo_file_name"]}\"/>"
         content += "</a>" if parsed_trip
         content += "</div>"
       elsif event["photo_file_size"] and event["photo_file_name"]
         content += "<div style=\"overflow:hidden;text-align:center;\">"
         content += idea_url if parsed_trip #hack
-        content += "<img src=\"http://s3.amazonaws.com/duffelup_event_#{RAILS_ENV}/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/>"
+        content += "<img style=\"height:180px\" src=\"http://s3.amazonaws.com/duffelup_event_#{RAILS_ENV}/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/>"
         content += "</a>" if parsed_trip
         content += "</div>"
       end
       
-      content += idea_url if parsed_trip
-      content += "<h3>" + truncate(unicode_to_utf8(event["title"]), :length => 40) + "</h3>"
-      content += "</a>" if parsed_trip
-      
-      content += "<p>" + unicode_to_utf8(event["note"]) + "</p>"
-      content +="</li>"
+      content += "<h5 style=\"margin-top:5px\">" + truncate(unicode_to_utf8(event["title"]), :length => 55) + "</h5>"
+      content += "<p class=\"description\">" + unicode_to_utf8(event["note"]) + "</p>"
+      content +="</div>"
     end
-    content += "</ul></div>"
+    content += "</div>"
     
     return content
   end

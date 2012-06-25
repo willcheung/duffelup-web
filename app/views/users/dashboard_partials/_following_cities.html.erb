@@ -1,0 +1,26 @@
+<script>
+$(function() {
+	$('#subscription_city').autocomplete({
+			source: "/city/auto_complete",
+			minLength: 3,
+			search: function(event,ui) {$('#indicator').show();},
+			open: function(event,ui) {$('#indicator').hide();}
+		});
+	});
+</script>
+
+<div id="following" class="following">
+	<% current_user.cities.each_with_index do |c,i| %>
+		<h6 style="margin-top:6px;"><%= c.city %>
+		 <small>- <%= link_to "Unfollow", subscription_path(:city => c, :redirect => "/user/dashboard"), :method => :delete %></small>
+		</h6>
+	<% end %>
+	
+	<div class="clearfix"></div>
+	
+	<h5 style="margin-top:7px;">Find a city to follow:</h5>
+	<% form_for(:subscription, :html => {:id => "search_form"}, :url => subscription_url(:redirect => "/user/dashboard"), :method => :post) do |f| %>
+		<%= text_field :subscription, :city, { :class => "span2", :style => "margin-bottom: 5px;" } %>
+		<%= submit_tag "Follow", :class => "btn", :style => "padding: 3px 8px;margin-bottom:8px;" %> 
+	<% end %>
+</div>

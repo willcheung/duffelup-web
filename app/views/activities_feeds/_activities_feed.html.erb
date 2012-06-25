@@ -1,6 +1,6 @@
 
 <% if activities_feed.is_public == 1 or display_private_duffel_feed(activities_feed) %>
-	<div id="activity" class="row">
+	<div id="activity" class="row" style="overflow:visible">
 		<div class='avatar'>
 			<a href="<%= profile_for(activities_feed.user) %>"><%= collaborator_thumbnail(activities_feed.user) %></a>
 		</div>

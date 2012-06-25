@@ -87,7 +87,7 @@
 	</div>
 	<% end %>
 
- 	<div id="friends" style="background:none;">
+ 	<div id="friends">
       <h2>Friends</h2>
       <ul>
 		<% @friends.each_with_index do |f,i| %>
@@ -101,8 +101,9 @@
       </ul>
     </div> <!-- #friends -->
 
-	<!-- <h2 style="margin-bottom:0;">Follow Travel Deals <small style="font-weight:normal;">- <a href="#" onclick="$('following').toggle();return false;">Edit</a></small></h2>
+	<!-- <h4 style="margin-top:15px;">Places you're following</h4>
 	<div id="travelDeals">
+		<%= render :partial => 'users/dashboard_partials/following_cities' %>
 	</div> -->
 
 	<!-- <div style="margin: 20px 0">
@@ -115,8 +116,6 @@
 	
 	<% if params[:tab] == "updates" %>	
 		<%= render :partial => 'users/dashboard_partials/recent_updates' %>
-	<% elsif params[:tab] == "deals" %>
-		<%= render :partial => 'users/dashboard_partials/travel_deals' %>
 	<% elsif params[:tab] == "likes" or params[:tab] == "duffels-faves" or params[:tab] == "duffels-active" %>
 		<%= render :partial => 'users/dashboard_partials/my_duffels' %>
 	<% else %> <!-- by default goes to updates tab -->
