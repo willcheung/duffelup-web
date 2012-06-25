@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_filter :protect, :except => :auto_complete_for_subscription_city
+  before_filter :protect
   
   def create
     @user = current_user
@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
     redirect = params[:redirect] ? params[:redirect] : dashboard_path
 
     respond_to do |format|
-      flash[:notice] = "Don't like #{city.city}? Let's find another city for you."
+      flash[:notice] = "Don't like #{city.city}? Find another city to follow."
       format.html { redirect_to(redirect) }
     end
   end

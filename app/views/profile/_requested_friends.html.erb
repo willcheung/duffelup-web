@@ -1,4 +1,4 @@
-	<h2><%= pluralize(@requested_friends.size, "friend request")%></h2>
+	<h3><%= pluralize(@requested_friends.size, "friend request")%></h3>
   	<% @requested_friends.each do |requester| %>
 	<p>
 		<%= link_to display_thumbnail(requester), profile_for(requester), :title => display_thumbnail_title(requester.username, requester.full_name, requester.home_city) %>
@@ -7,7 +7,7 @@
         <%= link_to "Accept", 
                     { :controller => "friendship", :action => "accept", 
                       :id => requester.username, :return_to => request.request_uri }, :class => 'mute' %> &nbsp; &nbsp; 
-        <%= link_to "Decline", 
+        <%= link_to "Ignore", 
                     { :controller => "friendship", :action => "ignore", 
                      :id => requester.username, :return_to => request.request_uri }, 
                      :confirm => "Really decline friendship with #{requester.username}?", :class => 'mute' %></span>

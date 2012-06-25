@@ -2650,7 +2650,7 @@ div.stat_bubble_content {
 	color: #888;
 	font-weight: bold;
 }
-#central #board .pin, #myDuffels #likes .pin {
+#central #board .pin, #myDuffels #likes .pin, #activities_feed #events .pin {
 	background-color: #F9F8F3;
   box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
   -moz-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
@@ -3364,51 +3364,6 @@ input.big-button {
 	line-height:20px;
 	margin:10px;
 	position:relative;
-}
-
-#updates #activities_feed #activity #photo_spot li, #updates #activities_feed #activity #events li {
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background-color: #F7F6F1;
-	border: 1px solid #DEDEDE !important;
-	margin: 5px;
-	float: left;
-	overflow: hidden;
-	padding: 5px;
-	max-width: 150px;
-}
-
-#updates #activities_feed #activity #events li {
-	width: 150px;
-	height: 200px;
-}
-
-#updates #activities_feed #activity #photo_spot li img, #updates #activities_feed #activity #events li img {
-	height: 150px;
-	display:inline;
-}
-
-#updates #activities_feed #activity #events li img {
-	margin-bottom: -5px;
-}
-
-#updates #activities_feed #activity li h3 {
-	font-weight: bold;
-	text-align: left;
-	font-size: 12px;
-	display: inline;
-	position: relative;
-	top: 5px;
-}
-
-#updates #activities_feed #activity li a, #updates #activities_feed #activity li a:link {
-	color: #555;
-}
-
-#updates #activities_feed #activity li p {
-	text-align: left;
-	position: relative;
-	font-size: 11px;
 }
 
 #updates #activities_container #activities_feed #activity .content #photo_spot, 
