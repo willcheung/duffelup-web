@@ -177,6 +177,8 @@ class UsersController < ApplicationController
   end
   
   def more_news_feed
+    @likes = current_user.likes
+    
     if params[:profile]
       u = User.find_by_username(params[:profile])
       
