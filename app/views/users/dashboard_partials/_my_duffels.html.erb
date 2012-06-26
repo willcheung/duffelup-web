@@ -46,10 +46,10 @@
 			<% e = a.event %>
 			<div class="pin <% if !photo_exists?(e) %>note<% end %>" style="height:290px">
 				<div class="actions">
-					<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", e, e.trip.permalink) %></div>
-					<div class="like <% if liked?(e) %>disabled<% end %>" id="like_<%= e.id %>">
+					<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", e.id, e.trip.permalink) %></div>
+					<div class="like <% if liked?(e.id) %>disabled<% end %>" id="like_<%= e.id %>">
 						<% if logged_in? %>
-							<% if liked?(e) %>
+							<% if liked?(e.id) %>
 								<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{e.id}", :method => :delete } -%>
 							<% else %>
 								<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0;" -%>

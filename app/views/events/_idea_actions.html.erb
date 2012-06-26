@@ -12,6 +12,6 @@
 				  :title => "Delete" %></span>
 	<% end %>
 
-	<span class="idea-copy"><%= build_url_for_copy("copy", event, @trip.permalink) %></span>
+	<span class="idea-copy"><%= build_url_for_copy("copy", event.id, @trip.permalink) %></span>
 	<span class="idea-info"><a title="More Info" href="<%=@trip.permalink%>/ideas/<%=event.id%>">more info</a></span>
 </div>

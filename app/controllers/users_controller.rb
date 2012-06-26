@@ -89,9 +89,7 @@ class UsersController < ApplicationController
     end
     
     @likes_count = current_user.likes.count
-    if params[:tab] == "likes"
-      @likes = current_user.likes
-    end
+    @likes = current_user.likes
     
     
     ####################################

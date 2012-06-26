@@ -1,9 +1,9 @@
 <div class="pin <% if !photo_exists?(pin) %>note<% end %>">
 	<div class="actions">
-		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin, pin.trip_perma) %></div>
-		<div class="like <% if liked?(pin) %>disabled<% end %>" id="like_<%= pin.id %>">
+		<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", pin.id, pin.trip_perma) %></div>
+		<div class="like <% if liked?(pin.id) %>disabled<% end %>" id="like_<%= pin.id %>">
 			<% if logged_in? %>
-				<% if liked?(pin) %>
+				<% if liked?(pin.id) %>
 					<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{pin.id}", :method => :delete } -%>
 				<% else %>
 					<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{pin.id}", :method => :post }, :style => "padding-left:0;" -%>
