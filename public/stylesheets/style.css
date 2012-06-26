@@ -2639,7 +2639,7 @@ div.stat_bubble_content {
 	padding: 0 3px;
 	color: #fff;
 }
-#myDuffels #likes .pin .description {
+#myDuffels #likes .pin .description, #activities_feed #events .pin .description {
 	font-size:11px;
 }
 #myDuffels #likes .pin .info {
@@ -2665,10 +2665,10 @@ div.stat_bubble_content {
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
-#central #board .pin .likes, #myDuffels #likes .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
-#central #board .pin .actions, #myDuffels #likes .pin .actions { display:none;position:relative; z-index: 3;}
-#central #board .pin:hover .actions, #myDuffels #likes .pin:hover .actions { display: block; }
-#central #board .pin .actions .add-to-duffel a, #myDuffels #likes .pin .actions .add-to-duffel a{
+#central #board .pin .likes, #myDuffels #likes .pin .likes, #activities_feed #events .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
+#central #board .pin .actions, #myDuffels #likes .pin .actions, #activities_feed #events .pin .actions { display:none;position:relative; z-index: 3;}
+#central #board .pin:hover .actions, #myDuffels #likes .pin:hover .actions, #activities_feed #events .pin:hover .actions { display: block; }
+#central #board .pin .actions .add-to-duffel a, #myDuffels #likes .pin .actions .add-to-duffel a, #activities_feed #events .pin .actions .add-to-duffel a{
 	position: absolute;
 	top: -7px;
 	left: -7px;
@@ -2676,7 +2676,7 @@ div.stat_bubble_content {
 	padding: 5px 5px;
 	font-weight:bold;
 }
-#central #board .pin .actions .like a, #myDuffels #likes .pin .like a{
+#central #board .pin .actions .like a, #myDuffels #likes .pin .like a, #activities_feed #events .pin .like a{
 	position: absolute;
 	top: -7px;
 	right: -7px;

@@ -162,7 +162,7 @@ module EventsHelper
   end
   
   
-  def build_url_for_copy(display, event, trip_permalink)
+  def build_url_for_copy(display, event_id, trip_permalink)
 
     if ENV['RAILS_ENV'] == 'production'
       url = "http://duffelup.com/research/new"
@@ -171,7 +171,7 @@ module EventsHelper
     end
     
     url = url + "?local=true" + 
-                "&event_code=" + Base64.encode64(event.id.to_s) + 
+                "&event_code=" + Base64.encode64(event_id.to_s) + 
                 "&trip_code=" + Base64.encode64(trip_permalink)
     
     # opens new window

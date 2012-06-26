@@ -341,8 +341,20 @@ module ActivitiesFeedsHelper
       # hack since some entries are in HTML
       idea_url = "<a class=\"ImgLink\" href=\"http://duffelup.com/trips/#{parsed_trip['permalink']}/ideas/#{event['id']}\">" if parsed_trip        
       
-      #content += "<li class=\"#{event_type}\">"
       content += "<div class=\"pin note\" style=\"height:265px;overflow:hidden;\">"
+      
+      if parsed_trip
+        content += '<div class="actions">' +
+          '<div class="add-to-duffel">' + build_url_for_copy("Add to my duffel", event['id'], parsed_trip['permalink']) + '</div>' +
+          "<div class=\"like #{"disabled" if liked?(event['id'])}\" id=\"like_#{event['id']}\">"
+          
+          if liked?(event['id'])
+            content += link_to_remote "Unlike", { :url => "/like/111/?event=#{event['id']}", :method => :delete }
+          else
+            content += link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{event['id']}", :method => :post }, :style => "padding-left:0;"
+          end
+        content += "</div></div>"  
+      end
       
       if event["photo_file_size"].nil? and event["photo_file_name"].nil? and !idea["lat"].nil? and !idea["lng"].nil?
         content += idea_url if parsed_trip #hack
@@ -363,7 +375,7 @@ module ActivitiesFeedsHelper
       end
       
       content += "<h5 style=\"margin-top:5px\">" + truncate(unicode_to_utf8(event["title"]), :length => 55) + "</h5>"
-      content += "<p class=\"description\">" + unicode_to_utf8(event["note"]) + "</p>"
+      content += "<p class=\"description\">" + truncate(unicode_to_utf8(event["note"]), :length => 145) + "</p>"
       content +="</div>"
     end
     content += "</div>"

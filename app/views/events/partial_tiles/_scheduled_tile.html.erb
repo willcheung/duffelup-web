@@ -45,7 +45,7 @@
 <% end %>
 
 <%- unless event.eventable_type == "CheckIn" -%>
-<%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event, @trip.permalink) %></span><%- end -%>
+<%- if logged_in? -%><span title="Copy" class="idea-copy"><%= build_url_for_copy("Copy", event.id, @trip.permalink) %></span><%- end -%>
 <%- end -%>
 
 <% if sortable_tile %>
