@@ -13,6 +13,8 @@ class ProfileController < ApplicationController
     if @user
       @title = display_user_name(@user) + "'s trips on Duffel Visual Trip Planner"
       
+      @likes = current_user.likes
+      
       ####################################
       # Load Trips and Comments Count
       ####################################
