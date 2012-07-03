@@ -2664,6 +2664,7 @@ div.stat_bubble_content {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
+	overflow:hidden;
 }
 #central #board .pin .likes, #myDuffels #likes .pin .likes, #activities_feed #events .pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
 #central #board .pin .actions, #myDuffels #likes .pin .actions, #activities_feed #events .pin .actions { display:none;position:relative; z-index: 3;}
