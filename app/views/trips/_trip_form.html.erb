@@ -45,7 +45,11 @@ $(function() {
 $(function() {
 	$( "#trip_end_date" ).datepicker(
 		  { showOtherMonths: true,
-		 	selectOtherMonths: true });
+		 	selectOtherMonths: true,
+		 	minDate: $.datepicker.parseDate('mm/dd/yy', $('#trip_start_date').val())});
+	$('#trip_start_date').change(function(){
+		$( "#trip_end_date" ).datepicker('option','minDate',$.datepicker.parseDate('mm/dd/yy', $('#trip_start_date').val()));
+	})
 });
 </script>
 
@@ -103,3 +107,8 @@ $(function() {
 	<%= form.radio_button 'is_public', '1' %> Anyone can view this trip 
 <% end %>
 </div>
+
+<script>
+$('#trip_start_date').val($.datepicker.formatDate('mm/dd/yy', $.datepicker.parseDate('yy-mm-dd', $('#trip_start_date').val())));
+$('#trip_end_date').val($.datepicker.formatDate('mm/dd/yy', $.datepicker.parseDate('yy-mm-dd', $('#trip_end_date').val())));
+</script>
