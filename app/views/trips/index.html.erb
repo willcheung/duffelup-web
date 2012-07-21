@@ -45,7 +45,9 @@
 			<div class='avatar-grid'>
 				<h3>Featured Members</h3>
 				<% @featured_members.each do |d| %>
-				<div class="user"><a href="<%= profile_url(d.user.username) %>" title="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" alt="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" ><%= display_thumbnail(d.user) %></a></div>
+					<% unless d.user.nil? %>
+						<div class="user"><a href="<%= profile_url(d.user.username) %>" title="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" alt="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" ><%= display_thumbnail(d.user) %></a></div>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
