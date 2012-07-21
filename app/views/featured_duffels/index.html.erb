@@ -171,7 +171,7 @@
 					
 						<div id="postbox-secondary">
 						<% @featured_duffels[1..FeaturedDuffel::FEATURED_DUFFELS_PER_PAGE].each_with_index do |d,i| %>
-		
+							<% next	if d.trip.nil? %>
 							<div id="posttop">
 								<div class="meta">
 									<h1 style="text-align:center"><%= d.title %></h1>
@@ -256,6 +256,7 @@
 						<h3 style="margin-top:0">Featured Members</h3>
 						<ul>
 					  	<% @featured_duffels.each_with_index do |d,i| %>	
+							<% next	if d.user.nil? %>
 							<% break if i==15 %>
 							<li><a href="<%= profile_url(d.user.username) %>" title="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" alt="<%=display_thumbnail_title(d.user.username, d.user.full_name, d.user.home_city)%>" ><%= display_thumbnail(d.user, { :width => "38"}) %></a></li>
 						 <% end %>

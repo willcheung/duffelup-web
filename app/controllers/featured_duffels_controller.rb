@@ -22,13 +22,13 @@ class FeaturedDuffelsController < ApplicationController
                                             
     @featured_duffels.each_with_index do |d,i|
       # store all the trips
-      trips << d.trip
+      trips << d.trip if !d.trip.nil?
       
       ###################################
       # Load duffel comments count
       ###################################
-      if !fragment_exist?("#{d.trip.id}-comments-size", :time_to_live => 1.day)
-        @trip_comments_size["#{d.trip.id}-comments-size"] = d.trip.comments.size.to_s
+      if !d.trip.nil? and !fragment_exist?("#{d.trip.id}-comments-size", :time_to_live => 1.day)
+        @trip_comments_size["#{d.trip.id}-comments-size"] = d.trip.comments.size.to_s 
         write_fragment("#{d.trip.id}-comments-size", d.trip.comments.size.to_s)
       else
         @trip_comments_size["#{d.trip.id}-comments-size"] = read_fragment("#{d.trip.id}-comments-size")
@@ -37,7 +37,7 @@ class FeaturedDuffelsController < ApplicationController
       #################
       # Load ideas for each trip
       #################
-      if !fragment_exist?("#{d.trip.id}-mappable-ideas")
+      if !d.trip.nil? and !fragment_exist?("#{d.trip.id}-mappable-ideas")
         @ideas_to_map[i] = d.trip.mappable_ideas
         write_fragment("#{d.trip.id}-mappable-ideas", @ideas_to_map[i])
       else

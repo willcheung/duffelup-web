@@ -12,7 +12,7 @@
 				<a title="Map of <%= @city.city %>" href="http://maps.google.com/?q=<%=@city.city_country%>" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?center=<%=@city.city_country%>&zoom=10&size=215x150&sensor=false"></a>
 			</div>
 		
-			<% if @featured %>
+			<% if @featured and !@featured.trip.nil? %>
 			<div class="sidebar-pin" style="padding-bottom:15px">
 				<h3 style="padding-bottom:5px"><strong>Featured duffel</strong> <span><a style="color:#F20063;float:right;font-size:11px" href="/featured">View more &raquo;</a></span></h3>
 				<div class="avatar">
