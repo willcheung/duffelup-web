@@ -1,4 +1,4 @@
-<h2><%= @label %> &nbsp;&nbsp;&nbsp;&nbsp;
+<!-- <h2><%= @label %> &nbsp;&nbsp;&nbsp;&nbsp;
 	<% unless @viators.nil? or @viators.empty? %>
 		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-tours').removeClassName('menu-selected');$('menu-tours').addClassName('menu');$('results').hide();$('form').show();return false;">On my own</a></span> 
 		<span id="menu-tours" class="menu"><a href="#" onclick="$('menu-tours').removeClassName('menu');$('menu-tours').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">Popular tours</a></span>
@@ -8,59 +8,46 @@
 		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-hotels').removeClassName('menu-selected');$('menu-hotels').addClassName('menu');$('results').hide();$('form').show();return false;">On my own</a></span> 
 		<span id="menu-hotels" class="menu"><a href="#" onclick="$('menu-hotels').removeClassName('menu');$('menu-hotels').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">Boutique hotels</a></span>
 	<% end %>
-</h2>
+</h2> -->
 
-<div class="tile-actions">	
-<p>You can add ideas from any website with just one click.</p> 
-<div class="t15"><%= render :partial => "shared/bookmarklet", :locals => {:small => true} %></div>
-</div>
+<% form_for([@trip, @event], :url => trip_ideas_url(:view => params[:view]),
+				:html => { :multipart => true }) do |form| %>
 
-
-<% if params[:idea_type] == "activity" %>
-<div id="results" style="display:none;">
-	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'viator', :view => params[:view])) do |form| %>
-		<div id="viator-list" style="max-height:200px; overflow:auto; margin-top:20px;">
-		<ul class="partner-list">
-		<% @viators.each do |v| %>
-			<li>
-				<%= image_tag(v.product_image_thumb)%>
-				<p class="detail"><span style="font-size:14px;"><strong><%= v.product_name %></strong></span> <% if v.avg_rating != "0" %><img style="float:none;margin-left:3px" src="http://duffelup-assets.s3.amazonaws.com/stars/<%=v.avg_rating%>.gif"><% end %> <span class="price">$<%= v.price %></span><br />
-				<%= truncate(v.introduction, :length => 180)%> <a href="<%= v.product_url %>" class="more-details-button" target="_blank">More Details</a></p>
-				<label class="price"><%= check_box_tag "event[viator][]", v.id%> Add to my duffel</label>
-			</li>
-		<% end %>
-		</ul>
+<div class="modal-header" style="border:none;padding-bottom:0">
+  <a type="button" class="close" data-dismiss="modal" href="#">×</a>
+	<h2 class="span2" style="float:left">Add an idea</h2>
+	<div class="span5" style="margin-top:12px">
+		<div id="idea-type" class="btn-group" data-toggle="buttons-radio">
+		  <a href="#" class="btn btn-mini activity active" onclick="jQuery('#idea_type').val('activity')">Activity</a>
+		  <a href="#" class="btn btn-mini eatdrink" onclick="jQuery('#idea_type').val('foodanddrink')">Food & Drink</a>
+		  <a href="#" class="btn btn-mini lodging" onclick="jQuery('#idea_type').val('hotel')">Lodging</a>
+		  <!-- <a href="#" class="btn btn-mini transport" onclick="jQuery('#idea_type').val('transportation')">Transportation</a>
+		  <a href="#" class="btn btn-mini note" onclick="jQuery('#idea_type').val('notes')">Notes</a> -->
 		</div>
-
-		<div id="form-submit" class="clearfix"><%= submit_tag "Add Activities", :onclick => "$('indicator-tour').show();pageTracker._trackEvent('Viator Events', 'add-from-ibox');" %><span id="indicator-tour" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
-	<% end %>
+	</div>
 </div>
-<% elsif params[:idea_type] == "hotel" %>
-<div id="results" style="display:none;">
-	<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => 'splendia', :view => params[:view])) do |form| %>
-		<div id="viator-list" style="max-height:200px; overflow:auto; margin-top:20px;">
-		<ul class="partner-list">
-		<% @splendia_hotels.each do |h| %>
-			<li>
-				<%= image_tag(h.image_url)%>
-				<p class="detail"><span style="font-size:14px;"><strong><%= h.name %></strong></span> <span style="color:#888;padding-left:15px;">starts at</span> <span class="price">$<%= h.min_price %></span><br />
-				<%= truncate(h.description, :length => 220)%> <a href="<%= "http://duffelup.com/hotels?hotel_id="+ h.hotel_id.to_s %>" class="more-details-button" target="_blank">More Details</a></p>
-				<label class="price"><%= check_box_tag "event[splendia_hotel_ids][]", h.hotel_id%> Add to my duffel</label>
-			</li>
-		<% end %>
-		</ul>
-		</div>
 
-		<div id="form-submit" class="clearfix"><%= submit_tag "Add Hotels", :onclick => "$('indicator-tour').show();pageTracker._trackEvent('Viator Events', 'add-from-ibox');" %><span id="indicator-tour" style="display:none;">&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
-	<% end %>
-</div>
-<% end %>
+<input id="idea_type" name="idea_type" type="hidden" value="activity">
 
-<div id="form">
-<% form_for([@trip, @event], :url => trip_ideas_url(:idea_type => params[:idea_type], :view => params[:view]),
-					:html => { :multipart => true }) do |form| %>
+<div class="clearfix"></div>
+				
+<div class="modal-body" style="padding-top:0;">
 	
-	<%= render :partial => "events/partial_forms/new_idea_form", :locals => { :form => form } %>
-	<div id="form-submit" class="clearfix"><%= submit_tag @label, :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
-<% end %>
+	<div class="tile-actions">	
+	<p>You can add ideas from any website with just one click.</p> 
+	<div class="t15"><%= render :partial => "shared/bookmarklet", :locals => {:small => true} %></div>
+	</div>
+
+	<div id="idea-form">
+  	<%= render :partial => "events/partial_forms/new_idea_form", :locals => { :form => form } %>
+	</div>
+	
 </div>
+
+<div class="modal-footer">
+  <span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp;
+  <%= submit_tag "Save", :onclick => "$('indicator').show();", :class => "btn btn-primary" %>
+  <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+</div>
+
+<% end %>

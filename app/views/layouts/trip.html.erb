@@ -3,10 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
   	<head> 
 		<title><%= @title %></title> 
+		<%= stylesheet_link_tag 'bootstrap' %>
 	    <%= stylesheet_link_tag "trip" %>
 		<%= javascript_include_tag 'all' %>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="/javascripts/jrails.js" type="text/javascript"></script>
+		<%= javascript_include_tag 'bootstrap.min' %>
 		<%= javascript_include_tag 'application' %>
 		
 		<script type="text/javascript" 
@@ -111,12 +113,12 @@
 				<span class="collaborator">- Planned by&nbsp;&nbsp;<%= duffel_collaborators(@users) %></span>
 				
 				<br />
-				<% if !@city[0].nil? %>
+				<% if nil #!@city[0].nil? %>
 				<%= trip_destination_in_trip_header(@city) -%>
 				<% else %>
-				<span class="destination"><%= h(@trip.destination.gsub(", United States", "")) %></span>
+				<!-- <span class="destination"><%= h(@trip.destination.gsub(", United States", "")) %></span> -->
 				<% end %>
-				<span class="date"><%- if @trip.start_date and @trip.end_date -%> from <%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span>
+				<!-- <span class="date"><%- if @trip.start_date and @trip.end_date -%> from <%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span> -->
 				</h1>
 				
 			</div>
@@ -155,13 +157,12 @@
 							</div>
 						</li>
 						<li class="nav-avatar"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
-							<a class="dashboard" style="height:40px" href="/user/dashboard"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;You <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
+							<a class="dashboard" style="height:40px" href="/user/dashboard"  onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();"> <%= display_thumbnail(current_user) %> &nbsp;<span style="line-height:40px">You</span> <img class="arrow" src="/images/icon-down-arrow.png" style="vertical-align:middle;"></a>
 							<ul class="submenu" id="duffels-submenu"  style="display:none;" onmouseover="$('duffels-submenu').show();" onmouseout="$('duffels-submenu').hide();">
 								<li style="margin-top:5px;margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/user/dashboard">Dashboard</a></li>
 								<li style="margin-top:5px" onclick="location.href='/user/dashboard?tab=duffels-active';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">My Duffels</a></li>
 								<li onclick="location.href='/user/dashboard?tab=duffels-faves';$('tb-duffels').addClassName('selected'); $('tb-updates').removeClassName('selected'); $('tb-deals').removeClassName('selected'); $('loading-spinner').show(); return false;"><a href="#">Favorite Duffels</a></li>
-								<!-- <li><a href="">Likes</a></li> -->
-								<li style="margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/featured">Featured</a></li>
+								<li style="margin-bottom:3px;border-bottom:1px solid #7c7c7c"><a href="/user/dashboard?tab=likes">Likes</a></li>
 								<li><a href="/site/tools">Bookmarklet</a></li>
 								<li><a href="/user/edit">Account</a></li>
 								<li class="parent hover"><%= link_to "Logout", logout_url %></li>
@@ -222,6 +223,35 @@
 		</div>
 
 		<%= yield %>
+		
+		<script>
+			$('#new-idea').modal();
+			$('#new-note').modal();
+			$('#edit-idea').modal();
+		</script>
+		
+		<div class="modal hide fade" id="new-idea">
+		  <!-- <div class="modal-body" style="padding-top:0;">
+		  			<div id="board_events" style="height:auto;width:auto;position:relative;float:left">
+		  			    <ul><li style="width:auto;margin:0">
+		  				<div class="recommendation business">
+		  					<span class="idea-label" id="fooddrink-rec">Food &amp; Drink</span>
+		  					<div class="detail">
+		  						<img src="http://s3.amazonaws.com/duffelup_event_development/photos/151369/large/beach.jpg" />
+		  					</div>
+		  					<h3>Sample Idea</h3>
+		  					<div class="idea-note" style="margin:8px 0 0 15px">And some notes here.</div>
+		  				</div>
+		  				</li></ul>
+		  			</div>
+		  		  </div> -->
+		</div>
+		
+		<div class="modal hide fade" id="edit-idea" style="width:600px;height:430px">
+		</div>
+		
+		<div class="modal hide fade" id="new-note" style="width:610px;height:380px">
+		</div>
 
 		<div id="footer">
 			<% if !@city[0].nil? %>
@@ -255,7 +285,7 @@
 		
 		<script type="text/javascript">
 			function showMap(){
-				var str=$('activity_address').value.replace(' ','+');
+				var str=$('idea_address').value.replace(' ','+');
 				$('event-map-img').src="http://maps.googleapis.com/maps/api/staticmap?Brooklyn+Bridge&zoom=15&size=115x115&sensor=false&center="+str;
 			}
 		</script>

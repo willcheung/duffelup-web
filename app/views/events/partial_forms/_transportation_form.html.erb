@@ -1,3 +1,4 @@
+<div id="form-details" style="padding-bottom:0">
 <% fields_for :transportation do |f| -%>
 	<p class="inline">
 		<label for="from">Departing from: </label>
@@ -31,5 +32,6 @@
 <% end -%>
 
 <p><label for="note">Notes:</label>
-<%= form.text_area :note, :rows => 4, :cols => 35 %>
+<%= form.text_area :note, :rows => 6, :class => "span6" %>
 <p>
+</div>

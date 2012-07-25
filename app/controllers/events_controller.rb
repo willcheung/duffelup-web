@@ -1,6 +1,4 @@
 class EventsController < ApplicationController
-  layout "ibox_ideas", :except => 'show'
-  
   before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache]
   before_filter :protect, :only => [:new, :edit, :destroy], :unless => :new_visitor_created_trip?
   before_filter :is_user_invited_to_trip, :only => [:new, :edit, :create, :update, :destroy], :unless => :new_visitor_created_trip?
@@ -57,7 +55,7 @@ class EventsController < ApplicationController
   def create
     case params[:idea_type]
     when 'activity'
-      @activity = Activity.new(params[:activity])
+      @activity = Activity.new(params[:idea])
       @event = @activity.create_event(params[:event])
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
@@ -95,7 +93,7 @@ class EventsController < ApplicationController
       SplendiaHotel.insert_recommendation(added_hotels, @trip.id, @trip.start_date, @trip.end_date, nil)
       
     when 'hotel'
-      @hotel = Hotel.new(params[:hotel])
+      @hotel = Hotel.new(params[:idea])
       @event = @hotel.create_event(params[:event])
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
@@ -109,7 +107,7 @@ class EventsController < ApplicationController
       end
     
     when 'foodanddrink'
-      @foodanddrink = Foodanddrink.new(params[:foodanddrink])
+      @foodanddrink = Foodanddrink.new(params[:idea])
       @event = @foodanddrink.create_event(params[:event])
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
@@ -123,7 +121,7 @@ class EventsController < ApplicationController
       end
       
     when 'transportation'
-      @transportation = Transportation.new(params[:transportation])
+      @transportation = Transportation.new(params[:idea])
       @event = @transportation.create_event(params[:event])
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0

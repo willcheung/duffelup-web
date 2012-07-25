@@ -53,23 +53,15 @@
 	<!-- 
 	 #Only Activity, Hotel, and Foodanddrink have partner_id 
 	-->
-	<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" %>
-		<% unless event.partner_id == Idea::PARTNER_ID["viator"] %>
+	<% if event.eventable_type == "Activity" or event.eventable_type == "Hotel" or event.eventable_type == "Foodanddrink" or event.eventable_type == "Notes" or event.eventable_type == "Transportation" %>
 			<!-- if map view, add view=map parameter -->
 			<% if map %>
-				<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit?view=map", "rel=\"ibox\" title=\"Edit\"") %></span>
+				<span class="idea-edit"><a title="Edit" data-toggle="modal" href="#edit-idea" onclick="jQuery('#edit-idea').load('/trips/<%=@trip.permalink%>/ideas/<%=event.id%>/edit?view=map');">edit</a></span>
 			<% else %>
-				<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\"") %></span>
+				<span class="idea-edit"><a title="Edit" data-toggle="modal" href="#edit-idea" onclick="jQuery('#edit-idea').load('/trips/<%=@trip.permalink%>/ideas/<%=event.id%>/edit');">edit</a></span>
 			<% end %>
-		<% end %>
 	<% elsif event.eventable_type == "CheckIn" %>
 		<!-- cannot edit CheckIn -->
-	<% else %>
-		<% if map %>
-			<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit?view=map", "rel=\"ibox\" title=\"Edit\"") %></span>
-		<% else %>
-			<span class="idea-edit"><%= fast_link("Edit", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\"") %></span>
-		<% end %>
 	<% end %>
 
 	

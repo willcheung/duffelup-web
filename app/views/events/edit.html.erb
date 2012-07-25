@@ -1,32 +1,81 @@
 <% if sortable_tile %>
-	<h2><%=h @header %></h2>
 
 	<% form_for([@trip, @event], :url => trip_idea_url(:permalink => @trip.permalink, :view => params[:view]),
 							   :html => { :multipart => true }) do |form| %>
-		
+							
 		<% if @event.eventable_type == "Activity" or @event.eventable_type == "Hotel" or @event.eventable_type == "Foodanddrink" %>
 		
-			<div class="event-photo">
-				<% if @event.photo? %>
-				<img src="<%= get_image_url(@event) %>" alt="<%= @event.title %>" />
-				<% else %>
-				<p style="text-align:center;margin-top:50px">Share a photo here.<br/>Friends would enjoy it!</p>
-				<% end %>
+			<div class="modal-header" style="border:none;padding-bottom:0">
+			  <a type="button" class="close" data-dismiss="modal" href="#">×</a>
+				<h2 class="span1" style="float:left">Edit</h2>
+				<div class="span5" style="margin-top:12px">
+					<div id="idea-type" class="btn-group" data-toggle="buttons-radio">
+					  <a href="#" class="btn btn-mini activity <% if @event.eventable_type == "Activity" %>active<% end %>" onclick="jQuery('#event_eventable_type').val('Activity')">Activity</a>
+					  <a href="#" class="btn btn-mini eatdrink <% if @event.eventable_type == "Foodanddrink" %>active<% end %>" onclick="jQuery('#event_eventable_type').val('Foodanddrink')">Food & Drink</a>
+					  <a href="#" class="btn btn-mini lodging <% if @event.eventable_type == "Hotel" %>active<% end %>" onclick="jQuery('#event_eventable_type').val('Hotel')">Lodging</a>
+					  <!-- <a href="#" class="btn btn-mini transport" onclick="jQuery('#idea_type').val('transportation')">Transportation</a>
+					  <a href="#" class="btn btn-mini note" onclick="jQuery('#idea_type').val('notes')">Notes</a> -->
+					</div>
+				</div>
 			</div>
+			
+			<div class="clearfix"></div>
+			
+			<% if @event.eventable_type == "Activity" %>
+				<input id="event_eventable_type" name="event[eventable_type]" type="hidden" value="Activity">
+			<% elsif @event.eventable_type == "Hotel" %>
+				<input id="event_eventable_type" name="event[eventable_type]" type="hidden" value="Hotel">
+			<% else %>
+				<input id="event_eventable_type" name="event[eventable_type]" type="hidden" value="Foodanddrink">
+			<% end %>
+			
+			<div class="modal-body" style="padding-top:0;">
+				
+				<div class="event-photo">
+					<% if @event.photo? %>
+					<img src="<%= get_image_url(@event) %>" alt="<%= @event.title %>" />
+					<% else %>
+					<p style="text-align:center;margin-top:50px">Share a photo here.<br/>Friends would enjoy it!</p>
+					<% end %>
+				</div>
 		
-			<%= render :partial => "events/partial_forms/edit_idea_form", :locals => { :form => form } %>
+				<%= render :partial => "events/partial_forms/edit_idea_form", :locals => { :form => form } %>
+			
+			 </div>
 		
 		<% elsif @event.eventable_type == "Notes" %>
 		
+		<div class="modal-header" style="border:none;padding-bottom:0">
+		  <a type="button" class="close" data-dismiss="modal" href="#">×</a>
+			<h2>Edit Note</h2>
+		</div>
+			
+			<div class="modal-body" style="padding-top:0;">
+		
 			<%= render :partial => "events/partial_forms/notes_form", :locals => { :form => form } %>
+			
+			</div>
 		
 		<% elsif @event.eventable_type == "Transportation" %>
 		
+		<div class="modal-header" style="border:none;padding-bottom:0">
+		  <a type="button" class="close" data-dismiss="modal" href="#">×</a>
+			<h2>Edit Transportation</h2>
+		</div>
+		
+			<div class="modal-body" style="padding-top:0;">
+				
 			<%= render :partial => "events/partial_forms/transportation_form", :locals => { :form => form } %>
 		
+			</div>
 		<% end %>
 
-		<div id="form-submit" class="clearfix"><%= submit_tag "Save Changes", :class => "submit", :onclick => "$('indicator').show();" %><span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span></div>
+		
+		<div class="modal-footer">
+		<span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp;
+		<%= submit_tag "Save Changes", :class => "btn btn-primary", :onclick => "$('indicator').show();" %>
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+		</div>
 	<% end %>
 
 <% else %>
