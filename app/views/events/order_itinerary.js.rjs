@@ -29,5 +29,3 @@ elsif params['itinerary_list_'+(@day.to_i+1).to_s]
 end
 
 page.replace_html('sortable_list_controls', :partial => 'events/sortable_list_controls')
-
-page << "iBox.initialize();"

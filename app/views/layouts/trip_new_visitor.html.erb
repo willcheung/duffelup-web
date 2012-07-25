@@ -3,10 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
   	<head> 
 		<title><%= @title %></title> 
+		<%= stylesheet_link_tag 'bootstrap' %>
 	    <%= stylesheet_link_tag "trip" %>
 		<%= javascript_include_tag 'all' %>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="/javascripts/jrails.js" type="text/javascript"></script>
+		<%= javascript_include_tag 'bootstrap.min' %>
 		<%= javascript_include_tag 'application' %>
 		
 		<script type="text/javascript" 
@@ -71,21 +73,14 @@
 				
 				<span class="collaborator">- Planned by me</span>
 				
-				<br />
-				<% if !@city[0].nil? %>
-				<%= trip_destination_in_trip_header(@city) -%>
-				<% else %>
-				<span class="destination"><%= h(@trip.destination.gsub(", United States", "")) %></span>
-				<% end %>
-				<span class="date"><%- if @trip.start_date and @trip.end_date -%> from <%= display_trip_dates(@trip.start_date,@trip.end_date) -%><%- end -%></span>
 				</h1>
 				
 			</div>
 			<div id="account">
 	          	<ul>
-		          	<li class="edit"><a onclick="$('bubble_title').innerHTML='Sign up and edit duffel settings';$('signup_bubble').show();return false;", href="#">Edit (privacy, dates & destination)</a></li>
-					<li class="invite"><a onclick="$('bubble_title').innerHTML='Sign up and invite others to this duffel';$('signup_bubble').show();return false;", href="#">Invite collaborators</a></li>
-					<li id="trip-login"><a class="signup" onclick="$('bubble_title').innerHTML='Sign up and save this duffel';$('signup_bubble').show();return false;" href="#">Save this duffel</a></li>
+		          	<li class="edit"><a onclick="$('bubble_title').innerHTML='Sign up and edit duffel settings';$('signup_bubble').show();return false;", href="#">Edit (dates & privacy)</a></li>
+					<li class="invite"><a onclick="$('bubble_title').innerHTML='Invite others to this duffel';$('signup_bubble').show();return false;", href="#">Invite collaborators</a></li>
+					<li id="trip-login"><a class="signup" onclick="$('bubble_title').innerHTML='Save this duffel';$('signup_bubble').show();return false;" href="#">Save this duffel</a></li>
 				</ul>
 	        </div>
 		</div>
@@ -111,6 +106,21 @@
 		</div>
 
 		<%= yield %>
+		
+		<script>
+			$('#new-idea').modal();
+			$('#new-note').modal();
+			$('#edit-idea').modal();
+		</script>
+		
+		<div class="modal hide fade" id="new-idea">
+		</div>
+		
+		<div class="modal hide fade" id="edit-idea" style="width:600px;height:430px">
+		</div>
+		
+		<div class="modal hide fade" id="new-note" style="width:610px;height:380px">
+		</div>
 
 		<div id="footer">
 			<% if !@city[0].nil? %>
@@ -134,7 +144,7 @@
 		
 		<script type="text/javascript">
 			function showMap(){
-				var str=$('activity_address').value.replace(' ','+');
+				var str=$('idea_address').value.replace(' ','+');
 				$('event-map-img').src="http://maps.googleapis.com/maps/api/staticmap?Brooklyn+Bridge&zoom=15&size=115x115&sensor=false&center="+str;
 			}
 		</script>

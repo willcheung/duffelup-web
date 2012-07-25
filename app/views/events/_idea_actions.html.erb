@@ -1,6 +1,7 @@
 <div class="idea-actions">
 	<% if sortable_tile %>
-		<span class="idea-edit"><%= fast_link("info", "trips/#{@trip.permalink}/ideas/#{event.id}/edit", "rel=\"ibox\" title=\"Edit\" alt=\"Edit\"") %></span>
+		<span class="idea-edit"><a title="Edit" data-toggle="modal" href="#edit-idea" onclick="jQuery('#edit-idea').load('/trips/<%=@trip.permalink%>/ideas/<%=event.id%>/edit');">edit</a></span>
+		
 		<span class="delete"><%= link_to_remote "[x]", 
 				{ :url => trip_idea_path(:permalink => @trip.permalink, :id => event.id), 
 				  :confirm => "Are you sure you want to delete #{event.title}?", 

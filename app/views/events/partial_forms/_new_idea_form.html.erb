@@ -1,16 +1,16 @@
 <div id="form-details">
 	<p><label for="event_title">Title:</label>
-	<%= form.text_field :title, :value => @event_title_value %></p>
+	<%= form.text_field :title, :value => @event_title_value, :class => "span4" %></p>
 	
 	<p><label for="event_note">Note:</label>
-	<%= form.text_area :note, :rows => 3, :cols => 35, :placeholder => "Some notes here..." %></p>
+	<%= form.text_area :note, :rows => 3, :class => "span4", :placeholder => "Some notes here..." %></p>
 
-	<% fields_for params[:idea_type].to_sym do |f| -%>
+	<% fields_for "idea".to_sym do |f| -%>
 	
 	<div id="form-more-info"><a id="link" href="#" onclick="$('event_photo').show();$('event_website').show();$('form-more-info').hide(); return false;">More details</a></div>
 	
 	<p id="event_website" style="display:none;"><label for="event_website">Website:</label>
-		<%= f.text_field :website, :size => 30, :placeholder => "http://" %>
+		<%= f.text_field :website, :class => "span3", :placeholder => "http://" %>
 	</p>
 </div>
 
@@ -20,8 +20,8 @@
 	</div>
 	
 	<p style="float:right"><label for="event_address">Address (or lat,lng):</label>
-	<%= f.text_area :address, :rows => 2, :cols => 18, :placeholder => "ex: 123 2nd St, New York, NY"  %></p>
-	<p style="float: right;margin-right:100px" onclick="showMap();return false;"><button type="button">Map it</button></p>
+	<%= f.text_area :address, :rows => 2, :class => "span2", :placeholder => "ex: 123 2nd St, New York, NY"  %></p>
+	<p style="float: right;margin-right:100px" onclick="showMap();return false;"><button type="button" class="btn btn-mini">Map it</button></p>
 	
 	<% end -%>
 	<p id="event_photo" style="display:block;margin-top:145px;display:none;"><label for="photo">Attach a Photo:</label>

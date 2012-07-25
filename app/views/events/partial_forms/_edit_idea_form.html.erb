@@ -1,22 +1,18 @@
-<p style="margin-top:5px"><%= form.select("eventable_type", Event::IDEA_EVENT_TYPE, { :selected => @event.eventable_type })%></p>
-
-<p><label for="event_title">Title:</label>
-<%= form.text_field :title, :value => @event_title_value %></p>
-
-<div id="form-details">
+<div id="form-details" style="padding-bottom:0">
+	<p><label for="event_title">Title:</label>
+	<%= form.text_field :title, :value => @event_title_value %></p>
+	
 	<p><label for="event_note">Notes:</label>
-		<%= form.text_area :note, :rows => 8, :cols => 35 %></p>
+		<%= form.text_area :note, :rows => 8, :class => "span3" %></p>
 
 	<% fields_for :idea do |f| -%>
 	
 	<p><label for="event_website">Website:</label>
 		<%= f.text_field :website, :size => 30 %>
-		<em class="helper">(ex: http://www.duffelup.com)</em>
 	</p>
 </div>
 
-<div id="form-location">
-	<div class="optional_block" id="optional_block">
+<div id="form-location" style="width:250px">
 	
 	<% unless new_visitor_created_trip? %>
 		<% if @event.photo? %>
@@ -31,12 +27,9 @@
 	<% end %>
 	
 	<label for="event_address">Address (or Lat,Lng):</label>
-		<%= f.text_area :address, :rows => 2, :cols => 22 %>
+		<%= f.text_area :address, :rows => 2, :class => "span3" %>
 	
-	<label for="event_phone">Phone Number:</label>
-		<%= f.text_field :phone, :size => 20 %>
 	
 	<% end -%>
 	
-	</div>
 </div>

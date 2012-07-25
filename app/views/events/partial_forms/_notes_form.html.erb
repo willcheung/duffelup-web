@@ -1,11 +1,11 @@
-<div id="primarycontent">
+<div id="form-details" style="padding-bottom:0">
 	<p><label for="event_title">Title:</label>
 	<%= form.text_field :title %></p>
 	
 	<% fields_for :notes do |f| -%>
 		<p>
 		<label for="note">Notes:</label>
-		<%= f.text_area :content, :rows => 8, :cols => 35, :placeholder => "example: buy carry-on safe bottles. remember to bring toothbrush." %>
+		<%= f.text_area :content, :rows => 8, :class => "span7", :placeholder => "example: buy carry-on safe bottles. remember to bring toothbrush." %>
 		</p>
 	<% end -%>
 </div>
