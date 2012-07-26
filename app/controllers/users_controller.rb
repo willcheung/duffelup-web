@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     # Load Duffel Blog RSS
     ####################################
     # if !fragment_exist?("dashboard-blog-rss", :time_to_live => 1.day)
-    #       @blog_rss = WebApp.consume_rss_feed("http://blog.duffelup.com/rss")
+    #       @blog_rss = WebApp.consume_rss_feed("http://duffelup.posterous.com/rss")
     #       write_fragment("dashboard-blog-rss", @blog_rss) unless @blog_rss.nil?
     #     else
     #       @blog_rss = read_fragment("dashboard-blog-rss")
