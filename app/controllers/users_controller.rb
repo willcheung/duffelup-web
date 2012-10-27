@@ -389,6 +389,20 @@ class UsersController < ApplicationController
     @user = current_user
   end
   
+  def steptwo_instagram
+    @title = "Add Instagram Photos"
+    @user = current_user
+    
+    client = Instagram.client(:access_token => session[:instagram_atoken])
+      user = client.user
+
+      @html = "<h1>#{user.username}'s recent photos</h1>"
+      for media_item in client.user_recent_media
+        @html << "<img src='#{media_item.images.thumbnail.url}'>"
+      end
+    
+  end
+  
   def search
     @title = "Duffel - Search Duffelers"
     return if params[:q].nil?

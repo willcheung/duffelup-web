@@ -1513,6 +1513,21 @@ div.fb-button a {
 	width:210px;
 }
 
+div.instagram-button a:hover {
+	background:url("/images/button-instagram-big-hover.png") no-repeat scroll left top transparent;
+}
+
+div.instagram-button a {
+	background:url("/images/button-instagram-big.png") no-repeat scroll left top transparent;
+	float: left;
+	border:0 none;
+	display:block;
+	height:40px;
+	line-height:0;
+	padding:0;
+	width:210px;
+}
+
 div.fb-button a:hover {
 	background:url("/images/button-facebook-big.png") no-repeat scroll left bottom transparent;
 }

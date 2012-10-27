@@ -16,6 +16,9 @@ ENV['YELP_API_KEY'] = '1t_l-ZURPYb5K4nRKwZZvA'
 ENV['TWITTER_CONSUMER_KEY'] = '0gXb6qUyeaZQVpUIjhJ6og'
 ENV['TWITTER_CONSUMER_SECRET'] = 'F7neU7Xka7YzeNMKcMY8mKgOpjr5MeqOWRoZjTzWU'
 
+ENV['INSTAGRAM_CLIENT_ID'] = '08396105047b4e758a46f223838755df'
+ENV['INSTAGRAM_CLIENT_SECRET'] = 'fbbb9bfad5914dc2abd156e9117d2dff'
+
 ENV['FLICKR_KEY'] = 'a1667fde25a098a17065eed3a145094c'
 ENV['FLICKR_SECRET'] = '331b93c3dcb38585'
 
@@ -94,4 +97,6 @@ Rails::Initializer.run do |config|
   config.gem 'oauth'
   # Koala (Facebook) gem
   config.gem 'koala'
+  # Instagram gem
+  config.gem 'instagram'
 end

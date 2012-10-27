@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30000000000040) do
+ActiveRecord::Schema.define(:version => 30000000000041) do
 
   create_table "achievements", :force => true do |t|
     t.datetime "created_at"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(:version => 30000000000040) do
     t.string   "twitter_secret"
     t.integer  "bandwidth",                               :default => 0
     t.string   "source",                    :limit => 20
+    t.string   "instagram_token"
   end
 
   create_table "viator_destinations", :force => true do |t|

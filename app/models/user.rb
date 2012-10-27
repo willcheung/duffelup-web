@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :username, :email, :password, :full_name, :homepage, :bio, :home_city, :invitation_token, :avatar, :home_airport_code, :last_login_at, :avatar_file_name, :avatar_content_type, :email_updates, :hide_tour_at, :source, :twitter_secret, :twitter_token
+  attr_accessible :username, :email, :password, :full_name, :homepage, :bio, :home_city, :invitation_token, :avatar, :home_airport_code, :last_login_at, :avatar_file_name, :avatar_content_type, :email_updates, :hide_tour_at, :source, :twitter_secret, :twitter_token, :instagram_token
   
   def self.find_users_by_trip_ids(trip_ids)
     return nil if trip_ids.nil? or trip_ids.empty?
@@ -177,6 +177,10 @@ class User < ActiveRecord::Base
     return !twitter_token.nil? && !twitter_secret.nil?
   end
   
+  def instagram_user?
+    return !instagram_token.nil?
+  end
+  
   def self.find_fb_users(uids)
     self.find_by_sql("SELECT fb_user_id from users where fb_user_id in (#{uids})")
   end
@@ -205,6 +209,24 @@ class User < ActiveRecord::Base
     return new_twitterer
   end
   
+  def self.create_from_instagram_oauth(instagram_user, token)
+    new_instagramer = User.new(:full_name => instagram_user.full_name.to_s, 
+                              :username => instagram_user.username.to_s, 
+                              :password => "", 
+                              :email => "",
+                              :email_updates => 29,
+                              :source => "instagram",
+                              :homepage => instagram_user.website.to_s,
+                              :bio => instagram_user.bio.to_s,
+                              :home_city => "",
+                              :avatar_file_name => instagram_user.profile_picture,
+                              :avatar_content_type => "image/jpeg",
+                              :instagram_token => token)
+    new_instagramer.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{rand}--")
+    new_instagramer.save(false)
+    
+    return new_instagramer
+  end
   
   ################################################
   #               Search Users                  #
@@ -330,7 +352,7 @@ class User < ActiveRecord::Base
   end
     
   def password_required?
-    if facebook_user? or twitter_user?
+    if facebook_user? or twitter_user? or instagram_user?
       return false
     else
       crypted_password.blank? || !password.blank?
