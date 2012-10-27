@@ -16,7 +16,7 @@
 
 <% if logged_in? and (current_user.email.nil? or current_user.email.blank?) %>
 <div id="announcement" style="border: 3px solid #e0e0e0">
-<h1>Hi there! We picked a username for you - <%= current_user.username %></h1><br/>
+<h3>Hi there! We picked a username for you - <%= current_user.username %></h3>
 <p>You can change it anytime. Please take a few seconds to <a href="/user/edit">update your profile</a> so we can give you a better Duffel experience.</p>
 </div>
 <% end %>

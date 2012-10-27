@@ -127,25 +127,25 @@ class TripsController < ApplicationController
         #################################################
         # create Splendia Hotel recommendations
         #################################################
-        if !cities[0].nil?
-          if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
-            splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
-            write_fragment("#{cities[0].id}-splendia-hotels", splendia_hotels)
-          else
-            splendia_hotels = SplendiaHotel.new
-            splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
-          end
-          
-          SplendiaHotel.insert_recommendation(splendia_hotels, @trip.id, @trip.start_date, @trip.end_date)
-        end
+        # if !cities[0].nil?
+        #   if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+        #     splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+        #     write_fragment("#{cities[0].id}-splendia-hotels", splendia_hotels)
+        #   else
+        #     splendia_hotels = SplendiaHotel.new
+        #     splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+        #   end
+        #   
+        #   SplendiaHotel.insert_recommendation(splendia_hotels, @trip.id, @trip.start_date, @trip.end_date)
+        # end
         
         ###################################
         # create sample transportation
         ###################################
-        Transportation.create_in_duffel(current_user.home_airport_code, 
-                                        cities[0], 
-                                        @trip.start_date, @trip.end_date, @trip.id,
-                                        @trip.destination, "Edit me!")
+        # Transportation.create_in_duffel(current_user.home_airport_code, 
+        #                                         cities[0], 
+        #                                         @trip.start_date, @trip.end_date, @trip.id,
+        #                                         @trip.destination, "Edit me!")
                                               
         ################################################################################
         # publish stream on fb (only works if fb user has approved extended permission)

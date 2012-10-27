@@ -68,11 +68,14 @@ $(function() {
 		
 		<div class="login-buttons clearfix">
 			<ul>
-				<!-- <li class="twitter">
-				<%- form_tag session_path(:twitter => 'true'), :style => 'border:0;margin:0;padding:0;display:inline;' do -%>   
-					<%= submit_tag 'twitter' %>
-				<%- end -%>
-				</li> -->
+				<li>
+					<div class="instagram-button">
+						<a href="#" onclick="$('#instagram-form').submit();">&nbsp;</a>
+								<%- form_tag session_path(:type => 'instagram'), :style => 'display:none;', :id => 'instagram-form' do -%>   
+									<%= submit_tag 'instagram' %>
+								<%- end -%>
+					</div>
+				</li>
 				<li>
 					<div class="fb-button"><a href="#" id="fb-loginlink">&nbsp;</a></div>
 				</li>

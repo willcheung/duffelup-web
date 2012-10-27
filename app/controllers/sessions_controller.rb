@@ -21,13 +21,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:twitter] == "true"
+    if params[:type] == "twitter"
       request_token = oauth_consumer.get_request_token(:oauth_callback => twitter_callback_session_url)
       
       session['rtoken']  = request_token.token
       session['rsecret'] = request_token.secret
 
       redirect_to request_token.authorize_url and return
+    end
+    
+    if params[:type] == "instagram"
+      redirect_to Instagram.authorize_url(:redirect_uri => instagram_callback_session_url) and return
     end
     
     self.current_user = User.authenticate(params[:login], params[:password])
@@ -143,6 +147,35 @@ class SessionsController < ApplicationController
       else
         redirect_back_or_default(dashboard_path, params[:redirect]) and return
       end
+    end
+  end
+  
+  def instagram_callback
+    response = Instagram.get_access_token(params[:code], :redirect_uri => instagram_callback_session_url)
+    session[:instagram_atoken] = response.access_token
+    
+    instagram_user = User.find_by_instagram_token(response.access_token)
+    
+    if !instagram_user.nil?
+      self.current_user = instagram_user
+
+      redirect_back_or_default(dashboard_path, params[:redirect]) and return
+    else # create new user
+      client = Instagram.client(:access_token => session[:instagram_atoken])
+      
+      self.current_user = User.create_from_instagram_oauth(client.user, response.access_token)
+      
+      Friendship.add_duffel_professor(current_user)
+      
+      # Create a new duffel as "research duffel"
+      Trip.create_duffel_for_new_user({ :title => "#{current_user.username}'s first duffel", :start_date => nil,
+                                        :end_date => nil, :is_public => 1, :destination => "San Francisco, CA, United States" }, current_user)
+      
+      # Add a city to follow its travel deals
+      current_user.cities << City.find_by_id(609)
+      
+      #redirect_to(:controller => 'users', :action => 'steptwo_instagram') and return
+      redirect_to(steptwo_path) and return
     end
   end
   

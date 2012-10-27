@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.facebook_callback_session 'session/facebook_callback', :controller => 'sessions', :action => 'facebook_callback'
   map.twitter_callback_session 'session/twitter_callback', :controller => 'sessions', :action => 'twitter_callback'
+  map.instagram_callback_session 'session/instagram_callback', :controller => 'sessions', :action => 'instagram_callback'
   
   # bookmarklet
   map.resource :research
