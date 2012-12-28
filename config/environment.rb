@@ -99,4 +99,6 @@ Rails::Initializer.run do |config|
   config.gem 'koala'
   # Instagram gem
   config.gem 'instagram'
+  # Foursquare gem
+  config.gem 'foursquare2'
 end

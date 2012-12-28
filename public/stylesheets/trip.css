@@ -1658,6 +1658,35 @@ span.collaborator img {
     max-width: 315px;
 }
 
+div#search_place {
+	margin-bottom: 10px;
+}
+
+a#places.selected address, a:hover#places.selected address {
+	color: #4D4D4D;
+	text-decoration: none;
+}
+a#places address, div#place_not_here a{
+	color: #F20063;
+	text-decoration: none;
+}
+a#places address div#place_title {
+	font-weight: bold;
+}
+a:hover#places address, div#place_not_here a:hover {
+	text-decoration: underline;
+}
+
+div#place_thumbnails li {
+	margin-left: 5px;
+}
+
+.modal div#idea-form h3 {
+	margin-left: -6px;
+	font-size:1.1em;
+	margin-top: 7px;
+}
+
 /*-----------------------------------------------------------------------------------
 	Modal Box
 -----------------------------------------------------------------------------------*/
@@ -1704,6 +1733,10 @@ span.collaborator img {
     font-size: 1.1em;
     text-align: center;
 	line-height: 1.4em;
+}
+.modal .tile-actions p{
+	font-size: 0.8em;
+	line-height:15px;
 }
 .modal .tile-actions ul{
 	margin: 0 10px 10px;
@@ -1927,7 +1960,7 @@ span.collaborator img {
 
 .modal {
 	width: 650px;
-	height: 440px;
+	height: 570px;
 }
 
 

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache]
+  before_filter :load_trip_and_users, :except => [:load_trip_and_users, :show_detail, :check_events_details_cache, :search_places, :search_photos]
   before_filter :protect, :only => [:new, :edit, :destroy], :unless => :new_visitor_created_trip?
   before_filter :is_user_invited_to_trip, :only => [:new, :edit, :create, :update, :destroy], :unless => :new_visitor_created_trip?
   after_filter :clear_events_cache, :only => [:create, :update, :destroy, :order_itinerary]
@@ -7,44 +7,39 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @trip = Trip.find_by_permalink(params[:permalink])
-    @split_dest = @trip.destination.split(";").first # get first destination; might want to expand to multiple destinations later
-    
-    if params[:idea_type] == "activity"
-      @label = "Add Activity"
-    elsif params[:idea_type] == "hotel"
-      @label = "Add Lodging"
-    elsif params[:idea_type] === "foodanddrink"
-      @label = "Add Food &amp; Drink"
-    end
-    
+    # @split_dest = @trip.destination.split(";").first # get first destination; might want to expand to multiple destinations later
+
     respond_to do |format|
-      if params[:idea_type] == "activity"
-        if !fragment_exist?("viator-trip-#{@split_dest}", :time_to_live => 1.week)
-          @viators = ViatorEvent.search(@split_dest)
-          write_fragment("viator-trip-#{@split_dest}", @viators)
-        else
-          @viators = ViatorEvent.new
-          @viators = read_fragment("viator-trip-#{@split_dest}")
-        end
-        
-        format.html { render :action => "new", :view => params[:view] }
-      elsif params[:idea_type] == "hotel"
-        cities = City.find_id_by_city_country(@split_dest)
-       
-        if !cities[0].nil?
-          if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
-            @splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
-            write_fragment("#{cities[0].id}-splendia-hotels", @splendia_hotels)
-          else
-            @splendia_hotels = SplendiaHotel.new
-            @splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
-          end
-        else
-          @splendia_hotels = []
-        end
-        
-        format.html { render :action => "new", :view => params[:view] }
-      elsif params[:idea_type] == "transportation" or params[:idea_type] == "notes"
+      # if params[:idea_type] == "activity"
+      #   if !fragment_exist?("viator-trip-#{@split_dest}", :time_to_live => 1.week)
+      #     @viators = ViatorEvent.search(@split_dest)
+      #     write_fragment("viator-trip-#{@split_dest}", @viators)
+      #   else
+      #     @viators = ViatorEvent.new
+      #     @viators = read_fragment("viator-trip-#{@split_dest}")
+      #   end
+      #   
+      #   format.html { render :action => "new", :view => params[:view] }
+      # elsif params[:idea_type] == "hotel"
+      #   cities = City.find_id_by_city_country(@split_dest)
+      #  
+      #   if !cities[0].nil?
+      #     if !fragment_exist?("#{cities[0].id}-splendia-hotels", :time_to_live => 1.week)
+      #       @splendia_hotels = SplendiaHotel.get_hotel_by_lat_lng(cities[0].latitude, cities[0].longitude)
+      #       write_fragment("#{cities[0].id}-splendia-hotels", @splendia_hotels)
+      #     else
+      #       @splendia_hotels = SplendiaHotel.new
+      #       @splendia_hotels = read_fragment("#{cities[0].id}-splendia-hotels")
+      #     end
+      #   else
+      #     @splendia_hotels = []
+      #   end
+      #   
+      #   format.html { render :action => "new", :view => params[:view] }
+      # elsif params[:idea_type] == "transportation" or params[:idea_type] == "notes"
+      #   format.html { render :action => "new_#{params[:idea_type]}", :view => params[:view] }
+      # else
+      if params[:idea_type] == "transportation" or params[:idea_type] == "notes"
         format.html { render :action => "new_#{params[:idea_type]}", :view => params[:view] }
       else
         format.html { render :action => "new", :view => params[:view] }
@@ -60,6 +55,8 @@ class EventsController < ApplicationController
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @activity.create_activity(@event, @trip, current_user)
+      @event.photo_file_name = params[:event_photo_file_name]
+      @event.photo_content_type = "image/jpeg" # just for photo type validation
       
       if @activity.save
         ###################################
@@ -98,6 +95,8 @@ class EventsController < ApplicationController
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @hotel.create_hotel(@event, @trip, current_user)
+      @event.photo_file_name = params[:event_photo_file_name]
+      @event.photo_content_type = "image/jpeg" # just for photo type validation
       
       if @hotel.save
         ###################################
@@ -112,6 +111,8 @@ class EventsController < ApplicationController
       @event.created_by = current_user.id unless new_visitor_created_trip?
       @event.bookmarklet = 0
       @event = @foodanddrink.create_foodanddrink(@event, @trip, current_user)
+      @event.photo_file_name = params[:event_photo_file_name]
+      @event.photo_content_type = "image/jpeg" # just for photo type validation
       
       if @foodanddrink.save
         ###################################
@@ -310,6 +311,14 @@ class EventsController < ApplicationController
         # clear all events cache
         clear_events_cache
       end
+  end
+  
+  def search_places
+    @places = WebApp.search_4sq_venues(params[:near], params[:query])
+  end
+  
+  def search_photos
+    @images = WebApp.search_instagram_photos(params[:lat], params[:lng])
   end
   
   private 

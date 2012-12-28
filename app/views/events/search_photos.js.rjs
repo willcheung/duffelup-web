@@ -1,0 +1,2 @@
+page.replace_html "thumbnails", :partial => "events/place_thumbnail", :collection => @images['data']
+page << "var src='#{@images['data'][0]['images']['thumbnail']['url']}';jQuery('img#image_zoom').attr('src',src);jQuery('#zoom').show();"

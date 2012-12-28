@@ -1,10 +1,19 @@
 require 'rss'
 require 'contacts'
 require 'hpricot'
+require 'httparty'
 
 class WebApp < ActiveResource::Base
   
   IPHONE_API_TOKEN = "c00l3stiPhoneApp-7c4465b3f951effdfa708a66300e9721dc637a53"
+  
+  def self.foursquare
+    if RAILS_ENV == 'development'
+      @foursquare ||= Foursquare2::Client.new(:client_id => 'DRTK3TYAUIMZRPLTSOVYM1VLMYHG5IQF04YBOAVOJIU2XLZL', :client_secret => 'XMNILMO0M43HAWKMDO305KVEUJKEN2OF0PIWFDHOUYHZBZWO', :ssl => { :verify => OpenSSL::SSL::VERIFY_PEER, :ca_file => '/opt/local/share/cert/cacert.pem' })
+    else
+      @foursquare ||= Foursquare2::Client.new(:client_id => 'DRTK3TYAUIMZRPLTSOVYM1VLMYHG5IQF04YBOAVOJIU2XLZL', :client_secret => 'XMNILMO0M43HAWKMDO305KVEUJKEN2OF0PIWFDHOUYHZBZWO', :ssl => { :verify => OpenSSL::SSL::VERIFY_PEER, :ca_file => '/opt/aws/amitools/ec2-1.3.57676/etc/ec2/amitools/cert-ec2.pem' })
+    end
+  end
   
   def self.consume_rss_feed(url)
     rss = RSS::Parser.parse(open(url).read, false)
@@ -107,5 +116,23 @@ class WebApp < ActiveResource::Base
     end
     
     return site.new(email, password).contacts
+  end
+  
+  ###############
+  # Four Square
+  ###############
+  
+  def self.search_4sq_venues(near, query)
+    return self.foursquare.search_venues(:near => near, :query => query, :limit => 3) # Returns only nearby venues
+  end
+  
+  ###############
+  # Instagram
+  ###############
+  
+  def self.search_instagram_photos(lat, lng)
+    response = HTTParty.get("https://api.instagram.com/v1/media/search?lat=#{lat}&lng=#{lng}&distance=25&client_id=e8715384012f4b34806c3b9c5f95f5c9").response.body
+    return ActiveSupport::JSON.decode(response)
+    #return Instagram.media_search(lat,lng)
   end
 end
