@@ -14,7 +14,7 @@
 		<script type="text/javascript" 
 				src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= GeoKit::Geocoders::google %>">
 		</script>
-		<%- if false and @ideas_to_map -%>
+		<%- if @ideas_to_map -%>
 	    <script type="text/javascript"> 
 	      var ideas_to_map = <%= @ideas_to_map.to_json %>;
 	    </script>
