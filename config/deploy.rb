@@ -78,5 +78,4 @@ namespace :deploy do
     after "deploy:update_code", "deploy:assets:symlink"
     after "deploy:update_code", "deploy:passenger:restart"
     after "deploy:update_code", "deploy:send_email"
-    after "deploy", "deploy:cleanup"
 end
