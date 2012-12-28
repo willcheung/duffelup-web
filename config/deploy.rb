@@ -35,11 +35,11 @@ namespace :deploy do
   end
 
   # restart Apache web server
-  desc "duffel - Restarts web server"
-  task :restart_web_server, :roles => :web do
-    default_run_options[:pty] = true
-  	sudo "/etc/init.d/httpd restart"
-  end
+  # desc "duffel - Restarts web server"
+  # task :restart_web_server, :roles => :web do
+  #   default_run_options[:pty] = true
+  #   sudo "/etc/init.d/httpd restart"
+  # end
 
   desc "Copy production database.yml."
   task :copy_database_configuration do
