@@ -1,0 +1,18 @@
+
+<a href="#" id="places" onclick="jQuery('a#places').removeClass('selected');jQuery(this).addClass('selected');getPhotos();">
+<address class="span2">
+	<div id="place_title"><%= place.name %></div>
+	<div id="address">
+		<%= place.location.address + "<br>" if place.location.address != nil and place.location.address != "" %>
+		<%= place.location.state + ", " if place.location.state != nil and place.location.state != "" %> <%= place.location.country %>
+	</div>
+</address>
+
+<div id="lat" style="display:none;">
+<%= place.location.lat %>
+</div>
+
+<div id="lng" style="display:none;">
+<%= place.location.lng %>	
+</div>
+</a>

@@ -1,4 +1,4 @@
-<!-- <h2><%= @label %> &nbsp;&nbsp;&nbsp;&nbsp;
+<!-- <h2>Add an Idea &nbsp;&nbsp;&nbsp;&nbsp;
 	<% unless @viators.nil? or @viators.empty? %>
 		<span id="menu-scratch" class="menu-selected"><a href="#" onclick="$('menu-scratch').removeClassName('menu');$('menu-scratch').addClassName('menu-selected');$('menu-tours').removeClassName('menu-selected');$('menu-tours').addClassName('menu');$('results').hide();$('form').show();return false;">On my own</a></span> 
 		<span id="menu-tours" class="menu"><a href="#" onclick="$('menu-tours').removeClassName('menu');$('menu-tours').addClassName('menu-selected');$('menu-scratch').removeClassName('menu-selected');$('menu-scratch').addClassName('menu');$('results').show();$('form').hide();return false;">Popular tours</a></span>
@@ -39,15 +39,96 @@
 	</div>
 
 	<div id="idea-form">
-  	<%= render :partial => "events/partial_forms/new_idea_form", :locals => { :form => form } %>
+		<div id="manual_form" style="display:none">
+  			<%= render :partial => "events/partial_forms/new_idea_form", :locals => { :form => form } %>
+		</div>
+		
+		<div id="auto_form">
+			<h3 class="span7">1. Search for a place you want to visit</h3>
+			<div id="search_place">
+			<input type="text" id="query" name="query" placeholder="ex: Brooklyn Bridge"> in <input type="text" id="near" name="near" placeholder="ex: New York">
+			<a id="search_place_btn" class="btn" href="#" onclick="searchPlace();">Search</a>
+			</div>
+
+			<div id="places">
+			</div>
+		
+			<div id="place_not_here" style="display:none;width:90px" class="span1">
+				<a href="#" onclick="toggleForm();return false;">I want to add something else</a>
+			</div>
+		
+			<h3 class="span7" style="display:none;">2. Choose a photo for your idea</h3>
+			<span class="span7" id="places_indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span>
+			<div id="place_thumbnails" class="span7">
+				<ul class="thumbnails"> 
+					<li id="zoom" class="span2" style="display:none;">
+						<div href="#" class="thumbnail">
+					  		<img id="image_zoom" src="" alt="">
+						</div>
+					</li>
+					<div id="thumbnails">
+					</div>	
+				</ul>
+			</div>
+		
+			<input type="hidden" id="event_photo_file_name" name="event_photo_file_name">
+		
+			<h3 class="span7" style="display:none;">3. Write some notes</h3>
+			<div id="place_notes" style="display:none;margin-bottom:5px" class="span7">
+				<textarea class="span6" rows="2" placeholder="What to do at this place?" name="event[note]"></textarea>
+			</div>
+		</div>
 	</div>
 	
 </div>
 
 <div class="modal-footer">
   <span id="indicator" style="display:none;">&nbsp;&nbsp;saving...&nbsp;&nbsp;<img src="/images/ajax-loader.gif"></span>&nbsp;&nbsp;
-  <%= submit_tag "Save", :onclick => "$('indicator').show();", :class => "btn btn-primary" %>
+  <%= submit_tag "Save", :onclick => "$('indicator').show();autoFillForm();", :class => "btn btn-primary" %>
   <a href="#" class="btn" data-dismiss="modal">Cancel</a>
 </div>
 
 <% end %>
+
+<script type="text/javascript">
+	var search_place = true;
+	
+	function toggleForm(){
+		jQuery('#auto_form').hide();
+		jQuery('#manual_form').show();
+		search_place = false;
+	};
+	function autoFillForm(){
+		if (search_place) {
+			jQuery('#event_title').val(jQuery('a.selected div#place_title').text().trim());
+			jQuery('#idea_address').val(jQuery('a.selected div#address').text().trim());
+			jQuery('#event_note').val(jQuery('#place_notes textarea').val());
+			jQuery('#event_photo_file_name').val(jQuery('img#image_zoom').attr('src').replace('_5.jpg','_7.jpg'));
+		}
+	};
+	function getPhotos(){
+		jQuery('#zoom').hide();
+		jQuery('ul.thumbnails #thumbnails').empty();
+		data['lat'] = jQuery('div#places a.selected div#lat').text().trim();
+		data['lng'] = jQuery('div#places a.selected div#lng').text().trim();
+		jQuery.ajax({	data: data, 
+						type:'get',
+						beforeSend: function(){jQuery('span#places_indicator').show();},
+						complete: function(){jQuery('span#places_indicator').hide();},
+						url:'/events/search_photos'});
+		jQuery('div#place_notes').show();
+		jQuery('h3').show();
+	};
+	var data = {};
+	function searchPlace(){
+			jQuery('#zoom').hide();
+			jQuery('div#place_notes').hide();
+			jQuery('ul.thumbnails #thumbnails').empty();
+			data['query'] = $('query').value;
+			data['near'] = $('near').value;
+			jQuery.ajax({	data: data, 
+							type:'get', 
+							complete: function(){jQuery('div#place_not_here').show();},
+							url:'/events/search_places'});
+	};
+</script>

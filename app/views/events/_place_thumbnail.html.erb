@@ -1,0 +1,7 @@
+<% if place_thumbnail_counter < 18 %>
+	<li class="span1">
+		<a href="#" class="thumbnail <% if place_thumbnail_counter == 0%>focused<% end %>" onclick="jQuery('a.focused').removeClass('focused');jQuery(this).addClass('focused');jQuery('img#image_zoom').attr('src',jQuery('a.focused img').attr('src'));">
+	  		<img src="<%= place_thumbnail['images']['thumbnail']['url'] %>" alt="">
+		</a>
+	</li>
+<% end %>
