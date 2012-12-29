@@ -119,14 +119,15 @@ class ApplicationController < ActionController::Base
   
   ###### Facebook OAuth ########
   def fb_session
-    fb_uid = Koala::Facebook::OAuth.new.get_user_from_cookie(cookies)
-    info = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
-    fb_access_token = info["access_token"] if !info.nil?
-    
-    if !fb_uid.nil? and !fb_access_token.nil?
-      @fb_session = FBSession.new(fb_uid, fb_access_token)
+    if !session['fb_uid'].nil? and !session['fb_access_token'].nil?
+      @fb_session ||= FBSession.new(session['fb_uid'], session['fb_access_token'])
     else
-      @fb_session = nil
+      @oauth = Koala::Facebook::OAuth.new(Facebook::APP_ID, Facebook::SECRET)
+      info = @oauth.get_user_info_from_cookies(cookies)
+      session['fb_access_token'] = info["access_token"] if !info.nil?
+      session['fb_uid'] = info["user_id"] if !info.nil?
+    
+      @fb_session = FBSession.new(session['fb_uid'], session['fb_access_token'])
     end
   end
   helper_method :fb_session

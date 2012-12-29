@@ -119,50 +119,52 @@
 	<div id="likes" class="span8 row row-profile row-border" style="display:none;">
 		<% @likes.each do |a| %>
 			<% e = a.event %>
-			<div class="pin <% if !photo_exists?(e) %>note<% end %>" style="height:290px">
-				<div class="actions">
-					<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", e.id, e.trip.permalink) %></div>
-					<div class="like <% if liked?(e.id) %>disabled<% end %>" id="like_<%= e.id %>">
-						<% if logged_in? %>
-							<% if liked?(e.id) %>
-								<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{e.id}", :method => :delete } -%>
+			<% if !e.nil? %>
+				<div class="pin <% if !photo_exists?(e) %>note<% end %>" style="height:290px">
+					<div class="actions">
+						<div class="add-to-duffel"><%= build_url_for_copy("Add to my duffel", e.id, e.trip.permalink) %></div>
+						<div class="like <% if liked?(e.id) %>disabled<% end %>" id="like_<%= e.id %>">
+							<% if logged_in? %>
+								<% if liked?(e.id) %>
+									<%= link_to_remote "Unlike", { :url => "/like/111/?event=#{e.id}", :method => :delete } -%>
+								<% else %>
+									<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0;" -%>
+								<% end %>
 							<% else %>
-								<%= link_to_remote "<span style=\"padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3;\">Like this</span>", { :url => "/like/?event=#{e.id}", :method => :post }, :style => "padding-left:0;" -%>
+								<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
 							<% end %>
-						<% else %>
-							<a style="padding-left:0" href="/like/new?redirect=<%= request.request_uri %>"><span style="padding:0 0 2px 31px;background:url(/images/icon-favorite.png) no-repeat 10px -7px;z-index:3">Like this</span></a>
-						<% end %>
+						</div>
 					</div>
+
+					<% if e.eventable_type == "Foodanddrink"%>
+						<span class="idea-label fooddrink">Food &amp; Drink</span>
+					<% elsif e.eventable_type == "Activity" %>
+						<span class="idea-label activity">Activity</span>
+					<% elsif e.eventable_type == "Hotel" %>
+						<span class="idea-label lodging">Lodging</span>
+					<% end %>
+
+					<% if photo_exists?(e) %>
+						<div style="overflow:hidden;text-align:center;">
+						<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
+							<img style="height:180px;" alt="<%= e.title %>" src="<%= get_image_url(e) %>">
+						</a>
+						</div>
+					<% elsif e.eventable.lat and e.eventable.lng %>
+						<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
+							<img class="map" src="<%= build_static_map_url_my_duffels(e.eventable, :size => "180x180", :zoom => 15) %>">
+						</a>
+					<% else %>
+						<div style="padding: 1px 0">&nbsp;</div>
+					<% end %>
+
+					<h5 style="margin-top:5px"><%= truncate(h(e.title), :length => 30) %></h5>
+					<p class="description"><%= truncate(h(e.note), :length => 60) %></p>
+
+					<p class="info">By <a href="/<%= e.user.username %>"><%= e.user.username %></a> to <a href="/trips/<%= e.trip.permalink %>"><%= e.trip.title %></a></p>
+
 				</div>
-
-				<% if e.eventable_type == "Foodanddrink"%>
-					<span class="idea-label fooddrink">Food &amp; Drink</span>
-				<% elsif e.eventable_type == "Activity" %>
-					<span class="idea-label activity">Activity</span>
-				<% elsif e.eventable_type == "Hotel" %>
-					<span class="idea-label lodging">Lodging</span>
-				<% end %>
-
-				<% if photo_exists?(e) %>
-					<div style="overflow:hidden;text-align:center;">
-					<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
-						<img style="height:180px;" alt="<%= e.title %>" src="<%= get_image_url(e) %>">
-					</a>
-					</div>
-				<% elsif e.eventable.lat and e.eventable.lng %>
-					<a class="ImgLink" href="<%= trip_idea_url(:permalink => e.trip.permalink, :id => e.id) %>">
-						<img class="map" src="<%= build_static_map_url_my_duffels(e.eventable, :size => "180x180", :zoom => 15) %>">
-					</a>
-				<% else %>
-					<div style="padding: 1px 0">&nbsp;</div>
-				<% end %>
-
-				<h5 style="margin-top:5px"><%= truncate(h(e.title), :length => 30) %></h5>
-				<p class="description"><%= truncate(h(e.note), :length => 60) %></p>
-
-				<p class="info">By <a href="/<%= e.user.username %>"><%= e.user.username %></a> to <a href="/trips/<%= e.trip.permalink %>"><%= e.trip.title %></a></p>
-
-			</div>
+			<% end %>
 		<% end %>
 	</div>
 	
