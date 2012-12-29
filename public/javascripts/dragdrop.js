@@ -803,12 +803,10 @@ var Sortable = {
         }
       }
 
-			if (child == null) { /* This line is custom code by Will Cheung */
-      	dropon.insertBefore(element, child);
+      dropon.insertBefore(element, child);
 
-      	Sortable.options(oldParentNode).onChange(element);
-      	droponOptions.onChange(element);
-			}
+      Sortable.options(oldParentNode).onChange(element);
+      droponOptions.onChange(element);
     }
   },
 

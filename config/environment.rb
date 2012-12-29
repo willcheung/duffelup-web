@@ -5,7 +5,7 @@
 #ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
 
 # Environment constants (for domain duffelup.com)
 ENV['RECAPTCHA_PUBLIC_KEY'] = '6LcpLQIAAAAAAICtw70ZNxLDseO9MhN-LNuxu9O8'
@@ -66,7 +66,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_duffel_session',
+    :key => '_duffel_session',
     :secret      => '0c3b597ffa9540947505es38sa08deb4f4323febe201b5243befe69690876f2c5202e7611f3b7cf18e3f2ae39sb0f1l199ab6e4b2950f7ce33g'
   }
   
