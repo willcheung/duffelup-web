@@ -120,6 +120,8 @@ class ApplicationController < ActionController::Base
     else
       @oauth = Koala::Facebook::OAuth.new(Facebook::APP_ID, Facebook::SECRET)
       info = @oauth.get_user_info_from_cookies(cookies)
+      return nil if info.nil?
+      
       session['fb_access_token'] = info["access_token"] if !info.nil?
       session['fb_uid'] = info["user_id"] if !info.nil?
     

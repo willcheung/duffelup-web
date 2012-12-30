@@ -758,7 +758,7 @@ span.collaborator img {
 
 #board_events li{
 	width: 220px;
-	height: 220px;
+	height: 280px;
 	float: left;
 	margin: 8px 0 0 8px;
 	position: relative;
@@ -785,11 +785,15 @@ span.collaborator img {
 	cursor: move;
 }
 
-#board_events li h3, #board_events li strong{
+#board_events li h3{
 	font-size: 12px;
 	line-height: 15px;
 	font-weight: bold;
 	margin: 43px 15px 0;
+}
+
+#board_events li .pin h3 {
+	margin: 5px 0 0 0;
 }
 
 #board_events li .note h3{
@@ -815,7 +819,7 @@ span.collaborator img {
 	font-size: 10px;
 	color: #444;
 	line-height: 12px;
-	height: 130px;
+	height: 190px;
 	overflow: hidden;
 }
 
@@ -853,7 +857,7 @@ span.collaborator img {
 
 #board_events span.idea-author{
 	position: absolute;
-	top: 195px;
+	top: 260px;
 	left: 15px;
 	font-size: 11px;
 	color: #555;
@@ -916,9 +920,9 @@ span.collaborator img {
 	border: 1px dashed #7D4F2F;
 }
 
-#board_events .foodanddrink, #board_events .lodging, #board_events .activity, #board_events .transport{
+#board_events div.index_card{
 	text-align: center;
-	height: 220px; 
+	height: 290px; 
 	width: 220px;
 	background: url('../images/tile-index.png') no-repeat top !important;
 	position: relative;
@@ -928,7 +932,7 @@ span.collaborator img {
 
 #board_events .recommendation {
 	text-align: left;
-	height: 220px; 
+	height: 290px; 
 	width: 331px;
 	background: url('../images/tile-index-big.png') no-repeat top left !important;
 	position: relative;
@@ -946,7 +950,7 @@ span.collaborator img {
 #board_events .note{
 	text-align: left; 
 	padding: 1px 0; 
-	height: 220px; 
+	height: 290px; 
 	width: 220px;
 	display: block;
 	position: relative;
@@ -975,7 +979,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-link-2.gif') no-repeat;
  	right: -3px;
-	top: 183px;
+	top: 250px;
    	width: 20px;
     height: 20px;
 }
@@ -985,7 +989,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-info.png') no-repeat;
  	right: -3px;
-	top: 183px;
+	top: 250px;
    	width: 20px;
     height: 20px;
 }
@@ -1005,7 +1009,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-edit.png') no-repeat;
  	right: 29px;
-	top: 182px;
+	top: 250px;
    	width: 20px;
     height: 20px;
 }
@@ -1015,7 +1019,7 @@ span.collaborator img {
    	text-indent: -5000px;
     background: url('../images/icon-copy.png') no-repeat; 
  	right: 14px;
-	top: 182px;
+	top: 250px;
    	width: 20px;
     height: 20px;
 }
@@ -1024,19 +1028,19 @@ span.collaborator img {
  	position: absolute;
    	text-indent: -5000px;
     background: url('../images/icon-trash.gif') no-repeat;
- 	right: 0;
+ 	right: -3px;
 	top: 0;
    	width: 20px;
     height: 20px;
 }
 
-#board_events .foodanddrink span.idea-label,#board_events .recommendation span.idea-label#fooddrink-rec,
+#board_events span.foodanddrink,#board_events .recommendation span.idea-label#fooddrink-rec,
 #event_details span.foodanddrink {background: #40C2F3;}
 
-#board_events .lodging span.idea-label,#board_events .recommendation span.idea-label#lodging-rec,
+#board_events span.lodging ,#board_events .recommendation span.idea-label#lodging-rec,
 #event_details span.lodging  {background: #808080;}
 
-#board_events .activity span.idea-label,#board_events .recommendation span.idea-label#activity-rec,
+#board_events span.activity ,#board_events .recommendation span.idea-label#activity-rec,
 #event_details span.activity {background: #C6DE68;}
 
 #board_events .transport span.idea-label, #event_details span.transport {background: #F380B2;}
@@ -1044,7 +1048,7 @@ span.collaborator img {
 #board_events .note span.idea-label{background: #fff200; color: #555;}
 
 #board_events h3 a{padding-right: 15px; background: url('../images/icon-link.gif') no-repeat right;}
-#board_events em.list-actions{display: none;} /* Hide itinerary links when dragging to board */
+#board_events .idea-actions{display: none;} /* Hide itinerary links when dragging to board */
 
 #board_events .more-details-button {
 	background: #999;
@@ -1685,6 +1689,10 @@ div#place_thumbnails li {
 	margin-left: -6px;
 	font-size:1.1em;
 	margin-top: 7px;
+}
+
+.pin {
+	height: 260px;
 }
 
 /*-----------------------------------------------------------------------------------

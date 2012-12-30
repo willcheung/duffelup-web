@@ -44,6 +44,7 @@ class BetaInvitationsController < ApplicationController
         graph = Koala::Facebook::API.new(fb_session.access_token)
         @all_fb_friends = graph.get_connections("me","friends")
       rescue Koala::Facebook::AuthenticationError
+        # clear fb session
         session['fb_uid'] = nil
         session['fb_access_token'] = nil
         if fb_session

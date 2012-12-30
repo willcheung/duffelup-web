@@ -17,32 +17,32 @@
 	</div>
 </li>
 <% else %>
-	<% if event.photo? %>
-		<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" style="width:331px" <% if sortable_tile %> class="sortable" <% end %>>
-			<div class="recommendation business">
-				<span class="idea-label" id="activity-rec">Activity</span>
+	<% if event.photo? or (event.lat and event.lng) %>
+		<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
+			<div class="pin">
 				<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
-				<div class="detail">
-					<a href="/trips/<%= @trip.permalink %>/ideas/<%= event.id %>"><img src="<%= get_image_url(event) %>" alt="<%= event.title %>" /></a>
-				</div>
-				<h3><%= display_title_with_link(event, 33) %></h3>
-				<div class="idea-note">
-					<p><%= display_short_note_on_board(event, @trip) %></p>
-				</div>
+
+				<span class="idea-label activity">Activity</span>
+
+				<% if photo_exists?(event) %>
+					<img style="width: 180px;" alt="<%= event.title %>" src="<%= get_image_url(event) %>">
+				<% elsif event.lat and event.lng %>
+					<img class="map" src="<%= build_static_map_url(event, :size => "180x180", :zoom => 15) %>">
+				<% end %>
+
+				<h3><%= display_title_with_link(event) %></h3>
+				<p class="description"><%= truncate(h(event.note), :length => Event::TRUNCATE_NOTE_ON_CORKBOARD) %></p>
 				<%= content_tag "span", "by #{event.author}", :class => "idea-author" unless event.author.nil? %>
 			</div>
 		</li>
 	<% else %>
 		<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
-			<div class="activity">
-				<span class="idea-label">Activity</span>
+			<div class="index_card">
+				<span class="idea-label activity">Activity</span>
 				<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
 				<h3><%= display_title_with_link(event) %></h3>
 				<div class="idea-note">
 					<%= display_short_note_on_board(event, @trip) %>
-					<% unless event.price_range.nil? %>
-						<p style="font-family:Helvetica,Arial,Sans-serif"><span class="price"><small>Price Range: <%= display_price_range(event.price_range.to_i) %></small></span></p>
-					<% end %>
 				</div>
 				<%= content_tag "span", "by #{event.author}", :class => "idea-author" unless event.author.nil? %>
 			</div>
