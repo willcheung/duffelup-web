@@ -40,8 +40,17 @@ class BetaInvitationsController < ApplicationController
   
   def get_fb_friends
     if fb_session
-      graph = Koala::Facebook::API.new(fb_session.access_token)
-      @all_fb_friends = graph.get_connections("me","friends")
+      begin
+        graph = Koala::Facebook::API.new(fb_session.access_token)
+        @all_fb_friends = graph.get_connections("me","friends")
+      rescue Koala::Facebook::AuthenticationError
+        session['fb_uid'] = nil
+        session['fb_access_token'] = nil
+        if fb_session
+          graph = Koala::Facebook::API.new(fb_session.access_token)
+          @all_fb_friends = graph.get_connections("me","friends")
+        end
+      end
     end
     
     # get all the facebook IDs and comma separate them
