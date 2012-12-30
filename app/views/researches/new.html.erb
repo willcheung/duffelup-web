@@ -14,9 +14,9 @@
 
 		<p id="submit">
 		<% if params[:local] == "true" %>
-		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'copy-idea', '#{@event_id}-#{params[:event_title]}');" %>
+		<%= form.submit "Add to Duffel", :name => "_submit_button", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Duffel', 'copy-idea', '#{@event_id}-#{params[:event_title]}');" %>
 		<% elsif params[:from_map] == "true" %>
-		<%= form.submit "Add to Duffel", :name => "_submit_button", :onclick => "pageTracker._trackEvent('Duffel', 'add-idea', 'google-map');" %>
+		<%= form.submit "Add to Duffel", :name => "_submit_button", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Duffel', 'add-idea', 'google-map');" %>
 		<% else %>
 			<% unless @trips.empty? %>
 				<%= form.submit "Add to Duffel", :name => "_submit_button", :class => "btn btn-primary", :onclick => "pageTracker._trackEvent('Bookmarklet', 'add-idea', 'external-site');" %>

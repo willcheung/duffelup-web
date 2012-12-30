@@ -4010,3 +4010,40 @@ a.thumbnail:hover, a.thumbnail.focused {
 .right {
 	float: right;
 }
+.pin {
+	background-color: #F9F8F3;
+  box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+  -moz-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+  -webkit-box-shadow: 0 2px 3px rgba(24, 15, 15, 0.4);
+  font-size: 11px;
+  padding: 15px 15px 0;
+  width: 180px;
+	margin: 6px;
+	float: left;
+	color: #444;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	overflow:hidden;
+}
+/****** pin ******/
+.pin .description {	font-size:11px; line-height:15px; }
+.pin .likes { text-transform: uppercase; color: #888; letter-spacing:.7px;}
+.pin .actions { display:none;position:relative; z-index: 3;}
+.pin:hover .actions { display: block; }
+.pin .actions .add-to-duffel a{
+	position: absolute;
+	top: -7px;
+	left: -7px;
+	font-size:1em;
+	padding: 5px 5px;
+	font-weight:bold;
+}
+.pin .like a{
+	position: absolute;
+	top: -7px;
+	right: -7px;
+	font-size:1em;
+	padding: 5px 5px;
+	font-weight:bold;
+}
