@@ -31,10 +31,6 @@ class ApplicationController < ActionController::Base
   
   FBSession = Struct.new(:uid, :access_token)
   
-  def to_json(*options)
-    ActiveSupport::JSON.encode(self, options)
-  end
-  
   def param_posted?(sym)
     request.post? and params[sym]
   end
