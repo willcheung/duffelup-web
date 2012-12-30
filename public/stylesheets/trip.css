@@ -1043,7 +1043,7 @@ span.collaborator img {
 #board_events span.activity ,#board_events .recommendation span.idea-label#activity-rec,
 #event_details span.activity {background: #C6DE68;}
 
-#board_events .transport span.idea-label, #event_details span.transport {background: #F380B2;}
+#board_events span.transport, #event_details span.transport {background: #F380B2;}
 #board_events .check_in span.idea-label, #event_details span.check_in {background: #BB92FF;}
 #board_events .note span.idea-label{background: #fff200; color: #555;}
 
