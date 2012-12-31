@@ -543,7 +543,6 @@ div.fb-button a span.fb_button_text {
 	border-radius:15px;
 	color: #fff;
 	margin: -5px 0 0 10px;
-	behavior: url('/PIE.htc');
 }
 
 #account #trip-login a.signup {
@@ -622,7 +621,6 @@ span.collaborator img {
 	-moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
-	behavior: url('/PIE.htc');
 }
 
 #add-ideas li{
@@ -735,7 +733,6 @@ span.collaborator img {
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius: 5px;
-	behavior: url('/PIE.htc');
 }
 
 #board_gmap{
@@ -1048,7 +1045,6 @@ span.collaborator img {
 #board_events .note span.idea-label{background: #fff200; color: #555;}
 
 #board_events h3 a{padding-right: 15px; background: url('../images/icon-link.gif') no-repeat right;}
-#board_events .idea-actions{display: none;} /* Hide itinerary links when dragging to board */
 
 #board_events .more-details-button {
 	background: #999;
@@ -1262,7 +1258,9 @@ span.collaborator img {
 /****************************
 	Map Preview on Trip Planning Page
 	***************************/
-
+#content #right_sidebar {
+	width: 20%;
+}
 #map-preview {
 	bottom: 26px;
 	position: absolute;
@@ -1323,12 +1321,6 @@ span.collaborator img {
 
 #map_wrapper {
 	padding: 3px 8px 8px 8px;
-	/*bottom: 75px;*/
-	top: 20px;
-	position: absolute;
-	right: 30px;
-	/*width: 380px;
-	height: 300px;*/
 	width: 240px;
 	height: 220px;
 	background: #fcfcfc;
@@ -1338,17 +1330,17 @@ span.collaborator img {
 	-webkit-box-shadow: #333 0 0 8px;
 	-moz-box-shadow: #333 0 0 8px;
 	box-shadow: #333 0 0 8px;
-	behavior: url('/PIE.htc');
+	margin:10px;
+	float:right;
 }
 
 #map_wrapper div.corkboard#board_gmap {
 	background: #ECEFF3;
 	border-top:1px solid #ccc !important;
 	display:block;
-	width:95%;
-	height:88%;
+	width:240px;
+	height:200px;
 	overflow: none;
-	bottom: 8px;
 	border: 0;
 	margin: 0;
 	padding: 0;
@@ -1356,13 +1348,10 @@ span.collaborator img {
 }
 
 #comments_wrapper {
-	position: absolute;
 	padding:8px;
 	width: 240px;
 	min-height: 10%;
-	max-height: 40%;
-	right: 30px;
-	top: 690px;
+	max-height: 400px;
 	background: #fcfcfc;
 	z-index:4;
 	overflow: auto;
@@ -1371,15 +1360,13 @@ span.collaborator img {
 	-webkit-box-shadow: #333 0 0 8px;
 	-moz-box-shadow: #333 0 0 8px;
 	box-shadow: #333 0 0 8px;
-	behavior: url('/PIE.htc');
+	float: right;
+	margin: 10px;
 }
 
 #related_ideas_wrapper {
-	position: absolute;
 	padding:8px;
 	width: 240px;
-	right: 30px;
-	top: 270px;
 	height: auto;
 	background: #fcfcfc;
 	z-index:4;
@@ -1389,7 +1376,8 @@ span.collaborator img {
 	-webkit-box-shadow: #333 0 0 8px;
 	-moz-box-shadow: #333 0 0 8px;
 	box-shadow: #333 0 0 8px;
-	behavior: url('/PIE.htc');
+	float: right;
+	margin: 10px;
 }
 
 #related_ideas_wrapper .related-list li {
@@ -1518,7 +1506,6 @@ span.collaborator img {
 	-webkit-box-shadow: #333 0 0 8px;
 	-moz-box-shadow: #333 0 0 8px;
 	box-shadow: #333 0 0 8px;
-	behavior: url('/PIE.htc');
 	background: url('../images/bg-index.png') repeat;
 }
 
@@ -2120,7 +2107,6 @@ input.trip_destination_submit {
 	-webkit-box-shadow: #000 0 0 8px;
 	-moz-box-shadow: #000 0 0 8px;
 	box-shadow: #000 0 0 8px;
-	behavior: url('/PIE.htc');
 }
 
 .tour h1 {
@@ -2143,7 +2129,6 @@ input.trip_destination_submit {
 	float: left;
 	font-size: 18px;
 	text-decoration: none;
-	behavior: url('/PIE.htc');
 }
 
 .tour .tourLink:hover, .tour .tourLink2:hover {
@@ -2180,6 +2165,7 @@ input.trip_destination_submit {
 	font-family:arial;
 	margin:8px 10px 8px 10px;
 	font-weight:bold !important;
+	font-size: 12px;
 }
 
 #comments_wrapper #CommentsContentsBottom ul,
@@ -2230,7 +2216,6 @@ input.trip_destination_submit {
 	-moz-border-radius:10px 0 0 10px;
 	-webkit-border-radius:10px 0 0 10px;
 	border-radius:10px 0 0 10px;
-	behavior: url('/PIE.htc');
 }
 
 #sliding-sideBarTab{
@@ -2323,13 +2308,12 @@ input.trip_destination_submit {
 #comments_wrapper #CommentsContentsInner, #sliding-sideBar #CommentsContentsInner{
 	padding: 5px;
 	opacity: 1.0;
-	max-height: 170px;
+	max-height: 90%;
 	overflow: auto;
 	background-color: #F1E7A3;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	behavior: url('/PIE.htc');
 }
 
 #sliding-sideBar #CommentsContentsInner{

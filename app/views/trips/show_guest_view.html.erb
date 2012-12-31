@@ -14,34 +14,37 @@
                 
         </div>
 
-		<div id="map_wrapper">
-		        <div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
-		                <a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger map &raquo;</a></div>
-		        <div id="board_gmap" class="corkboard"></div>
-		</div>
+		<div id="right_sidebar" class="pull-right">
 
-		<div id="related_ideas_wrapper">
-			<h2>Related Duffels</h2>
-			<ul class="related-list">
-				<% @related.each do |r| %>
-				<li>
-					<div id="image_wrapper"><a href="<%=r.permalink%>"><img src="<%= duffel_thumbnail_url(r) %>"/></a></div>
-					<h3><a href="<%=r.permalink%>"><%= r.title %></a></h3>
-					<p><%= truncate(r.destination.gsub(", United States",""), 100) %></p>
-					<p><%= r.events.count %> ideas</p>
-				</li>
-				<% end %>
+			<div id="map_wrapper">
+			        <div class="map-link clearfix"><span id="map-title" class="map-title">Map Overview</span>
+			                <a href="<%= trip_url(:id => @trip, :view => 'map') %>">Larger map &raquo;</a></div>
+			        <div id="board_gmap" class="corkboard"></div>
+			</div>
+
+			<div id="related_ideas_wrapper">
+				<h2>Related Duffels</h2>
+				<ul class="related-list">
+					<% @related.each do |r| %>
+					<li>
+						<div id="image_wrapper"><a href="<%=r.permalink%>"><img src="<%= duffel_thumbnail_url(r) %>"/></a></div>
+						<h3><a href="<%=r.permalink%>"><%= r.title %></a></h3>
+						<p><%= truncate(r.destination.gsub(", United States",""), 100) %></p>
+						<p><%= r.events.count %> ideas</p>
+					</li>
+					<% end %>
 				
-				<% unless @city[0].nil? %>
-				<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="<%= ((@city[0].country_code == "US" or @city[0].country_code == "CA") ? "/#{@city[0].country_code}/#{@city[0].region}/#{city_name_to_url(@city[0].city)}" : "/#{@city[0].country_code}/#{city_name_to_url(@city[0].city)}") %>">See more ideas to <%= @city[0].city %> &raquo;</a></p>
-				<% else %>
-				<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="/featured">See more interesting duffels &raquo;</a></p>
-				<% end %>
-			</ul>
-		</div>
+					<% unless @city[0].nil? %>
+					<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="<%= ((@city[0].country_code == "US" or @city[0].country_code == "CA") ? "/#{@city[0].country_code}/#{@city[0].region}/#{city_name_to_url(@city[0].city)}" : "/#{@city[0].country_code}/#{city_name_to_url(@city[0].city)}") %>">See more ideas to <%= @city[0].city %> &raquo;</a></p>
+					<% else %>
+					<p style="margin: 10px 0;font-size:13px;color:#444;"><a href="/featured">See more interesting duffels &raquo;</a></p>
+					<% end %>
+				</ul>
+			</div>
 
-		<div id="comments_wrapper">
-		        <%= render :partial => "comments/trip_comments" %>
-		</div>
+			<div id="comments_wrapper">
+			        <%= render :partial => "comments/trip_comments" %>
+			</div>
 
+		</div>
 </div>
