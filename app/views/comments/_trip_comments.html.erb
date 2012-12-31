@@ -1,4 +1,4 @@
-<h2><img height="13" style="float:left;padding-right:5px" src="/images/icon-comment.png"/>Comments (<%= @trip_comments_size %>)</h2>
+<h2><img style="float:left;padding-right:5px;margin-top:10px;height:12px;" src="/images/icon-comment.png"/>Comments (<%= @trip_comments_size %>)</h2>
 <div id="CommentsContentsInner">
 	<div id="comments_for_trip_<%= @trip.id %>">
 		<% if @trip_comments_size.to_i > Trip::NUM_OF_COMMENTS_TO_SHOW %>
@@ -27,7 +27,7 @@
 			<div class='comment-form'>
 				  <%= form.text_area :body, :id => "#{@trip.id}_comment_textarea", :cols => '20', :rows => '3', :placeholder => "Write something...", :onfocus => "$('post-btn').show();return false;" %>
 				  <div class="comment-btn" id="post-btn" style="display:none;">
-					<%= submit_tag "POST", :class => 'submit' %>
+					<%= submit_tag "POST", :class => 'submit btn' %>
 				  </div> 
 			</div>
 		<% end %>
