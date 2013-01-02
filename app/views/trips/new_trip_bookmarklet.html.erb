@@ -1,3 +1,39 @@
+<script>
+$(function() {
+	function split( val ) {
+				return val.split( /;\s*/ );
+			}
+			function extractLast( term ) {
+				return split( term ).pop();
+			}
+	$('#trip_destination').autocomplete({
+			source: function( request, response ) {
+								$.getJSON( "/city/auto_complete", {
+									term: extractLast( request.term )
+								}, response );
+							},
+			minLength: 3,
+			search: function(event,ui) {$('#indicator').show();},
+			open: function(event,ui) {$('#indicator').hide();},
+			focus: function() {
+								// prevent value inserted on focus
+								return false;
+							},
+			select: function( event, ui ) {
+				var terms = split( this.value );
+				// remove the current input
+				terms.pop();
+				// add the selected item
+				terms.push( ui.item.value );
+				// add placeholder to get the comma-and-space at the end
+				terms.push( "" );
+				this.value = terms.join( "; " );
+				return false;
+			}
+		});
+	});
+</script>
+
 <h1>Create a New Duffel</h1>
 
 <div id="container">
@@ -27,16 +63,7 @@
 
 	<p>
 		<label for="destination">Destination:<span id="indicator" style="display:none;"><img src="/images/ajax-loader.gif"></span><br/><span class="hint" style="padding:0; font-weight: normal; font-size: 11px;">Use semi-colon (;) to separate multiple cities.</span></label>
-		<%= text_field_with_auto_complete :trip, :destination, { :size => 36, :value => params[:city] }, { :indicator => "indicator", :tokens => ";", :frequency => ".1", :min_chars => "3" } %>
-	</p>
-
-	<p>
-		<label for="start_date">Dates: <span class="hint" style="padding:0; font-weight: normal; font-size: 11px;">(optional)</span></label>
-
-	<%= form.text_field :start_date, :month_year => "label", :size => 13 %>
-
-	
-	<%= form.text_field :end_date, :month_year => "label", :size => 13 %>
+		<%= form.text_field :destination, :value => params[:city] %>
 	</p>
 	
 
@@ -46,7 +73,7 @@
 	</p>
 	
 
-<p style="padding: 10px 20px; margin-top: 30px" id="submit"><%= submit_tag "Let's go!", :class => "submit" %> &nbsp; or &nbsp;<%= link_to "Go back", @redirect_url %></p>
+<p style="padding: 10px 20px; margin-top: 30px" id="submit"><%= submit_tag "Create", :class => "submit btn btn-primary" %> &nbsp; or &nbsp;<%= link_to "Go back", @redirect_url %></p>
 <div class="clear"></div>
 <% end %>
 
