@@ -7,7 +7,7 @@ class InvitationController < ApplicationController
   
   def index # Everyone invited to the trip can invite other people 
     @beta_invitation = BetaInvitation.new
-    @title = "Duffel - Invite Friends"
+    @title = "DuffelUp.com Invite Friends"
     load_trip_and_users(params[:permalink])
     @fb_login_button_url = "/users/link_user_accounts?redirect=#{trip_invitation_path(:permalink => @trip)}#invitations_left-fb"
     

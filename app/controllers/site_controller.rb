@@ -4,7 +4,7 @@ class SiteController < ApplicationController
   before_filter :protect, :only => [:feedback]
 
   def index
-    @title = "Duffel - Visual Trip Planner - Organize Your Travel Itinerary"
+    @title = "DuffelUp.com Trip Planner - Organize Your Travel Itinerary"
     
     if logged_in?
       redirect_to dashboard_path
@@ -12,21 +12,21 @@ class SiteController < ApplicationController
   end
 
   def about
-    @title = "About Us - Duffel Visual Trip Planner"
+    @title = "About Us - DuffelUp.com Trip Planner"
     @sub_title = "About Us"
   end
   
   def jobs
-    @title = "Jobs at Duffel - Visual Trip Planner"
+    @title = "Jobs at DuffelUp.com Visual Trip Planner"
     @sub_title = "Jobs"
   end
   
   def tour
-    @title = "Duffel - Take the Tour"
+    @title = "DuffelUp.com - Take the Tour"
   end
   
   def search
-    @title = "Search Cities and Trips on Duffel - Visual Trip Planner"
+    @title = "Search Cities and Trips on DuffelUp.com Trip Planner"
     @sub_title = "Search"
     return if params[:q].nil?
     
@@ -49,7 +49,7 @@ class SiteController < ApplicationController
   end
 
   def tools
-    @title = "Duffel - Add to Duffel Bookmarklet"
+    @title = "DuffelUp.com - Add to Duffel Bookmarklet"
     @sub_title = "\"Add to Duffel\" Bookmarklet"
     
     if logged_in?
@@ -62,22 +62,22 @@ class SiteController < ApplicationController
   end
 
   def help
-    @title = "Duffel - Help"
+    @title = "DuffelUp.com - Help"
     @sub_title = "Help"
   end
   
   def terms_of_use
-    @title = "Duffel - Terms of Use"
+    @title = "DuffelUp.com - Terms of Use"
     @sub_title = "Terms of Use"
   end
   
   def privacy_policy
-    @title = "Duffel - Privacy Policy"
+    @title = "DuffelUp.com - Privacy Policy"
     @sub_title = "Privacy Policy"
   end
   
   def feedback
-    @title = "Duffel - Feedback"
+    @title = "DuffelUp.com - Feedback"
     
     if request.post?
       Postoffice.deliver_feedback(params[:feedback][:body], current_user.username, current_user.email)
@@ -87,12 +87,12 @@ class SiteController < ApplicationController
   end
   
   def contact
-    @title = "Duffel - Contact Us"
+    @title = "DuffelUp.com - Contact Us"
     @sub_title = "Contact Us"
   end
   
   def press
-    @title = "Duffel - Press"
+    @title = "DuffelUp.com - Press"
     @sub_title = "Press Kit"
   end
   
@@ -117,7 +117,7 @@ class SiteController < ApplicationController
   end
   
   def splendia_hotels
-    @title = "Duffel - Find the perfect luxury hotel for your vacation"
+    @title = "DuffelUp.com - Find the perfect luxury hotel for your vacation"
     
     if params[:hotel_id]
       @iframe_height = "2400"
@@ -150,12 +150,12 @@ class SiteController < ApplicationController
   end
   
   def browser_error
-    @title = "Duffel - Your browser is not supported."
+    @title = "DuffelUp.com - Your browser is not supported."
     @meta_description = "Browser Error"
   end
   
   def permission_error
-    @title = "Duffel - Permission Denied."
+    @title = "DuffelUp.com - Permission Denied."
     @meta_description = "Permission Denied"
   end
 end

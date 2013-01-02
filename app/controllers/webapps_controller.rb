@@ -43,7 +43,7 @@ class WebappsController < ApplicationController
     end
 	
     @itinerary = @trip.events_details
-    @title = "Duffel - Google Calendar Sync"
+    @title = "DuffelUp.com Google Calendar Sync"
 	
     gc = GData.new
     if gc.login('indifferenze@gmail.com', 'indifferenze123')

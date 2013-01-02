@@ -25,7 +25,7 @@ class ResearchesController < ApplicationController
   # type
   
   def new
-    @title = "Duffel - Add an Idea"
+    @title = "DuffelUp.com Add an Idea"
     @trips = get_trips
     
     # If request is originated from Duffel site (which means it's a "copy" request)

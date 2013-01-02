@@ -164,11 +164,11 @@ class EventsController < ApplicationController
         @header = "Editing #{@event.title}"
         @idea = Idea.find(@event.eventable_id)
       elsif @event.eventable_type == "Transportation"
-        @title = "Duffel - Edit Transportation"
+        @title = "DuffelUp.com Edit Transportation"
         @header = "Editing Transportation"
         @transportation = Transportation.find(@event.eventable_id)
       elsif @event.eventable_type == "Notes"
-        @title = "Duffel - Edit Note"
+        @title = "DuffelUp.com Edit Note"
         @header = "Editing Notes"
         @notes = Notes.find(@event.eventable_id)
       end
@@ -234,7 +234,7 @@ class EventsController < ApplicationController
   
   def show
     e = Event.find(params[:id])
-    @title = "Duffel - " + e.title
+    @title = e.title + " - DuffelUp.com Trip Planner"
 
     case e.eventable_type
     when "Hotel", "Activity", "Foodanddrink"
