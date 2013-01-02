@@ -74,8 +74,8 @@ class TripsController < ApplicationController
     
     if request.post?
       # Monkey patch date format
-      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y') if not params[:trip][:start_date].empty?
-      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y') if not params[:trip][:end_date].empty?
+      params[:trip][:start_date] = Date.strptime(params[:trip][:start_date], '%m/%d/%Y') if not params[:trip][:start_date].nil? and not params[:trip][:start_date].empty?
+      params[:trip][:end_date] = Date.strptime(params[:trip][:end_date], '%m/%d/%Y') if not params[:trip][:end_date].nil? and not params[:trip][:end_date].empty?
       
       @trip = Trip.new(params[:trip])
       if @trip.end_date.nil? or @trip.start_date.nil?
@@ -444,7 +444,7 @@ class TripsController < ApplicationController
   def show_new_visitor_trip
     @trip = Trip.find_by_permalink(params[:id])
     
-    redirect_to trip_url(:id => params[:id]) and return if @trip.active == 1
+    redirect_to trip_url(:id => params[:id]) and return if !@trip.nil? and @trip.active == 1
     
     # if there's no temp trip created for new user
     if new_visitor_created_trip?

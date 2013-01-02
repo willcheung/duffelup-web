@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if logged_in?
       redirect_to dashboard_path
     else
-      @title = "Login - Duffel Visual Trip Planner"
+      @title = "Login - DuffelUp.com Trip Planner"
       render :layout => 'simple_without_search'
     end
   end
