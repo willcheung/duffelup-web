@@ -7,7 +7,7 @@ class TripsController < ApplicationController
   after_filter :clear_trip_and_events_cache, :only => [:update, :destroy]
   
   def index
-    @title = "Explore Duffel - Visual Bookmarking Tool and Trip Planner"
+    @title = "Explore DuffelUp.com Visual Bookmarking Tool and Trip Planner"
     @sub_title = "Explore Duffel"
     @top_cities = City.new
     
@@ -40,7 +40,7 @@ class TripsController < ApplicationController
   
   # GET /trips/new
   def new
-    @title = "Duffel - Create a new trip"
+    @title = "DuffelUp.com Create a new trip"
     @new_page = true # flag to indicate 'new' is being rendered instead of 'edit'
     
     # Get the trip_destination parameter from profile#show page.
@@ -223,8 +223,8 @@ class TripsController < ApplicationController
     # If trip not found or not active, return 404.    
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil? or @trip.active == 0
 
-    @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
-    @meta_description = "Personalized guide and itinerary to " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + ".  Planned on Duffel Visual Trip Planner."
+    @title = @trip.title + " - DuffelUp.com Trip Planner"
+    @meta_description = "Personalized guide and itinerary to " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + ".  Planned on DuffelUp.com Trip Planner."
     @city = [] # used in trips_helper#trip_destination_in_trip_header
 
     ####################################
@@ -313,7 +313,7 @@ class TripsController < ApplicationController
       render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return
     end
     
-    @title = "#{@trip.title} Printable Itinerary - Duffel Visual Trip Planner"
+    @title = "#{@trip.title} Printable Itinerary - DuffelUp.com Trip Planner"
     #@i = 0 # count for inserting <div class="page-break"></div> every two ideas for print break
     
     # If trip is private, check to see whether user is logged in and invited to the trip.  Else, return 404.
@@ -336,7 +336,7 @@ class TripsController < ApplicationController
   end
   
   def edit
-    @title = "Duffel - Edit Trip Details"
+    @title = "DuffelUp.com Edit Trip Details"
     @trip = Trip.find_city_id_by_permalink(params[:id]) # custom SQL to find city id via permalink
     @edit_page = true
   end
@@ -457,7 +457,7 @@ class TripsController < ApplicationController
     
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @trip.nil?
     
-    @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - Duffel Visual Trip Planner"
+    @title = @trip.title + " in " + shorten_trip_destination(@trip.destination.strip.gsub(";", " and ")) + " - DuffelUp.com Trip Planner"
     @city = []
     @user = User.new
     

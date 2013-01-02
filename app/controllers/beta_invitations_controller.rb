@@ -4,17 +4,17 @@ class BetaInvitationsController < ApplicationController
   before_filter :protect, :only => [ :new, :email, :facebook ]
   
   def new
-    @title = "Duffel - Invitation"
+    @title = "DuffelUp.com - Invitation"
     @beta_invitation = BetaInvitation.new
   end
   
   def email
-    @title = "Duffel - Invitation"
+    @title = "DuffelUp.com - Invitation"
     @beta_invitation = BetaInvitation.new
  end
   
   def facebook
-    @title = "Duffel - Invitation"
+    @title = "DuffelUp.com - Invitation"
     @beta_invitation = BetaInvitation.new
     @fb_login_button_url = "/users/link_user_accounts?redirect=/beta_invitations/facebook"
     

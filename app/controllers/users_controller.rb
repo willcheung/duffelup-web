@@ -215,7 +215,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect_to dashboard_path
     else
-      @title = "Duffel - New User"
+      @title = "DuffelUp.com New User"
       @user = User.new(:invitation_token => params[:invitation_token])
       @user.email = @user.beta_invitation.recipient_email if @user.beta_invitation 
       render :layout => 'simple_without_search'
@@ -312,7 +312,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @title = "Duffel - Edit Account"
+    @title = "DuffelUp.com Edit Account"
     @user = current_user
     
     respond_to do |format|
@@ -343,7 +343,7 @@ class UsersController < ApplicationController
   end
 
   def password
-    @title = "Duffel - Change Password"
+    @title = "DuffelUp.com Change Password"
   end
     
   def password_save
@@ -404,7 +404,7 @@ class UsersController < ApplicationController
   end
   
   def search
-    @title = "Duffel - Search Duffelers"
+    @title = "DuffelUp.com Search Duffelers"
     return if params[:q].nil?
     
     unless params[:q].empty?
@@ -437,7 +437,7 @@ class UsersController < ApplicationController
       redirect_to profile_url(:username => current_user.username)
       return
     else
-      @title = "Duffel - Forgot Password?"
+      @title = "DuffelUp.com Forgot Password?"
     end
     
     if request.post?

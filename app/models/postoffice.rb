@@ -37,7 +37,7 @@ class Postoffice < ActionMailer::Base
     from "postoffice@duffelup.com (DuffelUp.com)"
     headers "Reply-to" => "postoffice@duffelup.com"
     recipients user.email
-    subject "Duffel - Reset Password"
+    subject "DuffelUp.com Reset Password"
     body :user => user, :password => password
     sent_on Time.now
     content_type "text/html"
