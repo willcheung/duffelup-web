@@ -92,7 +92,7 @@
       <ul>
 		<% @friends.each_with_index do |f,i| %>
 			<% break if i== 16 %>
-			<li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city) %></li>
+			<li><%= link_to display_thumbnail(f), profile_for(f), :title => display_thumbnail_title(f.username, f.full_name, f.home_city), :rel => "tooltip" %></li>
 		<% end %>
 		<% if @friends.size >= 16 %>
 			<div class="clearfix"></div>

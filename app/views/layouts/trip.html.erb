@@ -312,6 +312,11 @@
 			}}
 		</script>
 		
+		<script>
+			jQuery('a[rel=tooltip]').tooltip({'placement': 'top'});
+			jQuery('img[rel=tooltip]').tooltip({'placement': 'bottom'});
+		</script>
+		
 		<% if @users.include?(current_user) %>
 			<div id="sortable_list_controls">
 				<%= render :partial => 'events/sortable_list_controls' if params[:view] != "itinerary" %>

@@ -235,6 +235,7 @@ class EventsController < ApplicationController
   def show
     e = Event.find(params[:id])
     @title = e.title + " - DuffelUp.com Trip Planner"
+    @meta_description = truncate(e.note, :length => 400)
 
     case e.eventable_type
     when "Hotel", "Activity", "Foodanddrink"
