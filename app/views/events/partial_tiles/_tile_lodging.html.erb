@@ -16,7 +16,7 @@
 	</div>
 </li>
 <% else %>
-	<% if event.photo? or (event.lat and event.lng) %>
+	<% if photo_exists?(event) or (event.lat and event.lng) %>
 	<li id="list_<%= event.list.to_s %>_<%= event.id.to_s %>" <% if sortable_tile %> class="sortable" <% end %>>
 		<div class="pin">
 			<%= render :partial => 'events/idea_actions', :locals => { :event => event } %>
