@@ -356,17 +356,17 @@ module ActivitiesFeedsHelper
         content += "</div></div>"  
       end
       
-      if event["photo_file_size"].nil? and (event["photo_file_name"].nil? or event["photo_file_name"] != "") and !idea["lat"].nil? and !idea["lng"].nil?
+      if event["photo_file_size"].nil? and (event["photo_file_name"].nil? or event["photo_file_name"] == "") and !idea["lat"].nil? and !idea["lng"].nil?
         content += idea_url if parsed_trip #hack
         content += "<img class=\"map\" src=\"http://maps.google.com/maps/api/staticmap?center=#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&markers=size:small|#{idea["lat"].to_s[0..7]},#{idea["lng"].to_s[0..7]}&zoom=15&size=180x180&maptype=road&sensor=false\"/>"
         content += "</a>" if parsed_trip #hack
-      elsif event["photo_file_size"].nil? and (event["photo_file_name"].nil? or event["photo_file_name"] != "")
+      elsif event["photo_file_size"].nil? and !event["photo_file_name"].nil? and event["photo_file_name"] != ""
         content += "<div style=\"overflow:hidden;text-align:center;\">"
         content += idea_url if parsed_trip #hack
         content += "<img style=\"height:180px\" src=\"#{event["photo_file_name"]}\"/>"
         content += "</a>" if parsed_trip
         content += "</div>"
-      elsif !event["photo_file_size"].nil? and (event["photo_file_name"].nil? or event["photo_file_name"] != "")
+      elsif !event["photo_file_size"].nil? and !event["photo_file_name"].nil? and event["photo_file_name"] != ""
         content += "<div style=\"overflow:hidden;text-align:center;\">"
         content += idea_url if parsed_trip #hack
         content += "<img style=\"height:180px\" src=\"http://s3.amazonaws.com/duffelup_event_#{RAILS_ENV}/photos/#{event["id"]}/thumb/#{event["photo_file_name"]}\"/>"
