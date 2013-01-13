@@ -13,7 +13,7 @@ class FeaturedDuffelsController < ApplicationController
     @users = Hash.new
     @ideas_to_map = []
     
-    @title = "Featured Members and Trips - Duffel Visual Trip Planner - Organize Your Travel Itinerary"
+    @title = "Featured Members and Trips - DuffelUp.com Trip Planner - Organize Your Travel Itinerary"
     @sub_title = "Featured Members"
     @featured_duffels = FeaturedDuffel.find_per_page(params[:page], FeaturedDuffel::FEATURED_DUFFELS_PER_PAGE)
     

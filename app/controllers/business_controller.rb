@@ -1,15 +1,15 @@
 class BusinessController < ApplicationController
   
   def overview
-    @title = "Partner with Us - Overview - Duffel Visual Trip Planner"
+    @title = "Partner with Us - Overview - DuffelUp.com Trip Planner"
   end
   
   def features
-    @title = "Partner with Us - Features - Duffel Visual Trip Planner"
+    @title = "Partner with Us - Features - DuffelUp.com Trip Planner"
   end
   
   def demo
-    @title = "Partner with Us - Demo - Duffel Visual Trip Planner"
+    @title = "Partner with Us - Demo - DuffelUp.com Trip Planner"
   end
   
 end
