@@ -11,7 +11,7 @@ class ProfileController < ApplicationController
     @favorite_trips = []
     
     if @user
-      @title = display_user_name(@user) + "'s trips on Duffel Visual Trip Planner"
+      @title = display_user_name(@user) + "'s trips on DuffelUp.com Trip Planner"
       
       @likes = @user.likes
       
