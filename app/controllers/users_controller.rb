@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @title = "Duffel Dashboard"
+    @title = "DuffelUp.com Trip Planner - Organize Your Travel Itinerary"
     @planned_trips = []
     @past_trips = []
     @no_date_trips = []

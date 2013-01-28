@@ -9,8 +9,8 @@ class CitiesController < ApplicationController
   def index
     render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 and return if @city.nil?
     
-    @title = @city.city_country.gsub(", United States", "") + " Things To Do and Travel Tips - DuffelUp.com Trip Planner"
-    @meta_description = "Check out ideas and things to do in " + @city.city_country + ", organized by our members on DuffelUp.com Trip Planner.  Start collecting ideas and create your personalized travel guide with Duffel!"
+    @title = @city.city + " Things To Do and Travel Tips - DuffelUp.com Trip Planner"
+    @meta_description = "Check out ideas and things to do in " + @city.city + ", organized by our members on DuffelUp.com Trip Planner.  Start collecting ideas and create your personalized travel guide with Duffel!"
     @sub_title = "<a href=\"/explore\">Explore</a> &nbsp;&rsaquo;&nbsp; <a href=\"/country/#{params[:country_code]}\">#{@city.country_name}</a> &nbsp;&rsaquo;&nbsp; #{@city.city}"
     
     # if !fragment_exist?("city-#{@city.city_country}-duffels", :time_to_live => 12.hours)
