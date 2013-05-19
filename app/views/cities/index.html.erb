@@ -37,7 +37,7 @@
 		
 			<% if !@activities.empty? %>
 			<div class="sidebar-pin">
-				<h3><strong>Skip the Lines</strong></h3>
+				<h3><strong>Other Activities</strong></h3>
 				<ul class="recommendation-list unstyled">
 
 					<% @activities.each do |e| %>
@@ -51,7 +51,7 @@
 					<% end %>
 					
 					<% if @activities_dest %>
-					<p style="margin:8px 4px;font-size:12px"><a href="<%= @activities_dest.destination_url %>">See more things to do &raquo;</a></p>	
+					<p style="margin:8px 4px;font-size:12px"><a href="<%= @activities_dest.destination_url %>">See more activities &raquo;</a></p>	
 					<% end %>
 				</ul>	
 			</div>
