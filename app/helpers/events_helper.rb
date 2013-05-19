@@ -192,7 +192,7 @@ module EventsHelper
   
   # Hacked so Idea model can check whether it has a photo (instead of using Event model)
   def photo_exists?(event)
-    event.photo_file_name || (event.photo_content_type && event.photo_file_size)
+    (!event.photo_file_name.nil? && !event.photo_file_name.empty?) || (event.photo_content_type && event.photo_file_size)
   end
     
 end
